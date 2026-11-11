@@ -52,6 +52,7 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
         <div className="animate-slide-up">
           <p className={styles.badge}>Theme 2. Transitioning Veterans. Insight One</p>
           <h1 id="defence-veterans-title">2. Transitioning Veterans</h1>
+          <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
         </div>
         <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} alt="" unoptimized priority />
       </section>
@@ -67,10 +68,6 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
         </div>
 
         <div className={styles.veteransColumns}>
-          <aside className={styles.veteransDefinition}>
-            <p>Defence veterans are defined as:</p>
-            <blockquote>“all ex-serving personnel who have ever served at least one day in the Australian Defence Force (ADF), including reservists, personnel who experienced operational deployments and personnel who served in peacekeeping and peace-making operations, including humanitarian and domestic support operations.”<sup>29</sup></blockquote>
-          </aside>
           <div>
             <h2>Royal Commission into Defence and Veteran Suicide – Recommendation <small>83</small></h2>
             <div className={styles.body}>
@@ -83,6 +80,10 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
               <p>Defence stakeholders emphasised the importance of the VET system for this purpose as associated education and training products represent particular skills (through the units of competency) as a national standard for relevant occupations.<sup>34</sup> Awarding VET qualifications allows Defence veterans to demonstrate that they have met a national standard that can be recognised across the country by RTOs, industries and employers.<sup>35</sup></p>
             </div>
           </div>
+          <aside className={styles.veteransDefinition}>
+            <p><strong>Defence veterans are defined as:</strong></p>
+            <blockquote>“all ex-serving personnel who have ever served at least one day in the Australian Defence Force (ADF), including reservists, personnel who experienced operational deployments and personnel who served in peacekeeping and peace-making operations, including humanitarian and domestic support operations.”<sup>29</sup></blockquote>
+          </aside>
         </div>
       </section>
 

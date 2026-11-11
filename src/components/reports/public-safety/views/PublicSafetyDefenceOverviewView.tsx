@@ -78,10 +78,10 @@ function AnimatedNumber({ value, delay = 0, svg = false }: { value: string; dela
 
 function CurrentWorkforceCharts() {
   const stats = [
-    ["6,228", "The ADF enlisted 6,228 members entering into the Permanent workforce in 2024-25"],
-    ["1,296", "had prior military service in the Reserves"],
-    ["4,932", "had no prior military experience. This inflow is an increase on 2023-24"],
-    ["20.6%", "Women represented 20.6% of enlistments, and Indigenous people represented 5.8% of enlistments"],
+    ["6,228", "The ADF enlisted 6,228 members entering into the Permanent workforce in 2024-25", "star"],
+    ["1,296", "had prior military service in the Reserves", "aircraft"],
+    ["4,932", "had no prior military experience. This inflow is an increase on 2023-24", "shield"],
+    ["20.6%", "Women represented 20.6% of enlistments, and Indigenous people represented 5.8% of enlistments", "laurel"],
   ];
   // Keep Frame 32's display geometry separate from the approved headcounts.
   const bars = [
@@ -114,8 +114,11 @@ function CurrentWorkforceCharts() {
       </section>
       <aside className={styles.currentStats} aria-label="Defence enlistment statistics">
         <div className={styles.currentStatsGrid}>
-          {stats.map(([value, label], index) => <div key={value} className={styles.currentStat} style={{ animationDelay: `${index * .1 + .15}s` }}>
-            <strong><AnimatedNumber value={value} delay={index * 100 + 150} /></strong><p>{label}</p>
+          {stats.map(([value, label, graphic], index) => <div key={value} className={styles.currentStat} style={{ animationDelay: `${index * .1 + .15}s` }}>
+            <div className={styles.currentStatHeading}>
+              <strong><AnimatedNumber value={value} delay={index * 100 + 150} /></strong>
+              <Image className={styles.currentStatGraphic} src={`/images/reports/public-safety/defence-enlistment/${graphic}.png`} alt="" width={56} height={56} />
+            </div><p>{label}</p>
           </div>)}
         </div>
         <p data-source-caption className={styles.currentStatsSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>

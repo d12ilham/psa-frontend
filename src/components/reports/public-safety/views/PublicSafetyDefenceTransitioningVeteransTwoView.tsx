@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -26,6 +25,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
       <div className="animate-slide-up">
         <p className={styles.badge}>Theme 2. Transitioning Veterans. Insight Two</p>
         <h1 id="defence-veterans-two-title">2. Transitioning Veterans</h1>
+        <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
       </div>
       <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} alt="" unoptimized priority />
     </section>
@@ -42,17 +42,19 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
       <h2 id="defence-veterans-two-support">Articulating skills — state and territory support</h2>
       <div className={styles.body}>
         <p>While much of the focus for transitioning veterans was based on issuing VET qualifications post-service, a challenge raised by Defence stakeholders related to enabling veterans to articulate their skills through their VET qualifications to prospective employers. Current support for veterans to articulate their skills is available, however the programs and information differ based on states and territories.</p>
-        <p>Defence stakeholders advised that the current support should be bolstered – Appendix A – Defence Veterans’ Programs and Initiatives – highlights some of the programs in each state and territory, and the information available to support veteran transition out of the ADF and into the civilian workforce.</p>
-      </div>
-      <Link className={styles.veteransAppendix} href={`${reportPath}/defence_federal_initiatives`}>
-        <span>Appendix A – Defence Veterans’ Programs and Initiatives</span>
-        <span className={styles.appendixAction}>Open <ChevronDown size={14} aria-hidden="true" /></span>
-      </Link>
-      <div className={styles.body}>
+        <p>Defence stakeholders advised that the current support should be bolstered – <Link className="underline underline-offset-2" href={`${reportPath}/defence_federal_initiatives`}>Appendix A – Defence Veterans’ Programs and Initiatives</Link> – highlights some of the programs in each state and territory, and the information available to support veteran transition out of the ADF and into the civilian workforce.</p>
         <p>Some programs, such as TAFE NSW Ranks to Recognition Program, mirror the ADF programs offered to transitioning and transitioned veterans. Additionally, some states and territories (such as the Northern Territory) have adopted initiatives like the Rank to Grade Guide to better support veterans.<sup>36</sup> In the ACT, the ACTPS Veterans’ Employment Strategy has not been updated since 2020 but rather aligned to the broader programs at the federal level.</p>
         <p>Defence stakeholders emphasised that transitioning veterans should be provided with clear information to understand how the qualifications they obtained during service is relevant in the civilian workforce. This may be further supported through guidance on the programs on offer, options available and understanding how the varying roles and ranks across the ADF could translate to a civilian context. An additional benefit could be the identification of where such services could be streamlined.</p>
       </div>
     </section>
+
+    <div className={`${styles.callout} ${styles.additionalInsight}`} aria-label="Industry Insight">
+      <div className={styles.calloutCopy}>
+        <p className={styles.insightLabel}>Industry Insight</p>
+        <p className={styles.insightText}>The Vocational Education and Training (VET) system remains important for the ADF as it provides a national standard, with meaningful qualifications written by industry, for industry.</p>
+      </div>
+      <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-emerging-insight-icon.png" width={120} height={120} alt="" unoptimized />
+    </div>
 
     <hr className={styles.divider} />
 

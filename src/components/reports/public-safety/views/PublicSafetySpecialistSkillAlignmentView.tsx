@@ -97,15 +97,15 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Cross-Sector Analysis · 02</p>
             <h1>Specialist Skill Alignment</h1>
-            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between, for example:"]} /></p>
+            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between, for example:", "See the specialist skills alignment diagram to the right."]} /></p>
           </div>
           <div className={styles.diagram}>
-            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines. Search and Rescue is the worked example below." />
+            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Specialist skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines. Search and Rescue is the worked example below." />
           </div>
         </section>
 
         <section data-reveal="example" className={`${styles.example} ${reveal("example")}`}>
-          <h2 className={styles.sectionTitle}>Example</h2>
+          <h2 className={styles.sectionTitle}>Cross Industry-Sector Specialist Skills Alignment Example</h2>
           <p className={styles.exampleIntro}><DesignLines lines={["All three industry-sectors hold search and rescue related training products. The comparison illustrated below demonstrates", "from a Vocational Education and Training (VET) Training Package perspective, that units of competency are similar across", "the search and rescue skills landscape. The following units are used for this demonstration:"]} /></p>
           <div className={styles.packageGrid}>
             {packages.map((item, index) => (
@@ -113,7 +113,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                 <span className={styles.accent} style={{ backgroundColor: item.color }} />
                 <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
                 <h3>{item.code}</h3>
-                <p>{item.code === "POLSAR012" ? "Coordinate police search and rescue operations" : item.title}</p>
+                <p>{item.title}</p>
               </article>
             ))}
           </div>
@@ -129,27 +129,46 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           </div>
         </section>
 
+        <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Cross Industry-Sector Units of Competency Insights</h2>
+
         <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007 and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
 
         <section data-reveal="table" className={reveal("table")}>
-          <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Cross Industry-Sector Units of Competency Insights</h2>
           <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>
             <table className={styles.table}>
               <caption className={styles.srOnly}>Comparison of approved performance criteria for Defence, Public Safety and Police search and rescue training products.</caption>
               <colgroup><col className={styles.skillColumn} /><col /><col /><col /></colgroup>
               <thead><tr>
                 <th scope="col">Relevant Performance Criteria</th>
-                {packages.map((item) => <th key={item.code} scope="col"><span>{item.code}</span><span>{item.title}</span></th>)}
+                {packages.map((item) => (
+                  <th key={item.code} scope="col" className={styles.matchedPackageHeader}>
+                    <div className={styles.packageCard}>
+                      <span className={styles.accent} style={{ backgroundColor: item.color }} />
+                      <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
+                      <h3>{item.code}</h3>
+                      <p>{item.title}</p>
+                    </div>
+                  </th>
+                ))}
               </tr></thead>
-              <tbody>{comparisonRows.map((row) => (
+              <tbody>{comparisonRows.map((row) => {
+                const summary = sharedSkills.find((item) => item.title === row.skill)!;
+                return (
                 <tr key={row.skill}>
-                  <th scope="row">{row.skill}</th>
+                  <th scope="row" className={styles.matchedSkillHeader}>
+                    <div className={styles.sharedCard}>
+                      <span className={styles.number} aria-hidden="true">{summary.number}</span>
+                      <h3>{summary.title}</h3>
+                      <p>{summary.body}</p>
+                    </div>
+                  </th>
                   {[row.defence, row.emergency, row.police].map((points, columnIndex) => {
                     const plain = (row.skill === "Communication and coordination" && columnIndex === 1) || (row.skill === "Information management and recording" && columnIndex === 0);
                     return <td key={columnIndex}>{plain ? <p>{points[0]}</p> : <ul>{points.map((point) => <li key={point}>{point}</li>)}</ul>}</td>;
                   })}
                 </tr>
-              ))}</tbody>
+                );
+              })}</tbody>
             </table>
           </div>
         </section>

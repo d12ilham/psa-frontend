@@ -74,16 +74,21 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     prevPrefix: "Previous Section:",
     nextPrefix: "Next Section:",
   }}>
-    <section className={`${layout.hero} ${recovery.hero}`}>
+    <section className={`${layout.hero} ${recovery.hero} ${recovery.insightOneHero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
-        <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
-        <h1>2. Surf Life Saving First Aid. Insight</h1>
-        <div className={recovery.summary}>
-          <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers.</p>
-        </div>
+        <span className={`${layout.badge} ${recovery.badge}`}>Theme 2. Surf Life Saving First Aid. Insight One</span>
+        <h1>2. Surf Life Saving First Aid</h1>
       </div>
-      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-hero.png" width={180} height={180} alt="" unoptimized priority />
+      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-ring-hero.svg" width={180} height={180} alt="" unoptimized priority />
+    </section>
+
+    <section className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-first-aid-insight">
+      <span className={recovery.insightNumber} aria-hidden="true">1</span>
+      <div className={`${recovery.summaryCopy} ${recovery.wideSummaryCopy}`}>
+        <p id="fes-first-aid-insight" className={recovery.insightLabel}>Theme Two, Insight One</p>
+        <p>The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers.</p>
+      </div>
+      <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <h2 className={`${styles.sectionTitle} animate-slide-up-delay`}>First aid treatments by volunteer surf lifesavers</h2>

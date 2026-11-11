@@ -3,7 +3,6 @@
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -74,7 +73,10 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
         <h1>Defence Veterans’ Programs and Initiatives</h1>
         <p>Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
       </div>
-      <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} alt="" unoptimized priority />
+      <svg className={`${styles.artwork} animate-zoom-in`} width={120} height={120} viewBox="0 0 120 120" role="img" aria-label="Transition from military service to civilian life">
+        <image href="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} />
+        <path data-veteran-transition-arrow d="M52 56H69M65 52L69 56L65 60" fill="none" stroke="#d3992c" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
     </section>
 
     <section className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">

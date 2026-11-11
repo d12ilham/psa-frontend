@@ -48,18 +48,23 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
     next: { label: "Disaster Recovery. Insight Two.", href: `${reportPath}/fes_disaster_recovery_2` },
     nextPrefix: "Next Section:",
   }}>
-    <section className={`${layout.hero} ${styles.hero}`}>
+    <section className={`${layout.hero} ${styles.hero} ${styles.insightOneHero}`}>
       <div className={`${styles.heroCopy} animate-slide-up`}>
-        <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
-        <h1>1. Disaster Recovery. Insight One.</h1>
-        <div className={styles.summary}>
-          <Image src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>Specialist disaster recovery functions are operationally focused, a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted.</p>
-        </div>
+        <span className={`${layout.badge} ${styles.badge}`}>Theme 1. Disaster Recovery. Insight One</span>
+        <h1>1. Disaster Recovery</h1>
       </div>
       <div className={`${styles.house} ${styles.animatedHouse} animate-zoom-in`}>
         <Image src="/images/reports/public-safety/fes-recovery-house.png" width={111} height={122} alt="" unoptimized priority />
       </div>
+    </section>
+
+    <section className={`${styles.summary} ${styles.numberedSummary} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-one">
+      <span className={styles.insightNumber} aria-hidden="true">1</span>
+      <div className={styles.summaryCopy}>
+        <p id="fes-recovery-insight-one" className={styles.insightLabel}>Theme One, Insight One</p>
+        <p>Specialist disaster recovery functions are operationally focused, a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted.</p>
+      </div>
+      <Image src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <section className={`${styles.detail} animate-slide-up-delay`}>

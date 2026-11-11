@@ -52,13 +52,16 @@ export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: 
     <section className={`${layout.hero} ${recovery.hero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
-        <h1>3. Hazardous Materials. Insight</h1>
-        <div className={recovery.summary}>
-          <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>Incidents involving hazardous materials are becoming increasingly important while the current training is limiting some Fire and Emergency Services organisations&apos; ability to deliver this type of service.</p>
+        <h1>3. Hazardous Materials</h1>
+        <div className={`${styles.insight} ${recovery.animatedSection}`}>
+          <div className="flex items-center gap-3">
+            <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
+            <strong className="text-xl">Industry Insight</strong>
+          </div>
+          <p className={`${styles.copy} ${styles.prose}`}>Incidents involving hazardous materials are becoming increasingly important while the current training is limiting some Fire and Emergency Services organisations&apos; ability to deliver this type of service.</p>
         </div>
       </div>
-      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-hazardous-materials-hero.png" width={180} height={180} alt="" unoptimized priority />
+      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-hazardous-materials-radiation-hero.svg" width={180} height={180} alt="" unoptimized priority />
     </section>
 
     <section className={`${recovery.detail} animate-slide-up-delay`}>

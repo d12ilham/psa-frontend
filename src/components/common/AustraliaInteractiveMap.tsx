@@ -44,6 +44,8 @@ interface AustraliaInteractiveMapProps {
   highlightedState?: string;
   variant?: "default" | "defence" | "fire" | "police";
   compact?: boolean;
+  showActLabel?: boolean;
+  largeLabels?: boolean;
 }
 
 export default function AustraliaInteractiveMap({
@@ -54,6 +56,8 @@ export default function AustraliaInteractiveMap({
   highlightedState,
   variant = "default",
   compact = false,
+  showActLabel = false,
+  largeLabels = false,
 }: AustraliaInteractiveMapProps) {
   const isNational = selectedState === "NATIONAL";
 
@@ -274,7 +278,7 @@ export default function AustraliaInteractiveMap({
               SA: [427, 385],
               QLD: [572, 258],
               NSW: [602, 435],
-              VIC: [575, 498],
+              VIC: [575, largeLabels ? 530 : 498],
               TAS: [538, 608],
             };
 
@@ -327,7 +331,7 @@ export default function AustraliaInteractiveMap({
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill="#ffffff"
-                      fontSize="14"
+                      fontSize={14}
                       fontWeight="700"
                       fontFamily="inherit"
                     >
@@ -343,7 +347,7 @@ export default function AustraliaInteractiveMap({
                         textAnchor="end"
                         dominantBaseline="central"
                         fill="#1F2937"
-                        fontSize="11"
+                        fontSize={largeLabels ? 18 : 11}
                         fontWeight="600"
                         fontFamily="inherit"
                       >
@@ -353,10 +357,10 @@ export default function AustraliaInteractiveMap({
                       <>
                         <text
                           x={labelX}
-                          y={labelY + 11}
+                          y={labelY + (largeLabels ? 20 : 11)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -364,10 +368,10 @@ export default function AustraliaInteractiveMap({
                         </text>
                         <text
                           x={labelX}
-                          y={labelY + 25}
+                          y={labelY + (largeLabels ? 46 : 25)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -378,10 +382,10 @@ export default function AustraliaInteractiveMap({
                       <>
                         <text
                           x={labelX}
-                          y={labelY + 11}
+                          y={labelY + (largeLabels ? 20 : 11)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -389,10 +393,10 @@ export default function AustraliaInteractiveMap({
                         </text>
                         <text
                           x={labelX}
-                          y={labelY + 25}
+                          y={labelY + (largeLabels ? 46 : 25)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -403,10 +407,10 @@ export default function AustraliaInteractiveMap({
                       <>
                         <text
                           x={labelX}
-                          y={labelY + 11}
+                          y={labelY + (largeLabels ? 20 : 11)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -414,10 +418,10 @@ export default function AustraliaInteractiveMap({
                         </text>
                         <text
                           x={labelX}
-                          y={labelY + 25}
+                          y={labelY + (largeLabels ? 46 : 25)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -428,10 +432,10 @@ export default function AustraliaInteractiveMap({
                       <>
                         <text
                           x={labelX}
-                          y={labelY + 11}
+                          y={labelY + (largeLabels ? 20 : 11)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -439,10 +443,10 @@ export default function AustraliaInteractiveMap({
                         </text>
                         <text
                           x={labelX}
-                          y={labelY + 25}
+                          y={labelY + (largeLabels ? 46 : 25)}
                           textAnchor="middle"
                           fill="#1F2937"
-                          fontSize="11"
+                          fontSize={largeLabels ? 18 : 11}
                           fontWeight="600"
                           fontFamily="inherit"
                         >
@@ -452,10 +456,10 @@ export default function AustraliaInteractiveMap({
                     ) : (
                       <text
                         x={labelX}
-                        y={labelY + 14}
+                        y={labelY + (largeLabels ? 22 : 14)}
                         textAnchor="middle"
                         fill="#1F2937"
-                        fontSize="11"
+                        fontSize={largeLabels ? 18 : 11}
                         fontWeight="600"
                         fontFamily="inherit"
                       >
@@ -467,6 +471,11 @@ export default function AustraliaInteractiveMap({
               </g>
             );
           })}
+          {isNational && showActLabel && <g role="button" tabIndex={0} aria-label="Select Australian Capital Territory" aria-pressed={highlightedState === "ACT"} className="cursor-pointer" onClick={() => onSelectState("ACT")} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelectState("ACT"); } }}>
+            <path d="M616.8 484.9L651 506" stroke="#D95222" strokeWidth={1.5} fill="none" />
+            <rect x={651} y={490} width={50} height={32} rx={16} fill="#D95222" stroke="#E5E7EB" strokeWidth={1.2} />
+            <text x={676} y={506} textAnchor="middle" dominantBaseline="central" fill="white" fontSize={14} fontWeight={700} fontFamily="inherit">ACT</text>
+          </g>}
         </g>
       </svg>
 

@@ -39,7 +39,6 @@ export const PUBLIC_SAFETY_PAGE_INVENTORY: PublicSafetyPageDefinition[] = [
   { key: "fes_workforce_strategies", title: "FES 2026 Workforce Strategies", group: "Fire and Emergency Services" },
   { key: "fes_update_2025_strategies", title: "FES Update on 2025 Strategies", group: "Fire and Emergency Services" },
   { key: "fes_existing_strategies", title: "FES Existing Industry-Sector Strategies", group: "Fire and Emergency Services" },
-  { key: "fes_federal_initiatives", title: "FES Federal Government Initiatives", group: "Fire and Emergency Services" },
   { key: "police", title: "Police Chapter", group: "Police" },
   { key: "police_industry_overview", title: "Police Industry-Sector Overview", group: "Police" },
   { key: "police_industry_profile", title: "Police Industry Profile", group: "Police" },

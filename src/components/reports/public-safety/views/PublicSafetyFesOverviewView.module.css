@@ -3,6 +3,7 @@
 .page .artwork { width: 180px; height: 180px; flex: none; align-self: center; }
 .copy { max-width: 800px; font-size: 14px; font-weight: 500; line-height: 24px; }
 .copy sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.content > .copy { margin-inline: 24px; }
 .services, .callouts, .chartGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .services > div {
@@ -22,7 +23,7 @@
 .services strong { max-width: 245px; }
 .servicesExpanded > div { flex-direction: column; gap: 12px; min-height: 136px; font-size: 18px; line-height: 24px; text-align: center; }
 .servicesExpanded strong { max-width: none; }
-.datapointsHeading { padding: 0 0 16px; border-bottom: 1px solid #d5d7da; }
+.datapointsHeading { padding: 0 24px 16px; border-bottom: 1px solid #d5d7da; }
 .datapointsHeading h2 { font-size: 24px; font-weight: 700; line-height: 32px; }
 .datapointsHeading .narrowHeading { max-width: 800px; }
 .datapoints { display: grid; gap: 24px; margin-top: 24px; }
@@ -73,6 +74,8 @@
   .services > div { flex-direction: column; gap: 12px; text-align: center; font-size: 18px; line-height: 24px; }
 }
 @media (max-width: 639px) {
+  .content > .copy { margin-inline: 20px; }
+  .datapointsHeading { padding-inline: 20px; }
   .services, .callouts { grid-template-columns: minmax(0, 1fr); }
   .toggle { font-size: 16px; line-height: 24px; padding-inline: 10px; }
   .pill { gap: 4px; padding-inline: 12px; }

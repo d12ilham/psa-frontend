@@ -20,18 +20,23 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
     prevPrefix: "Previous Section:",
     nextPrefix: "Next Section:",
   }}>
-    <section className={`${layout.hero} ${styles.hero}`}>
+    <section className={`${layout.hero} ${styles.hero} ${styles.insightOneHero}`}>
       <div className={`${styles.heroCopy} animate-slide-up`}>
-        <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
-        <h1>1. Disaster Recovery. Insight Two.</h1>
-        <div className={styles.summary}>
-          <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters.</p>
-        </div>
+        <span className={`${layout.badge} ${styles.badge}`}>Theme 1. Disaster Recovery. Insight Two</span>
+        <h1>1. Disaster Recovery</h1>
       </div>
       <div className={`${styles.house} ${styles.animatedHouse} animate-zoom-in`}>
         <Image src="/images/reports/public-safety/fes-recovery-house.png" width={111} height={122} alt="" unoptimized priority />
       </div>
+    </section>
+
+    <section className={`${styles.summary} ${styles.numberedSummary} ${styles.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-two">
+      <span className={styles.insightNumber} aria-hidden="true">2</span>
+      <div className={`${styles.summaryCopy} ${styles.wideSummaryCopy}`}>
+        <p id="fes-recovery-insight-two" className={styles.insightLabel}>Theme One, Insight Two</p>
+        <p>Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters.</p>
+      </div>
+      <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <section className={`${styles.detail} ${styles.animatedSection} animate-slide-up-delay`}>

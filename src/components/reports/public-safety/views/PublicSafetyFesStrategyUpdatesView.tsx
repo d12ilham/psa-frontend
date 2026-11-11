@@ -122,9 +122,8 @@ export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { s
   }}>
     <section className={`${layout.hero} ${styles.hero}`}>
       <div className={styles.heroCopy}>
-        <span className={`${layout.badge} ${styles.badge}`}>FES · Industry-Sector Analysis</span>
+        <span className={`${layout.badge} ${styles.badge}`}>FES Existing Strategies</span>
         <h1>2025 Public Safety Workforce Insights Report<br />– Fire and Emergency Services Strategies Updates</h1>
-        <p>Public Skills Australia identified workforce strategies for the Fire and Emergency Services industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
       <Image className={styles.artwork} src="/images/reports/public-safety/fes-chapter-fire-engine.svg" width={180} height={180} alt="" unoptimized priority />
       <div className={`${layout.controls} ${styles.bulk}`}>

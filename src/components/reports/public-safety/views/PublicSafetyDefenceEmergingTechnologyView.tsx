@@ -45,6 +45,7 @@ export default function PublicSafetyDefenceEmergingTechnologyView({ slug, report
       <div className="animate-slide-up">
         <p className={styles.badge}>Theme 1. Emerging Technology. Insight One</p>
         <h1 id="defence-technology-title">1. Emerging Technology</h1>
+        <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
       </div>
       <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-emerging-technology-icon.png" width={120} height={120} alt="" unoptimized priority />
     </section>
