@@ -37,6 +37,10 @@
 .table thead th:nth-child(3) { color: #c9481a; background: #c9481a1a; }
 .table thead th:nth-child(4) { color: #0d71a3; background: #0d71a31a; }
 .table thead span { display: block; }
+.table thead th.matchedPackageHeader { padding: 0; color: #252d02; background: white; }
+.table .matchedPackageHeader .packageTag { display: inline-flex; }
+.table th.matchedSkillHeader { padding: 0; }
+.table .matchedSkillHeader .sharedCard { color: #252d02; }
 .table ul { padding-left: 21px; list-style: none; }
 .table li::marker { font-size: 9px; }
 .table tbody tr:nth-child(3) { height: 70px; }

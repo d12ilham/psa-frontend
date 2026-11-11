@@ -6,10 +6,10 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 import styles from "./PublicSafetyCoreSkillAlignmentView.module.css";
 
 const occupations = [
-  { title: "Defence Force Member – Other Ranks", code: "OSCA 451131", color: "#D3992C" },
-  { title: "Emergency Services Officer", code: "OSCA 451231", color: "#C9481A" },
-  { title: "Firefighter", code: "OSCA 451232", color: "#C9481A" },
-  { title: "General Duties Police Officer", code: "OSCA 451331", color: "#0D71A3" },
+  { title: "Defence Force Member – Other Ranks", code: "OSCA 451131", color: "#D3992C", background: "#FBF3E3" },
+  { title: "Emergency Services Officer", code: "OSCA 451231", color: "#C9481A", background: "#FCECE8" },
+  { title: "Firefighter", code: "OSCA 451232", color: "#C9481A", background: "#FCECE8" },
+  { title: "General Duties Police Officer", code: "OSCA 451331", color: "#0D71A3", background: "#E7F1F6" },
 ];
 
 const commonSkills = [
@@ -21,7 +21,6 @@ const commonSkills = [
   { lines: ["Guarding or patrolling"], icon: "patrol" },
 ];
 
-const jsaSkills = ["Digital engagement", "Initiative and innovation", "Learning", "Numeracy", "Oral communication", "Planning and organising", "Problem solving", "Reading", "Teamwork", "Writing"];
 const sources = [
   { number: 8, text: "Australian Bureau of Statistics (ABS), OSCA – Occupation Standard Classification of Australia, ABS website, December 2024, accessed 19 January 2026." },
   { number: 9, text: "Australian Bureau of Statistics (ABS), OSCA – Occupation Standard Classification of Australia, ABS website, December 2024, accessed 19 January 2026." },
@@ -78,7 +77,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
 
         <section data-reveal="occupations" className={styles.occupations} aria-label="Public Safety occupations">
           {occupations.map((occupation, index) => (
-            <article key={occupation.code} className={`${styles.occupation} ${reveal("occupations")}`} style={{ animationDelay: `${index * .1}s` }}>
+            <article key={occupation.code} className={`${styles.occupation} ${reveal("occupations")}`} style={{ animationDelay: `${index * .1}s`, backgroundColor: occupation.background }}>
               <span className={styles.accent} style={{ backgroundColor: occupation.color }} />
               <h2>{occupation.title}</h2>
               <p>{occupation.code}</p>
@@ -104,21 +103,19 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
           <h2 id="core-graph-heading">Shared Core Skills · Australian Skills Classification (JSA)</h2>
           <div className={styles.graphRow}>
             <div className={`${styles.graph} ${reveal("graph")}`}>
-              <Image src="/images/reports/public-safety/core-skills-graph.png" width={430} height={430} alt="Shared core skills connected to digital engagement, initiative and innovation, learning, numeracy, oral communication, planning and organising, problem solving, reading, teamwork and writing" unoptimized />
+              <Image src="/images/reports/public-safety/core-skills-radar-approved.png" width={1416} height={786} alt="Approved ten-axis core-skills radar chart with overlapping Emergency Service Worker, Fire Fighter and Police Officer profiles: digital engagement, initiative and innovation, learning, numeracy, oral communication, planning and organising, problem solving, reading, teamwork and writing" unoptimized />
             </div>
             <div className={styles.graphDetails}>
-              <div className={styles.skillChips}>{jsaSkills.map((skill) => <span key={skill}>{skill}</span>)}</div>
-              <p data-source-caption className={styles.graphSource}>Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024</p>
-              <div className={styles.sectorChips}>
-                <span>Defence Force Member</span>
-                <span>Emergency Service Worker · Fire Fighter</span>
-                <span>Police Officer</span>
+              <div className={styles.sectorChips} role="list" aria-label="Radar chart legend">
+                <span role="listitem">Emergency Service Worker</span>
+                <span role="listitem">Fire Fighter</span>
+                <span role="listitem">Police Officer</span>
               </div>
+              <p className={styles.graphExplanation}>These three occupations encompass a range of core skills that may likely enable industry-sector cross-skilling, greater interoperability and would enhance national capability to prepare for, respond to and recover from natural disasters, emergency incidents and geopolitical uncertainty.</p>
             </div>
           </div>
+          <p data-source-caption className={styles.graphSource}>Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024</p>
         </section>
-
-        <aside data-reveal="conclusion" className={`${styles.conclusion} ${reveal("conclusion")}`}><p>These four occupations encompass a range of core skills that may likely enable industry-sector cross-skilling, greater interoperability and would enhance national capability to prepare for, respond to and recover from natural disasters, emergency incidents and geopolitical uncertainty.</p></aside>
 
         <section data-report-sources data-reveal="sources" className={`${styles.sources} ${reveal("sources")}`}>
           <h2>Sources</h2>

@@ -31,16 +31,18 @@
 .graphPanel h2 { font-size: 20px; font-weight: 700; line-height: 28px; text-transform: uppercase; }
 .graphRow { display: grid; grid-template-columns: 430px minmax(0, 1fr); align-items: center; gap: 100px; margin-top: 16px; }
 .graph { width: 430px; height: 430px; border-radius: 16px; transition: transform .35s, box-shadow .35s; }
-.graph img { width: 430px; height: 430px; border-radius: 16px; }
-.graphDetails { min-width: 0; }
+.graph img { width: 430px; height: 430px; border-radius: 16px; object-fit: contain; background: white; }
+.graphDetails { min-width: 0; max-width: 340px; }
+.graphExplanation { margin-top: 20px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
 .skillChips { display: flex; flex-wrap: wrap; max-width: 660px; gap: 12px; }
 .skillChips span { border-radius: 11px; padding: 4px 10px; background: #d3e0c0; color: #535862; font-size: 12px; font-weight: 700; line-height: 18px; transition: transform .3s, background-color .3s; }
 .graphSource { margin-top: 16px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; text-transform: uppercase; }
-.sectorChips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
-.sectorChips span { display: inline-flex; align-items: center; min-height: 40px; padding: 9px 19px; border: 1px solid #e9eaeb; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; line-height: 20px; text-transform: uppercase; transition: transform .3s, box-shadow .3s; }
-.sectorChips span:nth-child(1) { background: #d3992c; }
-.sectorChips span:nth-child(2) { background: #c9481a; }
-.sectorChips span:nth-child(3) { background: #0d71a3; }
+.sectorChips { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.sectorChips span { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; color: #252d02; font-size: 14px; font-weight: 500; line-height: 20px; transition: transform .3s, box-shadow .3s; }
+.sectorChips span::before { content: ""; flex: none; width: 20px; height: 3px; border-radius: 2px; }
+.sectorChips span:nth-child(1)::before { background: #dbae6d; }
+.sectorChips span:nth-child(2)::before { background: #f79063; }
+.sectorChips span:nth-child(3)::before { background: #a8d8ea; }
 .conclusion { padding: 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: linear-gradient(to right, #598303 8px, white 8px); transition: transform .3s, box-shadow .3s; }
 .conclusion p { max-width: 800px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
 .sources { padding: 24px; border-radius: 16px; outline: 1px solid #e9eaeb; outline-offset: -1px; transition: box-shadow .3s; }
@@ -48,7 +50,7 @@
 .sources ol { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; list-style: none; }
 .sources li { display: grid; grid-template-columns: 20px minmax(0, 780px); gap: 12px; scroll-margin-top: 84px; color: #252d02; font-size: 14px; font-weight: 400; line-height: 24px; }
 .sourceNumber { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: #598303; color: white; transition: transform .3s; }
-.pending { opacity: 0; transform: translateY(20px); }
+.pending { opacity: 1; transform: none; }
 .enter { animation: reveal .65s cubic-bezier(.2,.7,.3,1) backwards; }
 @keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes artworkIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
@@ -93,7 +95,6 @@
   .graph { width: 100%; max-width: 430px; height: auto; aspect-ratio: 1; }
   .graph img { width: 100%; height: auto; }
   .graphPanel h2 { font-size: 18px; line-height: 26px; }
-  .sectorChips { margin-top: 24px; }
   .sectorChips span { max-width: 100%; }
   .conclusion { padding: 20px 24px; }
 }
@@ -114,7 +115,4 @@
 .skillChips span:nth-child(8) { width: 68px; }
 .skillChips span:nth-child(9) { width: 80px; }
 .skillChips span:nth-child(10) { width: 64px; }
-.sectorChips span:nth-child(1) { width: 212px; }
-.sectorChips span:nth-child(2) { width: 346px; }
-.sectorChips span:nth-child(3) { width: 149px; }
 }

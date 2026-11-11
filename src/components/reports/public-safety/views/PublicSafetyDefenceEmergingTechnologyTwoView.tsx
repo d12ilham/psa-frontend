@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { BrainCircuit, Drone, RadioTower, Satellite, ShieldCheck } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { defenceTechnologySources } from "./defenceTechnologySources";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -20,6 +21,19 @@ const investments = [
   { label: "Development of advanced counter-drone technology", icon: "counter-drone" },
   { label: "Adoption of more than 20 different drone systems", icon: "drone-systems", note: 26 },
 ];
+
+function CapabilityGraphic({ icon }: { icon: string }) {
+  const icons: Record<string, typeof Satellite> = { maritime: Satellite, intelligence: BrainCircuit, "uncrewed-air": Drone, cyber: ShieldCheck, space: RadioTower };
+  const Icon = icons[icon];
+  return <span className={styles.capabilityGraphic} aria-hidden="true">
+    {Icon ? <Icon size={36} strokeWidth={1.5} /> : <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="15" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M24 2L28 20L46 24L28 28L24 46L20 28L2 24L20 20Z" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M24 2V24L20 20ZM46 24H24L28 20ZM24 46V24L28 28ZM2 24H24L20 28Z" fill="currentColor" />
+      <path d="M12 12L17 17M31 31L36 36M12 36L17 31M31 17L36 12" stroke="currentColor" strokeWidth="1.5" />
+    </svg>}
+  </span>;
+}
 
 function TileList({ items, compact = false }: {
   items: { label: ReactNode; icon: string; note?: number }[];
@@ -42,7 +56,7 @@ function TileList({ items, compact = false }: {
 
   return <ul ref={listRef} className={`${styles.tiles} ${compact ? styles.capabilityTiles : ""}`}>
     {items.map(({ label, icon, note }, index) => <li key={icon} className={`${styles.tile} ${visible ? "animate-card-entrance" : styles.pending}`} style={{ animationDelay: `${index * .08 + .12}s` }}>
-      <Image src={`/images/reports/public-safety/defence-technology/${icon}.png`} alt="" width={compact ? 61 : 60} height={60} unoptimized />
+      {compact ? <CapabilityGraphic icon={icon} /> : <Image src={`/images/reports/public-safety/defence-technology/${icon}.png`} alt="" width={60} height={60} unoptimized />}
       <span>{label}{note && <sup>{note}</sup>}</span>
     </li>)}
   </ul>;
@@ -87,6 +101,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
       <div className="animate-slide-up">
         <p className={styles.badge}>Theme 1. Emerging Technology. Insight Two</p>
         <h1 id="defence-technology-two-title">1. Emerging Technology</h1>
+        <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
       </div>
       <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-emerging-technology-icon.png" width={120} height={120} alt="" unoptimized priority />
     </section>

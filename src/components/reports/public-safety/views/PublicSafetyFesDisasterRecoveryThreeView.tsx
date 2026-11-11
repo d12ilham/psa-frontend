@@ -22,18 +22,23 @@ export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report 
     prevPrefix: "Previous Section:",
     nextPrefix: "Next Section:",
   }}>
-    <section className={`${layout.hero} ${styles.hero}`}>
+    <section className={`${layout.hero} ${styles.hero} ${styles.insightOneHero}`}>
       <div className={`${styles.heroCopy} animate-slide-up`}>
-        <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
-        <h1>1. Disaster Recovery. Insight Three.</h1>
-        <div className={styles.summary}>
-          <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression.</p>
-        </div>
+        <span className={`${layout.badge} ${styles.badge}`}>Theme 1. Disaster Recovery. Insight Three</span>
+        <h1>1. Disaster Recovery</h1>
       </div>
       <div className={`${styles.house} ${styles.animatedHouse} animate-zoom-in`}>
         <Image src="/images/reports/public-safety/fes-recovery-house.png" width={111} height={122} alt="" unoptimized priority />
       </div>
+    </section>
+
+    <section className={`${styles.summary} ${styles.numberedSummary} ${styles.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-three">
+      <span className={styles.insightNumber} aria-hidden="true">3</span>
+      <div className={`${styles.summaryCopy} ${styles.wideSummaryCopy}`}>
+        <p id="fes-recovery-insight-three" className={styles.insightLabel}>Theme One, Insight Three</p>
+        <p>Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression.</p>
+      </div>
+      <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <section className={`${styles.detail} ${styles.animatedSection} animate-slide-up-delay`}>

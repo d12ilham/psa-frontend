@@ -123,7 +123,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                 <span className={styles.pill}>{expanded ? "Close" : "Open"} <ChevronDown size={14} aria-hidden="true" /></span>
               </button>
               {expanded && <div id={`fes-overview-panel-${index}`} className={`${styles.panel} animate-content-switch`}>
-                <p className={styles.copy}>{index === 0 ? <>Demand for services: Demand for both firefighter and state and territory emergency services (SES) increased by 7.6 per cent from 488,242 (total combined emergency response activities) in 2019–20 to 525,317 in 2023–24.<sup>43</sup> 40 major emergency incidents were documented from July 2024 to June 2025 (an increase from 30 the previous year).<sup>44</sup></> : index === 1 ? <>{item.copy}<sup>45</sup> This is supported by growth in student enrolments from 2019 to 2024 in the two core qualifications required for firefighters. Similarly, the total career operational and support emergency services personnel have experienced year-on-year increases since 2019–20.<sup>46</sup></> : item.copy}</p>
+                <p className={styles.copy}>{index === 0 ? <>Demand for services: Demand for both firefighter and state and territory emergency services (SES) increased by 7.6 per cent from 488,242 (total combined emergency response activities) in 2019–20 to 525,317 in 2023–24.<sup>43</sup> 40 major emergency incidents were documented from July 2024 to June 2025 (an increase from 30 the previous year).<sup>44</sup></> : index === 1 ? <>{item.copy}<sup>45</sup> This is supported by growth in student enrolments from 2019 to 2024 in the two core qualifications required for firefighters. Similarly, the total career operational and support emergency services personnel have experienced year-on-year increases since 2019–20.<sup>46</sup></> : index === 2 ? <>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup>48</sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup>49</sup></> : item.copy}</p>
                 {index === 0 && <div className={styles.chartGrid}>
                   <WorkforceChart title="Combined Total Yearly Fire and Other Emergency Incidents Responded to by Fire and Emergency Services Organisations Across Australia" values={demandSeries} domain={[400000, 600000]} dashed source="Productivity Commission, Emergency services for fire and other events – Tables 9A.6 and 9A.7, 2026" />
                   <WorkforceChart title="Documented Major Emergency Incidents Australia" values={[27, 30, 40]} labels={years.slice(-3)} domain={[20, 45]} source="Australian Institute for Disaster Resilience (AIDR), Major Incidents Report 2024–25, 2025" />
@@ -137,17 +137,16 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                   <p className={styles.copy}>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup>48</sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup>49</sup></p>
                   <div className={styles.chartGrid}>
                     <WorkforceChart title="Career Firefighters (headcount)" values={careerFirefighterSeries} domain={[17500, 19500]} dashed />
-                    {fireVolunteers}
+                    <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed />
                   </div>
                   <p className={styles.copy}>{datapoints[2].copy}</p>
                   <div className={styles.chartGrid}>
-                    <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed />
+                    {fireVolunteers}
                     {sesVolunteers}
                   </div>
                 </>}
                 {index === 2 && <>
                   <div className={styles.chartGrid}>{fireVolunteers}{sesVolunteers}</div>
-                  <p className={styles.copy}>{item.copy}</p>
                 </>}
                 {index === 3 && <>
                   <div className={styles.chartGrid}>
@@ -167,7 +166,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
       <section data-report-sources className={`${sourcesStyles.sources} ${styles.sources} animate-slide-up-delay`}>
         <h2>Sources</h2>
         <ol start={43}>
-          {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span>{source}</span></li>)}
+          {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span>{index === 0 || index === 3 || index === 5 ? <a className="underline underline-offset-2" href="https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/" target="_blank" rel="noopener noreferrer">{source}</a> : index === 1 ? <a className="underline underline-offset-2" href="https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf" target="_blank" rel="noopener noreferrer">{source}</a> : index === 2 ? <a className="underline underline-offset-2" href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/nov-2025" target="_blank" rel="noopener noreferrer">{source}</a> : index === 4 ? <a className="underline underline-offset-2" href="https://www.jobsandskills.gov.au/data/occupation-shortage/occupation-shortage-list" target="_blank" rel="noopener noreferrer">{source}</a> : index === 6 ? <a className="underline underline-offset-2" href="https://www.volunteeringaustralia.org/research/key-volunteering-statistics/" target="_blank" rel="noopener noreferrer">{source}</a> : index === 7 || index === 8 ? <a className="underline underline-offset-2" href="https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025" target="_blank" rel="noopener noreferrer">{source}</a> : source}</span></li>)}
         </ol>
       </section>
     </div>

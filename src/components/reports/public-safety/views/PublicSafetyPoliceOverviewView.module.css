@@ -324,9 +324,15 @@
 
 .jurisdictionSeries polyline {
   fill: none;
-  stroke: var(--chart-blue);
+  stroke: #a8d8ea;
   stroke-width: 2.5;
-  stroke-dasharray: 3 8;
+  stroke-dasharray: none;
+}
+
+.jurisdictionPoint circle {
+  fill: white;
+  stroke: #a8d8ea;
+  stroke-width: 2.5;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -480,7 +486,7 @@
   gap: 12px;
 }
 
-.sources li > span {
+.sources li > span:first-child {
   display: grid;
   place-items: center;
   width: 20px;

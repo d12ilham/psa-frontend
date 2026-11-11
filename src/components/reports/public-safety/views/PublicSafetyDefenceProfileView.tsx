@@ -33,8 +33,8 @@ function HeadcountChart() {
     { name: "Total ADF", previous: 57245, current: 58909, change: "2.9%", colour: "#EBB92E", leftY: 27.801, rightY: 15.801, leftLabelY: 36, rightLabelY: 25, nameY: 42 },
     { name: "ADF Reserves", previous: 32560, current: 33269, change: "2.2%", colour: "#BA774C", leftY: 205.5, rightY: 200.4, leftLabelY: 214, rightLabelY: 210, nameY: 227 },
     { name: "Army", previous: 27239, current: 27701, change: "1.7%", colour: "#F69063", leftY: 243.8, rightY: 240.5, leftLabelY: 252, rightLabelY: 250, nameY: 267 },
-    { name: "Air Force", previous: 15261, current: 16085, change: "5.4%", colour: "#706C6B", leftY: 330.1, rightY: 324.2, leftLabelY: 337, rightLabelY: 334, nameY: 349 },
-    { name: "Navy", previous: 14745, current: 15123, change: "2.6%", colour: "#D9AD6C", leftY: 333.8, rightY: 331.1, leftLabelY: 344, rightLabelY: 345, nameY: 363 },
+    { name: "Air Force", previous: 15261, current: 16085, change: "5.4%", colour: "#706C6B", leftY: 330.1, rightY: 324.2, leftLabelY: 314, rightLabelY: 310, nameY: 349 },
+    { name: "Navy", previous: 14745, current: 15123, change: "2.6%", colour: "#D9AD6C", leftY: 333.8, rightY: 331.1, leftLabelY: 358, rightLabelY: 358, nameY: 363 },
   ];
   return <section className={`${styles.presentationPanel} ${styles.headcountPanel} animate-card-entrance`} aria-labelledby="defence-headcount-title">
     <div className={styles.headcountContent}>
@@ -53,9 +53,16 @@ function HeadcountChart() {
             <circle cx={151} cy={item.leftY} r={4.2} fill={item.colour} className="animate-radar-point" style={{ animationDelay: `${index * .12 + .35}s` }} />
             <circle cx={541} cy={item.rightY} r={4.2} fill={item.colour} className="animate-radar-point" style={{ animationDelay: `${index * .12 + .8}s` }} />
             <g className={styles.valueLabels} fill={item.colour}>
+              {index >= 3 && <g stroke={item.colour} strokeWidth={1} aria-hidden="true">
+                <line x1={143} y1={item.leftLabelY - 4} x2={151} y2={item.leftY} />
+                <line x1={541} y1={item.rightY} x2={549} y2={item.rightLabelY - 4} />
+              </g>}
               <text x={141.4} y={item.leftLabelY} textAnchor="end">{item.previous.toLocaleString("en-AU")}</text>
               <text x={551} y={item.rightLabelY}>{item.current.toLocaleString("en-AU")}</text>
-              <text x={597.5} y={item.rightLabelY} className={styles.changeLabel}>▲ {item.change}</text>
+              <g data-headcount-change={item.name} transform={`translate(610 ${item.rightLabelY - 24})`} aria-hidden="true">
+                <path d="M0 16L24 0L48 16H41V36H7V16Z" fill={item.colour} />
+                <text x={24} y={27} textAnchor="middle" fill="white" fontSize={11} fontWeight={700}>{item.change}</text>
+              </g>
             </g>
 
           </g>)}
@@ -195,10 +202,10 @@ function LocationChart() {
       <div className={styles.locationMap}><PublicSafetyDefenceLocationMap className={styles.locationMapAsset} selected={selectedState} onSelect={setSelectedState} /></div>
       <aside className={styles.locationDetails} aria-live="polite" aria-atomic="true">
         <h3>{selectedState === "NAT" ? "Australia" : selectedState}</h3>
-        {location ? <div key={selectedState} className={styles.locationStats}>{location.values.map((value, index) => <div key={index} className={styles.locationStat} style={{ animationDelay: `${index * .1 + .15}s` }}><strong>{value}</strong><span>{["Permanent ADF", "ADF Reserves", "Major Defence"][index]}</span></div>)}</div> : <p className={styles.locationPrompt}>Select a state or territory to view workforce and major Defence base figures.</p>}
+        {location ? <div key={selectedState} className={styles.locationStats}>{location.values.map((value, index) => <div key={index} className={styles.locationStat} style={{ animationDelay: `${index * .1 + .15}s` }}><strong>{value}</strong><span>{["Permanent ADF", "ADF Reserves", "Major Defence bases*"][index]}</span></div>)}</div> : <p className={styles.locationPrompt}>Select a state or territory to view workforce and major Defence base figures.</p>}
       </aside>
     </div>
-    <p className={styles.locationNote}>Major Defence bases. Please note total number of bases may change in the next 12 months inline with recommendations from the Defence Estate Audit</p>
+    <p className={styles.locationNote}>*Major Defence bases. Please note total number of bases may change in the next 12 months inline with recommendations from the Defence Estate Audit</p>
     <p data-source-caption className={styles.locationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
   </section>;
 }

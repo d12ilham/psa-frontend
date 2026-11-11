@@ -52,7 +52,7 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
         <h1>Workforce Insights</h1>
         <p>This Report identifies the following themes and industry insights relating to the Fire and Emergency Services Workforce:</p>
       </div>
-      <Image className={`${layout.artwork} ${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-workforce-insights-group-93.png" width={446} height={100} alt="" unoptimized priority />
+      <Image className={`${layout.artwork} ${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-workforce-insights-first-aid-ring.svg" width={446} height={100} alt="" unoptimized priority />
     </section>
 
     <p className={`${styles.instruction} animate-slide-up-delay`}>Select any insight to open its detail page.</p>

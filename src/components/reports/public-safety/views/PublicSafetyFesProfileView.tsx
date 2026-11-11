@@ -86,7 +86,7 @@ function JurisdictionChart() {
     </header>
     <div className={styles.mapGrid}>
       <div className={styles.map}>
-        <AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="fire" compact />
+        <AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="fire" compact showActLabel largeLabels />
       </div>
       <aside className={styles.stateData}>
         <h4>{selectedState}</h4>

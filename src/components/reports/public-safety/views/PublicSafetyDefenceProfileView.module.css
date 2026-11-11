@@ -60,6 +60,8 @@
 .genderBar { transform-box: fill-box; transform-origin: left center; transition: filter .25s; }
 .genderValues { fill: white; font-size: 12px; font-weight: 700; pointer-events: none; animation: arrival .6s cubic-bezier(.16,1,.3,1) backwards; }
 .genderLegend { fill: #1f290f; font-size: 14px; font-weight: 700; }
+.genderPlot[aria-labelledby~="defence-gender-chart-title"] .genderTitle { font-size: 20px; }
+.genderPlot[aria-labelledby~="defence-gender-chart-title"] :is(.genderAxisLabel, .genderValues, .genderLegend, .genderPresentationLabel, .genderSource) { font-size: 16px; }
 .genderRow:focus-visible { outline: 1px solid #598303; outline-offset: 4px; }
 .firstNationsDefLabel { fill: #5d6f2c; font-family: "PSA First Nations Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: .5px; }
 .firstNationsAxisTitle { fill: #1f2a0e; font-family: "PSA First Nations Inter", sans-serif; font-size: 12px; font-weight: 400; letter-spacing: -.3px; }
