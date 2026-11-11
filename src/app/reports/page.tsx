@@ -1,0 +1,587 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import ReportFooter from "@/components/layout/ReportFooter";
+import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
+import {
+  Download,
+  Play,
+  FileText,
+  ChevronRight,
+  X,
+  ExternalLink,
+  Menu,
+} from "lucide-react";
+
+const SECTOR_REPORTS = [
+  {
+    id: "local-government",
+    sectorKey: "Local Government",
+    badgeText: "LOCAL GOVERNMENT",
+    title: "2026 Local Government Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-local-government.png",
+    targetUrl: "/reports/local-government-workforce-insights-report",
+  },
+  {
+    id: "public-safety",
+    sectorKey: "Public Safety",
+    badgeText: "PUBLIC SAFETY",
+    title: "2026 Public Safety Workforce Insights Report",
+    coverImage: "/images/reports/public-safety-card-background.webp",
+    targetUrl: "/reports/public-safety-wir-2026",
+  },
+  {
+    id: "federal-state",
+    sectorKey: "Federal and State",
+    badgeText: "FEDERAL AND STATE/TERRITORY GOVERNMENT",
+    title: "2026 Federal and State/Territory Government Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-federal-state.png",
+    targetUrl: "/reports/federal-state-territory-wir-2026",
+  },
+  {
+    id: "correctional-services",
+    sectorKey: "Correctional Services",
+    badgeText: "CORRECTIONAL SERVICES",
+    title: "2026 Correctional Services Workforce Insights Report",
+    coverImage: "/images/reports/sector-card-correctional-services.png",
+    targetUrl: "/reports/correctional-services-wir-2026",
+  },
+];
+
+export default function ReportsArchivePage() {
+  const router = useRouter();
+
+  const reports = STATIC_REPORTS;
+  const siteSettings = SITE_SETTINGS;
+
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const scrollToSectors = () => {
+    const el = document.getElementById("sectors-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FAFAF0] text-[#1B240E] font-sans flex flex-col antialiased selection:bg-[#85CC00]/40">
+      {/* ── 1. TOP NAVIGATION BAR ── */}
+      <header className="bg-[#252D02] w-full text-white border-b border-[#2A3716] sticky top-0 z-50">
+        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Left Brand Logo & Title */}
+          <div
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => router.push("/")}
+          >
+            {siteSettings?.logoLightUrl ? (
+              <img
+                src={siteSettings.logoLightUrl}
+                alt={siteSettings?.title || "Public Skills Australia"}
+                className="h-8 w-auto object-contain"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded bg-[#85CC00] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-[#1C250E]"
+                >
+                  <path
+                    d="M12 2L4 6V12C4 16.5 7.5 20.6 12 22C16.5 20.6 20 16.5 20 12V6L12 2Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M12 6L7 9.5V13.5L12 17L17 13.5V9.5L12 6Z"
+                    fill="#1C250E"
+                  />
+                </svg>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="hidden sm:inline-block h-6 w-px bg-white/20"></span>
+              <span className="hidden sm:inline-block font-normal text-xs sm:text-sm text-[#85CC00]">
+                Workforce Insights Reports
+              </span>
+            </div>
+          </div>
+
+          {/* Right Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs sm:text-sm font-normal">
+            <a
+              href="https://publicskillsaustralia.org.au"
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/80 hover:text-white transition-colors uppercase font-normal no-underline"
+            >
+              PSA WEBSITE
+            </a>
+            <button
+              onClick={() => router.push("/reports")}
+              className="text-[#85CC00] hover:text-[#99E600] transition-colors uppercase font-normal no-underline cursor-pointer"
+            >
+              ALL REPORTS
+            </button>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("contact");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-white/80 hover:text-white transition-colors uppercase font-normal no-underline"
+            >
+              CONTACT US
+            </a>
+          </nav>
+
+          {/* Mobile Hamburger Toggle Button */}
+          <div className="flex md:hidden items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 text-white" />
+              ) : (
+                <Menu className="h-6 w-6 text-white" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Nav Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#1E2503] border-t border-white/10 px-4 py-3 space-y-1.5 animate-expand-down shadow-xl">
+            <a
+              href="https://publicskillsaustralia.org.au"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold uppercase no-underline"
+            >
+              <span>PSA WEBSITE</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+            </a>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                router.push("/reports");
+              }}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/10 text-[#85CC00] text-xs font-bold uppercase transition-colors text-left cursor-pointer"
+            >
+              <span>ALL REPORTS</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                const el = document.getElementById("contact");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors text-xs font-semibold uppercase no-underline"
+            >
+              <span>CONTACT US</span>
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* ── MAIN CONTENT CONTAINER ── */}
+      <main className="flex-1 w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* ── 2. HERO INTRO SECTION ── */}
+        <section className="bg-white rounded-2xl p-4 sm:p-6 border border-gray200 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Intro Text Column */}
+            <div className="lg:col-span-7 space-y-4">
+              <span className="text-notes text-xs uppercase block font-semibold">
+                PUBLIC SKILLS AUSTRALIA
+              </span>
+
+              <div className="space-y-1 animate-slide-up">
+                <h1 className="text-4xl font-bold text-gray800">
+                  Welcome to the Public Skills Australia
+                </h1>
+                <h2 className="text-2xl sm:text-4xl font-bold text-lg-dark leading-tight">
+                  Workforce Insights Reports
+                </h2>
+              </div>
+
+              <div className="space-y-2 animate-slide-up-delay">
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium pt-1">
+                  This platform brings together workforce insights and
+                  strategies across six priority sectors.
+                </p>
+
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-medium">
+                  The reports are structured to help you quickly access key
+                  insights and strategies, while providing the depth of analysis
+                  supporting the strategy and plans.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-3 pt-3">
+                <button
+                  onClick={scrollToSectors}
+                  className="bg-lg-light text-[#1C250E] font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#78B800] transition-all cursor-pointer active:scale-95"
+                >
+                  Choose your sector
+                </button>
+                <button
+                  onClick={() => setIsPdfModalOpen(true)}
+                  className="bg-lg-dark text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full hover:bg-[#2A3716] transition-all cursor-pointer flex items-center gap-2 active:scale-95"
+                >
+                  <span>All sector reports (PDFs)</span>
+                  <Download className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            </div>
+
+            {/* Right Video Card Placeholder (Non-interactive) */}
+            <div className="lg:col-span-5 animate-zoom-in">
+              <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
+                {/* Video Thumbnail Box */}
+                <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-white"></div>
+
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <div className="w-20 h-20 rounded-full bg-[#F0F5DF] text-lg-light flex items-center justify-center pl-1">
+                      <Play className="w-9 h-9 fill-lg-light" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Video Subtitle */}
+                <div className="flex items-center justify-between px-1 gap-5">
+                  <p className="text-xs text-gray600 font-medium leading-relaxed">
+                    A short introduction to the 2026 reports from Public Skills
+                    Australia.
+                  </p>
+                  <div className="bg-lg-light text-[#1C250E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1.5 shrink-0 select-none">
+                    <Play className="w-4 h-4" />
+                    <span>Watch 2 Mins.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── 3. VALUE PROPOSITION CARDS (2 SIDE-BY-SIDE) ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Card 1: An evidence-based view */}
+            <div
+              style={{ animationDelay: "0.20s" }}
+              className="animate-card-entrance bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-notes hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group"
+            >
+              <img
+                src="/images/reports/reports-main/evidence-based.svg"
+                alt="An evidence-based view"
+                className="w-16 h-16 shrink-0 object-contain group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              />
+              <div className="space-y-1.5">
+                <h3 className="font-bold text-sm sm:text-lg text-gray800 group-hover:text-lg-dark transition-colors duration-300">
+                  An evidence-based view
+                </h3>
+                <p className="text-xs text-gray600 leading-relaxed">
+                  Developed through a combination of workforce data analysis,
+                  sector research and extensive consultation with industry and
+                  government stakeholders, the reports provide an evidence-based
+                  view of current workforce conditions, emerging trends, future
+                  challenges and opportunities.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Grounded in lived experience */}
+            <div
+              style={{ animationDelay: "0.32s" }}
+              className="animate-card-entrance bg-white rounded-2xl p-6 border border-gray200 flex items-start gap-4 hover:border-notes hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group"
+            >
+              <img
+                src="/images/reports/reports-main/Grounded.svg"
+                alt="Grounded in lived experience"
+                className="w-16 h-16 shrink-0 object-contain group-hover:scale-105 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              />
+              <div className="space-y-1.5">
+                <h3 className="font-extrabold text-sm sm:text-lg text-gray800 group-hover:text-lg-dark transition-colors duration-300">
+                  Grounded in lived experience
+                </h3>
+                <p className="text-xs text-[#525B47] leading-relaxed">
+                  By combining quantitative insights with the lived experience
+                  of sector leaders and practitioners, the reports identify
+                  workforce issues that matter most and the strategies needed to
+                  address them.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 4. EACH REPORT INCLUDES ICON BAR ── */}
+        <section className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-4 space-y-4">
+          <h4 className="text-xs uppercaser text-notes">
+            EACH REPORT INCLUDES
+          </h4>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+            {[
+              {
+                title: "Introduction",
+                icon: "/images/reports/reports-main/Introduction.svg",
+              },
+              {
+                title: "Executive Summary",
+                icon: "/images/reports/reports-main/Executive.svg",
+              },
+              {
+                title: "Driver of Change",
+                icon: "/images/reports/reports-main/Driver.svg",
+              },
+              {
+                title: "Industry Overview",
+                icon: "/images/reports/reports-main/Industry.svg",
+              },
+              {
+                title: "Workforce Insights",
+                icon: "/images/reports/reports-main/Insights.svg",
+              },
+              {
+                title: "Workforce Strategies",
+                icon: "/images/reports/reports-main/Strategies.svg",
+              },
+              {
+                title: "Looking Forward",
+                icon: "/images/reports/reports-main/Looking.svg",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                style={{ animationDelay: `${0.12 + idx * 0.05}s` }}
+                className="animate-card-entrance bg-white rounded-2xl p-3 border border-gray200 flex flex-col items-center justify-center text-center gap-3 min-h-[135px] hover:border-lg-dark hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group cursor-default"
+              >
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                />
+                <span className="font-semibold text-sm text-gray800 group-hover:text-lg-dark leading-tight transition-colors duration-300">
+                  {item.title}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 5. SECTOR WORKFORCE INSIGHTS REPORTS GRID ── */}
+        <section id="sectors-section" className="space-y-4 pt-2">
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+            <h2 className="text-lg sm:text-xl font-bold text-gray800">
+              Choose your sector Workforce Insights Report
+            </h2>
+            <p className="text-xs text-gray600">Each report houses the 2026 and previous-year reports</p>
+          </div>
+
+          {/* Grid of Sector Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SECTOR_REPORTS.map((sector, idx) => {
+              const matched = reports.find((report) =>
+                report.slug === sector.id ||
+                report.slug.includes(sector.id) ||
+                report.title.toLowerCase().includes(sector.sectorKey.toLowerCase()),
+              );
+              return <Link
+                key={sector.id}
+                href={matched ? `/reports/${matched.slug}` : sector.targetUrl}
+                style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
+                className="animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
+                aria-label={`View ${sector.title}`}
+              >
+                <img
+                  src={sector.coverImage}
+                  alt=""
+                  className={sector.id === "public-safety"
+                    ? "block h-full w-full object-cover object-[50%_58%]"
+                    : "block h-full w-full"}
+                />
+                {sector.id === "public-safety" && (
+                  <div className="absolute inset-0 flex flex-col items-start justify-between p-3 text-[#1B240E] sm:p-4">
+                    <div className="leading-tight">
+                      <h3 className="text-base font-extrabold">2026 Public Safety</h3>
+                      <p className="text-xs font-bold">Workforce Insights Report</p>
+                    </div>
+                    <span className="rounded-full bg-[#85CC00] px-4 py-1.5 text-xs font-bold">
+                      View
+                    </span>
+                  </div>
+                )}
+              </Link>;
+            })}
+          </div>
+        </section>
+
+        {/* ── 6. BOTTOM CTA BANNER ── */}
+        <section
+          id="contact"
+          style={{ animationDelay: "0.45s" }}
+          className="animate-card-entrance bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-3"
+        >
+          <h3 className="text-lg font-bold text-gray800">
+            Questions about the{" "}
+            <span className="text-lg-dark">Workforce Insights Reports?</span>
+          </h3>
+          <p className="text-sm text-gray600 font-medium leading-relaxed">
+            Public Skills Australia welcomes feedback and enquiries from
+            industry-sector stakeholders.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-3 pt-3">
+            <a
+              href="https://publicskillsaustralia.org.au/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all cursor-pointer inline-flex items-center gap-2 no-underline active:scale-95"
+            >
+              <span>Contact Us</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => setIsPdfModalOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-lg-dark px-6 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#046D2A] sm:text-sm"
+            >
+              All sector reports (PDFs) <Download className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </section>
+      </main>
+
+      {/* ── 7. FOOTER ── */}
+      <ReportFooter reportName="Workforce Insights Reports" />
+
+      {/* ── 8. VIDEO INTRO MODAL ── */}
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden space-y-0 relative border border-[#E2DFD4]">
+            <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
+              <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
+                <Play className="w-4 h-4 fill-[#85CC00] text-[#85CC00]" />
+                <span>2026 Workforce Insights Reports Introduction</span>
+              </h3>
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="aspect-video w-full bg-black relative flex items-center justify-center">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                title="Public Skills Australia Video Introduction"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="p-4 bg-[#F4F3EA] flex justify-end">
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="bg-[#1B240E] text-white font-extrabold text-xs px-5 py-2 rounded-full hover:bg-[#2A3716] transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── 9. ALL SECTOR REPORTS (PDFs) MODAL ── */}
+      {isPdfModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full overflow-hidden relative border border-[#E2DFD4]">
+            <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
+              <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
+                <Download className="w-4 h-4 text-[#85CC00]" />
+                <span>All Sector Reports (PDF Downloads)</span>
+              </h3>
+              <button
+                onClick={() => setIsPdfModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <p className="text-xs text-[#525B47] leading-relaxed">
+                Select a sector report below to download the complete PDF
+                document.
+              </p>
+
+              <div className="space-y-2.5">
+                {SECTOR_REPORTS.map((sector) => {
+                  const publishedReport = reports.find((report) =>
+                    report.slug === sector.id ||
+                    report.slug.includes(sector.id) ||
+                    report.title.toLowerCase().includes(sector.sectorKey.toLowerCase()),
+                  );
+                  return (
+                  <div
+                    key={sector.id}
+                    className="p-3.5 rounded-xl border border-[#E2DFD4] bg-[#F4F3EA]/50 flex items-center justify-between gap-3 hover:border-[#38761D] transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <FileText className="w-5 h-5 text-[#38761D] shrink-0" />
+                      <div>
+                        <h4 className="font-extrabold text-xs text-[#1B240E]">
+                          {publishedReport?.title || sector.badgeText}
+                        </h4>
+                        <span className="text-[10px] text-[#6B755E]">
+                          {publishedReport?.pdfFileUrl ? "PDF document" : "PDF not available"}
+                        </span>
+                      </div>
+                    </div>
+                    {publishedReport?.pdfFileUrl ? <a
+                      href={publishedReport.pdfFileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="bg-[#85CC00] text-[#1B240E] font-extrabold text-[11px] px-3 py-1.5 rounded-full hover:bg-[#78B800] transition-colors flex items-center gap-1 shrink-0"
+                    >
+                      <Download className="w-3 h-3" />
+                      <span>Download</span>
+                    </a> : null}
+                  </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="p-4 bg-[#F4F3EA] flex justify-end border-t border-[#E2DFD4]">
+              <button
+                onClick={() => setIsPdfModalOpen(false)}
+                className="bg-[#1B240E] text-white font-extrabold text-xs px-5 py-2 rounded-full hover:bg-[#2A3716] transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

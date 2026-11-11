@@ -1,0 +1,66 @@
+"use client";
+
+import React from "react";
+
+interface ReportFooterProps {
+  contactUrl?: string;
+  reportName?: string;
+  year?: string;
+  variant?: "dark" | "pill";
+  className?: string;
+  containerClassName?: string;
+  sectorPalette?: boolean;
+}
+
+export default function ReportFooter({
+  contactUrl,
+  reportName = "Local Government Workforce Insights Report",
+  year = "2026",
+  variant = "dark",
+  className = "",
+  containerClassName = "",
+  sectorPalette = false,
+}: ReportFooterProps) {
+  const finalContactUrl =
+    contactUrl && contactUrl.trim().length > 0
+      ? contactUrl
+      : "https://publicskillsaustralia.org.au/contact";
+
+  if (variant === "pill") {
+    return (
+      <footer className="w-full bg-white border-t border-gray200 py-4 px-4">
+        <div className="max-w-360 mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="border border-gray200 bg-white text-gray800 text-xs font-semibold px-5 py-2 rounded-full text-center leading-relaxed">
+            © Public Skills Australia {year} - {reportName}
+          </div>
+          <a
+            href={finalContactUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-gray200 bg-white text-gray800 text-xs font-semibold px-5 py-2 rounded-full hover:bg-gray-50 transition-colors no-underline text-center cursor-pointer leading-relaxed"
+          >
+            Contact Us
+          </a>
+        </div>
+      </footer>
+    );
+  }
+
+  return (
+    <footer className={`${sectorPalette ? "bg-[#754C2D]" : "bg-[#252D02]"} text-white py-4 border-t border-[#E2E8F0] w-full ${className}`}>
+      <div className={`max-w-360 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs ${containerClassName}`}>
+        <p className="text-white text-center leading-relaxed">
+          © Public Skills Australia {year} · {reportName}
+        </p>
+        <a
+          href={finalContactUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white font-semibold no-underline"
+        >
+          Contact Us
+        </a>
+      </div>
+    </footer>
+  );
+}

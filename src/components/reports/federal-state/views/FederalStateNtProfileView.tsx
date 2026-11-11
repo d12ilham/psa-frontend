@@ -1,0 +1,187 @@
+"use client";
+
+import { NumberedSource, SourceLink } from "../SourceCitation";
+import IndustryInsightCard from "./IndustryInsightCard";
+
+import { DocumentGenderGraphic } from "./DocumentGenderGraphic";
+
+import chartStyles from "./FederalStateProfileCharts.module.css";
+
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { ColumnChart, JurisdictionMap, Section } from "./FederalStateActProfileView";
+import { RepresentationChart } from "./FederalStateNswProfileView";
+
+interface Report {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  contactUrl?: string;
+  pdfFileUrl?: string;
+  year?: { label: string };
+}
+
+const occupations = [
+  ["132411", "Policy and Planning Manager"],
+  ["223111", "Human Resource Adviser"],
+  ["224412", "Policy Analyst"],
+  ["224999", "Information and Organisation Professionals nec"],
+  ["272499", "Social Professionals nec"],
+  ["272613", "Welfare Worker"],
+  ["411711", "Community Worker"],
+];
+
+const locations = [
+  ["69.4%", "in Darwin"],
+  ["2.3%", "in the Top End"],
+  ["3.6%", "in East Arnhem"],
+  ["5.7%", "in Big Rivers"],
+  ["2.3%", "in Barkly"],
+  ["16.7%", "in Central Australia"],
+];
+
+const priorities = [
+  "Develop learning assessment resources tailored to First Nations learners in VET",
+  "Continue funding regional and remote community projects",
+  "Promote accessible training pathways to increase entry into under-represented industries such as technology",
+  "Drive digital and technology skills development through targeted programs such as technology boot camp",
+  "Explore high level apprenticeship and provide ongoing digital skills training to VET workforce aligned with industry needs",
+];
+
+function NtFootnote({ number }: { number: number }) {
+  return (
+    <sup className="text-[0.8em] font-semibold text-black">
+      <a href={`#nt-source-${number}`} aria-label={`Source ${number}`} className="text-black underline">{number}</a>
+    </sup>
+  );
+}
+
+const sources = [
+  { number: 36, text: "Northern Territory Government, State of the Service Report 2024-2025, Northern Territory Government, 2025, accessed 18 February 2026." },
+  { number: 37, text: "Northern Territory Government, State of the Service Report 2024-2025, Northern Territory Government, 2025, accessed 18 February 2026." },
+  { number: 38, text: "Northern Territory Government, State of the Service Report 2024-2025, Northern Territory Government, 2025, accessed 18 February 2026." },
+  { number: 39, text: "Northern Territory Government, State of the Service Report 2024-2025, Northern Territory Government, 2025, accessed 18 February 2026." },
+  { number: 40, text: "Northern Territory Government, Hard to fill jobs in the NT, Northern Territory Government, 2025, accessed 10 February 2026." },
+  { number: 41, text: "Jobs and Skills Australia (JSA), Occupational Shortage List, JSA, 2025, accessed 18 February 2026." },
+  { number: 42, text: "Department of Education and Training, Skills NT Plan 2024-25 Rebuilding the Economy, Department of Education and Training, 2025, accessed 10 February 2026." },
+];
+
+export default function FederalStateNtProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
+  const ContentTag = embedded ? "div" : "main";
+  return (
+    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+      {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
+      <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
+        {!embedded && <ReportNavButtons
+          slug={slug}
+          currentPage="industry_profile_nt"
+          prev={{ label: "NSW Workforce Overview", href: `/reports/${slug}/industry_profile_nsw` }}
+          next={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }}
+          prevPrefix=""
+        />}
+
+        <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
+          <div className="min-w-0 [container-type:inline-size]">
+            <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Northern Territory · Selected jurisdiction</p>
+            <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Northern Territory<br /><span className="whitespace-nowrap">Public Service</span></h1>
+            <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
+            <div className="mt-3 max-w-[520px] space-y-3">
+              <div className="rounded-md bg-[#F8EEE8] p-4">
+                <p className="text-base leading-6 text-black">In 2025, the Northern Territory <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
+                <strong className="mt-1 block text-4xl text-black">25,786</strong>
+                <p className="mt-1 text-base leading-6 text-black">employees (23,754 FTE)</p>
+                <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–2025, 2025, pg. 10</SourceLink></p>
+              </div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in the Northern Territory</p></div>
+            </div>
+          </div>
+          <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />
+        </section>
+
+        <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div>
+              <h3 className="text-sm font-bold">Overview</h3>
+              <p className="mt-2 text-xs leading-6 text-[#42463B]">The Northern Territory Public Sector (NTPS) employed 25,786 people in 2025.<NtFootnote number={36} /> The workforce is highly concentrated geographically, with just under 70 per cent based in Darwin, and much smaller numbers of staff employed across regional and remote areas.<NtFootnote number={37} /></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">Women comprise just over 60 per cent of the workforce.<NtFootnote number={38} /> While 1.9 per cent of the NTPS identify as living with a disability.</p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">Increased First Nations workforce participation remains a key priority for the Northern Territory Government. First Nations employees comprise 11 per cent of the workforce, below the Northern Territory (NT) Government&apos;s 16 per cent target. However, the NTPS remains committed to a range of workforce initiatives including the Aboriginal Employee Forum, Aboriginal Employee Mentoring Program and training programs offered in partnership with the middle manager development program and executive leader development framework.<NtFootnote number={39} /></p>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold">Structure and Legal Context</h3>
+              <p className="mt-2 text-xs leading-6 text-[#42463B]">The NTPS comprises agencies, local authorities, statutory corporations and other related bodies to deliver public services on behalf of the Northern Territory Government.</p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">This includes agencies such as:</p>
+              <ul className="mt-1 list-disc pl-5 text-xs leading-6 text-[#42463B]"><li>Department of Corrections</li><li>Department of Health</li><li>Department of Education and Training</li></ul>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">It operates under the Public Sector Employment and Management Act (1993).</p>
+            </div>
+          </div>
+          <div data-nt-overview-statistics className="mt-6 grid gap-4 lg:grid-cols-2">
+              <div data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
+              <div data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-sm font-bold">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="text-[10px] text-[#382219]">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
+          </div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+            <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md    p-4 sm:p-5`}>
+              <h3 className="text-lg font-bold text-[#292522]">Northern Territory Public Sector Employees - Gender</h3>
+              <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
+                <div className="min-w-0">
+                  <div role="img" aria-label="Female 63.3%, male 36.5%, did not disclose 0.2%" className="relative mx-auto w-full max-w-[340px] pb-8">
+                    <div className="mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#BBA38F 0 63.3%, #807064 63.3% 99.8%, #DFD3C6 99.8% 100%)" }}>
+                      <div className="h-[75%] w-[75%] rounded-full bg-[#F8EEE8]" />
+                    </div>
+                    <span className="absolute right-0 top-0 text-2xl font-bold text-[#807064]">63.3%</span>
+                    <span className="absolute bottom-7 left-0 text-2xl font-bold text-[#807064]">36.5%</span>
+                    <span className="absolute bottom-0 right-5 text-2xl font-bold text-[#807064]">0.2%</span>
+                  </div>
+                  <ul className="mt-3 space-y-1.5 text-sm text-[#292522]">
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Did not disclose</li>
+                  </ul>
+
+                </div>
+                <div className="flex min-h-[310px] flex-col bg-[#807064] p-4 text-white">
+                  <DocumentGenderGraphic panel />
+                  <div className="mt-auto pt-3">
+                    <strong className="block text-4xl leading-none">5.3%</strong>
+                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <p data-citation-copy className="mt-2 text-sm leading-6 text-black rounded-md bg-white p-2"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–25, 2025, pg. 17</SourceLink></p>
+                  </div>
+                </div>
+              </div>
+            <p data-citation-copy className={chartStyles.genderSource}><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–25, 2025</SourceLink></p>
+</div>
+            <ColumnChart title="Workforce Diversity in the Northern Territory Public Sector" data={[{ label: "Aboriginal", value: 11.1, text: "11.1%" }, { label: "People with disability", value: 1.9, text: "1.9%" }, { label: "Culturally and linguistically diverse", value: 21.5, text: "21.5%" }]} source={<SourceLink row={66}>SOURCE: Northern Territory Government, State of the Service Report 2024–25, 2025, Figure 18</SourceLink>} />
+          </div>
+        </Section>
+
+        <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+          <div className="grid gap-5 lg:grid-cols-2">
+            <p className="text-xs leading-6 text-[#42463B]">The NT Government has identified the following skilled occupations (October 2025) relevant to the Public Administration industry group, as high priority based on how hard they are to fill.<NtFootnote number={40} /> Additionally, the Jobs and Skills Australia Occupational Shortage List indicates that &apos;Contract, Program and Project Administrators&apos;, &apos;Welfare, Recreation and Community Arts Workers&apos;, &apos;Welfare Support Officers&apos; and &apos;Human Resource Professionals&apos; are in shortage for 2025.<NtFootnote number={41} /> Several of these occupations are listed under the priority occupation scheme for skilled migration in the Northern Territory. For 2025–26 the Northern Territory has been allocated 850 nominations for the Subclass 190 Skilled Nominated visa and 800 nominations for the Subclass 491 Skilled Work Regional (Provisional) visa. Skilled migrants, particularly under subclass 491 may help to alleviate occupational shortages in regional areas.</p>
+            <IndustryInsightCard><p>Stakeholders noted that whilst skilled migration offers solutions for regional skills shortages, this can come with knowledge gaps and cultural challenges, particularly in regions with high populations of First Nations communities.</p></IndustryInsightCard>
+          </div>
+          <div className="mt-6 min-w-0">
+            <div><h3 className="text-sm font-bold">ANZSCO CODE AND OCCUPATION</h3><div className="mt-3 overflow-x-auto rounded-md border border-[#E6E4E0]"><table className="w-full min-w-[470px] text-left text-xs"><thead className="bg-[#F3F3F2]"><tr><th className="p-3">ANZSCO Code</th><th className="p-3">Occupation</th></tr></thead><tbody className="divide-y divide-[#E6E4E0]">{occupations.map(([code, occupation]) => <tr key={code}><td className="p-3">{code}</td><td className="p-3">{occupation}</td></tr>)}</tbody></table></div></div>
+          </div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <div><h3 className="text-sm font-bold">The NT Government&apos;s Skills Plan 2024–25 identifies several priorities relevant to the industry-sector including:<NtFootnote number={42} /></h3><ul className="mt-3 grid gap-3 sm:grid-cols-2">{priorities.map((priority) => <li key={priority} className="rounded-md bg-[#F8EEE8] p-4 text-xs leading-5 text-[#42463B]">{priority}</li>)}</ul></div>
+            <RepresentationChart title="Aboriginal and Torres Strait Islander Representation in Northern Territory Public Sector (2020–2025)" years={[2020, 2021, 2022, 2023, 2024, 2025]} values={[10.9, 10.3, 10.3, 10.8, 11.0, 11.1]} target={16} min={10} max={17} source={<SourceLink row={66}>SOURCE: Northern Territory Government, State of the Service Report 2024–25, 2025, Figure 18</SourceLink>} />
+          </div>
+        </Section>
+
+        <section className="rounded-md border border-[#E9E6DF] bg-white p-5 sm:p-6">
+          <h2 className="text-xl font-bold">Sources</h2>
+          <ol start={36} className="mt-5 grid gap-x-8 gap-y-3 md:grid-cols-2">
+            {sources.map(({ number, text }) => (
+              <li id={`nt-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
+                <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                <span><NumberedSource number={number} text={text} /></span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </ContentTag>
+      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+    </div>
+  );
+}

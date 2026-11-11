@@ -1,0 +1,870 @@
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { strategyOneContent } from "../strategyOneContent";
+import { strategyTwoContent } from "../strategyTwoContent";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Download,
+  Lightbulb,
+  RefreshCw,
+  Wrench,
+} from "lucide-react";
+
+interface Report {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  pdfFileUrl?: string;
+  psaSectorPageUrl?: string;
+  contactUrl?: string;
+  year?: {
+    label: string;
+  };
+}
+
+export default function ExecutiveSummaryView({
+  slug,
+  report,
+}: {
+  slug: string;
+  report: Report;
+}) {
+  const router = useRouter();
+  const [showTheme1Overview, setShowTheme1Overview] = useState(false);
+  const [showTheme2Overview, setShowTheme2Overview] = useState(false);
+  const [strategy1Open, setStrategy1Open] = useState(false);
+  const [strategy2Open, setStrategy2Open] = useState(false);
+
+  const themesRef = React.useRef<HTMLDivElement>(null);
+  const [isThemesVisible, setIsThemesVisible] = useState(false);
+
+  const strategiesRef = React.useRef<HTMLDivElement>(null);
+  const [isStrategiesVisible, setIsStrategiesVisible] = useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === themesRef.current) {
+              setIsThemesVisible(true);
+            } else if (entry.target === strategiesRef.current) {
+              setIsStrategiesVisible(true);
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (themesRef.current) observer.observe(themesRef.current);
+    if (strategiesRef.current) observer.observe(strategiesRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+      {/* ── TOP HEADER NAVBAR ── */}
+      <ReportHeader
+        slug={slug}
+        report={report}
+        currentPage="executive_summary"
+      />
+
+      {/* ── MAIN CONTENT CONTAINER ── */}
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
+        {/* Sub-Header Navigation Buttons */}
+        <ReportNavButtons slug={slug} currentPage="executive_summary" />
+
+        {/* Hero Card */}
+        <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-4">
+            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
+              Executive Summary
+            </h1>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
+              Public Skills Australia's 2026 Local Government Workforce Insights
+              Report considers the wider operational contexts impacting Public
+              Safety and Government industry-sectors. It identifies four drivers
+              of change that will impact workforce planning in the short to
+              medium term, aligned with the nine megatrends detailed in previous{" "}
+              <span className="font-semibold text-lg-dark">
+                Workforce Insights Reports
+              </span>
+              , that remain relevant to long term workforce trends.
+            </p>
+          </div>
+
+          {/* Right Flow Graphics with Sequential Entrance Animation */}
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end overflow-x-auto py-2">
+            <div className="flex items-center justify-center shrink-0">
+              {/* 1. Workforce (People & Gear) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "0.10s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-1-workforce.png"
+                    alt="Workforce"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 1: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "0.35s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 2. Insights (Lightbulb with Globe) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "0.60s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-2-insights.png"
+                    alt="Insights"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 2: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "0.85s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 3. Strategies (Map & Waypoints) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "1.10s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-3-strategies.png"
+                    alt="Strategies"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+
+              {/* Separator 3: 2 horizontal lines #8AC900 flush with circles */}
+              <div
+                className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
+                style={{ animationDelay: "1.35s" }}
+              >
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#8AC900]" />
+              </div>
+
+              {/* 4. Looking Forward (Arrows >>) */}
+              <div
+                className="animate-flow-item relative z-10 shrink-0"
+                style={{ animationDelay: "1.60s" }}
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                  <img
+                    src="/images/reports/executive-summary/flow-4-forward.png"
+                    alt="Looking Forward"
+                    className="w-full h-full object-contain select-none pointer-events-none"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section Banner 1: Drivers of Change */}
+        <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
+              <img
+                src="/images/drivers-of-change-icon.svg"
+                alt="Executive Summary Process Flow"
+                className="h-7 object-contain"
+              />
+            </div>
+            <div>
+              <h3 className="font-bold text-base text-gray800 pb-2">
+                Drivers of Change
+              </h3>
+              <p className="text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
+                It identifies four drivers of change that will impact workforce
+                planning in the short to medium term, aligned with the nine
+                megatrends detailed in previous Workforce Insights Reports, that
+                remain relevant to long term workforce trends.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
+          >
+            Present Drivers of Change <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        {/* Section 2: Two Themes, Seven Workforce Insights */}
+        <div ref={themesRef} className="bg-white rounded-2xl border border-gray200 p-6 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
+            <div className="flex gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
+                <img
+                  src="/images/work-force.svg"
+                  alt="Executive Summary Process Flow"
+                  className="h-7 object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-gray800 pb-2">
+                  Two Themes, Seven Workforce Insights
+                </h3>
+                <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
+                  This Report identifies seven insights within the Local
+                  Government industry-sector, across two themes (Local
+                  Government Specific Occupational Shortages and Access to
+                  Vocational Education and Training (VET) Qualifications and
+                  Training Delivery Partners):
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              Present Workforce Insights <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* Two Themes Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            {/* Theme 1 Container */}
+            <div
+              style={isThemesVisible ? { animationDelay: "0.10s" } : undefined}
+              className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-LG-LIGHT p-6 space-y-6 ${
+                isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
+              <div className="space-y-3">
+                <span className="text-xs font-bold text-[#728C28] uppercase block">
+                  THEME 1 · 3 INSIGHTS
+                </span>
+                <h3 className="text-xl font-bold text-gray800">
+                  Local Government Specific Occupational Shortages
+                </h3>
+                <button
+                  onClick={() => setShowTheme1Overview(!showTheme1Overview)}
+                  className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
+                >
+                  Theme Overview {showTheme1Overview ? "▴" : "▾"}
+                </button>
+
+                {/* Theme 1 Overview Accordion */}
+                <div
+                  className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    showTheme1Overview
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="overflow-hidden min-h-0">
+                    <div
+                      className={`transition-opacity duration-[1000ms] ease-out pt-2 text-xs text-gray600 leading-relaxed space-y-2 font-normal ${
+                        showTheme1Overview ? "opacity-100 delay-150" : "opacity-0"
+                      }`}
+                    >
+                      <p>
+                        In support of both the 2024 Federal, State/Territory &amp;
+                        Local Government Workforce Plan and the 2025 Local
+                        Government Workforce Insights Report, local council
+                        employers continue to emphasise the broad scope of
+                        occupations employed in their workforce. Role expansion has
+                        been a consistent theme, further examined through two
+                        Parliamentary inquiries — which confirmed that the role of
+                        local councils has expanded over time and that this
+                        expansion is impacting both financial and workforce
+                        sustainability.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {/* Insight 1 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.15s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      1
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme One, Insight One
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Local Government employers require a diverse range of
+                        skills to maintain the breadth of responsibilities
+                        undertaken by local councils.<sup>2</sup>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight 2 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.27s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      2
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme One, Insight Two
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Skills needs are changing due to workforce pressures,
+                        technological advances and shifting community
+                        expectations.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight 3 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.39s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      3
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme One, Insight Three
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        While local council employers are experiencing some shortages in identified national shortage occupations, several Local Government specific shortages were also identified.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Theme 2 Container */}
+            <div
+              style={isThemesVisible ? { animationDelay: "0.22s" } : undefined}
+              className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 ${
+                isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
+              <div className="space-y-3">
+                <span className="text-xs font-bold text-[#728C28] uppercase block">
+                  THEME 2 · 4 INSIGHTS
+                </span>
+                <h3 className="text-xl font-bold text-gray800">
+                  Access to VET Qualifications and Training Delivery Partners
+                </h3>
+                <button
+                  onClick={() => setShowTheme2Overview(!showTheme2Overview)}
+                  className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
+                >
+                  Theme Overview {showTheme2Overview ? "▴" : "▾"}
+                </button>
+
+                {/* Theme 2 Overview Accordion */}
+                <div
+                  className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    showTheme2Overview
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="overflow-hidden min-h-0">
+                    <div
+                      className={`transition-opacity duration-[1000ms] ease-out pt-2 text-xs text-gray600 leading-relaxed space-y-2 font-normal ${
+                        showTheme2Overview ? "opacity-100 delay-150" : "opacity-0"
+                      }`}
+                    >
+                      <p>
+                        Access to training has consistently been raised as a
+                        challenge for local council employers in regional, rural and
+                        remote locations — affirmed in the Interim Report into Local
+                        Government Sustainability, PSA’s 2025 LG WIR and ALGA’s 2022
+                        Workforce Skills and Capability Survey. VET was consistently
+                        identified as the most relevant pathway for roles requiring
+                        technical expertise and compliance assurance, such as Water
+                        Operator, Mechanic and Childcare Educator. Access to VET
+                        Training: consultations for the 2024 Workforce Plan, the
+                        2025 LG WIR and the Skills Audit project re-affirmed the
+                        challenges relating to access to qualifications and training
+                        delivery.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {/* Insight 1 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.15s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      1
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme Two, Insight One
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Access to Technical and Further Education (TAFE) or
+                        Registered Training Organisations (RTOs) in regional,
+                        rural and remote locations is limited.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight 2 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.27s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      2
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme Two, Insight Two
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Few TAFEs and RTOs are willing to travel to
+                        geographically isolated locations.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight 3 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.39s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      3
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme Two, Insight Three
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Local councils have limited training budgets to support financial impost of course enrolment as well as travel to and from training.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight 4 */}
+                <div
+                  style={isThemesVisible ? { animationDelay: "0.51s" } : undefined}
+                  className={`theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer ${
+                    isThemesVisible ? "animate-card-entrance" : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-[50px] font-bold text-notes/10 leading-none">
+                      4
+                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-[#728C28] block mb-1">
+                        Theme Two, Insight Four
+                      </span>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Course delivery is often not tailored to regional, rural
+                        and remote areas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-gray600 leading-relaxed pt-3">
+            <sup>2</sup> In this report, Public Skills Australia uses Local Government
+            to refer to the national Local Government industry-sector. Local
+            councils, or local council, is used as a preferred term when
+            referring to a specific council or councils.
+          </p>
+        </div>
+
+        {/* Section 3: 2026 Proposed Strategies */}
+        <div ref={strategiesRef} className="bg-white rounded-2xl border border-gray200 p-6 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
+            <div className="flex gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
+                <img
+                  src="/images/stratergies.svg"
+                  alt="Executive Summary Process Flow"
+                  className="h-6 object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-gray800 pb-2">
+                  2026 Proposed Local Government Workforce Strategies
+                </h3>
+                <p className="text-xs text-gray600 leading-relaxed">
+                  The following strategies have been developed to support
+                  efforts to address challenges identified through the above
+                  industry insights.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() =>
+                router.push(`/reports/${slug}/workforce_strategies`)
+              }
+              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              Present 2026 Strategies <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* Two Strategy Cards Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            {/* Strategy Card 1 */}
+            <div
+              style={isStrategiesVisible ? { animationDelay: "0.10s" } : undefined}
+              className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-4 ${
+                isStrategiesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                  STRATEGY 1
+                </span>
+                <button
+                  onClick={() => setStrategy1Open(!strategy1Open)}
+                  className="bg-[#8AC900] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
+                >
+                  {strategy1Open ? "Close ▴" : "Open ▾"}
+                </button>
+              </div>
+
+              <h4 className="font-bold text-base text-gray800 leading-snug">
+                {strategyOneContent.title}
+              </h4>
+
+              <p className="text-xs text-gray600 leading-relaxed">
+                <span className="font-bold text-gray800">Objective: </span>
+                {strategyOneContent.objective}
+              </p>
+
+              {/* EXPANDED CONTENT FOR STRATEGY 1 */}
+              <div
+                className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  strategy1Open
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                }`}
+              >
+                <div className="overflow-hidden min-h-0">
+                  <div
+                    className={`transition-opacity duration-[1000ms] ease-out pt-4 border-t border-gray200 space-y-4 ${
+                      strategy1Open ? "opacity-100 delay-150" : "opacity-0"
+                    }`}
+                  >
+                    <div className="flex flex-col items-start gap-2">
+                      <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
+                        Workforce Insight: {strategyOneContent.workforceInsight}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        JSC Function:
+                      </h5>
+                      <p className="text-xs text-gray600">
+                        {strategyOneContent.jscFunction}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Approach:
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyOneContent.approach}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Deliverable:
+                      </h5>
+                      <p className="text-xs text-gray600">
+                        {strategyOneContent.deliverable}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">Impact:</h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyOneContent.impact}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Anticipated timing:
+                      </h5>
+                      <p className="text-xs text-gray600">
+                        {strategyOneContent.anticipatedTiming}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Key stakeholders:
+                      </h5>
+                      <ul className="list-disc pl-5 space-y-1 text-xs text-gray600 leading-relaxed">
+                        {strategyOneContent.keyStakeholders.map((stakeholder) => (
+                          <li key={stakeholder}>{stakeholder}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Strategy Card 2 */}
+            <div
+              style={isStrategiesVisible ? { animationDelay: "0.22s" } : undefined}
+              className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#046D2A] p-6 space-y-4 ${
+                isStrategiesVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                  STRATEGY 2
+                </span>
+                <button
+                  onClick={() => setStrategy2Open(!strategy2Open)}
+                  className="bg-[#8AC900] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
+                >
+                  {strategy2Open ? "Close ▴" : "Open ▾"}
+                </button>
+              </div>
+
+              <h4 className="font-bold text-base text-gray800 leading-snug">
+                {strategyTwoContent.title}
+              </h4>
+
+              <p className="text-xs text-gray600 leading-relaxed">
+                <span className="font-bold text-gray800">Objective: </span>
+                {strategyTwoContent.objective}
+              </p>
+
+              {/* EXPANDED CONTENT FOR STRATEGY 2 */}
+              <div
+                className={`grid transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  strategy2Open
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0 pointer-events-none"
+                }`}
+              >
+                <div className="overflow-hidden min-h-0">
+                  <div
+                    className={`transition-opacity duration-[1000ms] ease-out pt-4 border-t border-gray200 space-y-4 ${
+                      strategy2Open ? "opacity-100 delay-150" : "opacity-0"
+                    }`}
+                  >
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-[#F0F5DF] text-notes text-xs font-bold px-3.5 py-1.5 rounded-full">
+                        Workforce Insight: {strategyTwoContent.workforceInsight}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        JSC Function:
+                      </h5>
+                      <p className="text-xs text-gray600">
+                        {strategyTwoContent.jscFunction}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Approach – Part A:
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyTwoContent.approachPartA}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Approach – Part B (optional):
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyTwoContent.approachPartB}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Deliverable:
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Part A: {strategyTwoContent.deliverablePartA}
+                        <br />
+                        Part B: {strategyTwoContent.deliverablePartB}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Key Stakeholders:
+                      </h5>
+                      <ul className="space-y-1 text-xs text-gray600 pl-4 list-disc">
+                        {strategyTwoContent.keyStakeholders.map((stakeholder) => (
+                          <li key={stakeholder}>{stakeholder}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">Impact:</h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {strategyTwoContent.impact}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="text-xs font-bold text-gray800">
+                        Anticipated timing:
+                      </h5>
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        Part A: {strategyTwoContent.anticipatedTimingPartA}
+                        <br />
+                        Part B: {strategyTwoContent.anticipatedTimingPartB}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section Banner 4: 2027 and Beyond */}
+        <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-full bg-[#E5E8DA] text-notes flex items-center justify-center shrink-0">
+              <img
+                src="/images/2027-and-beyond.svg"
+                alt="Executive Summary Process Flow"
+                className="h-6 object-contain"
+              />
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-bold text-base text-gray800">
+                2027 and Beyond
+              </h3>
+              <p className="text-xs text-gray600 leading-relaxed max-w-3xl">
+                This Report concludes by looking towards the 2027{" "}
+                <span className="font-semibold text-[#728C28]">
+                  Workforce Insights Reports
+                </span>{" "}
+                and beyond. Future work will firstly focus on broader
+                priorities, including the participation of First Nations people,
+                women and other genders in the Public Safety and Government
+                workforces, in addition to examining the implications of
+                artificial intelligence (AI) and digital transformation.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => router.push(`/reports/${slug}/looking_forward`)}
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
+          >
+            View 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        {/* Supporting Sections Row */}
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <span className="font-semibold text-2xl text-gray800 mr-2">
+            Supporting Sections:
+          </span>
+          <button
+            onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
+            className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
+          >
+            Update on 2025 Strategies
+          </button>
+          <button
+            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+            className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
+          >
+            Existing Industry-Sector Strategies
+          </button>
+          <button
+            onClick={() => router.push(`/reports/${slug}/state_territory`)}
+            className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
+          >
+            State and Territory Workforce Profile
+          </button>
+        </div>
+      </main>
+
+      {/* ── FOOTER ── */}
+      <ReportFooter contactUrl={report.contactUrl} />
+    </div>
+  );
+}

@@ -1,0 +1,1084 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1a3d2b;
+  --color-background: #faf8f4;
+  --color-foreground: #3d5c47;
+  --color-card: #ffffff;
+  --color-sidebar: #fefdf3;
+  --color-border: #edebe6;
+  --color-muted: #598303;
+  --color-active: #416102;
+  --color-inactive: #f0f5df;
+  --color-accent: #a7dd6c;
+  --font-sans: "Manrope", var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-sans);
+  --color-lg-dark: #046d2a;
+  --color-lg-light: #8ac900;
+  --color-LG-LIGHT: #9caa54;
+  --color-notes: #598303;
+  --color-gray800: #252b37;
+  --color-gray600: #535862;
+  --color-gray200: #e5e8da;
+  --color-cards: #e5e8da;
+}
+
+:root {
+  --background: #fafaf0;
+  --foreground: #252d02;
+  --border: #d8d4cc;
+  --sidebar-bg: #fefdf3;
+  --font-sans: "Manrope", sans-serif;
+  --font-mono: var(--font-sans);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom Wireframe Classes */
+.wireframe-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8b867d;
+  font-weight: 600;
+}
+
+.wireframe-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  border: 1px solid #d8d4cc;
+  background-color: #efece6;
+  color: #57534c;
+}
+
+.stage-connector {
+  color: #8b867d;
+  font-weight: normal;
+  margin: 0 0.5rem;
+}
+
+.stage-item {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.stage-item-active {
+  border: 1px solid #c6c1b7;
+  background-color: #efece6;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #2d2b27;
+}
+
+.stage-item-inactive {
+  color: #8b867d;
+  opacity: 0.6;
+}
+
+/* Rounded chips like QLD, NSW etc */
+.chip {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid #d8d4cc;
+  background-color: #efece6;
+  color: #2d2b27;
+  transition: all 0.15s ease-in-out;
+}
+
+.chip-active {
+  background-color: #3b3833;
+  color: #ffffff;
+  border-color: #3b3833;
+}
+
+table {
+  overflow: visible;
+}
+
+/* Sidebar Nav Item Button Overrides */
+aside button {
+  background-color: transparent !important;
+  color: rgba(250, 250, 240, 0.8) !important;
+}
+
+aside button:hover {
+  background-color: #252d02 !important;
+  color: #ffffff !important;
+}
+
+/* Active Sidebar button */
+aside button.bg-\[\#8AC900\] {
+  background-color: #8ac900 !important;
+  color: #161b01 !important;
+  font-weight: 700 !important;
+}
+
+/* Styled Card for Dashboard Sections */
+.dashboard-section-card {
+  border: 1px solid var(--color-border) !important;
+  background-color: #ffffff !important;
+  border-radius: 1rem !important; /* radius-xl */
+  overflow: hidden !important;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.dashboard-section-header {
+  background-color: #252d02 !important;
+  color: #fafaf0 !important;
+  padding: 1rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 1px solid #252d02 !important;
+  border-radius: 0.75rem 0.75rem 0 0 !important; /* top corners rounded-xl */
+}
+
+.dashboard-section-header h2,
+.dashboard-section-header h3 {
+  color: #fafaf0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.875rem !important; /* text-sm */
+  margin: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.dashboard-section-header svg {
+  color: #8ac900 !important; /* icon accent color */
+}
+
+/* Content Transitions & Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInFast {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes expandDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-expand-down {
+  animation: expandDown 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Theme Insights slow smooth hover transition */
+.theme-insight-item {
+  transition:
+    border-color 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.55s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.theme-insight-item:hover {
+  border-color: #728c28 !important;
+  background-color: #f6f8ed !important;
+  box-shadow: 0 4px 14px -3px rgba(114, 140, 40, 0.12) !important;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-up-delay {
+  animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-entrance {
+  animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardEntranceSlow {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-entrance-slow {
+  animation: cardEntranceSlow 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes contentSwitch {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-content-switch {
+  animation: contentSwitch 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fstgForwardIconReveal {
+  from { opacity: 0; transform: scale(0.65); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fstg-forward-connectors {
+  animation: fadeInFast 0.5s ease-out both;
+}
+
+.fstg-forward-icon {
+  animation: fstgForwardIconReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-forward-connectors,
+  .fstg-forward-icon {
+    animation: none;
+  }
+}
+
+.fstg-existing-strategies-page .border-l-\[6px\] {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fstg-existing-strategies-page .border-l-\[6px\]:hover {
+  background-color: #f0ebe1;
+  box-shadow: 0 4px 12px rgba(117, 77, 50, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fstg-profile-page .animate-card-entrance,
+  .fstg-profile-page .animate-content-switch,
+  .fstg-profile-page .animate-defence-bar,
+  .fstg-initiatives-page .animate-slide-up,
+  .fstg-initiatives-page .animate-card-entrance,
+  .fstg-initiatives-page .animate-content-switch,
+  .fstg-insights-page .animate-slide-up,
+  .fstg-insights-page .animate-zoom-in,
+  .fstg-insights-page .animate-card-entrance,
+  .fstg-insights-page .animate-content-switch,
+  .fstg-existing-strategies-page .animate-slide-up,
+  .fstg-existing-strategies-page .animate-slide-up-delay,
+  .fstg-existing-strategies-page .animate-card-entrance,
+  .fstg-existing-strategies-page .animate-content-switch {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .fstg-profile-page .animate-defence-bar {
+    scale: 1;
+  }
+
+  .fstg-existing-strategies-page .border-l-\[6px\] {
+    transition: none;
+  }
+}
+
+@keyframes industryProjectionDraw {
+  from { opacity: 0; stroke-dashoffset: 40; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+
+@keyframes industryChartPointEnter {
+  from { opacity: 0; scale: 0; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes industryChartBarGrow {
+  from { opacity: 0.35; scale: 1 0; }
+  to { opacity: 1; scale: 1 1; }
+}
+
+.animate-industry-projection-line {
+  animation: industryProjectionDraw 1.1s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-industry-chart-point {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: industryChartPointEnter 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-industry-chart-bar {
+  transform-origin: bottom;
+  animation: industryChartBarGrow 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* ===========================================================================
+   Hero Wave Graphic Auto Rotate (About Public Skills Australia)
+   ========================================================================== */
+@keyframes heroGraphicRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-hero-rotate {
+  transform-origin: center center;
+  animation: heroGraphicRotate 4.5s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
+}
+
+/* ==========================================================================
+   Executive Summary Sequential Flow Animation (Smooth & Calm)
+   ========================================================================== */
+@keyframes flowItemSmoothFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.86) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes flowSeparatorSmoothDraw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.animate-flow-item {
+  opacity: 0;
+  animation: flowItemSmoothFade 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-flow-separator {
+  opacity: 0;
+  transform-origin: left center;
+  animation: flowSeparatorSmoothDraw 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ==========================================================================
+   Drivers of Change Hero Graphic Spin & Settle Entrance (Slow & Silky Smooth)
+   ========================================================================== */
+@keyframes driversPopSettle {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes driversSmoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-drivers-pop-settle {
+  animation: driversPopSettle 5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.animate-drivers-spin {
+  transform-origin: center center;
+  animation: driversSmoothSpin 5s cubic-bezier(0.35, 0, 0.2, 1) both;
+}
+
+/* Cross-sector hero SVG cluster entrance */
+@keyframes crossSectorIconEntrance {
+  0% {
+    opacity: 0;
+    translate: 0 14px;
+    scale: 0.72;
+    rotate: -8deg;
+  }
+  65% {
+    opacity: 1;
+    translate: 0 -3px;
+    scale: 1.06;
+    rotate: 2deg;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    rotate: 0deg;
+  }
+}
+
+@keyframes crossSectorLineDraw {
+  0% {
+    opacity: 0;
+    scale: 0 1;
+  }
+  100% {
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+.animate-cross-sector-icon {
+  opacity: 0;
+  animation: crossSectorIconEntrance 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-cross-sector-line {
+  opacity: 0;
+  animation: crossSectorLineDraw 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Core skill radar SVG sequence */
+@keyframes radarGridDraw {
+  from { opacity: 0; stroke-dasharray: 900; stroke-dashoffset: 900; }
+  to { opacity: .65; stroke-dasharray: 900; stroke-dashoffset: 0; }
+}
+
+@keyframes radarShapeDraw {
+  0% { fill-opacity: 0; stroke-dasharray: 1100; stroke-dashoffset: 1100; }
+  70% { fill-opacity: .05; stroke-dashoffset: 0; }
+  100% { fill-opacity: .14; stroke-dashoffset: 0; }
+}
+
+@keyframes radarPointPop {
+  0% { opacity: 0; scale: 0; }
+  70% { opacity: 1; scale: 1.35; }
+  100% { opacity: 1; scale: 1; }
+}
+
+@keyframes radarCentreSettle {
+  0% { opacity: 0; scale: .65; }
+  70% { opacity: 1; scale: 1.12; }
+  100% { opacity: 1; scale: 1; }
+}
+
+.animate-radar-grid { animation: radarGridDraw 1.3s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-radar-shape { animation: radarShapeDraw 1.5s .55s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-radar-point { opacity: 0; transform-box: fill-box; transform-origin: center; animation: radarPointPop .55s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-radar-centre { animation: radarCentreSettle .8s 1.4s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes radarLabelEnter {
+  0% { opacity: 0; translate: 0 8px; scale: .92; }
+  70% { opacity: 1; translate: 0 -1px; scale: 1.03; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.animate-radar-label { opacity: 0; animation: radarLabelEnter .65s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+@keyframes group92RouteDraw {
+  from { opacity: 0; stroke-dashoffset: 80; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+
+@keyframes group92NodeEnter {
+  0% { opacity: 0; translate: 0 10px; scale: .72; }
+  70% { opacity: 1; translate: 0 -2px; scale: 1.06; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.animate-group92-route { animation: group92RouteDraw 1.5s .15s ease-out both; }
+.animate-group92-node { opacity: 0; transform-box: fill-box; transform-origin: center; animation: group92NodeEnter .7s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+/* Specialist skill alignment diagram sequence */
+@keyframes alignmentItemEnter {
+  0% { opacity: 0; translate: 0 12px; scale: .82; }
+  70% { opacity: 1; translate: 0 -2px; scale: 1.04; }
+  100% { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes alignmentLineX { from { opacity: 0; scale: 0 1; } to { opacity: 1; scale: 1 1; } }
+@keyframes alignmentLineY { from { opacity: 0; scale: 1 0; } to { opacity: 1; scale: 1 1; } }
+@keyframes alignmentCentreSettle {
+  0% { opacity: 0; scale: .7; }
+  70% { opacity: 1; scale: 1.12; }
+  100% { opacity: 1; scale: 1; }
+}
+
+.animate-alignment-item { opacity: 0; animation: alignmentItemEnter .9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-line-x { opacity: 0; animation: alignmentLineX .8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-line-y { opacity: 0; animation: alignmentLineY .8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-alignment-centre { animation: alignmentCentreSettle .8s .8s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes alignmentFrameDraw {
+  from { opacity: 0; stroke-dashoffset: 120; }
+  to { opacity: .95; stroke-dashoffset: 0; }
+}
+
+@keyframes alignmentCrossDraw {
+  from { opacity: 0; stroke-dasharray: 720; stroke-dashoffset: 720; }
+  to { opacity: .95; stroke-dasharray: 720; stroke-dashoffset: 0; }
+}
+
+.animate-alignment-frame { animation: alignmentFrameDraw 1.1s .35s ease-out both; }
+.animate-alignment-cross { animation: alignmentCrossDraw 1s .55s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+/* Defence overview charts */
+@keyframes defenceBarGrow {
+  0% { opacity: 0; scale: 1 0; }
+  100% { opacity: 1; scale: 1 1; }
+}
+
+.animate-defence-bar {
+  opacity: 0;
+  animation: defenceBarGrow .9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Defence profile chart drawing */
+@keyframes profileLineDraw {
+  from { opacity: 0; stroke-dasharray: 900; stroke-dashoffset: 900; }
+  to { opacity: 1; stroke-dasharray: 900; stroke-dashoffset: 0; }
+}
+
+@keyframes profileBarExpand {
+  from { opacity: 0; scale: 0 1; }
+  to { opacity: 1; scale: 1 1; }
+}
+
+.animate-profile-grid-line { animation: profileLineDraw .65s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-chart-line { animation: profileLineDraw 1s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-map-line { animation: profileLineDraw 1.1s cubic-bezier(0.25, 1, 0.5, 1) both; }
+.animate-profile-bar { animation: profileBarExpand .8s cubic-bezier(0.25, 1, 0.5, 1) both; }
+
+@keyframes profileOperationBoxReveal {
+  from { opacity: 0; transform: scaleX(0.08); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes profileOperationTextReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-operation-pending { opacity: 0; }
+.animate-profile-operation-box {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: profileOperationBoxReveal .65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-profile-operation-text {
+  animation: profileOperationTextReveal .55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-operation-pending,
+  .animate-profile-operation-box,
+  .animate-profile-operation-text,
+  .animate-industry-projection-line,
+  .animate-industry-chart-point,
+  .animate-industry-chart-bar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Industry Overview Hero Graphic Entrance (Natural Flow: Zoom & Expand -> Settle)
+   ========================================================================== */
+@keyframes heroNaturalZoomFlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.68);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.35, 1);
+  }
+  52% {
+    opacity: 1;
+    transform: scale(1.15);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-hero-pulse-settle {
+  transform-origin: center center;
+  animation: heroNaturalZoomFlow 2.1s both;
+}
+
+
+
+/* ==========================================================================
+   Button Hover Sweep Effects (Left to Right)
+   ========================================================================== */
+
+/* 1. LG-DARK BUTTONS: Base bg #046d2a -> Hover bg #598303 (notes) sweeping from left to right */
+button.bg-lg-dark,
+button.bg-\[\#046D2A\],
+button.bg-\[\#046d2a\],
+a.bg-lg-dark,
+a.bg-\[\#046D2A\],
+a.bg-\[\#046d2a\],
+.btn-sweep-lg-dark {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  color: #ffffff !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-lg-dark::before,
+button.bg-\[\#046D2A\]::before,
+button.bg-\[\#046d2a\]::before,
+a.bg-lg-dark::before,
+a.bg-\[\#046D2A\]::before,
+a.bg-\[\#046d2a\]::before,
+.btn-sweep-lg-dark::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-lg-dark:hover::before,
+button.bg-\[\#046D2A\]:hover::before,
+button.bg-\[\#046d2a\]:hover::before,
+a.bg-lg-dark:hover::before,
+a.bg-\[\#046D2A\]:hover::before,
+a.bg-\[\#046d2a\]:hover::before,
+.btn-sweep-lg-dark:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-lg-dark:hover,
+button.bg-\[\#046D2A\]:hover,
+button.bg-\[\#046d2a\]:hover,
+a.bg-lg-dark:hover,
+a.bg-\[\#046D2A\]:hover,
+a.bg-\[\#046d2a\]:hover,
+.btn-sweep-lg-dark:hover {
+  background-color: var(--color-lg-dark, #046d2a) !important;
+}
+
+/* 2. NOTES BUTTONS: Base bg #598303 -> Hover bg #046d2a (lg-dark) sweeping from left to right */
+button.bg-notes,
+button.bg-\[\#598303\],
+a.bg-notes,
+a.bg-\[\#598303\],
+.btn-sweep-notes {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-notes, #598303) !important;
+  color: #ffffff !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-notes::before,
+button.bg-\[\#598303\]::before,
+a.bg-notes::before,
+a.bg-\[\#598303\]::before,
+.btn-sweep-notes::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-notes:hover::before,
+button.bg-\[\#598303\]:hover::before,
+a.bg-notes:hover::before,
+a.bg-\[\#598303\]:hover::before,
+.btn-sweep-notes:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-notes:hover,
+button.bg-\[\#598303\]:hover,
+a.bg-notes:hover,
+a.bg-\[\#598303\]:hover,
+.btn-sweep-notes:hover {
+  background-color: var(--color-notes, #598303) !important;
+}
+
+/* 3. LG-LIGHT BUTTONS: Base bg #8ac900 -> Hover bg #046d2a (lg-dark) sweeping from left to right */
+button.bg-lg-light,
+button.bg-\[\#8AC900\],
+button.bg-\[\#8ac900\],
+button.bg-\[\#85B810\],
+button.bg-\[\#85b810\],
+a.bg-lg-light,
+a.bg-\[\#8AC900\],
+a.bg-\[\#8ac900\],
+a.bg-\[\#85B810\],
+a.bg-\[\#85b810\],
+.btn-sweep-lg-light {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: var(--color-lg-light, #8ac900) !important;
+  color: #1c250e !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-lg-light::before,
+button.bg-\[\#8AC900\]::before,
+button.bg-\[\#8ac900\]::before,
+button.bg-\[\#85B810\]::before,
+button.bg-\[\#85b810\]::before,
+a.bg-lg-light::before,
+a.bg-\[\#8AC900\]::before,
+a.bg-\[\#8ac900\]::before,
+a.bg-\[\#85B810\]::before,
+a.bg-\[\#85b810\]::before,
+.btn-sweep-lg-light::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-lg-dark, #046d2a) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-lg-light:hover::before,
+button.bg-\[\#8AC900\]:hover::before,
+button.bg-\[\#8ac900\]:hover::before,
+button.bg-\[\#85B810\]:hover::before,
+button.bg-\[\#85b810\]:hover::before,
+a.bg-lg-light:hover::before,
+a.bg-\[\#8AC900\]:hover::before,
+a.bg-\[\#8ac900\]:hover::before,
+a.bg-\[\#85B810\]:hover::before,
+a.bg-\[\#85b810\]:hover::before,
+.btn-sweep-lg-light:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-lg-light:hover,
+button.bg-\[\#8AC900\]:hover,
+button.bg-\[\#8ac900\]:hover,
+button.bg-\[\#85B810\]:hover,
+button.bg-\[\#85b810\]:hover,
+a.bg-lg-light:hover,
+a.bg-\[\#8AC900\]:hover,
+a.bg-\[\#8ac900\]:hover,
+a.bg-\[\#85B810\]:hover,
+a.bg-\[\#85b810\]:hover,
+.btn-sweep-lg-light:hover {
+  background-color: var(--color-lg-light, #8ac900) !important;
+  color: #ffffff !important;
+}
+
+button.bg-lg-light:hover *,
+button.bg-\[\#8AC900\]:hover *,
+button.bg-\[\#8ac900\]:hover *,
+button.bg-\[\#85B810\]:hover *,
+button.bg-\[\#85b810\]:hover *,
+a.bg-lg-light:hover *,
+a.bg-\[\#8AC900\]:hover *,
+a.bg-\[\#8ac900\]:hover *,
+a.bg-\[\#85B810\]:hover *,
+a.bg-\[\#85b810\]:hover *,
+.btn-sweep-lg-light:hover * {
+  color: #ffffff !important;
+  transition: color 0.4s ease 200ms;
+}
+
+/* 4. BACK / LIGHT NAVIGATION BUTTONS: Base bg #FAFAF0 -> Hover bg #598303 (notes) sweeping from left to right */
+button.bg-\[\#FAFAF0\],
+button.bg-\[\#fafaf0\],
+a.bg-\[\#FAFAF0\],
+a.bg-\[\#fafaf0\],
+.btn-sweep-back,
+.btn-nav-back {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: #fafaf0 !important;
+  color: var(--color-notes, #598303) !important;
+  border-color: #b2db79 !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+button.bg-\[\#FAFAF0\]::before,
+button.bg-\[\#fafaf0\]::before,
+a.bg-\[\#FAFAF0\]::before,
+a.bg-\[\#fafaf0\]::before,
+.btn-sweep-back::before,
+.btn-nav-back::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover::before,
+button.bg-\[\#fafaf0\]:hover::before,
+a.bg-\[\#FAFAF0\]:hover::before,
+a.bg-\[\#fafaf0\]:hover::before,
+.btn-sweep-back:hover::before,
+.btn-nav-back:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover,
+button.bg-\[\#fafaf0\]:hover,
+a.bg-\[\#FAFAF0\]:hover,
+a.bg-\[\#fafaf0\]:hover,
+.btn-sweep-back:hover,
+.btn-nav-back:hover {
+  background-color: #fafaf0 !important;
+  border-color: var(--color-notes, #598303) !important;
+  color: #ffffff !important;
+}
+
+button.bg-\[\#FAFAF0\]:hover *,
+button.bg-\[\#fafaf0\]:hover *,
+a.bg-\[\#FAFAF0\]:hover *,
+a.bg-\[\#fafaf0\]:hover *,
+.btn-sweep-back:hover *,
+.btn-nav-back:hover * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition:
+    color 0.4s ease 200ms,
+    stroke 0.4s ease 200ms;
+}
+
+/* 5. WHITE BUTTONS: Base bg #ffffff -> Hover bg #598303 (notes) sweeping from left to right */
+.btn-sweep-white-notes {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  background-color: #ffffff !important;
+  color: #252b37 !important;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
+}
+
+.btn-sweep-white-notes::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--color-notes, #598303) !important;
+  border-radius: inherit !important;
+  transform: translateX(-105%) !important; /* starts from left */
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+.btn-sweep-white-notes:hover::before {
+  transform: translateX(0) !important; /* sweeps into view from left to right */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 200ms !important;
+}
+
+.btn-sweep-white-notes:hover {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.btn-sweep-white-notes:hover *,
+.btn-sweep-white-notes:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transition:
+    color 0.4s ease 200ms,
+    stroke 0.4s ease 200ms;
+}
+
+/* Ensure direct children of sweeping buttons stay on top of the pseudo-element */
+button.bg-lg-dark > *,
+button.bg-\[\#046D2A\] > *,
+button.bg-\[\#046d2a\] > *,
+a.bg-lg-dark > *,
+a.bg-\[\#046D2A\] > *,
+a.bg-\[\#046d2a\] > *,
+button.bg-notes > *,
+button.bg-\[\#598303\] > *,
+a.bg-notes > *,
+a.bg-\[\#598303\] > *,
+button.bg-lg-light > *,
+button.bg-\[\#8AC900\] > *,
+button.bg-\[\#8ac900\] > *,
+button.bg-\[\#85B810\] > *,
+button.bg-\[\#85b810\] > *,
+a.bg-lg-light > *,
+a.bg-\[\#8AC900\] > *,
+a.bg-\[\#8ac900\] > *,
+a.bg-\[\#85B810\] > *,
+a.bg-\[\#85b810\] > *,
+button.bg-\[\#FAFAF0\] > *,
+button.bg-\[\#fafaf0\] > *,
+a.bg-\[\#FAFAF0\] > *,
+a.bg-\[\#fafaf0\] > *,
+.btn-sweep-lg-dark > *,
+.btn-sweep-notes > *,
+.btn-sweep-lg-light > *,
+.btn-sweep-back > *,
+.btn-nav-back > *,
+.btn-sweep-white-notes > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-fes-overview .animate-slide-up,
+  .ps-fes-overview .animate-slide-up-delay,
+  .ps-fes-overview .animate-zoom-in,
+  .ps-fes-overview .animate-card-entrance,
+  .ps-fes-overview .animate-content-switch,
+  .ps-fes-overview .animate-industry-projection-line,
+  .ps-fes-overview .animate-industry-chart-point,
+  .ps-fes-overview .animate-industry-chart-bar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ps-fes-overview .opacity-0 {
+    opacity: 1;
+  }
+}
+
+/* Public Safety citations use a common text treatment across report pages. */
+[data-public-safety-report] :is([data-source-caption], [data-report-sources] :is(h2, li, li > :last-child:not(:first-child), a)) {
+  color: #000;
+}
+
+[data-public-safety-report] :is([data-source-caption]:not(text), [data-report-sources] li) {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+[data-public-safety-report] text[data-source-caption] {
+  fill: #000;
+}

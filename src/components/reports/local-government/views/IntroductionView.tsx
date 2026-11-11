@@ -1,0 +1,401 @@
+"use client";
+
+import React from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import ReportHeader from "@/components/layout/ReportHeader";
+import ReportFooter from "@/components/layout/ReportFooter";
+import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { ArrowRight, Download } from "lucide-react";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
+
+interface Report {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  pdfFileUrl?: string;
+  psaSectorPageUrl?: string;
+  contactUrl?: string;
+  year?: {
+    label: string;
+  };
+}
+
+interface ReportSection {
+  title: string;
+  icon: string;
+  subtitle?: string;
+  description: string;
+  tags?: string[];
+  path: string;
+}
+
+const reportSections: ReportSection[] = [
+  {
+    title: "Executive Summary",
+    icon: "/images/reports/introduction/Executive.svg",
+    description:
+      "An executive overview of the workforce insights and strategies.",
+    path: "executive_summary",
+  },
+  {
+    title: "Drivers of Change",
+    icon: "/images/reports/introduction/Drivers.svg",
+    description:
+      "Identifies four key drivers of change that will impact Public Safety and Government industry-sectors in the short to medium term. Provides a recap of the nine megatrends identified in previous Workforce Insights Reports that remain relevant to long term workforce trends.",
+    tags: ["Drivers of Change", "Nine Megatrends"],
+    path: "drivers_of_change",
+  },
+  {
+    title: "Industry Overview",
+    icon: "/images/reports/introduction/Overview.svg",
+    description:
+      "Examines the Local Government workforce, providing data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.",
+    tags: [
+      "Industry-Sector Overview",
+      "State and Territory Profile",
+      "Industry Profile",
+    ],
+    path: "industry_overview",
+  },
+  {
+    title: "Workforce Insights",
+    icon: "/images/reports/introduction/Insights.svg",
+    description:
+      "Examines the Local Government workforce, providing data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.",
+    tags: ["Industry-Sector Analysis"],
+    path: "workforce_insights",
+  },
+  {
+    title: "Workforce Strategies",
+    icon: "/images/reports/introduction/Strategies.svg",
+    description:
+      "Outlines the 2026 Workforce Strategies proposed through this Report. Details current strategic work being undertaken within the industry-sector and how this informs Public Skills Australia’s work. Details Federal Government initiatives containing critical recommendations, strategic directions and national objectives that informs the planning and delivery of Public Skills Australia’s projects.",
+    tags: [
+      "Proposed Strategies Summary",
+      "Update on 2025 Strategies",
+      "Existing Industry-Sector Strategies",
+      "Federal Government Initiatives",
+    ],
+    path: "workforce_strategies",
+  },
+  {
+    title: "Looking Forward",
+    icon: "/images/reports/introduction/Summary.svg",
+    description:
+      "Concludes the Report by outlining key lines of inquiry that will support the shaping of the 2027 Local Government Workforce Insights Report.",
+    tags: ["Looking Forward to 2027"],
+    path: "looking_forward",
+  },
+];
+
+export default function IntroductionView({
+  slug,
+  report,
+}: {
+  slug: string;
+  report: Report;
+}) {
+  const router = useRouter();
+  const structureRef = React.useRef<HTMLDivElement>(null);
+  const [isStructureVisible, setIsStructureVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsStructureVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (structureRef.current) {
+      observer.observe(structureRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+      {/* ── TOP HEADER NAVBAR ── */}
+      <ReportHeader slug={slug} report={report} currentPage="introduction" />
+
+      {/* ── MAIN CONTENT CONTAINER ── */}
+      <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
+        <ReportNavButtons slug={slug} currentPage="introduction" />
+
+        {/* Top Hero Section */}
+        <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-[100px]">
+          <div className="flex-1 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="animate-slide-up space-y-2">
+                <span className="text-xs font-semibold text-notes uppercase block">
+                  INTRODUCTION
+                </span>
+                <h1 className="text-3xl font-bold leading-tight text-gray800 sm:text-4xl">
+                  2026 Local Government Workforce Insights Report
+                </h1>
+              </div>
+              <div className="space-y-3 animate-slide-up-delay">
+                <p className="text-sm text-gray600 leading-relaxed font-normal">
+                  The 2026 Local Government Workforce Insights Report (the Report) is the fourth report generated by Public Skills Australia for the Local Government industry-sector since 2023. It builds on the previous iterations to identify workforce challenges and proposes strategic initiatives to mitigate them. This Report represents the insights, commitment and efforts of the Local Government industry-sector, shared with Public Skills Australia.
+                </p>
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                  Public Skills Australia&rsquo;s Workforce Insights Reports are developed using a combination of qualitative and quantitative data obtained from primary and secondary sources and supported by stakeholder consultations.
+                </p>
+                <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal">
+                  Choose to download the PDF report or read on to our interactive digital version.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={() => router.push(`/reports/${slug}/downloads`)}
+                className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>Download {report?.year?.label || "2026"} PDF</span>
+                <Download className="h-3.5 w-3.5" />
+              </button>
+              <Link
+                href="/reports/local-government-workforce-insights-report-2025/downloads"
+                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
+              >
+                Previous Report
+              </Link>
+              {report.psaSectorPageUrl ? (
+                <a
+                  href={report.psaSectorPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-gray200 bg-white hover:bg-gray-50 text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer no-underline"
+                >
+                  PSA Website
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="border border-gray200 bg-white text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full"
+                >
+                  PSA Website
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Right Panel: "THIS REPORT AT A GLANCE" */}
+          <div className="w-full lg:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+            <div>
+              <span className="text-xs font-semibold text-notes uppercase mb-4 block">
+                THIS REPORT AT A GLANCE
+              </span>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex items-start justify-between gap-4 transition-all duration-300 hover:shadow-xs">
+                  <div className="flex flex-col items-start">
+                    <span className="text-2xl font-bold text-[#8AC900]">
+                      <AnimatedCounter target={4} />
+                    </span>
+                    <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                      Drivers of<br />Change
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-2xl font-bold text-[#8AC900]">
+                      <AnimatedCounter target={9} />
+                    </span>
+                    <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                      Megatrends
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex flex-col items-start justify-start transition-all duration-300 hover:shadow-xs">
+                  <span className="text-2xl font-bold text-[#8AC900]">
+                    <AnimatedCounter target={218000} formatNumber={true} />
+                  </span>
+                  <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                    Workforce<br />Employees
+                  </span>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex items-start justify-between gap-4 transition-all duration-300 hover:shadow-xs">
+                  <div className="flex flex-col items-start">
+                    <span className="text-2xl font-bold text-[#8AC900]">
+                      <AnimatedCounter target={2} />
+                    </span>
+                    <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                      Workforce<br />Themes
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-2xl font-bold text-[#8AC900]">
+                      <AnimatedCounter target={7} />
+                    </span>
+                    <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                      Workforce<br />Insights
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex flex-col items-start justify-start transition-all duration-300 hover:shadow-xs">
+                  <span className="text-2xl font-bold text-[#8AC900]">
+                    <AnimatedCounter target={2} />
+                  </span>
+                  <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
+                    Proposed 2026<br />Strategies
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── STRUCTURED SECTION ── */}
+        <div ref={structureRef} id="structure" className="space-y-6">
+          <h2
+            className={`text-xl sm:text-2xl font-bold text-gray800 border-b border-gray200 pb-3 ${
+              isStructureVisible ? "animate-slide-up" : "opacity-0"
+            }`}
+          >
+            The 2026 Digital Report Structure
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {reportSections.map((section, index) => {
+              return (
+                <div
+                  key={index}
+                  style={
+                    isStructureVisible
+                      ? { animationDelay: `${index * 0.12 + 0.1}s` }
+                      : undefined
+                  }
+                  onClick={() =>
+                    router.push(`/reports/${slug}/${section.path}`)
+                  }
+                  className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 flex flex-col justify-between space-y-6 cursor-pointer transition-all duration-200 hover:border-2 hover:border-[#728C28] ${
+                    isStructureVisible
+                      ? "animate-card-entrance"
+                      : "opacity-0 translate-y-6"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-5">
+                    {/* Left Column: All text content & tags */}
+                    <div className="flex-1 space-y-3">
+                      <h3 className="text-xl font-bold text-gray800 leading-snug mt-1">
+                        {section.title}
+                      </h3>
+                      {section.subtitle && (
+                        <p className="text-xs font-medium text-notes leading-relaxed">
+                          {section.subtitle}
+                        </p>
+                      )}
+                      <p className="text-xs text-gray600 leading-relaxed">
+                        {section.description}
+                      </p>
+                      {section.tags && section.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pt-2">
+                          {section.tags.map((tag, tagIndex) => (
+                            <span
+                              key={tagIndex}
+                              className="bg-[#F0F5DF] text-notes text-[10px] font-bold px-3 py-1 rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Column: Icon */}
+                    <div className="shrink-0 pt-0.5">
+                      <img
+                        src={section.icon}
+                        alt={section.title}
+                        className="w-14 h-14 object-contain"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Bottom: Explore Button */}
+                  <div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/reports/${slug}/${section.path}`);
+                      }}
+                      className="bg-lg-light text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer"
+                    >
+                      Explore <ArrowRight className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── TWO FEATURE BANNERS ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src="/images/reports/introduction/About.svg"
+                alt="About Public Skills Australia"
+                className="w-12 h-12 shrink-0 object-contain"
+              />
+              <div className="flex flex-col gap-2">
+                <h4 className="font-bold text-sm text-gray800">
+                  About Public Skills Australia
+                </h4>
+                <p className="text-xs text-gray600">
+                  Who we are and how we support the sector.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => router.push(`/reports/${slug}/about`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+            >
+              View <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src="/images/reports/introduction/Methodology.svg"
+                alt="Methodology"
+                className="w-12 h-12 shrink-0 object-contain"
+              />
+              <div className="flex flex-col gap-2">
+                <h4 className="font-bold text-sm text-gray800">Methodology</h4>
+                <p className="text-xs text-gray600">
+                  How the insights and strategies were developed.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => router.push(`/reports/${slug}/methodology`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+            >
+              View <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* ── FOOTER ── */}
+      <ReportFooter contactUrl={report.contactUrl} />
+    </div>
+  );
+}
