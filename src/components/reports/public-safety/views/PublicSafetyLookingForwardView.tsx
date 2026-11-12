@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Download } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -61,10 +62,23 @@ export default function PublicSafetyLookingForwardView({ slug, report }: { slug:
       />
     </section>
 
-    <section ref={prioritiesRef} className={`text-sm leading-6 text-[#252D02] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:animate-none ${prioritiesVisible ? "animate-slide-up" : "translate-y-5 opacity-0"}`}>
+    <section ref={prioritiesRef} className={`border-x border-transparent px-6 text-sm leading-6 text-[#252D02] motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:animate-none ${prioritiesVisible ? "animate-slide-up" : "translate-y-5 opacity-0"}`}>
       <p>The 2027 Workforce Insights Reports will firstly focus on broader priorities detailed below and may be delivered throughout 2026/27:</p>
-      <ul className="list-disc pl-5">{priorities.map((priority) => <li key={priority}>{priority}</li>)}</ul>
-      <p className="mt-6">Additionally, the 2027 Workforce Insights Reports will focus on any other emerging priorities impacting Public Safety industry-sectors including:</p>
+      <div className="mt-6 grid items-stretch gap-6 lg:grid-cols-3">
+        {[
+          { label: "Line of Inquiry 1", icon: "inquiry-1.svg", text: priorities[0], colour: "#9CAA54" },
+          { label: "Line of Inquiry 2", icon: "inquiry-2.svg", text: priorities[1], colour: "#9CAA54" },
+          { label: "Continuing", icon: "inquiry-continuing.svg", text: "Additionally, the 2027 Workforce Insights Reports will focus on any other emerging priorities impacting Public Safety industry-sectors including:", colour: "#046D2A" },
+        ].map((priority) => (
+          <article key={priority.label} style={{ borderTopColor: priority.colour }} className="rounded-2xl border border-[#E9EAEB] border-t-[12px] bg-white p-6 transition-shadow duration-200 hover:shadow-md">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E5E8DA]">
+              <Image src={`/images/${priority.icon}`} width={24} height={24} alt="" />
+            </span>
+            <p className="mt-4 text-xs font-semibold uppercase text-black">{priority.label}</p>
+            <h2 className="mt-4 text-lg font-bold leading-snug text-black">{priority.text}</h2>
+          </article>
+        ))}
+      </div>
     </section>
 
     <section ref={focusRef} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -75,5 +89,12 @@ export default function PublicSafetyLookingForwardView({ slug, report }: { slug:
         <Link href={`/reports/${slug}/${area.path}`} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-sm font-semibold text-[#252D02] hover:bg-[#78AF00] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#598303]">Explore {area.label} <span aria-hidden="true">→</span></Link>
       </article>)}
     </section>
+    <div className="flex flex-wrap items-center justify-center gap-4 pt-2 sm:justify-start">
+      <Link href={`/reports/${slug}/downloads?${new URLSearchParams({ from: `/reports/${slug}/looking_forward` })}`} className="inline-flex items-center gap-2 rounded-full bg-[#046D2A] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#035822]">
+        Download {report.year?.label || "2026"} PDF <Download size={16} aria-hidden="true" />
+      </Link>
+      <Link href={`/reports/${slug}/executive_summary`} className="inline-flex items-center rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-6 py-3 text-sm font-bold text-[#598303] transition-colors hover:bg-[#E9EAEB]">Revisit the Executive Summary</Link>
+      <a href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full border border-[#E9EAEB] px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-[#E9EAEB]">Contact Public Skills Australia</a>
+    </div>
   </PublicSafetyPageShell>;
 }

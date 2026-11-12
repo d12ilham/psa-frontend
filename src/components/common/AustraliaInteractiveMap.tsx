@@ -472,8 +472,8 @@ export default function AustraliaInteractiveMap({
             );
           })}
           {isNational && showActLabel && <g role="button" tabIndex={0} aria-label="Select Australian Capital Territory" aria-pressed={highlightedState === "ACT"} className="cursor-pointer" onClick={() => onSelectState("ACT")} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelectState("ACT"); } }}>
-            <path d="M616.8 484.9L651 506" stroke="#D95222" strokeWidth={1.5} fill="none" />
-            <rect x={651} y={490} width={50} height={32} rx={16} fill="#D95222" stroke="#E5E7EB" strokeWidth={1.2} />
+            <path d="M616.8 484.9L651 506" stroke={variant === "police" ? "#0D71A3" : "#D95222"} strokeWidth={1.5} fill="none" />
+            <rect x={651} y={490} width={50} height={32} rx={16} fill={variant === "police" ? "#0D71A3" : "#D95222"} stroke="#E5E7EB" strokeWidth={1.2} />
             <text x={676} y={506} textAnchor="middle" dominantBaseline="central" fill="white" fontSize={14} fontWeight={700} fontFamily="inherit">ACT</text>
           </g>}
         </g>

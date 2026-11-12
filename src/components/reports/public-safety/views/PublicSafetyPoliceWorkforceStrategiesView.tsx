@@ -2,7 +2,6 @@ import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 import chapter from "./PublicSafetyDefenceView.module.css";
 import layout from "./PublicSafetyDefenceWorkforceStrategiesView.module.css";
-import police from "./PublicSafetyPoliceView.module.css";
 import styles from "./PublicSafetyPoliceWorkforceStrategiesView.module.css";
 
 const stakeholders = ["ANZPAA", "National Institute of Forensic Science (NIFS)", "State/Territory Police organisations and Australian Federal Police", "Forensic Services South Australia", "ACT Government Analytical Laboratory", "Canberra Institute of Technology"];
@@ -21,8 +20,9 @@ export default function PublicSafetyPoliceWorkforceStrategiesView({ slug, report
         <h1>Proposed Strategy 2026</h1>
         <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support the Police industry-sector:</p>
       </div>
-      <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+      <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
+        <Image src="/images/reports/public-safety/police-forensics-hero.png" alt="" width={104} height={104} unoptimized priority />
+        <Image src="/images/reports/public-safety/police-strategy-certificate.svg" alt="" width={104} height={104} unoptimized priority />
       </div>
     </section>
 

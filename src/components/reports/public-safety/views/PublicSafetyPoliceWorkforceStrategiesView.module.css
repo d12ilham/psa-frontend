@@ -7,6 +7,9 @@
   background: var(--police-blue);
 }
 
+.heroArtwork.heroArtwork { display: flex; align-items: center; justify-content: center; gap: 24px; flex: none; width: 256px; max-width: 100%; height: 128px; }
+.heroArtwork.heroArtwork img { width: 104px; height: 104px; max-width: 100%; object-fit: contain; }
+
 .page .strategy {
   padding-top: 20px;
   border-top-color: var(--police-blue);

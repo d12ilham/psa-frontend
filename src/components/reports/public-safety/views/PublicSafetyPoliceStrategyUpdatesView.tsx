@@ -9,7 +9,6 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 
 import chapter from "./PublicSafetyDefenceView.module.css";
 import layout from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
-import police from "./PublicSafetyPoliceView.module.css";
 import styles from "./PublicSafetyPoliceStrategyUpdatesView.module.css";
 
 const projects = [
@@ -78,8 +77,8 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
         <h1>2025 Public Safety Workforce Insights Report – Police Strategies Updates</h1>
         <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
-      <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" width={136} height={136} alt="" unoptimized priority />
+      <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
+        <Image src="/images/reports/public-safety/police-strategy-updates-hero.svg" width={487} height={104} alt="" unoptimized priority />
       </div>
     </section>
 
@@ -131,7 +130,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
           </div>
           <div className={layout.groups}>
-            <h4 className={styles.informs}>How this informs Public Skills Australia’s work</h4>
+            <h4 className={styles.informs}>Connection to 2026 Strategies</h4>
             {[
               ["Ministerial Priority 2026", project.priority],
               ["Strategic Plan Priorities 2026", project.strategic],

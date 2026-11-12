@@ -10,6 +10,12 @@
   box-shadow: inset 0 0 0 1px #e9eaeb;
 }
 
+.topicHero { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.topicHero h1 { margin-top: 16px; font-size: 40px; font-weight: 700; line-height: 54px; }
+.topicBadge { width: fit-content; padding: 4px 12px; border-radius: 999px; background: var(--police-blue); color: white; font-size: 12px; font-weight: 600; line-height: 18px; }
+.banner.insightCallout { grid-template-columns: 34px minmax(0, 1fr); }
+.bannerCopy .insightStatement { max-width: 800px; margin: 0; color: inherit; font-size: 24px; font-weight: 700; line-height: 32px; }
+
 .banner {
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr) 160px;
@@ -95,6 +101,9 @@
   line-height: 24px;
 }
 
+.trainingNarrative { display: grid; grid-template-columns: minmax(0, 800px) 96px; align-items: start; gap: 32px; }
+.trainingGraphic { display: grid; place-items: center; width: 96px; height: 96px; margin-top: 24px; border-radius: 50%; background: #e7f1f6; color: var(--police-blue); }
+
 .trainingInsight {
   margin-top: 24px;
   padding: 24px 20px;
@@ -126,6 +135,9 @@
   color: var(--police-blue);
 }
 
+.demandHeading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.demandGraphic { display: grid; place-items: center; flex: none; width: 64px; height: 64px; border-radius: 50%; background: #e7f1f6; color: var(--police-blue); }
+
 .columns .panel > :is(p, ul) {
   color: #252d02;
 }
@@ -136,6 +148,20 @@
 
 .columns li + li {
   margin-top: 0;
+}
+
+.columns ul.domainList {
+  display: grid;
+  gap: 12px;
+  padding-left: 0;
+}
+
+.domainList > li {
+  padding: 16px;
+  border: 1px solid #b6d6e4;
+  border-radius: 12px;
+  background: #e7f1f6;
+  list-style: none;
 }
 
 .columns .panel { animation-delay: 100ms; }
@@ -213,6 +239,10 @@
 }
 
 @media (max-width: 639px) {
+  .trainingNarrative { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .topicHero { flex-wrap: wrap; }
+  .topicHero h1 { font-size: 32px; line-height: 42px; }
+  .bannerCopy .insightStatement { font-size: 20px; line-height: 28px; }
   .panel, .banner { padding: 16px; }
   .banner { gap: 12px; border-left-width: 8px; }
   .headline { flex-direction: column; gap: 12px; }

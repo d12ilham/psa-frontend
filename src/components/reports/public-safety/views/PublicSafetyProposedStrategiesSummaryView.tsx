@@ -138,9 +138,9 @@ export default function PublicSafetyProposedStrategiesSummaryView({ slug, report
       <div>
         <p className="text-sm font-semibold uppercase text-[#527900]">Public Safety WIR 2026 · Cross-Sector Strategies</p>
         <h1 className="mt-5 text-[32px] font-bold leading-tight text-[#252D02] xl:text-[40px]">Public Safety Strategies Summary</h1>
-        <p className="mt-4 max-w-[680px] text-sm leading-6 text-[#252D02]">The 2026 Public Safety Workforce Insights Report proposes six strategies across the Defence, Fire and Emergency Services and Police industry-sectors. These strategies aim to build on and complement the existing strategies proposed through the 2025 Public Safety Workforce Insights Report, which have been progressed in the preceding pages.</p>
+        <p className="mt-4 max-w-[800px] text-balance text-sm leading-6 text-[#252D02]">The 2026 Public Safety Workforce Insights Report proposes six strategies across the Defence, Fire and Emergency Services and Police industry-sectors. These strategies aim to build on and complement the existing strategies proposed through the 2025 Public Safety Workforce Insights Report, which have been progressed in the preceding pages.</p>
       </div>
-      <Image src="/images/reports/public-safety/cross-sector-group-92.svg" alt="" width={364} height={277} className="h-auto w-full max-w-[364px] self-center lg:w-[30%]" />
+      <Image src="/images/reports/public-safety/strategies-summary-sector-icons.svg" alt="" width={364} height={277} className="h-auto w-full max-w-[364px] self-center lg:w-[30%]" />
     </section>
 
     <section className="grid items-start gap-4 bg-white px-4 py-8 lg:grid-cols-3">
@@ -154,7 +154,7 @@ export default function PublicSafetyProposedStrategiesSummaryView({ slug, report
     </section>
 
     <div className="flex flex-wrap justify-center gap-3">
-      {[{ label: "Open in the Defence chapter", href: "defence_workforce_strategies" }, { label: "Fire and Emergency Services", href: "fes_workforce_strategies" }, { label: "Open in Police Chapter", href: "police_workforce_strategies" }].map(item => <Link key={item.href} href={`/reports/${slug}/${item.href}`} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-3 text-sm font-semibold text-[#253100]">{item.label}<ArrowRight size={14}/></Link>)}
+      {[{ label: "Open in the Defence Chapter", href: "defence_workforce_strategies" }, { label: "Open in the Fire and Emergency Services Chapter", href: "fes_workforce_strategies" }, { label: "Open in Police Chapter", href: "police_workforce_strategies" }].map(item => <Link key={item.href} href={`/reports/${slug}/${item.href}`} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-3 text-sm font-semibold text-[#253100]">{item.label}<ArrowRight size={14}/></Link>)}
     </div>
   </PublicSafetyPageShell>;
 }

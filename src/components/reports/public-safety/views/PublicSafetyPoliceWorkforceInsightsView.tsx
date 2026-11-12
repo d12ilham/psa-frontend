@@ -51,7 +51,6 @@ export default function PublicSafetyPoliceWorkforceInsightsView({ slug, report }
         <article key={theme.title} className={`${layout.theme} ${styles.theme} animate-card-entrance`} style={{ animationDelay: `${index * 150}ms` }}>
           <p className={layout.eyebrow}>{theme.eyebrow}</p>
           <h2>{theme.title}</h2>
-          <p className={layout.industryLabel}>Industry Insights</p>
           <div className={layout.insights}>
             {theme.insights.map((insight) => (
               <button key={insight.number} type="button" className={`${layout.insight} ${styles.insight}`} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
