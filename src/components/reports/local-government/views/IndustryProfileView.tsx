@@ -210,9 +210,6 @@ export default function IndustryProfileView({
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#9CAA54] p-6 space-y-2 flex flex-col justify-between"
           >
             <div className="space-y-2">
-              <span className="text-xs text-active uppercase block">
-                Source: ABS, <a href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/public-sector-employment-and-earnings/latest-release" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Public sector employment and earnings</a>, 2025, releases 2020–2025
-              </span>
               <h3 className="font-bold text-lg text-gray800 mb-6">
                 2020–2025 Employment Growth in Local Government
               </h3>
@@ -227,8 +224,8 @@ export default function IndustryProfileView({
               />
             </div>
 
-            <p className="text-xs text-active leading-relaxed">
-              Figure 1: 2020–2025 Employment Growth in Local Government.
+            <p className="text-xs text-active leading-relaxed border-t border-gray200 pt-3">
+              Source: ABS, <a href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/public-sector-employment-and-earnings/latest-release" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Public sector employment and earnings</a>, 2025, releases 2020–2025
             </p>
           </div>
 
@@ -238,9 +235,6 @@ export default function IndustryProfileView({
             className="animate-card-entrance bg-white rounded-2xl border border-gray200 border-t-12 border-t-lg-dark p-6 space-y-6 flex flex-col justify-between"
           >
             <div className="space-y-2">
-              <span className="text-xs text-active uppercase block">
-                Source: NCVER, <a href="https://www.ncver.edu.au/research-and-statistics/data/databuilder" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Total VET students and courses 2024: DataBuilder</a> [dataset], 2024
-              </span>
               <h3 className="font-bold text-lg text-gray800 mb-6">
                 Local Government Training Package Enrolments and Completions
               </h3>
@@ -262,8 +256,8 @@ export default function IndustryProfileView({
               />
             </div>
 
-            <p className="text-xs text-active leading-relaxed">
-              Figure 2: Local Government Training Package Enrolments and Completions.
+            <p className="text-xs text-active leading-relaxed border-t border-gray200 pt-3">
+              Source: NCVER, <a href="https://www.ncver.edu.au/research-and-statistics/data/databuilder" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">Total VET students and courses 2024: DataBuilder</a> [dataset], 2024
             </p>
           </div>
         </div>
@@ -271,9 +265,6 @@ export default function IndustryProfileView({
         {/* ── SECTION 3: ASSET MANAGEMENT CONTAINER ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
           <div className="space-y-2.5">
-            <span className="text-xs text-active block">
-              Source: ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/ALGA-National-State-of-the-Assets-Report-2024-final.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2024 National State of the Assets Report</a>, 2024, pg. 5 &amp; 8
-            </span>
             <h3 className="font-bold text-xl text-gray800">Asset Management</h3>
           </div>
 
@@ -288,11 +279,14 @@ export default function IndustryProfileView({
                 className="w-14 h-14 shrink-0 object-contain"
               />
               <div className="space-y-2">
+                <p className="text-xs font-semibold text-gray600 leading-tight">
+                  Local Government roads make up
+                </p>
                 <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
                   <AnimatedCounter target={77} suffix="%" />
                 </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
-                  of the national road network by length
+                  of the national road network (by length)
                 </p>
               </div>
             </div>
@@ -307,19 +301,18 @@ export default function IndustryProfileView({
                 className="w-14 h-14 shrink-0 object-contain"
               />
               <div className="space-y-2">
-                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
-                  <AnimatedCounter target={643} prefix="$" suffix="bn" />
-                </span>
                 <p className="text-xs font-semibold text-gray600 leading-tight">
-                  estimated value of public assets managed
+                  Public assets managed by Local Government are valued at an estimated
                 </p>
+                <span className="text-2xl sm:text-3xl font-semibold text-lg-dark block leading-none">
+                  <AnimatedCounter target={643} prefix="$" suffix=" billion" />
+                </span>
               </div>
             </div>
           </div>
 
-          <p className="text-xs text-active leading-relaxed">
-            Figure 3: Asset Management — roads, airports, facilities and other
-            assets managed by local councils.
+          <p className="text-xs text-active leading-relaxed border-t border-gray200 pt-3">
+            Source: ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/ALGA-National-State-of-the-Assets-Report-2024-final.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active">2024 National State of the Assets Report</a>, 2024, pg. 5 &amp; 8
           </p>
         </div>
       </main>

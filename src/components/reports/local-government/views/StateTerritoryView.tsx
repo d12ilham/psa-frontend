@@ -1035,33 +1035,8 @@ export default function StateTerritoryView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
-              Local Government Workforce Profile
+              State and Territory Workforce Profile
             </h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
-              <p>
-                Across Australia, there are 537 local councils. Of these local
-                councils, around 55 per cent are located in regional, rural or
-                remote areas with the other 45 per cent split across urban
-                regions, urban fringe and urban areas. Local councils manage
-                approximately one-third of Australia's public infrastructure
-                assets, including roads, airports, facilities and other assets
-                and make up 77 per cent of the national road network (by
-                length). The public assets managed by local councils are valued
-                at an estimated $643 billion.
-              </p>
-              <p>
-                The Local Government workforce is multidisciplinary, employing
-                over an estimated 400 different occupations across approximately
-                218,000 employees – managed individually at the local council
-                level and commonly represented through state and territory
-                associations and the Australian Local Government Association
-                (ALGA). While employment projections estimate significant growth
-                over the next ten years, successive Workforce Plans and
-                Parliamentary Commissions of Inquiry have noted extensive
-                challenges with recruitment and retention, and a significant
-                expansion of roles and responsibilities.
-              </p>
-            </div>
           </div>
 
           {/* Mode Switcher Pill Segmented Control */}

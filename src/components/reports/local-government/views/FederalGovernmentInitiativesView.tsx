@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -34,6 +34,26 @@ const INITIATIVES_DATA: InitiativeItem[] =
   federalInitiativesData as InitiativeItem[];
 
 function InitiativeDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "06") {
+    const [advice, ...following] = item.description.split("\n\n");
+    const [introduction, ...recommendations] = advice.split("\n");
+
+    return (
+      <div className="space-y-4">
+        <p>{introduction}</p>
+        <ul className="space-y-2">
+          {recommendations.map((recommendation) => (
+            <li key={recommendation} className="flex items-start gap-2">
+              <span aria-hidden="true" className="shrink-0">›</span>
+              <span>{recommendation}</span>
+            </li>
+          ))}
+        </ul>
+        {following.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      </div>
+    );
+  }
+
   if (item.number === "13") {
     const [challengeSection, recommendationSection] = item.description.split("\n\n");
     const [challengeIntroduction, ...challenges] = challengeSection.split("\n");
@@ -114,10 +134,22 @@ export default function FederalGovernmentInitiativesView({
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(INITIATIVES_DATA[0].id);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+  const previousSelectionRef = useRef(selectedId);
 
   useEffect(() => {
     setIsHeroMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (
+      previousSelectionRef.current !== selectedId &&
+      window.matchMedia("(min-width: 1024px)").matches
+    ) {
+      detailPanelRef.current?.scrollIntoView({ block: "start" });
+    }
+    previousSelectionRef.current = selectedId;
+  }, [selectedId]);
 
   const selectedItem =
     INITIATIVES_DATA.find((s) => s.id === selectedId) || INITIATIVES_DATA[0];
@@ -191,7 +223,7 @@ export default function FederalGovernmentInitiativesView({
         {/* ── MASTER-DETAIL 2-COLUMN GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* LEFT COLUMN: INITIATIVES */}
-          <div className="lg:col-span-1 space-y-3">
+          <div className="lg:col-span-1 space-y-3 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
             {INITIATIVES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
               return (
@@ -280,9 +312,10 @@ export default function FederalGovernmentInitiativesView({
           </div>
 
           {/* RIGHT COLUMN: SELECTED INITIATIVE DETAIL PANEL (Desktop only) */}
-          <div className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 lg:sticky lg:top-20">
+          {/* Keep long details in page flow so every paragraph remains accessible. */}
+          <div ref={detailPanelRef} role="region" aria-label="Selected government initiative" tabIndex={0} className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 scroll-mt-20">
             {/* Top Bar inside Detail Panel */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="sticky top-20 z-10 bg-[#E5E8DA] flex items-center justify-between gap-4">
               <span className="bg-lg-dark text-white text-xs font-semibold px-5 py-2.5 rounded-full uppercase">
                 {String(selectedIndex + 1).padStart(2, "0")}
               </span>

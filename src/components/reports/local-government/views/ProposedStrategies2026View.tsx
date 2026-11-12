@@ -101,7 +101,8 @@ export default function ProposedStrategies2026View({
               </span>
               <button
                 onClick={() => setStrategy1Open(!strategy1Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy1Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy1Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -139,7 +140,7 @@ export default function ProposedStrategies2026View({
                   }`}
                 >
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       JSC Function:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -148,14 +149,14 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Approach:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Approach:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyOneContent.approach}
                     </p>
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Deliverable:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -163,15 +164,17 @@ export default function ProposedStrategies2026View({
                     </p>
                   </div>
 
+
+
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Impact:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyOneContent.impact}
                     </p>
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Anticipated timing:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -180,7 +183,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Key stakeholders:
                     </h3>
                     <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -189,6 +192,8 @@ export default function ProposedStrategies2026View({
                       ))}
                     </ul>
                   </div>
+
+
                 </div>
               </div>
             </div>
@@ -201,11 +206,12 @@ export default function ProposedStrategies2026View({
           >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                STRATEGY 2
+                PROJECT 2
               </span>
               <button
                 onClick={() => setStrategy2Open(!strategy2Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy2Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy2Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -243,7 +249,7 @@ export default function ProposedStrategies2026View({
                   }`}
                 >
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       JSC Function:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -252,7 +258,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Approach — Part A:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -261,7 +267,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Approach — Part B (optional):
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -270,7 +276,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Deliverable:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -280,35 +286,34 @@ export default function ProposedStrategies2026View({
                     </p>
                   </div>
 
-                  <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
-                      Key Stakeholders:
-                    </h3>
-                    <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
-                      {strategyTwoContent.keyStakeholders.slice(0, 3).map((stakeholder) => (
-                        <li key={stakeholder}>{stakeholder}</li>
-                      ))}
-                      <li>
-                        {strategyTwoContent.keyStakeholders.slice(3, 6).join(" · ")}
-                      </li>
-                      <li>{strategyTwoContent.keyStakeholders[6]}</li>
-                    </ul>
-                  </div>
+
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Impact:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyTwoContent.impact}
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Anticipated timing:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Anticipated timing:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       Part A: {strategyTwoContent.anticipatedTimingPartA}
                       <br />
                       Part B: {strategyTwoContent.anticipatedTimingPartB}
                     </p>
                   </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-bold text-gray800">
+                      Key stakeholders:
+                    </h3>
+                    <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600 leading-relaxed">
+                      {strategyTwoContent.keyStakeholders.map((stakeholder) => (
+                        <li key={stakeholder}>{stakeholder}</li>
+                      ))}
+                    </ul>
+                  </div>
+
                 </div>
               </div>
             </div>

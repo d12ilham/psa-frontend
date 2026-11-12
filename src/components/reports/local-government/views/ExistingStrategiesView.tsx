@@ -177,7 +177,8 @@ export default function ExistingStrategiesView({
               </span>
               <button
                 onClick={() => setProject1Open(!project1Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={project1Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {project1Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -265,7 +266,7 @@ export default function ExistingStrategiesView({
                     Resilience of local councils to respond to strategic shocks
                     and drivers of change, particularly:
                   </p>
-                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
+                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
                     <li>expansion of core duties</li>
                     <li>Recruitment and retention</li>
                     <li>Competition for labour</li>
@@ -321,7 +322,8 @@ export default function ExistingStrategiesView({
               </span>
               <button
                 onClick={() => setStrategy2Open(!strategy2Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy2Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy2Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -363,7 +365,7 @@ export default function ExistingStrategiesView({
             {/* EXPANDED CONTENT */}
             {strategy2Open && (
               <div className="animate-expand-down pt-4 border-t border-gray200 space-y-5">
-                <span className="bg-[#E5E8DA] text-[#046D2A] text-xs font-bold px-2.5 py-1 rounded-md inline-block">
+                <span className="bg-[#046D2A] text-white text-xs font-bold px-2.5 py-1 rounded-full inline-block">
                   Update
                 </span>
 
@@ -400,7 +402,7 @@ export default function ExistingStrategiesView({
                     Resilience of local councils to respond to strategic shocks
                     and drivers of change, particularly:
                   </p>
-                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
+                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
                     <li>Expansion of core duties</li>
                     <li>Recruitment and retention</li>
                     <li>Competition for labour</li>
@@ -410,8 +412,8 @@ export default function ExistingStrategiesView({
                 </div>
 
                 {/* NEXT STEPS Box */}
-                <div className="bg-[#F0F5DF] border border-gray200 border-l-8 border-l-[#8AC900] rounded-2xl p-5 space-y-2">
-                  <span className="text-xs font-bold text-notes uppercase block">
+                <div className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#046D2A] rounded-2xl p-5 space-y-2">
+                  <span className="text-xs font-bold text-lg-dark uppercase block">
                     NEXT STEPS
                   </span>
                   <p className="text-xs sm:text-sm text-gray600 leading-relaxed">

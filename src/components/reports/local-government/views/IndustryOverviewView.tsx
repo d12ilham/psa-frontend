@@ -171,65 +171,42 @@ export default function IndustryOverviewView({
           </div>
         </div>
 
-        {/* ── SECTION 2: TWO MAIN TOPIC CARDS ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Card 1 */}
-          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">
-            <div className="space-y-4">
-              <img
-                src="/images/reports/industry-overview/multidisciplinary.svg"
-                alt="A multidisciplinary workforce"
-                className="w-16 h-16 shrink-0 object-contain"
-              />
-              <h3 className="font-bold text-lg text-gray800">
-                A multidisciplinary workforce
-              </h3>
-              <p className="text-xs text-gray600 leading-relaxed">
-                The Local Government workforce is multidisciplinary, employing
-                over an estimated 400 different occupations.<sup>13</sup> Their workforces
-                are managed individually at the local council level but are
-                brought together and commonly represented through state and
-                territory associations and the Australian Local Government
-                Association (ALGA). It is estimated that the Local Government
-                workforce is made up of approximately 218,000 employees.<sup>14</sup> While
-                employment projections have estimated significant growth in the
-                Local Government workforce over the next ten years, successive
-                Workforce Plans<sup>15</sup> and Parliamentary Commissions of Inquiry have
-                noted extensive challenges with recruitment and retention, and a
-                significant expansion of roles and responsibilities for the
-                Local Government industry-sector.<sup>16</sup>
-              </p>
-            </div>
-
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col">
-            <div className="space-y-4">
-              <img
-                src="/images/reports/industry-overview/Custodians.svg"
-                alt="Custodians of community infrastructure"
-                className="w-16 h-16 shrink-0 object-contain"
-              />
-              <h3 className="font-bold text-lg text-gray800">
-                Custodians of community infrastructure
-              </h3>
-              <p className="text-xs text-gray600 leading-relaxed">
-                Local councils manage approximately one-third of Australia's
-                public infrastructure assets – including roads, airports,
-                facilities and other assets – and make up 77 per cent of the
-                national road network by length. The public assets managed by
-                local councils are valued at an estimated $643 billion.
-              </p>
-            </div>
-
-            <p className="text-xs text-[#598303] leading-tight pt-4 border-t border-gray200">
-              Source: ALGA, 2024 National State of the Assets Report, 2024.
+        {/* ── SECTION 2: WORKFORCE OVERVIEW ── */}
+        <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4">
+          <img
+            src="/images/reports/industry-overview/multidisciplinary.svg"
+            alt="A multidisciplinary workforce"
+            className="w-16 h-16 shrink-0 object-contain"
+          />
+          <h3 className="font-bold text-lg text-gray800">
+            A multidisciplinary workforce
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-xs text-gray600 leading-relaxed">
+            <p>
+              The Local Government workforce is multidisciplinary, employing
+              over an estimated 400 different occupations.<sup>13</sup> Their workforces
+              are managed individually at the local council level but are
+              brought together and commonly represented through state and
+              territory associations and the Australian Local Government
+              Association (ALGA). It is estimated that the Local Government
+              workforce is made up of approximately 218,000 employees.<sup>14</sup>
+            </p>
+            <p>
+              While employment projections have estimated significant growth in
+              the Local Government workforce over the next ten years, successive
+              Workforce Plans<sup>15</sup> and Parliamentary Commissions of Inquiry
+              have noted extensive challenges with recruitment and retention,
+              and a significant expansion of roles and responsibilities for the
+              Local Government industry-sector.<sup>16</sup>
             </p>
           </div>
         </div>
 
         {/* ── SECTION 3: FEATURE CALLOUTS GRID ── */}
+        <p className="max-w-4xl text-sm text-gray600 leading-relaxed">
+          The following datapoints were identified through this industry-sector
+          overview for the Local Government workforce:
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Callout 1 */}
           <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between">

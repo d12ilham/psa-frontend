@@ -110,7 +110,7 @@ export default function Theme2InsightSubView({
               <p className="text-sm sm:text-base font-bold text-gray800">
                 Access to VET Qualifications and Training Delivery Partners
               </p>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full animate-slide-up">
                 Access to TAFE or RTOs in regional, rural and remote locations
                 is limited.
               </h1>
@@ -263,9 +263,6 @@ export default function Theme2InsightSubView({
                 capability they need for the future.
               </p>
             </div>
-            <p className="pt-4 border-t border-gray200 text-[11px] text-notes">
-              HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND TRAINING PACKAGE PROJECT
-            </p>
           </div>
         </div>
       )}
@@ -306,7 +303,7 @@ export default function Theme2InsightSubView({
               </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to find solutions to
+                decision makers, TAFEs, RTOs and councils to consider solutions to
                 challenges such as access to training, delivery options and
                 costs may support local councils to build the technical
                 capability they need for the future.
@@ -365,18 +362,6 @@ export default function Theme2InsightSubView({
                 <li>Accurately reflects the realities of local council work and aligned with operational priorities</li>
                 <li>Reflects jurisdiction-specific requirements, particularly for modules covering regulations and local laws, which may differ across LGAs</li>
               </ul>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                While some stakeholders expressed interest in an expansion of the LGA
-                Local Government Training Package to host contextualised qualifications,
-                challenges with qualification duplication could emerge. Bringing
-                together state and territory decision makers, State and Territory
-                Training Authorities/Senior Responsible Officers (STTA/SRO), Local
-                Government partner TAFEs and RTOs to discuss solutions to training
-                access, delivery styles, financial implications and contextualisation
-                of learning materials, may support more sustainable and targeted
-                training outcomes for Local Government industry-sector occupational
-                shortages.
-              </p>
             </div>
             <div className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
               <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
@@ -390,6 +375,18 @@ export default function Theme2InsightSubView({
                 regions.
               </p>
             </div>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+              While some stakeholders expressed interest in an expansion of the LGA
+              Local Government Training Package to host contextualised qualifications,
+              challenges with qualification duplication could emerge. Bringing
+              together state and territory decision makers, State and Territory
+              Training Authorities/Senior Responsible Officers (STTA/SRO), Local
+              Government partner TAFEs and RTOs to discuss solutions to training
+              access, delivery styles, financial implications and contextualisation
+              of learning materials, may support more sustainable and targeted
+              training outcomes for Local Government industry-sector occupational
+              shortages.
+            </p>
           </section>
         </div>
       )}

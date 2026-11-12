@@ -26,6 +26,7 @@ export default function ReportHeader({
 }: ReportHeaderProps) {
   const router = useRouter();
   const sector = resolveSector(report?.industry?.slug || report?.industry?.name, slug);
+  const isLocalGovernment = sector.id === "local-government";
   const isCorrectionalServices = sector.id === "correctional-services";
   const activeNavClass = isCorrectionalServices
     ? "text-[#8AC900] font-bold"
@@ -105,11 +106,11 @@ export default function ReportHeader({
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "industry_profile" ? activeNavClass : inactiveNavClass}`}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "industry_profile" || (isLocalGovernment && currentPage === "state_territory") ? activeNavClass : inactiveNavClass}`}
             >
               Industry Overview <span>▾</span>
             </button>
-            <div className={`${dropdownClass} min-w-56`}>
+            <div className={`${dropdownClass} ${isLocalGovernment ? "min-w-64" : "min-w-56"}`}>
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/industry_overview`)
@@ -118,6 +119,15 @@ export default function ReportHeader({
               >
                 Industry-Sector Overview
               </button>
+              {isLocalGovernment && (
+                <button
+                  onClick={() => router.push(`/reports/${slug}/state_territory`)}
+                  aria-current={currentPage === "state_territory" ? "page" : undefined}
+                  className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-accent hover:bg-white/10 ${currentPage === "state_territory" ? "font-bold bg-white/10" : "font-semibold"}`}
+                >
+                  State and Territory Workforce Profile
+                </button>
+              )}
               <button
                 onClick={() => router.push(`/reports/${slug}/${isCorrectionalServices ? "industry_profile_presentation" : "industry_profile"}`)}
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "industry_profile" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}

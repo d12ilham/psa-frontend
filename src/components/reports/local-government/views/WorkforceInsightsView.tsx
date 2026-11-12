@@ -210,16 +210,7 @@ export default function WorkforceInsightsView({
                         }`}
                       >
                         <p>
-                          In support of both the 2024 Federal, State/Territory &amp;
-                          Local Government Workforce Plan and the 2025 Local
-                          Government Workforce Insights Report, local council
-                          employers continue to emphasise the broad scope of
-                          occupations employed in their workforce. Role expansion
-                          has been a consistent theme, further examined through two
-                          Parliamentary inquiries<sup>27</sup> — which confirmed that the role of
-                          local councils has expanded over time and that this
-                          expansion is impacting both financial and workforce
-                          sustainability.<sup>28</sup>
+                          In support of both the 2024 Federal, State/Territory &amp; Local Government Workforce Plan and the 2025 Local Government Workforce Insights Report, local council employers continue to emphasise the broad scope of occupations employed in their workforce. Role expansion in local councils has been a consistent theme identified during consultations which has been further examined through two Parliamentary inquiries examining Local Government sustainability and Local Government funding and fiscal sustainability.<sup>27</sup> These inquiries confirmed that the role of local councils has expanded over time and that this expansion is impacting both financial and workforce sustainability.<sup>28</sup>
                         </p>
                       </div>
                     </div>
@@ -354,18 +345,10 @@ export default function WorkforceInsightsView({
                         }`}
                       >
                         <p>
-                          Access to training has consistently been raised as a
-                          challenge for local council employers in regional, rural
-                          and remote locations — affirmed in the Interim Report into
-                          Local Government Sustainability, PSA’s 2025 LG WIR and
-                          ALGA’s 2022 Workforce Skills and Capability Survey. VET
-                          was consistently identified as the most relevant pathway
-                          for roles requiring technical expertise and compliance
-                          assurance, such as Water Operator, Mechanic and Childcare
-                          Educator. Access to VET Training: consultations for the
-                          2024 Workforce Plan, the 2025 LG WIR and the Skills Audit
-                          project re-affirmed the challenges relating to access to
-                          qualifications and training delivery.
+                          Access to training has consistently been raised as a challenge for local council employers located in regional, rural and remote locations. This challenge is affirmed in the Interim Report into Local Government Sustainability,<sup>34</sup> Public Skills Australia’s 2025 Local Government Workforce Insights Report,<sup>35</sup> and the Australian Local Government Association’s 2022 Local Government Workforce Skills and Capability Survey.<sup>36</sup>
+                        </p>
+                        <p>
+                          Throughout consultation for the Local Government Skills Audit and Uptake and Utility of the LGA Local Government Training Package project, VET was consistently identified as the most relevant pathway for roles requiring technical expertise and compliance assurance. Local councils emphasised the importance of VET’s role where formal qualifications underpin regulatory compliance and risk management in functions such as water treatment and civil construction, and for several technical positions that require Certificate III or IV such as Water Operator, Mechanic and Childcare Educator. However, while they acknowledged VET overwhelmingly supports work-related training, some stakeholders noted concerns about their ability to access TAFEs and RTOs to obtain qualifications that are contextualised to the Local Government industry-sector.
                         </p>
                       </div>
                     </div>
@@ -503,6 +486,18 @@ export default function WorkforceInsightsView({
                   <p>
                     Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, pages 5 and 21, accessed 11 February 2026.
                   </p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-xs font-bold shrink-0">34</span>
+                  <p>Standing Committee on Regional Development, Infrastructure and Transport, <a href="https://parlinfo.aph.gov.au/parlInfo/download/committees/reportrep/RB000536/toc_pdf/Interimreportintolocalgovernmentsustainability.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark"><em>Interim Report into Local Government Sustainability</em></a>, Standing Committee on Regional Development, Infrastructure and Transport, 2025, page 21, accessed 11 February 2026.</p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-xs font-bold shrink-0">35</span>
+                  <p>PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 19, accessed 11 February 2026.</p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-xs font-bold shrink-0">36</span>
+                  <p>ALGA, <a href="https://alga.com.au/wp-content/uploads/2025/04/2022-Local-Government-Workforce-Skills-and-Capability-Survey-National-Report.pdf" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark"><em>2022 Local Government Workforce Skills and Capability Survey</em></a>, ALGA, 2022, page 10, accessed 11 February 2026.</p>
                 </div>
               </div>
             </div>
