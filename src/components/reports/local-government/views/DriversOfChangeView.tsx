@@ -450,7 +450,7 @@ export default function DriversOfChangeView({
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-2 items-stretch">
             {MEGATRENDS.map((item, index) => {
               const isActive = activeMegatrendId === item.id;
 
@@ -465,7 +465,7 @@ export default function DriversOfChangeView({
                     onClick={() =>
                       setActiveMegatrendId(isActive ? null : item.id)
                     }
-                    className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
+                    className={`h-full rounded-2xl border px-2 py-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
                       isMegatrendsVisible
                         ? "animate-card-entrance"
                         : "opacity-0 translate-y-6"
@@ -485,11 +485,11 @@ export default function DriversOfChangeView({
                       className="w-17 h-17 shrink-0 object-contain"
                     />
                     <p
-                      className={`text-xs font-semibold leading-normal ${
+                      className={`w-full min-h-9 text-balance break-normal hyphens-none text-xs font-semibold leading-normal ${
                         isActive ? "text-active" : "text-gray600"
                       }`}
                     >
-                      {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
+                      {item.title}
                     </p>
                   </div>
 

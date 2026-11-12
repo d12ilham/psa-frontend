@@ -250,15 +250,15 @@ export default function Theme1InsightSubView({
                 access to TAFE and RTOs.<sup>30</sup>
               </p>
               <div className="pt-4 border-t border-gray200 mt-auto">
-                <p className="text-xs text-notes font-normal"><sup>29</sup> Jobs and Skills Australia (JSA), <a href="https://www.jobsandskills.gov.au/news/connecting-impact-jobs-and-skills-report-2025" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Connecting for Impact – The Jobs and Skills Report 2025</em></a>, JSA, 2025, page 81, accessed 19 November 2025.</p>
+                <p className="pb-[5px] text-xs text-notes font-normal"><sup>29</sup> Jobs and Skills Australia (JSA), <a href="https://www.jobsandskills.gov.au/news/connecting-impact-jobs-and-skills-report-2025" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Connecting for Impact – The Jobs and Skills Report 2025</em></a>, JSA, 2025, page 81, accessed 19 November 2025.</p>
                 <p className="text-xs text-notes font-normal"><sup>30</sup> PSA, <a href="https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408" target="_blank" rel="noopener noreferrer" className="text-active underline underline-offset-2 hover:text-lg-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-active"><em>Local Government Workforce Insights Report 2025</em></a>, PSA, 2025, page 14-15, accessed 11 February 2026.</p>
               </div>
             </div>
 
-            {/* Card 2: Increased regulator and community expectations */}
+            {/* Card 2: Increased Regulator and Community Expectations */}
             <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5 flex flex-col">
               <h3 className="text-xl font-bold text-gray800">
-                Increased regulator and community expectations
+                Increased Regulator and Community Expectations
               </h3>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders generally reported that community expectations of
