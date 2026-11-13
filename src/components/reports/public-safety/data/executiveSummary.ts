@@ -202,7 +202,7 @@ export const executiveSummaryStrategies: ExecutiveSummarySector[] = [
     ]
   },
   {
-    "title": "Access to VET Qualifications and Training Delivery Partners",
+    "title": "Police",
     "color": "#0D71A3",
     "items": [
       {

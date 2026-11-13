@@ -92,6 +92,12 @@
   line-height: 24px;
 }
 .body sup, .tile sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.body.narrativeFootnotes sup, .insightTwo .tile sup, .body sup.raisedFootnote {
+  position: static;
+  vertical-align: super;
+  font-size: 75%;
+  line-height: 0;
+}
 .divider { height: 1px; border: 0; background: #e9eaeb; }
 .sources ol { display: grid; gap: 16px; margin-top: 24px; }
 .sources li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 24px; }

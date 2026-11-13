@@ -130,7 +130,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
 
       <h2>Uncrewed aircraft systems (UAS-drone)</h2>
       <div className={styles.columns}>
-        <div className={styles.body}>
+        <div className={`${styles.body} ${styles.narrativeFootnotes}`}>
           <p>Defence stakeholders and public announcements by the Federal Government have consistently identified uncrewed aircraft systems (UAS-drone) as a critical technology where more training will support operational needs.<sup><PublicSafetyFootnoteLink number={23} /></sup> At an international level, it is acknowledged that UAS technology and counter-drone systems are evolving at a much faster rate than traditional acquisition and training cycles (in large part due to their evolving use in the war in Ukraine). Ukraine has developed and invested in counter-drone systems that are built to efficiently respond to threats that never previously existed.<sup><PublicSafetyFootnoteLink number={24} /></sup> The fast innovation of the Ukraine in response to these threats has been used in NATO training exercises, and provides an example of the way that the ADF could adapt to future threats, with drone technology evolving “every two to three weeks [with a] fundamentally different [model].”<sup><PublicSafetyFootnoteLink number={25} /></sup> The Australian Government has made a $10 billion commitment to UAS over the next 10 years from 2025 that includes:</p>
           <p>In Australia, initiatives such as the Remotely Piloted Aircraft Training School (RPATS) have been established, with Australian Air Force Cadets now eligible for Civil Aviation Safety Authority (CASA) training to qualify as fully certified drone pilots.<sup><PublicSafetyFootnoteLink number={27} /></sup> Additional training for drone capability and other emerging technologies is currently available through programs such as the National Security TAFE Centre of Excellence.<sup><PublicSafetyFootnoteLink number={28} /></sup> However, through consultations, Defence stakeholders advised that the current available training in the AVI Aviation Training Package is generic, and that Defence-specific training will likely be required to align to varying job roles in the ADF.</p>
         </div>
@@ -140,9 +140,9 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
 
     <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? "animate-slide-up" : styles.pending}`} aria-labelledby="defence-technology-two-sources">
       <h2 id="defence-technology-two-sources">Sources</h2>
-      <ol start={16}>
-        {defenceTechnologySources.map((source, index) => {
-          const number = index + 16;
+      <ol start={20}>
+        {defenceTechnologySources.slice(4).map((source, index) => {
+          const number = index + 20;
           return <li key={number} className={sourcesVisible ? "animate-card-entrance" : undefined} style={{ animationDelay: `${index * .05 + .1}s` }}>
             <span className={styles.sourceNumber} aria-hidden="true">{number}</span>
             <span><PublicSafetySourceText number={number} text={source} /></span>

@@ -41,7 +41,7 @@
 .table .matchedPackageHeader .packageTag { display: inline-flex; }
 .table th.matchedSkillHeader { padding: 0; }
 .table .matchedSkillHeader .sharedCard { color: #252d02; }
-.table ul { padding-left: 21px; list-style: none; }
+.table ul { padding-left: 21px; list-style: disc; }
 .table li::marker { font-size: 9px; }
 .table tbody tr:nth-child(3) { height: 70px; }
 .table tbody tr { transition: background-color .3s; }

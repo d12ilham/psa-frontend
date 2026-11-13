@@ -30,14 +30,18 @@ const chartCardLabels = [
 ];
 
 function HeadcountChart() {
-  // Approved values are independent of Frame 36's display coordinates.
+  const headcountY = (value: number) => 16.75 + (60000 - value) / 50000 * 360;
   const series = [
     { name: "Total ADF", previous: 57245, current: 58909, change: "2.9%", colour: "#EBB92E", leftY: 27.801, rightY: 15.801, leftLabelY: 36, rightLabelY: 25, nameY: 42 },
     { name: "ADF Reserves", previous: 32560, current: 33269, change: "2.2%", colour: "#BA774C", leftY: 205.5, rightY: 200.4, leftLabelY: 214, rightLabelY: 210, nameY: 227 },
     { name: "Army", previous: 27239, current: 27701, change: "1.7%", colour: "#F69063", leftY: 243.8, rightY: 240.5, leftLabelY: 252, rightLabelY: 250, nameY: 267 },
     { name: "Air Force", previous: 15261, current: 16085, change: "5.4%", colour: "#706C6B", leftY: 330.1, rightY: 324.2, leftLabelY: 314, rightLabelY: 310, nameY: 349 },
     { name: "Navy", previous: 14745, current: 15123, change: "2.6%", colour: "#D9AD6C", leftY: 333.8, rightY: 331.1, leftLabelY: 358, rightLabelY: 358, nameY: 363 },
-  ];
+  ].map((item) => {
+    const leftY = headcountY(item.previous);
+    const rightY = headcountY(item.current);
+    return { ...item, leftY, rightY, leftLabelY: item.leftLabelY + leftY - item.leftY, rightLabelY: item.rightLabelY + rightY - item.rightY };
+  });
   return <section className={`${styles.presentationPanel} ${styles.headcountPanel} animate-card-entrance`} aria-labelledby="defence-headcount-title">
     <div className={styles.headcountContent}>
       <p className={styles.presentationLabel}>DEF · Presentation View</p>
@@ -46,9 +50,9 @@ function HeadcountChart() {
         <svg className={styles.headcountPlot} width={697} height={414} viewBox="0 0 697 414" role="img" aria-labelledby="defence-headcount-title defence-headcount-description">
           <desc id="defence-headcount-description">{series.map((item) => `${item.name}: ${item.previous.toLocaleString("en-AU")} in 2024; ${item.current.toLocaleString("en-AU")} in 2025; increase ${item.change}`).join(". ")}</desc>
           <text transform="translate(31 201) rotate(-90)" textAnchor="middle" className={styles.axisTitle}>Total Permanent and Reserve ADF Members (headcount)</text>
-          {[60000, 47500, 35000, 22500, 10000].map((value, index) => <g key={value} aria-hidden="true">
-            <line x1={94} x2={697} y1={16.75 + index * 90} y2={16.75 + index * 90} className={styles.gridline} />
-            <text x={80.427} y={22 + index * 90} textAnchor="end" className={styles.axisLabel}>{value.toLocaleString("en-AU")}</text>
+          {[60000, 50000, 40000, 30000, 20000, 10000].map((value) => <g key={value} aria-hidden="true">
+            <line x1={94} x2={697} y1={headcountY(value)} y2={headcountY(value)} className={styles.gridline} />
+            <text x={80.427} y={headcountY(value) + 5.25} textAnchor="end" className={styles.axisLabel}>{value.toLocaleString("en-AU")}</text>
           </g>)}
           {series.map((item, index) => <g key={item.name} className={styles.headcountSeries} tabIndex={0} role="img" aria-label={`${item.name}: ${item.previous.toLocaleString("en-AU")} in 2024; ${item.current.toLocaleString("en-AU")} in 2025; increase ${item.change}`}>
             <line x1={151} y1={item.leftY} x2={541} y2={item.rightY} stroke={item.colour} strokeWidth={index < 3 ? 2.75 : 2.5} className="animate-profile-chart-line" style={{ animationDelay: `${index * .12 + .35}s` }} />
@@ -80,10 +84,10 @@ function HeadcountChart() {
 function SeparationChart() {
   // Retain the approved rates while matching Frame 37's chart geometry.
   const series = [
-    { name: "Navy", previous: 11.5, current: 9.4, colour: "#BA774C", leftY: 48.439, rightY: 148.144, leftLabelY: 49, rightLabelY: 138, nameY: 159, rightX: 577.5 },
-    { name: "Total ADF", previous: 9.5, current: 7.9, colour: "#F69063", leftY: 143.314, rightY: 219.214, leftLabelY: 131.5, rightLabelY: 208, nameY: 230, rightX: 577.5 },
-    { name: "Army", previous: 7.7, current: 6.9, colour: "#706C6B", leftY: 228.76, rightY: 266.71, leftLabelY: 204.55, rightLabelY: 255, nameY: 277, rightX: 580.5 },
-    { name: "Air Force", previous: 7.6, current: 6.2, colour: "#D9AD6C", leftY: 233.475, rightY: 299.945, leftLabelY: 221.66, rightLabelY: 304, nameY: 326, rightX: 580.5 },
+    { name: "Navy", previous: 11.5, current: 9.4, colour: "#D9AD6C", leftY: 48.439, rightY: 148.144, leftLabelY: 49, rightLabelY: 138, nameY: 159, rightX: 577.5 },
+    { name: "Total ADF", previous: 9.5, current: 7.9, colour: "#EBB92E", leftY: 143.314, rightY: 219.214, leftLabelY: 131.5, rightLabelY: 208, nameY: 230, rightX: 577.5 },
+    { name: "Army", previous: 7.7, current: 6.9, colour: "#F69063", leftY: 228.76, rightY: 266.71, leftLabelY: 204.55, rightLabelY: 255, nameY: 277, rightX: 580.5 },
+    { name: "Air Force", previous: 7.6, current: 6.2, colour: "#706C6B", leftY: 233.475, rightY: 299.945, leftLabelY: 221.66, rightLabelY: 304, nameY: 326, rightX: 580.5 },
   ];
   return <section className={`${styles.presentationPanel} ${styles.separationPanel} animate-card-entrance`} aria-labelledby="defence-separation-chart-title">
     <div className={`${styles.headcountContent} ${styles.separationContent}`}>
@@ -154,8 +158,8 @@ function GenderChart() {
 
 function FirstNationsChart() {
   const series = [
-    { name: "Total ADF", previous: 3.9, current: 3.9, colour: "#D9AD6C", nameX: 592, nameOffset: 34, valueOffset: 6 },
-    { name: "ADF Reserves", previous: 3.1, current: 3.0, colour: "#706C6B", nameX: 575, nameOffset: 33, valueOffset: 5 },
+    { name: "Total ADF", previous: 3.9, current: 3.9, colour: "#EBB92E", nameX: 592, nameOffset: 34, valueOffset: 6 },
+    { name: "ADF Reserves", previous: 3.1, current: 3.0, colour: "#BA774C", nameX: 575, nameOffset: 33, valueOffset: 5 },
   ];
   const y = (value: number) => 140.662 + (4.5 - value) / .5 * 84.3785;
   return <section className={`${styles.presentationPanel} ${styles.genderPanel} animate-card-entrance`} aria-labelledby="defence-first-nations-title">

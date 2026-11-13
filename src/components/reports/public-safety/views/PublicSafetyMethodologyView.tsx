@@ -17,7 +17,7 @@ const governanceSteps = [
     step: "STEP 2",
     title: "Industry Advisory Group",
     paragraphs: [
-      "The IAG is responsible for endorsing this report to the Public Skills Australia Board for approval to be submitted to the DEWR.",
+      "The IAG is responsible for endorsing this report to the Public Skills Australia Board for approval to be submitted to DEWR.",
       "This endorsement is made on the basis that the IAG is satisfied with the Public Safety Subcommittee's recommendation for endorsement. The IAG further provides its strategic guidance and endorsement if comfortable that the strategic priorities of Public Safety and Government industry-sectors are also captured.",
     ],
   },

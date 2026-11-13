@@ -71,7 +71,7 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
 
         <div className={styles.veteransColumns}>
           <div>
-            <h2>Royal Commission into Defence and Veteran Suicide – Recommendation <small>83</small></h2>
+            <h2>Royal Commission into Defence and Veteran Suicide – Recommendation 83</h2>
             <div className={styles.body}>
               <p>The Final Report for the Royal Commission into Defence and Veteran Suicide details the transition from military to civilian life and examines the challenges that veterans may face when seeking employment post-service.<sup><PublicSafetyFootnoteLink number={30} /></sup></p>
               <p>Of the 122 recommendations, Recommendation 83: “Increase opportunities for personnel to gain civilian qualifications from Defence training and education, Focus Area C ‘fill the gap’ between Defence and civilian training (where an equivalent civilian qualification exists), either by expanding the content of the Defence training course or by funding bridging training for personnel prior to separation” was highlighted in the 2025 Public Safety Workforce Insights Report as a focus area for Public Skills Australia to support the Defence industry-sector.<sup><PublicSafetyFootnoteLink number={31} /></sup></p>
@@ -79,7 +79,7 @@ export default function PublicSafetyDefenceTransitioningVeteransView({ slug, rep
             <h2>Recognition of Prior Learning and the VET system</h2>
             <div className={styles.body}>
               <p>The skills and experience that ADF personnel obtain throughout their service can be considered towards any additional study post-service, or towards future job roles in the civilian workforce through RPL provided by ADF Transition and Civil Recognition.<sup><PublicSafetyFootnoteLink number={32} /></sup> Once assessed, a veteran’s existing skills, work level standards and experience can result in being awarded qualifications and/or micro-credentials which have transferability to industries external to Defence.<sup><PublicSafetyFootnoteLink number={33} /></sup></p>
-              <p>Defence stakeholders emphasised the importance of the VET system for this purpose as associated education and training products represent particular skills (through the units of competency) as a national standard for relevant occupations.<sup><PublicSafetyFootnoteLink number={34} /></sup> Awarding VET qualifications allows Defence veterans to demonstrate that they have met a national standard that can be recognised across the country by RTOs, industries and employers.<sup><PublicSafetyFootnoteLink number={35} /></sup></p>
+              <p>Defence stakeholders emphasised the importance of the VET system for this purpose as associated education and training products represent particular skills (through the units of competency) as a national standard for relevant occupations.<sup><PublicSafetyFootnoteLink number={34} /></sup> Awarding VET qualifications allows Defence veterans to demonstrate that they have met a national standard that can be recognised across the country by RTOs, industries and employers.<sup className={styles.raisedFootnote}><PublicSafetyFootnoteLink number={35} /></sup></p>
             </div>
           </div>
           <aside className={styles.veteransDefinition}>

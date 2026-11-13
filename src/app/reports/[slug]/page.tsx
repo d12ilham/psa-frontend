@@ -97,7 +97,7 @@ export default function ReportLandingPage({
     const sectorCards = [
       { title: "Defence", path: "defence", color: "#D6A52D" },
       {
-        title: "Fire & Emergency Services",
+        title: "Fire and Emergency Services",
         path: "fes",
         color: "#CF4C2C",
       },

@@ -88,8 +88,8 @@ function CurrentWorkforceCharts() {
   // Keep Frame 32's display geometry separate from the approved headcounts.
   const bars = [
     { value: 20545, label: <>Australian Public<br />Service Employees</>, name: "Australian Public Service Employees", designHeight: 154.08, left: 71.6667 },
-    { value: 33269, label: <>Reserves<br />(Navy, Army, Air)</>, name: "Reserves (Navy, Army, Air)", designHeight: 249.52, left: 295 },
-    { value: 58909, label: <>Permanent Force<br />(Navy, Army, Air)</>, name: "Permanent Force (Navy, Army, Air)", designHeight: 394, left: 518.3333 },
+    { value: 33269, label: <>Reserves<br />(Navy, Army, Air Force)</>, name: "Reserves (Navy, Army, Air Force)", designHeight: 249.52, left: 295 },
+    { value: 58909, label: <>Permanent Force<br />(Navy, Army, Air Force)</>, name: "Permanent Force (Navy, Army, Air Force)", designHeight: 394, left: 518.3333 },
   ];
 
   return <div className={styles.currentContent}>
@@ -115,6 +115,7 @@ function CurrentWorkforceCharts() {
         <p data-source-caption className={styles.currentChartSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </section>
       <aside className={styles.currentStats} aria-label="Defence enlistment statistics">
+        <h3 className={styles.currentStatsTitle}>Australian Defence Force Key Enlistment Demographics 2024-25</h3>
         <div className={styles.currentStatsGrid}>
           {stats.map(([value, label, graphic], index) => <div key={value} className={styles.currentStat} style={{ animationDelay: `${index * .1 + .15}s` }}>
             <div className={styles.currentStatHeading}>

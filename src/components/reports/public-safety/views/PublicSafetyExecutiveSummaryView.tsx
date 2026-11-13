@@ -35,7 +35,7 @@ function SectionHeading({ icon, title, description, children }: { icon: SummaryI
   );
 }
 
-function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay }: { sector: ExecutiveSummarySector; slug: string; expandedId: string | null; onToggle: (id: string) => void; visible: boolean; delay: number }) {
+function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay, showDetailLinks = true }: { sector: ExecutiveSummarySector; slug: string; expandedId: string | null; onToggle: (id: string) => void; visible: boolean; delay: number; showDetailLinks?: boolean }) {
   const sectorStyle = {
     "--sector-color": sector.color,
     "--sector-tint": `${sector.color}1A`,
@@ -64,9 +64,9 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay }: { 
                         {detail.number && <span className={styles.detailNumber}>{detail.number}</span>}
                         <div className={styles.detailBody}>
                           <p className={styles.detailText}>{detail.text}</p>
-                          <Link href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
+                          {showDetailLinks && <Link href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
                             Open<ArrowRight aria-hidden="true" />
-                          </Link>
+                          </Link>}
                         </div>
                       </div>
                     ))}
@@ -143,7 +143,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section ref={strategiesRef} className={`${styles.panel} ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights."><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
-        <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} />)}</div>
+        <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} showDetailLinks={false} />)}</div>
       </section>
 
       <section className={styles.panel}>

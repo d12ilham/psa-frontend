@@ -90,7 +90,7 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
           <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
         </section>
         <section className={`${layout.note} ${styles.note}`}>
-          <h4>Connection to 2026 Strategies</h4>
+          <h4 className={layout.connectionHeading}>Connection to 2026 Strategies</h4>
           <dl>
             <div><dt>Ministerial Priority 2026</dt><dd>{project.priority}</dd></div>
             <div><dt>Strategic Plan Priorities 2026</dt><dd>{project.strategic}</dd></div>
