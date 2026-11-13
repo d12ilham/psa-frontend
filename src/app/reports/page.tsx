@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
+import styles from "./sector-cards.module.css";
 import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
 import {
   Download,
@@ -21,7 +22,7 @@ const SECTOR_REPORTS = [
     sectorKey: "Local Government",
     badgeText: "LOCAL GOVERNMENT",
     title: "2026 Local Government Workforce Insights Report",
-    coverImage: "/images/reports/sector-card-local-government.png",
+    coverImage: "/images/reports/sector-local-government-figma.png",
     targetUrl: "/reports/local-government-workforce-insights-report",
   },
   {
@@ -45,7 +46,7 @@ const SECTOR_REPORTS = [
     sectorKey: "Correctional Services",
     badgeText: "CORRECTIONAL SERVICES",
     title: "2026 Correctional Services Workforce Insights Report",
-    coverImage: "/images/reports/sector-card-correctional-services.png",
+    coverImage: "/images/reports/sector-correctional-services-figma.png",
     targetUrl: "/reports/correctional-services-wir-2026",
   },
 ];
@@ -389,7 +390,7 @@ export default function ReportsArchivePage() {
         {/* ── 5. SECTOR WORKFORCE INSIGHTS REPORTS GRID ── */}
         <section id="sectors-section" className="space-y-4 pt-2">
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <div className={styles.heading + " flex flex-col sm:flex-row sm:items-baseline justify-between gap-2"}>
             <h2 className="text-lg sm:text-xl font-bold text-gray800">
               Choose your sector Workforce Insights Report
             </h2>
@@ -408,27 +409,25 @@ export default function ReportsArchivePage() {
                 key={sector.id}
                 href={matched ? `/reports/${matched.slug}` : sector.targetUrl}
                 style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
-                className="animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
+                data-sector={sector.id}
+                className={`${styles.card} animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark`}
                 aria-label={`View ${sector.title}`}
               >
                 <img
                   src={sector.coverImage}
                   alt=""
-                  className={sector.id === "public-safety"
-                    ? "block h-full w-full object-cover object-[50%_58%]"
-                    : "block h-full w-full"}
+                  className={sector.id === "public-safety" ? styles.publicSafetyArtwork : styles.cover}
                 />
                 {sector.id === "public-safety" && (
-                  <div className="absolute inset-0 flex flex-col items-start justify-between p-3 text-[#1B240E] sm:p-4">
-                    <div className="leading-tight">
-                      <h3 className="text-base font-extrabold">2026 Public Safety</h3>
-                      <p className="text-xs font-bold">Workforce Insights Report</p>
+                  <div className={styles.publicSafetyTitle}>
+                    <span className={styles.year}>2026</span>
+                    <div>
+                      <h3>Public Safety</h3>
+                      <p>Workforce Insights Report</p>
                     </div>
-                    <span className="rounded-full bg-[#85CC00] px-4 py-1.5 text-xs font-bold">
-                      View
-                    </span>
                   </div>
                 )}
+                <span className={styles.view} aria-hidden="true">View</span>
               </Link>;
             })}
           </div>

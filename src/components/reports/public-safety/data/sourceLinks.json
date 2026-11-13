@@ -725,6 +725,10 @@
   ],
   "supplemental": [
     {
+      "title": "Strategic Plan 2024-2028",
+      "href": "https://www.police.qld.gov.au/sites/default/files/2024-09/QPS%20Operational%20Plan%202024-25%20Sept%20update.pdf#page=21"
+    },
+    {
       "title": "National Position on Prescribed Burning",
       "href": "https://www.afac.com.au/public-resources/national-position-on-prescribed-burning"
     },
@@ -778,7 +782,7 @@
     "Reference 54: the PDF links all three annual-report titles to 2024-25. The first two now link to the corresponding 2022-23 and 2023-24 originals verified at AIDR.",
     "Reference 68: the missing Victoria training-course news URL was verified at ABC. The SA government release returns 404 and is retained here for provenance, but is not rendered as a broken hyperlink.",
     "Reference 61 and the five training products in reference 62 have verified original-publisher links despite lacking PDF hyperlink annotations.",
-    "Supplemental strategy links were checked against original publishers. Historical QPS 2024-28 and Victoria Keeping You Safe 2023-28 URLs still require approved copies; newer plans have not been substituted.",
+    "QPS Strategic Plan 2024-2028 is reproduced on pages 21-22 of QPS's September 2024 Operational Plan 2024-25; that original-publisher copy is linked at page 21. The separate QPS Strategic Workforce Plan 2024-2028 and Victoria Keeping You Safe 2023-2028 still require approved working copies. Newer plans have not been substituted.",
     "Reference 10 has no PDF URL; JSA now provides ASC data by request. Its citation text remains unchanged pending an approved source URL."
   ]
 }

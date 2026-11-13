@@ -184,10 +184,15 @@ function FirstNationsChart() {
 
         </g>)}
         <g className={styles.yearLabels} aria-hidden="true"><text x={188.64} y={523.5} textAnchor="middle">2024</text><text x={619.265} y={523.5} textAnchor="middle">2025</text></g>
+        <g role="list" aria-label="Chart legend" fontSize={14} fill="black">
+          {series.map((item, index) => <g key={item.name} role="listitem" aria-label={item.name} transform={`translate(${28 + index * 180} 550)`}>
+            <line x1={0} x2={24} stroke={item.colour} strokeWidth={4} strokeLinecap="round" />
+            <text x={32} y={5}>{item.name}</text>
+          </g>)}
+        </g>
         <text data-source-caption x={28} y={575} className={styles.genderSource}><PublicSafetySourceText text={"SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025"} /></text>
       </svg>
     </div>
-    <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
   </section>;
 }
 

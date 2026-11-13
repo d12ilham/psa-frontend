@@ -63,7 +63,7 @@ export default function PublicSafetyPoliceView({ slug, report }: { slug: string;
         <p>This chapter of the 2026 Public Safety Workforce Insights Report covers the Police industry-sector — the eight state and territory police forces and the Australian Federal Police. Open any section below, or move through the chapter in report order.</p>
       </div>
       <div className={`${layout.artwork} ${styles.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
       </div>
     </section>
 

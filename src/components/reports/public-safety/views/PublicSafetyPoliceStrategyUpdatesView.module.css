@@ -5,8 +5,8 @@
 
 .page .heroCopy { max-width: 950px; min-width: 0; }
 .heroCopy p { max-width: 800px; }
-.heroArtwork.heroArtwork { flex: 0 1 487px; width: 487px; max-width: 100%; height: auto; }
-.heroArtwork.heroArtwork img { width: 100%; max-width: 487px; height: auto; }
+.heroArtwork.heroArtwork { flex: none; width: 136px; max-width: 100%; height: 136px; }
+.heroArtwork.heroArtwork img { width: 136px; max-width: 100%; height: auto; }
 .page .badge { background: var(--police-blue); }
 .page .projectButton small { color: #000; font-weight: 500; }
 .page .projectButton[aria-pressed="true"] { outline-color: var(--police-blue); background: #e7f1f6; }

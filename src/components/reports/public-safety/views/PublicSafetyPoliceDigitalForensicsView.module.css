@@ -54,6 +54,18 @@
   flex: none;
 }
 
+.insightOneHeadline { align-items: center; }
+.insightOneHeadline .insightStatement { flex: 1; }
+.insightOneHeadline img { margin-left: auto; }
+
+.insightTwo .headline { align-items: center; }
+.insightTwo .headline .insightStatement { flex: 1; }
+.insightTwo .headline img { margin-left: auto; }
+
+.leadership .headline { align-items: center; }
+.leadership .headline .insightStatement { flex: 1; }
+.leadership .headline img { margin-left: auto; }
+
 .headline h1 {
   max-width: 800px;
   font-size: 24px;

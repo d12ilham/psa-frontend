@@ -51,19 +51,21 @@ function EnrolmentsChart() {
 
 export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_hazardous_materials" contentClassName={`${layout.page} ${recovery.page}`} navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Surf Life Saving First Aid",href:`/reports/${slug}/fes_surf_life_saving_first_aid`}, next:{label:"Proposed Strategies 2026",href:`/reports/${slug}/fes_workforce_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className={`${layout.hero} ${recovery.hero}`}>
+    <section className={`${layout.hero} ${recovery.hero} ${recovery.insightOneHero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
         <h1>3. Hazardous Materials</h1>
-        <div className={`${styles.insight} ${recovery.animatedSection}`}>
-          <div className="flex items-center gap-3">
-            <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-            <strong className="text-xl">Industry Insight</strong>
-          </div>
-          <p className={`${styles.copy} ${styles.prose}`}>Incidents involving hazardous materials are becoming increasingly important while the current training is limiting some Fire and Emergency Services organisations&apos; ability to deliver this type of service.</p>
-        </div>
       </div>
-      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-hazardous-materials-radiation-hero.svg" width={180} height={180} alt="" unoptimized priority />
+      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-hazardous-materials-hero.png" width={180} height={180} alt="" unoptimized priority />
+    </section>
+
+    <section className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-hazardous-materials-insight">
+      <span className={recovery.insightNumber} aria-hidden="true">1</span>
+      <div className={`${recovery.summaryCopy} ${recovery.wideSummaryCopy}`}>
+        <p id="fes-hazardous-materials-insight" className={recovery.insightLabel}>Theme Three, Insight One</p>
+        <p>While response to incidents involving hazardous materials is becoming increasingly important, the specificity of equipment requirements in current training may be limiting access by Fire and Emergency Services organisations to other training units, impacting national response capabilities.</p>
+      </div>
+      <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <section className={`${recovery.detail} animate-slide-up-delay`}>

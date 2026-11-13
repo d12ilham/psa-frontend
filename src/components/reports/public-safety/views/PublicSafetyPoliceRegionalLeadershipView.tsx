@@ -24,7 +24,7 @@ export default function PublicSafetyPoliceRegionalLeadershipView({ slug, report 
   }}>
     <section className={`${styles.panel} ${styles.topicHero} ${layout.enter}`}>
       <div>
-        <p className={styles.topicBadge}>Theme 2. Rural, Regional and Remote Police Leadership. Insight Three</p>
+        <p className={styles.topicBadge}>Theme 2. Rural, Regional and Remote Police Leadership. Insight One</p>
         <h1>2. Rural, Regional and Remote Police Leadership</h1>
       </div>
       <div className={`${styles.illustration} animate-zoom-in`}>
@@ -32,14 +32,14 @@ export default function PublicSafetyPoliceRegionalLeadershipView({ slug, report 
       </div>
     </section>
 
-    <section className={`${styles.panel} ${layout.enter}`} aria-labelledby="police-leadership-insight-three">
+    <section className={`${styles.panel} ${layout.enter}`} aria-labelledby="police-leadership-insight-one">
       <div className={`${styles.banner} ${styles.insightCallout}`}>
-        <span className={styles.number} aria-hidden="true">3</span>
+        <span className={styles.number} aria-hidden="true">1</span>
         <div className={styles.bannerCopy}>
-          <p id="police-leadership-insight-three">Theme Two, Insight Three</p>
+          <p id="police-leadership-insight-one">Theme Two, Insight One</p>
           <div className={styles.headline}>
-            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
             <p className={styles.insightStatement}>{headline}</p>
+            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
           </div>
         </div>
       </div>

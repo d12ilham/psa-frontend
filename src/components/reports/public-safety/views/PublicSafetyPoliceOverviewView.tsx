@@ -200,7 +200,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
           <p>Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
         </div>
         <div className={`${chapter.artwork} ${police.artwork}`}>
-          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+          <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
         </div>
       </section>
 

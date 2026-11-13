@@ -105,7 +105,7 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
         <p>Select an item on the left to present it large on the right.</p>
       </div>
       <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
       </div>
     </section>
     <section className={`${library.library} ${chapter.enter}`}>

@@ -356,7 +356,7 @@
 .presentation figcaption p + p {
   margin-top: 4px;
   color: #598303;
-  font: 12px/18px monospace;
+  font: 12px/18px var(--font-sans);
 }
 
 .chartChoices button:focus-visible,
@@ -473,7 +473,7 @@
 .chart figcaption p + p {
   margin-top: 4px;
   color: #44691c;
-  font: 8px/12px monospace;
+  font: 8px/12px var(--font-sans);
 }
 
 .sources {

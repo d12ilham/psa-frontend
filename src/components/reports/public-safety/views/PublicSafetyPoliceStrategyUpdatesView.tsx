@@ -78,7 +78,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
         <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
       <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
-        <Image src="/images/reports/public-safety/police-strategy-updates-hero.svg" width={487} height={104} alt="" unoptimized priority />
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" width={136} height={136} alt="" unoptimized priority />
       </div>
     </section>
 

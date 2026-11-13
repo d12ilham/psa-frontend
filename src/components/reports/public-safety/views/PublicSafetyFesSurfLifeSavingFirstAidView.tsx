@@ -81,7 +81,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
         <span className={`${layout.badge} ${recovery.badge}`}>Theme 2. Surf Life Saving First Aid. Insight One</span>
         <h1>2. Surf Life Saving First Aid</h1>
       </div>
-      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-ring-hero.svg" width={180} height={180} alt="" unoptimized priority />
+      <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-hero.png" width={180} height={180} alt="" unoptimized priority />
     </section>
 
     <section className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-first-aid-insight">

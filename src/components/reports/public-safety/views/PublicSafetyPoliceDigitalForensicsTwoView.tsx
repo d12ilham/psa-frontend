@@ -38,8 +38,8 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
         <div className={styles.bannerCopy}>
           <p id="police-forensics-insight-two">Theme One, Insight Two</p>
           <div className={styles.headline}>
-            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
             <p className={styles.insightStatement}>{insight}</p>
+            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
           </div>
         </div>
       </div>

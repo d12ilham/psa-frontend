@@ -43,9 +43,9 @@ export default function PublicSafetyPoliceDigitalForensicsView({ slug, report }:
         <span className={styles.number} aria-hidden="true">1</span>
         <div className={styles.bannerCopy}>
           <p id="police-forensics-insight-one">Theme One, Insight One</p>
-          <div className={styles.headline}>
-            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
+          <div className={`${styles.headline} ${styles.insightOneHeadline}`}>
             <p className={styles.insightStatement}>Skills shortages and strong demand for similar skills may require the establishment of multiple entry pathways for digital forensic professionals into policing.</p>
+            <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
           </div>
         </div>
       </div>

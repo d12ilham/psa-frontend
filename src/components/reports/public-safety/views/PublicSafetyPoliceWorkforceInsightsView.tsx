@@ -22,7 +22,7 @@ const themes = [
     eyebrow: "Theme 2 · 1 insight",
     title: "2. Rural, Regional and Remote Police Leadership",
     insights: [
-      { number: "3", href: "police_regional_remote_leadership", label: "Theme Two, Insight Three", text: "Police officers being required to take on more leadership responsibilities earlier in their careers, particularly in regional, rural and remote areas, where workforce shortages are more pronounced. This may require more support in accelerating leadership skills development." },
+      { number: "1", href: "police_regional_remote_leadership", label: "Theme Two, Insight One", text: "Police officers being required to take on more leadership responsibilities earlier in their careers, particularly in regional, rural and remote areas, where workforce shortages are more pronounced. This may require more support in accelerating leadership skills development." },
     ],
   },
 ];

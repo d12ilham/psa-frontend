@@ -1,0 +1,110 @@
+.heading {
+  position: relative;
+}
+
+.heading::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -8px;
+  height: 1px;
+  background: var(--color-gray200, #e8eadf);
+}
+
+.card {
+  --sector-outline: #007533;
+  container-type: inline-size;
+  isolation: isolate;
+}
+
+.card[data-sector="public-safety"] { --sector-outline: #d3992c; }
+.card[data-sector="federal-state"] { --sector-outline: #8b867d; }
+.card[data-sector="correctional-services"] { --sector-outline: #4856ac; }
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px #e7e8e2;
+  pointer-events: none;
+  transition: box-shadow 250ms ease;
+}
+
+.card:hover::after,
+.card:focus-visible::after {
+  box-shadow: inset 0 0 0 2px var(--sector-outline);
+}
+
+/* The existing Figma exports include their original perimeter strokes. */
+.cover {
+  position: absolute;
+  inset: -2px;
+  width: calc(100% + 4px);
+  max-width: none;
+  height: calc(100% + 4px);
+}
+
+.card[data-sector="local-government"] .cover,
+.card[data-sector="correctional-services"] .cover {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.card[data-sector="local-government"] .cover {
+  top: -3%;
+  left: -6%;
+  width: 120%;
+  height: auto;
+}
+
+.publicSafetyArtwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.publicSafetyTitle {
+  position: absolute;
+  top: 16%;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  gap: 1.8cqw;
+  color: #1b240e;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.publicSafetyTitle h3 { font-size: 6.43cqw; }
+.publicSafetyTitle p { font-size: 4.68cqw; }
+.year { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 4.68cqw; }
+
+.view {
+  position: absolute;
+  left: 5.85%;
+  bottom: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21.35%;
+  height: 20%;
+  border-radius: 999px;
+  background: #85cc00;
+  color: #1b240e;
+  font-size: 4.1cqw;
+  font-weight: 500;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.card:hover .view,
+.card:focus-visible .view { background: #78b900; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card::after, .view { transition: none; }
+}

@@ -21,8 +21,7 @@ export default function PublicSafetyPoliceWorkforceStrategiesView({ slug, report
         <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support the Police industry-sector:</p>
       </div>
       <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
-        <Image src="/images/reports/public-safety/police-forensics-hero.png" alt="" width={104} height={104} unoptimized priority />
-        <Image src="/images/reports/public-safety/police-strategy-certificate.svg" alt="" width={104} height={104} unoptimized priority />
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={104} height={104} unoptimized priority />
       </div>
     </section>
 
