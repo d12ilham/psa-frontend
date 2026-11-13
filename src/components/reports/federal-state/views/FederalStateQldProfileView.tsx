@@ -50,7 +50,7 @@ function RepresentationChart() {
   const y = (v: number) => 169 - (v - 2) * 67;
   return (
     <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md  p-4 sm:p-5`}>
-      <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the Queensland Public Sector (2021-2025)</h3>
+      <h3 className="min-h-10 text-sm font-bold text-[#252B37]">Aboriginal and Torres Strait Islander Representation in the Queensland Public Sector (2021-2025)</h3>
       <ChartScroll><svg viewBox="0 0 540 337.5" role="img" aria-label="Actual representation from 2.5% in 2021 to 2.7% in 2025; target 3% in 2021 and 2022, then 4%" className="mt-5 w-full">
         <line x1="42" x2="502" y1="276" y2="276" stroke="#DFD6CF" />
         <polyline points={target.map((v, i) => `${x(i)},${(y(v)) * 1.5}`).join(" ")} fill="none" stroke="#A58D7B" strokeWidth="3" strokeDasharray="5 4" />
@@ -74,7 +74,7 @@ function ProjectionChart() {
   const values = [187041, 202717, 219138];
   const points = values.map((v, i) => `${75 + i * 170},${(168 - (v - 180000) / 460) * 1.5}`).join(" ");
   return <div data-profile-chart data-chart-surface="standard" data-chart-type="projection" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
-    <h3 className="text-sm font-bold text-[#252D02]">Queensland Employment Projections to 2035 - Public Administration and Safety Industry</h3>
+    <h3 className="text-sm font-bold text-[#252B37]">Queensland Employment Projections to 2035 - Public Administration and Safety Industry</h3>
     <ChartScroll><svg viewBox="0 0 500 345" role="img" aria-label="Employment projected at 187,041 in 2025, 202,717 in 2030 and 219,138 in 2035" className="mt-5 w-full">
       <line x1="45" x2="455" y1="279" y2="279" stroke="#DFD6CF" />
       <polyline points={points} fill="none" stroke="#754D32" strokeWidth="2.5" />
@@ -90,10 +90,10 @@ function ProjectionChart() {
 
 export default function FederalStateQldProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
   const ContentTag = embedded ? "div" : "main";
-  return <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+  return <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
     {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
     <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-      {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_qld" prev={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }} next={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} prevPrefix="" />}
+      {!embedded && <ReportNavButtons sectorPalette slug={slug} currentPage="industry_profile_qld" prev={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }} next={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} prevPrefix="" />}
       <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
         <div className="min-w-0 [container-type:inline-size]">
           <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Queensland · Selected jurisdiction</p>
@@ -106,7 +106,7 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
         </div>
         <JurisdictionMap slug={slug} selected="QLD" showLinks={!embedded} />
       </section>
-      <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+      <Section title="Workforce Overview">
         <div className="grid gap-6 lg:grid-cols-2">
           <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The Queensland Public Service (QPS) comprises approximately 74,410.52 FTE.<QldFootnote number={43} /> The workforce is geographically dispersed, with close to two thirds employed in regional areas and one-fifth located in Brisbane&apos;s inner city.<QldFootnote number={44} /> Women represent most of the workforce, while men comprise just over one-third.<QldFootnote number={45} /> A small proportion of employees identify as non-binary or preferred not to disclose their gender.<QldFootnote number={46} /> Diversity data shows employees from CALD backgrounds as the largest cohort, followed by LGBTQIA+ and those with disabilities.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people make up a smaller (2.7 per cent) share of the workforce. Between 2021 and 2025, QPS saw gradual growth in First Nations peoples representation from 2.5 per cent to 2.7 per cent.<QldFootnote number={47} /> During this period the Queensland (QLD) Government increased its First Nations workforce target from 3 per cent to 4 per cent in 2023.<QldFootnote number={48} /> While the data indicates progress, a gap remains relative to the stated target, highlighting the continued focus required on First Nations employment. The QLD Government has established explicit employment diversity targets for CALD individuals and people with disabilities, with the target for both cohorts set at 12 per cent of the workforce.<QldFootnote number={49} /></p></div>
           <div><h3 className="text-sm font-bold">Structure and Legal Context</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The QPS comprises Departments, Statutory Agencies related to a department, and separate Public Service Agencies. The Public Service consists of those employed under the Public Sector Act 2022. There are 22 departments of the Public Service, each led by a Secretary. The Queensland Public Sector comprises over 100 different organisations and involves delivering different services including education, healthcare, social welfare and public security.</p></div>
@@ -123,9 +123,9 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
           <ColumnChart title="Diversity in the Queensland Public Sector" data={[{ label: "First Nations", value: 2.7, text: "2.7%" }, { label: "Culturally and linguistically diverse", value: 9, text: "9.0%" }, { label: "People with disability", value: 3.6, text: "3.6%" }, { label: "LGBTQIA+", value: 6.6, text: "6.6%" }]} source={<SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report 2025, pg. 35</SourceLink>} />
         </div>
       </Section>
-      <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+      <Section title="Workforce Trends">
         <div className="grid gap-6 lg:grid-cols-2">
-          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025.<QldFootnote number={50} /> According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent.<QldFootnote number={51} /> However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation.<QldFootnote number={52} /> The Better Public Sector for Queensland Strategy 2024-2028 provides an opportunity to build and grow current and future workforce skills.</p>
+          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025.<QldFootnote number={50} /> According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent.<QldFootnote number={51} /> However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation.<QldFootnote number={52} /> The Even Better Public Sector for Queensland Strategy 2024-2028 provides an opportunity to identify and grow current and future workforce skills.</p>
           <ProjectionChart />
         </div>
       </Section>
@@ -134,13 +134,13 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
         <ol className="mt-5 space-y-3">
           {sources.map(({ number, text }) => (
             <li id={`qld-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
-              <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+              <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] font-semibold text-white">{number}</span>
               <span><NumberedSource number={number} text={text} /></span>
             </li>
           ))}
         </ol>
       </section>
     </ContentTag>
-    {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+    {!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
   </div>;
 }

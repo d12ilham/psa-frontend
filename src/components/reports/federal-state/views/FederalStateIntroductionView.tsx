@@ -34,21 +34,21 @@ interface ReportSection {
 const reportSections: ReportSection[] = [
   {
     title: "Executive Summary",
-    description: "An executive overview of the workforce insights and strategies",
+    description: "This report provides an overview of each Federal and State/Territory Government public sector workforce and trends and identified the following two industry insights in the industry-sector:",
     tags: ["Executive Summary"],
     path: "executive_summary",
     icon: "/images/reports/federal-state/introduction/Executive.png",
   },
   {
     title: "Drivers of Change",
-    description: "Four key drivers of change and the nine megatrends shaping long-term workforce trends.",
+    description: "Identifies four key drivers of change that will impact Public Safety and Government industry-sectors in the short to medium term",
     tags: ["Drivers of Change", "Nine Megatrends"],
     path: "drivers_of_change",
     icon: "/images/reports/federal-state/introduction/Drivers.png",
   },
   {
     title: "Industry Overview",
-    description: "An overview of the industry-sector and workforce profile data",
+    description: "Examines each Federal and State/Territory Government workforce individually, providing data analysis, identifying workforce insights and detailing strategy aimed at addressing workforce challenges",
     tags: [
       "Federal Government Industry-Sector Overview",
       "Industry Profile",
@@ -59,19 +59,14 @@ const reportSections: ReportSection[] = [
   },
   {
     title: "Workforce Insights",
-    description: "An overview of the workforce insights and supporting research, including industry insights.",
-    descriptions: [
-      "An overview of the workforce insights and supporting research, including industry insights.",
-      "Summary of Workforce Themes and Insights",
-      "Supporting information details for each insight",
-    ],
+    description: "The Federal and State/Territory Government Public Service employs over 2 million people.",
     tags: ["Theme 1 - Future of the Public Service"],
     path: "workforce_insights",
     icon: "/images/reports/federal-state/introduction/Insights.png",
   },
   {
     title: "Workforce Strategies",
-    description: "The Proposed Strategies, and other Strategies/Initiatives informing these.",
+    description: "Outlines the 2026 Workforce Strategy proposed through this Report",
     tags: [
       "2026 Proposed Workforce Strategy",
       "Update on 2025 Workforce Strategies",
@@ -84,7 +79,7 @@ const reportSections: ReportSection[] = [
   {
     title: "Looking Forward",
     description:
-      "Concludes the Report by outlining key lines of enquiry that will support shaping 2027 Federal and State/Territory Government Workforce Insights Report or other projects",
+      "Concludes the Report by outlining key lines of inquiry that will support shaping 2027 Federal and State/Territory Government Workforce Insights Report or other projects",
     tags: ["2027 and Beyond"],
     path: "looking_forward",
     icon: "/images/reports/federal-state/introduction/LookingForward.png",
@@ -101,19 +96,6 @@ export default function FederalStateIntroductionView({
   const router = useRouter();
   const structureRef = React.useRef<HTMLDivElement>(null);
   const [isStructureVisible, setIsStructureVisible] = React.useState(false);
-
-  const getPreviousReportSlug = () => {
-    const currentYear = parseInt(report?.year?.label || "2026", 10);
-    const prevYear = isNaN(currentYear) ? 2025 : currentYear - 1;
-
-    if (slug.endsWith(`-${currentYear}`)) {
-      return slug.replace(new RegExp(`-${currentYear}$`), `-${prevYear}`);
-    }
-    if (/-\d{4}$/.test(slug)) {
-      return slug.replace(/-\d{4}$/, `-${prevYear}`);
-    }
-    return `${slug}-${prevYear}`;
-  };
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -138,20 +120,20 @@ export default function FederalStateIntroductionView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader slug={slug} report={report} currentPage="introduction" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="introduction" />
+        <ReportNavButtons sectorPalette slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-[100px]">
           <div className="flex-1 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="animate-slide-up space-y-2">
-                <span className="text-xs font-semibold text-notes uppercase block">
+                <span className="text-xs font-semibold text-[#754C2D] uppercase block">
                   INTRODUCTION
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray800 leading-tight">
@@ -174,14 +156,14 @@ export default function FederalStateIntroductionView({
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
-                className="bg-[#598303] hover:bg-[#486806] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-[#754C2D] hover:bg-[#5C3B23] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
               <button
-                onClick={() => router.push(`/reports/${getPreviousReportSlug()}`)}
-                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
+                onClick={() => router.push(`/reports/${slug}/downloads`)}
+                className="border border-[#EED4C4] bg-[#F8EEE8] hover:bg-gray-50 text-[#754C2D] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
               </button>
@@ -292,7 +274,7 @@ export default function FederalStateIntroductionView({
                     ? { animationDelay: `${index * 0.12 + 0.1}s` }
                     : undefined
                 }
-                className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#694834] p-6 flex flex-col justify-between space-y-6 cursor-pointer no-underline transition-all duration-200 hover:border-2 hover:border-[#728C28] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#694834] ${
+                className={`bg-white rounded-2xl border border-gray200 border-t-12 border-t-[#694834] p-6 flex flex-col justify-between space-y-6 cursor-pointer no-underline transition-all duration-200 hover:border-2 hover:border-[#754C2D] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#694834] ${
                   isStructureVisible
                     ? "animate-card-entrance"
                     : "opacity-0 translate-y-6"
@@ -345,7 +327,7 @@ export default function FederalStateIntroductionView({
                 {/* Bottom: Explore Button */}
                 <div>
                   <span
-                    className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-5 py-2 rounded-full inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+                    className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#754C2D] font-bold text-xs px-5 py-2 rounded-full inline-flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
                     Explore <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
@@ -357,10 +339,10 @@ export default function FederalStateIntroductionView({
 
         {/* ── TWO FEATURE BANNERS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
-                src="/images/reports/introduction/About.svg"
+                src="/images/reports/federal-state/sector-palette/reports/introduction/About.svg"
                 alt="About Public Skills Australia"
                 className="w-12 h-12 shrink-0 object-contain"
               />
@@ -375,16 +357,16 @@ export default function FederalStateIntroductionView({
             </div>
             <button
               onClick={() => router.push(`/reports/${slug}/about`)}
-              className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+              className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >
               View <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
 
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
-                src="/images/reports/introduction/Methodology.svg"
+                src="/images/reports/federal-state/sector-palette/reports/introduction/Methodology.svg"
                 alt="Methodology"
                 className="w-12 h-12 shrink-0 object-contain"
               />
@@ -397,7 +379,7 @@ export default function FederalStateIntroductionView({
             </div>
             <button
               onClick={() => router.push(`/reports/${slug}/methodology`)}
-              className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+              className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >
               View <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -406,7 +388,7 @@ export default function FederalStateIntroductionView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

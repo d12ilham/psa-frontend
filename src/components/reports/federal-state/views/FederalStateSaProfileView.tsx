@@ -57,7 +57,7 @@ function RepresentationChart() {
   const x = (index: number) => 48 + index * 112;
   const y = (value: number) => 164 - (value - 2.05) * 370;
   return <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md  p-4 sm:p-5`}>
-    <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the South Australian Public Sector (2021-2025)</h3>
+    <h3 className="min-h-10 text-sm font-bold text-[#252B37]">Aboriginal and Torres Strait Islander Representation in the South Australian Public Sector (2021-2025)</h3>
     <ChartScroll><svg viewBox="0 0 560 337.5" role="img" aria-label="First Nations representation rose from 2.09% in 2021 to 2.25% in 2025" className="mt-5 w-full">
       <line x1="40" x2="512" y1="271.5" y2="271.5" stroke="#E6DCD5" />
       <polyline points={representation.map(({ value }, i) => `${x(i)},${(y(value)) * 1.5}`).join(" ")} fill="none" stroke="#754D32" strokeWidth="3" />
@@ -118,10 +118,10 @@ function DiversityChart() {
 
 export default function FederalStateSaProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
   const ContentTag = embedded ? "div" : "main";
-  return <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+  return <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
     {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
     <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-      {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_sa" prev={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }} next={{ label: "TAS Workforce Overview", href: `/reports/${slug}/industry_profile_tas` }} prevPrefix="" />}
+      {!embedded && <ReportNavButtons sectorPalette slug={slug} currentPage="industry_profile_sa" prev={{ label: "QLD Workforce Overview", href: `/reports/${slug}/industry_profile_qld` }} next={{ label: "TAS Workforce Overview", href: `/reports/${slug}/industry_profile_tas` }} prevPrefix="" />}
       <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
         <div className="min-w-0 [container-type:inline-size]">
           <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">South Australia · Selected jurisdiction</p>
@@ -134,9 +134,9 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
         </div>
         <JurisdictionMap slug={slug} selected="SA" showLinks={!embedded} />
       </section>
-      <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+      <Section title="SA Workforce Overview">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian public sector (SAPS) employs approximately 101,700 FTE employees, with a headcount of 122,644 employees.<SaFootnote number={53} /> Just under three in ten employees were engaged in frontline or direct support roles outside health and education, while a similar proportion were employed in policy or administrative roles, highlighting the dual service-delivery and system-stewardship functions of the sector.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">Women comprise close to 70 per cent of employees, while men represent under one-third.<SaFootnote number={54} /> The age profile of the SAPS shows most employees concentrated in the 30-40 and 40-50 age cohorts.<SaFootnote number={55} /> First Nations employees accounted for approximately 2.3 per cent of the workforce in 2025 rising from 2.1 per cent in 2020.<SaFootnote number={56} /></p></div>
+          <div><h3 className="text-sm font-bold">Overview</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian public sector (SAPS) employs approximately 101,700 FTE employees, with a headcount of 122,644 employees.<SaFootnote number={53} /> Just under three in ten employees were engaged in frontline or direct support roles outside health and education, while a similar proportion were employed in policy or administrative roles, highlighting the dual service-delivery and system-stewardship functions of the sector.</p><p className="mt-3 text-xs leading-6 text-[#42463B]">Women comprise close to 70 per cent of employees, while men represent under one-third.<SaFootnote number={54} /> The age profile of the SAPS shows most employees concentrated in the 30-40 and 40-50 age cohorts.<SaFootnote number={55} /> First Nations employees accounted for approximately 2.3 per cent of the workforce in 2025 rising from 2.1 per in 2020.<SaFootnote number={56} /></p></div>
           <div><h3 className="text-sm font-bold">Structure and Legal Context</h3><p className="mt-2 text-xs leading-6 text-[#42463B]">The South Australian Public Sector is defined under the Public Sector Act (2009) and consists of General Government Sector agencies, Public Non-Financial Corporations, Public Financial Corporations and Non-Budget Entities. The General Government sector covers the largest portion of services and consists of 79 agencies including:</p><ul className="mt-2 list-disc pl-5 text-xs leading-6 text-[#42463B]"><li>Departments</li><li>Police</li><li>Fire and Emergency Services</li></ul></div>
         </div>
         <div data-sa-overview-charts className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -149,7 +149,7 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
           </div>
         </div>
       </Section>
-      <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+      <Section title="SA Workforce Trends">
         <p className="text-xs leading-6 text-[#42463B]">The South Australian (SA) Government undertakes employment projections annually.</p>
         <div data-sa-trends-statistics className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="space-y-4">
@@ -166,8 +166,8 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
         </div>
         <IndustryInsightCard className="mt-6"><p>Alongside projected high-demand qualifications and occupations, stakeholders also identified future skills needs in AI, Digital Transformation, IT (architects and specialists).</p></IndustryInsightCard>
       </Section>
-      <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={53} className="mt-4 space-y-3">{sources.map((source, index) => <li id={`sa-source-${53 + index}`} data-citation-copy key={index} className="scroll-mt-24 flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{53 + index}</span><span><NumberedSource number={53 + index} text={source} /></span></li>)}</ol></section>
+      <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={53} className="mt-4 space-y-3">{sources.map((source, index) => <li id={`sa-source-${53 + index}`} data-citation-copy key={index} className="scroll-mt-24 flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] text-white">{53 + index}</span><span><NumberedSource number={53 + index} text={source} /></span></li>)}</ol></section>
     </ContentTag>
-    {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+    {!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
   </div>;
 }

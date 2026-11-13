@@ -73,13 +73,13 @@ export default function FederalStateMethodologyView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="methodology" />
+        <ReportNavButtons sectorPalette slug={slug} currentPage="methodology" />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -122,12 +122,12 @@ export default function FederalStateMethodologyView({
                   style={{ animationDelay: "0.10s" }}
                   className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
                 >
-                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
+                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
                     STEP 1
                   </span>
                   <div className="flex items-start gap-2.5">
                     <img
-                      src="/images/reports/methodology/Workshops.svg"
+                      src="/images/reports/federal-state/sector-palette/reports/methodology/Workshops.svg"
                       alt="Stakeholder consultations"
                       className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
@@ -135,11 +135,6 @@ export default function FederalStateMethodologyView({
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Stakeholder consultations
                       </h4>
-                      <p className="text-[11px] text-gray600 leading-relaxed font-normal">
-                        Employers, employee bodies and Government organisations
-                        — in-person and online meetings, workshops and
-                        presentations
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -149,12 +144,12 @@ export default function FederalStateMethodologyView({
                   style={{ animationDelay: "0.20s" }}
                   className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
                 >
-                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
+                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
                     STEP 2
                   </span>
                   <div className="flex items-start gap-2.5">
                     <img
-                      src="/images/reports/methodology/National-survey.svg"
+                      src="/images/reports/federal-state/sector-palette/reports/methodology/National-survey.svg"
                       alt="Thematic analysis"
                       className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
@@ -162,10 +157,6 @@ export default function FederalStateMethodologyView({
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Thematic analysis
                       </h4>
-                      <p className="text-[11px] text-gray600 leading-relaxed font-normal">
-                        Challenges identified through consultation analysed to
-                        identify shared challenges and trends
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -175,12 +166,12 @@ export default function FederalStateMethodologyView({
                   style={{ animationDelay: "0.30s" }}
                   className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
                 >
-                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
+                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
                     STEP 3
                   </span>
                   <div className="flex items-start gap-2.5">
                     <img
-                      src="/images/reports/methodology/Data-sources.svg"
+                      src="/images/reports/federal-state/sector-palette/reports/methodology/Data-sources.svg"
                       alt="Secondary research"
                       className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
                     />
@@ -188,10 +179,6 @@ export default function FederalStateMethodologyView({
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Secondary research
                       </h4>
-                      <p className="text-[11px] text-gray600 leading-relaxed font-normal">
-                        Qualitative and quantitative research to verify the
-                        challenges raised — JSA · ABS · NCVER datasets
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -203,12 +190,12 @@ export default function FederalStateMethodologyView({
                   style={{ animationDelay: "0.40s" }}
                   className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
                 >
-                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
+                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
                     STEP 4
                   </span>
                   <div className="flex items-start gap-2.5">
                     <img
-                      src="/images/reports/methodology/Representatives.svg"
+                      src="/images/reports/federal-state/sector-palette/reports/methodology/Representatives.svg"
                       alt="Validation"
                       className="w-12 h-12 shrink-0 object-contain"
                     />
@@ -216,11 +203,6 @@ export default function FederalStateMethodologyView({
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Validation
                       </h4>
-                      <p className="text-[11px] text-gray600 leading-relaxed font-normal">
-                        Targeted consultations with senior stakeholders to
-                        validate workforce challenges and identify
-                        industry-sector insights
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -230,12 +212,12 @@ export default function FederalStateMethodologyView({
                   style={{ animationDelay: "0.50s" }}
                   className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
                 >
-                  <span className="text-xs font-bold text-[#8AC900] uppercase block">
+                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
                     STEP 5
                   </span>
                   <div className="flex items-start gap-2.5">
                     <img
-                      src="/images/reports/methodology/Governance.svg"
+                      src="/images/reports/federal-state/sector-palette/reports/methodology/Governance.svg"
                       alt="Governance"
                       className="w-12 h-12 shrink-0 object-contain"
                     />
@@ -243,10 +225,6 @@ export default function FederalStateMethodologyView({
                       <h4 className="font-bold text-xs text-gray800 mb-1">
                         Governance
                       </h4>
-                      <p className="text-[11px] text-gray600 leading-relaxed font-normal">
-                        Government Subcommittee → Industry Advisory Group →
-                        Public Skills Australia Board
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -255,14 +233,14 @@ export default function FederalStateMethodologyView({
           </div>
 
           {/* Right Column: Key industry-sector representatives */}
-          <div className="lg:col-span-5 bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-bold text-xl text-gray800 leading-snug max-w-[200px]">
                   Key industry-sector representatives
                 </h3>
                 <img
-                  src="/images/reports/methodology/industry-sector representatives.svg"
+                  src="/images/reports/federal-state/sector-palette/reports/methodology/industry-sector representatives.svg"
                   alt="Key industry-sector representatives"
                   className="w-16 h-16 shrink-0 object-contain ml-auto animate-zoom-in"
                 />
@@ -278,7 +256,7 @@ export default function FederalStateMethodologyView({
                   <div
                     key={idx}
                     style={{ animationDelay: `${idx * 0.04 + 0.15}s` }}
-                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-[11px] font-semibold text-gray700 border border-gray200/60 hover:border-[#046D2A] hover:shadow-md hover:-translate-y-0.5 hover:text-[#046D2A] cursor-pointer relative hover:z-10 transition-all duration-300"
+                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-[11px] font-semibold text-gray700 border border-gray200/60 hover:border-[#754C2D] hover:shadow-md hover:-translate-y-0.5 hover:text-[#754C2D] cursor-pointer relative hover:z-10 transition-all duration-300"
                   >
                     {rep}
                   </div>
@@ -318,13 +296,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.10s" } : undefined
               }
-              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-lg-dark uppercase block">
+              <span className="text-xs font-bold text-[#754C2D] uppercase block">
                 STEP 1
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -347,13 +325,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.22s" } : undefined
               }
-              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-lg-dark uppercase block">
+              <span className="text-xs font-bold text-[#754C2D] uppercase block">
                 STEP 2
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -377,13 +355,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.34s" } : undefined
               }
-              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-lg-dark uppercase block">
+              <span className="text-xs font-bold text-[#754C2D] uppercase block">
                 STEP 3
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -416,7 +394,7 @@ export default function FederalStateMethodologyView({
             }`}
           >
             <img
-              src="/images/reports/methodology/Data-sources-bottom.svg"
+              src="/images/reports/federal-state/sector-palette/reports/methodology/Data-sources-bottom.svg"
               alt="Data sources"
               className="w-16 h-16 shrink-0 object-contain"
             />
@@ -450,7 +428,7 @@ export default function FederalStateMethodologyView({
             }`}
           >
             <img
-              src="/images/reports/methodology/With-thanks.svg"
+              src="/images/reports/federal-state/sector-palette/reports/methodology/With-thanks.svg"
               alt="With thanks"
               className="w-16 h-16 shrink-0 object-contain"
             />
@@ -468,7 +446,7 @@ export default function FederalStateMethodologyView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter
+      <ReportFooter sectorPalette
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||

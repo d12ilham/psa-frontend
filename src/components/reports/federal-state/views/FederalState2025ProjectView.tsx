@@ -50,7 +50,7 @@ function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: n
     <section data-project-update-header className="rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8">
       <div className="max-w-[1050px]">
         <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Project {projectNumber}</span>
-        <h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight text-gray800 sm:text-[38px]">{projectNumber}. {title}</h1>
+        <h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight text-gray800 sm:text-[38px]">{title}</h1>
         <p className="mt-5 max-w-[96ch] text-xs leading-6 text-gray600">{intro}</p>
       </div>
     </section>
@@ -63,7 +63,7 @@ export default function FederalState2025ProjectView({ slug, report, pageType }: 
 
   return (
     <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
-      <ReportHeader sectorPalette slug={slug} report={report} currentPage="update_2025_strategies" />
+      <ReportHeader slug={slug} report={report} currentPage="update_2025_strategies" />
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <ReportNavButtons sectorPalette slug={slug} currentPage={pageType} prev={{ label: "BACK TO update on 2025 strategies", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
         <ProjectUpdateHeader projectNumber={projectNumber} title={project.title} intro={project.intro} />

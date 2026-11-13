@@ -21,8 +21,8 @@ const navigation: NavigationGroup[] = [
   {
     label: "About",
     items: [
-      { label: "About Public Skills Australia", page: "about" },
       { label: "Introduction", page: "introduction" },
+      { label: "About Public Skills Australia", page: "about" },
       { label: "Methodology", page: "methodology" },
     ],
   },
@@ -34,10 +34,16 @@ const navigation: NavigationGroup[] = [
       { label: "Federal Government Industry-Sector Overview", page: "industry_overview" },
       { label: "Industry Profile", page: "industry_profile" },
       ...[
-        ["ACT", "act"], ["NSW", "nsw"], ["NT", "nt"], ["QLD", "qld"],
-        ["SA", "sa"], ["Tas", "tas"], ["Vic", "vic"], ["WA", "wa"],
+        ["Australian Capital Territory Public Service", "act"],
+        ["New South Wales Public Service", "nsw"],
+        ["Northern Territory Public Service", "nt"],
+        ["Queensland Public Service", "qld"],
+        ["South Australian Public Service", "sa"],
+        ["Tasmanian Public Service", "tas"],
+        ["Victorian Public Service", "vic"],
+        ["Western Australia Public Service", "wa"],
       ].map(([label, key]) => ({
-        label: `${label} Workforce Overview`,
+        label,
         page: `industry_profile_${key}`,
       })),
     ],
@@ -45,10 +51,16 @@ const navigation: NavigationGroup[] = [
   {
     label: "Workforce Insights",
     items: [
-      { label: "Theme 1 - Future of the Public Service", page: "workforce_insights" },
-      { label: "PSA Insight 1 - Productivity and Economic Growth", page: "workforce_insight_1" },
-      { label: "PSA Insight 2 - Workforce Gaps", page: "workforce_insight_2" },
-      { label: "PSA Insight 3 - Future Skills for the Public Service", page: "workforce_insight_3" },
+      { label: "Workforce Insights", page: "workforce_insights" },
+      {
+        label: "Theme 1 - Future of the Public Service",
+        page: "workforce_insights#theme-one",
+        children: [
+          { label: "PSA Insight 1 - Productivity and Economic Growth", page: "workforce_insight_1" },
+          { label: "PSA Insight 2 - Workforce Gaps", page: "workforce_insight_2" },
+          { label: "PSA Insight 3 - Future Skills for the Public Service", page: "workforce_insight_3" },
+        ],
+      },
     ],
   },
   {
@@ -133,6 +145,8 @@ export default function FederalStateReportHeader({
   const currentPage = pathname.slice(base.length + 1);
   const activePage = pageAliases[currentPage] ?? currentPage;
   const isActive = (page: string) => !page.includes("#") && activePage === page;
+  const hasActiveItem = (item: NavigationItem): boolean =>
+    isActive(item.page) || Boolean(item.children?.some(hasActiveItem));
   const renderItem = (item: NavigationItem) => (
     <li key={item.page}>
       <Link
@@ -174,7 +188,7 @@ export default function FederalStateReportHeader({
           className={`${mobileOpen ? "block" : "hidden"} order-last max-h-[calc(100dvh-90px)] w-full overflow-y-auto border-t border-white/10 pt-2 xl:order-none xl:flex xl:w-auto xl:flex-1 xl:items-center xl:justify-center xl:gap-3 xl:overflow-visible xl:border-0 xl:pt-0`}
         >
           {navigation.map((group, index) => {
-            const active = group.items?.some((item) => isActive(item.page)) || (group.page && isActive(group.page));
+            const active = group.items?.some(hasActiveItem) || (group.page && isActive(group.page));
             if (group.page) {
               return <Link key={group.label} href={`${base}/${group.page}`} prefetch={false} onClick={closeMenu} aria-current={active ? "page" : undefined} className={`block rounded-md px-2 py-3 text-xs font-semibold xl:whitespace-nowrap xl:px-0 xl:py-1 xl:text-[11px] ${focusClass} ${active ? activeClass : "text-white/80 hover:text-white"}`}>{group.label}</Link>;
             }

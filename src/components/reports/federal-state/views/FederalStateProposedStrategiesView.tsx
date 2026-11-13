@@ -28,7 +28,7 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
   return <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-gray800 antialiased motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none">
     <ReportHeader slug={slug} report={report} currentPage="workforce_strategies" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons slug={slug} currentPage="workforce_strategies" prev={{ label: "Insight 3 – Future Skills for the Public Service", href: `/reports/${slug}/workforce_insight_3` }} next={{ label: "Update on 2025 Workforce Strategies", href: `/reports/${slug}/update_2025_strategies` }} prevPrefix="" />
+      <ReportNavButtons sectorPalette slug={slug} currentPage="workforce_strategies" prev={{ label: "Insight 3 – Future Skills for the Public Service", href: `/reports/${slug}/workforce_insight_3` }} next={{ label: "Update on 2025 Workforce Strategies", href: `/reports/${slug}/update_2025_strategies` }} prevPrefix="" />
 
       <section data-proposed-strategy-header className="grid gap-6 rounded-md border border-[#ECECE5] bg-white px-5 py-6 animate-slide-up sm:px-6 sm:py-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10">
         <div data-strategy-header-copy className="min-w-0 max-w-[850px]">
@@ -37,7 +37,7 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
           <p className="mt-5 max-w-[80ch] text-xs leading-relaxed text-gray600">Public Skills Australia proposes the following strategy aligned to the workforce insights identified to support the Federal and State/Territory Government industry-sector.</p>
         </div>
         <div data-strategy-graphics aria-hidden="true" className="flex items-center gap-3 lg:justify-self-end">
-          {["/images/stratergies.svg", "/images/frame-briefcase.svg", "/images/frame-teacher.svg"].map((src) => (
+          {["/images/reports/federal-state/sector-palette/stratergies.svg", "/images/reports/federal-state/sector-palette/frame-briefcase.svg", "/images/reports/federal-state/sector-palette/frame-teacher.svg"].map((src) => (
             <span key={src} className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-[#DECFC5] bg-[#EED4C4]">
               <span
                 className="h-12 w-12 bg-[#754C2D]"
@@ -75,6 +75,6 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
         </dl>
       </section>
     </main>
-    <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+    <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
   </div>;
 }

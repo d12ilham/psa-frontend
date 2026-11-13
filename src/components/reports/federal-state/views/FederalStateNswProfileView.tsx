@@ -42,7 +42,7 @@ export function RepresentationChart({ title, years, values, target, source, min,
   const targetY = yAt(target);
   return (
     <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} rounded-md    p-4 sm:p-5`}>
-      <h3 className="border-t-[5px] border-[#754D32] pt-4 text-sm font-bold text-[#252D02]">{title}</h3>
+      <h3 className="border-t-[5px] border-[#754D32] pt-4 text-sm font-bold text-[#252B37]">{title}</h3>
       <ChartScroll><svg viewBox="0 0 590 307.5" role="img" aria-label={`${title}: ${years.map((year, index) => `${year} ${values[index].toFixed(1)}%`).join(", ")}; target ${target.toFixed(1)}%`} className="mt-5 w-full">
         <line x1="35" y1="240" x2="553" y2="240" stroke="#DDD8D3" />
         <line x1="45" y1={(targetY) * 1.5} x2="543" y2={(targetY) * 1.5} stroke="#754D32" strokeWidth="2.5" strokeDasharray="6 6" />
@@ -129,14 +129,14 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
           <JurisdictionMap slug={slug} selected="NSW" showLinks={showJurisdictionLinks} />
         </section>
 
-        <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+        <Section title="NSW Workforce Overview">
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
               <p className="mt-2 text-xs leading-6 text-[#42463B]">The New South Wales Public Service (NSWPS) employed approximately 84,780 full-time equivalent (FTE) employees in 2025.<NswFootnote number={23} /> The majority were engaged on an ongoing basis, with smaller numbers of staff employed on temporary or casual arrangements.<NswFootnote number={24} /> The workforce is geographically distributed, with more than 27,782 employees in regional areas,<NswFootnote number={25} /> emphasising the NSWPS as a major employer in regional areas.</p>
               <p className="mt-3 text-xs leading-6 text-[#42463B]">The NSW Women&apos;s Strategy 2023–2026 identifies improving gender equality outcomes, including reducing the gender pay gap.<NswFootnote number={26} /> In 2025, women comprised 66.6 per cent of the NSWPS workforce, while men accounted for 33.3 per cent of employees.<NswFootnote number={27} /> A small proportion of employees identified as non-binary. Despite women representing a majority, the gender pay gap in the NSWPS stood at 7.3 per cent in 2025, an increase from 7.2 per cent in 2024.<NswFootnote number={28} /> Addressing this pay gap remains an ongoing priority for the NSWPS.</p>
               <p className="mt-3 text-xs leading-6 text-[#42463B]">Diversity information indicates that employees who speak a language other than English comprise over one fifth of the NSWPS workforce.<NswFootnote number={29} /> Employees with disability comprise 2.8 per cent.<NswFootnote number={30} /></p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people comprise four per cent of the NSWPS workforce,<NswFootnote number={31} /> above the New South Wales Government&apos;s three per cent employment target by 2025 in non-executive salary levels, as set out in the NSW Public Sector Aboriginal Employment Strategy.<NswFootnote number={32} /></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">First Nations people comprise four per cent of the NSWPS workforce,<NswFootnote number={31} /> above the New South Wales (NSW) Government&apos;s three per cent employment target by 2025 in non-executive salary levels, as set out in the NSW Public Sector Aboriginal Employment Strategy.<NswFootnote number={32} /></p>
             </div>
             <div>
               <h3 className="text-sm font-bold">Structure and Legal Context</h3>
@@ -179,7 +179,7 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
           </div>
         </Section>
 
-        <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+        <Section title="NSW Workforce Trends">
           <div data-nsw-trends-columns className="grid gap-5 lg:grid-cols-2">
             <div data-nsw-trends-copy className="min-w-0">
               <p className="text-xs leading-6 text-[#42463B]">The number of employees in the NSWPS increased by 1.2 per cent in 2025.<NswFootnote number={33} /> Employment projections from Jobs and Skills Australia suggest a projected growth rate for the Public Administration and Safety Industry in NSW of 11 per cent over 10 years.<NswFootnote number={34} /></p>
@@ -193,7 +193,7 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
               <div className="mt-6 space-y-4"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">11%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={58}>Source: Jobs and Skills Australia, Employment projections - Outlook for states and territories, Table 2</SourceLink></p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">1,410</strong><p className="mt-1 text-xs">Additional public servants in the workforce in 2025</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={55}>Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</SourceLink></p></div></div>
             </div>
             <div className="min-w-0">
-              <div><RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source={<SourceLink row={55}>SOURCE: NSW Government, Workforce Profile Report, 2025, Figure 5.3</SourceLink>} /></div>
+              <div><RepresentationChart title="Aboriginal and Torres Strait Islander Representation in the NSW Public Sector (2019–2025)" years={[2019, 2020, 2021, 2022, 2023, 2024, 2025]} values={[3.5, 3.5, 3.7, 3.8, 3.9, 3.9, 4.0]} target={3} min={3} max={4} source={<SourceLink row={55}>SOURCE: NSW Government, Workforce Profile, 2025, Figure 5.3</SourceLink>} /></div>
             </div>
           </div>
         </Section>
@@ -205,7 +205,7 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
               <ol key={index} className="space-y-3">
                 {column.map(({ number, text }) => (
                   <li id={`nsw-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
-                    <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                    <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] font-semibold text-white">{number}</span>
                     <span><NumberedSource number={number} text={text} /></span>
                   </li>
                 ))}
@@ -219,10 +219,10 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
 
 export default function FederalStateNswProfileView({ slug, report }: { slug: string; report: Report }) {
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
+    <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
+        <ReportNavButtons sectorPalette
           slug={slug}
           currentPage="industry_profile_nsw"
           prev={{ label: "ACT Workforce Overview", href: `/reports/${slug}/industry_profile_act` }}
@@ -231,7 +231,7 @@ export default function FederalStateNswProfileView({ slug, report }: { slug: str
         />
         <FederalStateNswProfileContent slug={slug} />
       </main>
-      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

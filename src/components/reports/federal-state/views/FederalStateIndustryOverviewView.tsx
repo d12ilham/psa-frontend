@@ -267,7 +267,7 @@ export default function FederalStateIndustryOverviewView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-black font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-black font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader
         slug={slug}
@@ -278,7 +278,7 @@ export default function FederalStateIndustryOverviewView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Navigation Buttons */}
-        <ReportNavButtons
+        <ReportNavButtons sectorPalette
           slug={slug}
           currentPage="industry_overview"
           next={{
@@ -505,7 +505,7 @@ export default function FederalStateIndustryOverviewView({
               </div>
               <button
                 onClick={() => setGrowthOpen(!growthOpen)}
-                className="bg-[#8AC900] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
+                className="bg-[#EED4C4] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9BFB1] hover:shadow-md shrink-0"
               >
                 {growthOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -579,7 +579,7 @@ export default function FederalStateIndustryOverviewView({
               </div>
               <button
                 onClick={() => setSkillsOpen(!skillsOpen)}
-                className="bg-[#8AC900] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B700] hover:shadow-md shrink-0"
+                className="bg-[#EED4C4] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9BFB1] hover:shadow-md shrink-0"
               >
                 {skillsOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -621,7 +621,7 @@ export default function FederalStateIndustryOverviewView({
                   bars={[
                     {
                       percentage: 38,
-                      label: "People Management",
+                      label: "People management",
                       color: "#DDD5CE",
                     },
                     {
@@ -631,7 +631,7 @@ export default function FederalStateIndustryOverviewView({
                     },
                     {
                       percentage: 46,
-                      label: "Portfolio, program or project management",
+                      label: "Portfolio, program or project management (including implementation)",
                       color: "#9C8C80",
                     },
                     {
@@ -679,7 +679,7 @@ export default function FederalStateIndustryOverviewView({
                     },
                     {
                       percentage: 79,
-                      label: "Digital and ICT",
+                      label: "Cyber security",
                       color: "#5A3D2B",
                     },
                   ]}
@@ -776,7 +776,7 @@ export default function FederalStateIndustryOverviewView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter
+      <ReportFooter sectorPalette
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||

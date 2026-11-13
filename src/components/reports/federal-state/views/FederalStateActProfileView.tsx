@@ -39,7 +39,7 @@ export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: st
                 key={code}
                 href={code === "ACT" ? `/reports/${slug}/industry_profile_act` : code === "NSW" ? `/reports/${slug}/industry_profile_nsw` : code === "NT" ? `/reports/${slug}/industry_profile_nt` : code === "QLD" ? `/reports/${slug}/industry_profile_qld` : code === "SA" ? `/reports/${slug}/industry_profile_sa` : code === "TAS" ? `/reports/${slug}/industry_profile_tas` : code === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
                 aria-current={code === selected ? "page" : undefined}
-                className={`min-w-10 rounded-full border px-3 py-2 text-center text-sm font-semibold transition-colors hover:border-[#8AC900] ${code === selected ? "border-[#8AC900] bg-[#8AC900] text-black" : "border-[#E7E3DC] bg-white text-black"}`}
+                className={`min-w-10 rounded-full border px-3 py-2 text-center text-sm font-semibold transition-colors hover:border-[#754C2D] ${code === selected ? "border-[#754C2D] bg-[#EED4C4] text-black" : "border-[#E7E3DC] bg-white text-black"}`}
               >
                 {code}
               </Link>
@@ -51,17 +51,17 @@ export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: st
   );
 }
 
-export function Section({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+export function Section({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
   const id = title.toLowerCase().replace(/\s+/g, "-");
   return (
     <section className="overflow-hidden rounded-md border border-[#866950] bg-[#F0ECE1]">
       <div className="flex items-center justify-between gap-4 border-t-[5px] border-[#754D32] px-4 py-3 sm:px-5">
         <div>
-          <h2 className="text-base font-bold text-[#252D02]">{title}</h2>
-          <p className="mt-1 text-xs text-[#5B6152]">{subtitle}</p>
+          <h2 className="text-base font-bold text-[#252B37]">{title}</h2>
+          {subtitle && <p className="mt-1 text-xs text-[#5B6152]">{subtitle}</p>}
         </div>
-        <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)} className="flex shrink-0 items-center gap-1 rounded-full bg-[#8AC900] px-4 py-1.5 text-xs font-semibold text-[#252D02] transition-colors hover:bg-[#79B700]">
+        <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)} className="flex shrink-0 items-center gap-1 rounded-full bg-[#EED4C4] px-4 py-1.5 text-xs font-semibold text-[#252B37] transition-colors hover:bg-[#D9BFB1]">
           {open ? "Close" : "Open"} {open ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
         </button>
       </div>
@@ -77,7 +77,7 @@ function RepresentationChart() {
     <div data-profile-chart data-chart-surface="representation" data-chart-type="line" className={`${chartStyles.card} ${chartStyles.representation} overflow-hidden rounded-md   `}>
       <div className="h-2.5 bg-[#E9CFC2]" />
       <div className={`${chartStyles.cardBody} p-4 sm:p-5`}>
-        <h3 className="min-h-10 text-sm font-bold text-[#252D02]">Aboriginal and Torres Strait Islander Representation in the ACT Public Service (2023–2025)</h3>
+        <h3 className="min-h-10 text-sm font-bold text-[#252B37]">Aboriginal and Torres Strait Islander Representation in the ACT Public Service (2023–2025)</h3>
         <ChartScroll>
           <div role="img" aria-label="Representation was 2.1 percent in 2023, 2.1 percent in 2024, and 2.0 percent in 2025, against a 3.0 percent target each year" className="relative mt-3 h-[322.5px] min-w-[500px]">
             <svg viewBox="0 0 600 322.5" preserveAspectRatio="none" aria-hidden="true" className="absolute inset-0 h-full w-full">
@@ -128,10 +128,10 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
   const ContentTag = embedded ? "div" : "main";
   const HeadingTag = embedded ? "h3" : "h1";
   return (
-    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+    <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
       {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
       <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-        {!embedded && <ReportNavButtons
+        {!embedded && <ReportNavButtons sectorPalette
           slug={slug}
           currentPage="industry_profile_act"
           prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile` }}
@@ -160,12 +160,12 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           <JurisdictionMap slug={slug} selected="ACT" showLinks={!embedded} />
         </section>
 
-        <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+        <Section title="Workforce Overview">
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
               <p className="mt-2 text-xs leading-6 text-[#42463B]">The Australian Capital Territory Public Service (ACTPS) comprises approximately 31,825 employees.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">12</sup> ACTPS makes up approximately 11.6 per cent of the whole ACT workforce,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">13</sup> emphasising its position as a major employer in the territory. The workforce is predominantly female, with women accounting for close to two-thirds of employees. A small proportion of employees identify as non-binary.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">14</sup></p>
-              <p className="mt-3 text-xs leading-6 text-[#42463B]">The ACTPS workforce is diverse with employees from culturally and linguistically diverse (CALD) backgrounds accounting for over 25 per cent of the workforce. 2.8 per cent of the workforce identify as LGBTQIA+ and 3 per cent of employees report living with a disability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">15</sup></p>
+              <p className="mt-3 text-xs leading-6 text-[#42463B]">The ACTPS workforce is diverse with employees from culturally and linguistically diverse (CALD) backgrounds accounting for over 25 per cent of the workforce, 2.8 per cent of the workforce identifying as LGBTQIA+ and 3 per cent of employee&apos;s report living with a disability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">15</sup></p>
               <p className="mt-3 text-xs leading-6 text-[#42463B]">In the ACTPS, First Nations employees account for approximately 2 per cent of the workforce, below the ACT Government&apos;s 3 per cent employment target by 2026.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">16</sup> Since 2020, the level of ACT public service employees who identify as First Nations has been consistent at around 2 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">17</sup></p>
             </div>
             <div>
@@ -193,9 +193,9 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           </div>
         </Section>
 
-        <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+        <Section title="Workforce Trends">
           <h3 className="text-sm font-bold">Workforce Trends</h3>
-          <p className="mt-2 max-w-4xl text-xs leading-6 text-[#42463B]">Between 2023–24 and 2024–25, the ACTPS grew by 3.5 per cent,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">18</sup> which is greater than the projected 10-year employment growth for the Public Administration and Safety industry<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">19</sup> in the ACT (16 per cent over 10 years).<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">20</sup> The ACT Government has implemented several initiatives to build capability in the ACTPS and has committed to embedding a culture of continuous learning and innovation in leadership development to build a future ready workforce. This includes targeting entry-level recruitment through the ACTPS Graduate Program, which in 2025 transitioned to a career path model that supports balancing business needs and graduate capability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">21</sup></p>
+          <p className="mt-2 max-w-4xl text-xs leading-6 text-[#42463B]">Between 2023–24 and 2024–25, the ACTPS grew by 3.5 per cent,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">18</sup> which is greater than the projected 10-year employment growth project for the Public Administration and Safety Industry<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">19</sup> in the ACT (16 per cent over 10 years).<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">20</sup> The ACT Government has implemented several initiatives to build capability in the ACTPS and has committed to embedding a culture of continuous learning and innovation in leadership development to build a future ready workforce. This includes targeting entry-level recruitment through the ACTPS Graduate Program, which in 2025 transitioned to a career path model that supports balancing business needs and graduate capability.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">21</sup></p>
           <p className="mt-3 max-w-4xl text-xs leading-6 text-[#42463B]">The ACT Skills Needs List identifies more than 150 occupational skills shortages. This list enables targeted workforce strategies by aligning in-need occupations and the VET qualifications that support them. The list includes two occupations split across five qualifications under the PSP Public Sector Training Package, which Public Skills Australia can address.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">22</sup></p>
           <div className="mt-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
             <div className="space-y-4">
@@ -226,7 +226,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
               <ol key={index} className="space-y-3">
                 {column.map(({ number, text }) => (
                   <li data-citation-copy key={number} className="flex items-start gap-3 text-sm leading-6 text-black">
-                    <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                    <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] font-semibold text-white">{number}</span>
                     <span><NumberedSource number={number} text={text} /></span>
                   </li>
                 ))}
@@ -235,7 +235,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           </div>
         </section>
       </ContentTag>
-      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+      {!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
     </div>
   );
 }

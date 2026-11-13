@@ -51,13 +51,13 @@ export default function FederalStateAboutView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader slug={slug} report={report} currentPage="about" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="about" />
+        <ReportNavButtons sectorPalette slug={slug} currentPage="about" />
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 relative overflow-hidden space-y-6">
@@ -81,7 +81,7 @@ export default function FederalStateAboutView({
 
           <div className="relative z-10 border border-gray200 rounded-2xl p-5 max-w-2xl flex items-start gap-4">
             <img
-              src="/images/reports/about/working-in-partnership.svg"
+              src="/images/reports/federal-state/sector-palette/reports/about/working-in-partnership.svg"
               alt="Working in partnership"
               className="w-16 h-16 shrink-0 object-contain animate-zoom-in"
             />
@@ -108,7 +108,7 @@ export default function FederalStateAboutView({
                 isUndertakesVisible ? "animate-slide-up" : "opacity-0"
               }`}
             >
-              Public Skills Australia Undertakes:
+              Public Skills Australia:
             </h2>
           </div>
 
@@ -117,7 +117,7 @@ export default function FederalStateAboutView({
               style={
                 isUndertakesVisible ? { animationDelay: "0.10s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-[#754C2D] hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -125,11 +125,11 @@ export default function FederalStateAboutView({
             >
               <div className="space-y-5">
                 <img
-                  src="/images/reports/about/Workforce.svg"
+                  src="/images/reports/federal-state/sector-palette/reports/about/Workforce.svg"
                   alt="Workforce Insight and Strategy"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-[#754C2D] transition-colors duration-500 leading-snug">
                   Workforce Insight and Strategy
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -144,7 +144,7 @@ export default function FederalStateAboutView({
               style={
                 isUndertakesVisible ? { animationDelay: "0.22s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-[#754C2D] hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -152,11 +152,11 @@ export default function FederalStateAboutView({
             >
               <div className="space-y-5">
                 <img
-                  src="/images/reports/about/Training.svg"
+                  src="/images/reports/federal-state/sector-palette/reports/about/Training.svg"
                   alt="Training Product Quality & Development"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-[#754C2D] transition-colors duration-500 leading-snug">
                   Training Product Quality & Development
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -170,7 +170,7 @@ export default function FederalStateAboutView({
               style={
                 isUndertakesVisible ? { animationDelay: "0.34s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-[#754C2D] hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -178,11 +178,11 @@ export default function FederalStateAboutView({
             >
               <div className="space-y-5">
                 <img
-                  src="/images/reports/about/Supports.svg"
+                  src="/images/reports/federal-state/sector-palette/reports/about/Supports.svg"
                   alt="Supports Career Pathways"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-[#754C2D] transition-colors duration-500 leading-snug">
                   Supports Career Pathways
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -197,7 +197,7 @@ export default function FederalStateAboutView({
               style={
                 isUndertakesVisible ? { animationDelay: "0.46s" } : undefined
               }
-              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-lg-dark hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
+              className={`bg-white rounded-2xl border border-gray200 p-6 space-y-4 flex flex-col justify-between cursor-pointer group relative transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-[#754C2D] hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] ${
                 isUndertakesVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
@@ -205,11 +205,11 @@ export default function FederalStateAboutView({
             >
               <div className="space-y-5">
                 <img
-                  src="/images/reports/about/Industry.svg"
+                  src="/images/reports/federal-state/sector-palette/reports/about/Industry.svg"
                   alt="Industry Stewardship"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
-                <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
+                <h3 className="font-bold text-base text-gray800 group-hover:text-[#754C2D] transition-colors duration-500 leading-snug">
                   Industry Stewardship
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -223,7 +223,7 @@ export default function FederalStateAboutView({
           {/* Commitment Card */}
           <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row items-start gap-5">
             <img
-              src="/images/reports/about/Commitment.svg"
+              src="/images/reports/federal-state/sector-palette/reports/about/Commitment.svg"
               alt="Our commitment"
               className="w-16 h-16 shrink-0 object-contain"
             />
@@ -243,7 +243,7 @@ export default function FederalStateAboutView({
           </div>
 
           {/* Footnote Box */}
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
+          <div className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
             <p data-citation-copy className="w-full text-sm leading-6 text-black xl:w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.
@@ -256,7 +256,7 @@ export default function FederalStateAboutView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter contactUrl={report?.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      <ReportFooter sectorPalette contactUrl={report?.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

@@ -66,9 +66,6 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
             <p className="text-xs font-medium">FULL REPORT</p>
             <span aria-hidden="true" className="animate-zoom-in mt-6 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white text-[#754C2D] transition-transform duration-300 group-hover:scale-105 motion-reduce:animate-none motion-reduce:transform-none"><FileDown size={56} strokeWidth={1.5} /></span>
             <h2 className="mt-6 text-xl font-semibold leading-7">2026 Federal and State/Territory Government Workforce Insights Report</h2>
-            <p className="mt-3 max-w-[600px] text-sm leading-6 text-white/90">
-              The approved report covers workforce trends, industry insights and proposed strategies across Federal and State/Territory Governments.
-            </p>
             <div className="mt-auto pt-6">
                 <a href={currentReportUrl} target="_blank" rel="noopener noreferrer" aria-label="Download 2026 PDF (opens in a new tab or window)" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#754C2D] transition-[background-color,box-shadow] hover:bg-[#EED4C4] hover:shadow-sm">
                   Download 2026 PDF <Download aria-hidden="true" className="h-4 w-4" />
@@ -96,7 +93,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
         </section>
       </main>
 
-      <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

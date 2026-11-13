@@ -358,21 +358,21 @@ export default function FederalStateIndustryProfileView({
     : null;
 
   return (
-    <div className="fstg-profile-page flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#1B240E] antialiased selection:bg-[#8AC900]/20">
+    <div className="fstg-profile-page flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#754C2D] antialiased selection:bg-[#EED4C4]/20">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-3 px-4 py-5 sm:px-6 lg:px-8">
         <Reveal>
-          <ReportNavButtons
+          <ReportNavButtons sectorPalette
             slug={slug}
             currentPage="industry_profile"
             prev={{
-              label: "Federal Government Industry-Sector Overview",
+              label: "Federal and State/Territory Government Overview",
               href: `/reports/${slug}/industry_overview`,
             }}
             next={{
-              label: "ACT Workforce Overview",
-              href: `/reports/${slug}/industry_profile_act`,
+              label: "Workforce Insights",
+              href: `/reports/${slug}/workforce_insights`,
             }}
             prevPrefix=""
             nextPrefix="Next Section:"
@@ -395,7 +395,9 @@ export default function FederalStateIndustryProfileView({
         <Reveal delay={0.12}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white p-4 sm:p-5">
             <h2 className="text-xl font-bold text-black">
-              Location of Australian Public Service (APS) Employees
+              {selectedState === "NATIONAL"
+                ? "Location of Australian Public Service (APS) Employees"
+                : "Location of Australian Public Service (APS) Employees and State/Territory Public Service Employees"}
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-1.5 border-b border-[#E9E5DE] pb-3">
               <span className="mr-2 text-xs font-semibold uppercase text-black">
@@ -406,7 +408,7 @@ export default function FederalStateIndustryProfileView({
                 const available = tab === "NATIONAL" || selectableStates.some((code) => code === tab);
                 const className = `rounded-full border px-3 py-2 text-xs font-semibold ${
                   active
-                    ? "border-[#8AC900] text-black"
+                    ? "border-[#754C2D] text-black"
                     : "border-[#E9E5DE] bg-white text-black"
                 }`;
                 return available ? (
@@ -415,8 +417,8 @@ export default function FederalStateIndustryProfileView({
                     type="button"
                     aria-pressed={active}
                     onClick={() => setSelectedState(tab as ProfileState)}
-                    className={`${className} animate-card-entrance transition-colors hover:border-[#8AC900] motion-reduce:animate-none`}
-                    style={{ animationDelay: `${0.18 + index * 0.045}s`, ...(active ? { backgroundColor: "#8AC900" } : {}) }}
+                    className={`${className} animate-card-entrance transition-colors hover:border-[#754C2D] motion-reduce:animate-none`}
+                    style={{ animationDelay: `${0.18 + index * 0.045}s`, ...(active ? { backgroundColor: "#EED4C4" } : {}) }}
                   >
                     {tab}
                   </button>
@@ -467,7 +469,7 @@ export default function FederalStateIndustryProfileView({
                     </div>
                     <a
                       href={selectedState === "NT" ? `/reports/${slug}/industry_profile_nt` : selectedState === "QLD" ? `/reports/${slug}/industry_profile_qld` : selectedState === "SA" ? `/reports/${slug}/industry_profile_sa` : selectedState === "TAS" ? `/reports/${slug}/industry_profile_tas` : selectedState === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
-                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-3 text-[9px] font-bold text-[#252D02] transition-colors hover:bg-[#79B700]"
+                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#EED4C4] px-3 text-[9px] font-bold text-[#252B37] transition-colors hover:bg-[#D9BFB1]"
                     >
                       {profile.workforceCode} Workforce Overview <span aria-hidden="true">→</span>
                     </a>
@@ -508,7 +510,7 @@ export default function FederalStateIndustryProfileView({
                         <p className="mt-1 text-base font-semibold">Gender Pay Gap</p>
                       </div>
                     </div>
-                    <p data-citation-copy className="mt-3 border-t border-[#D9BCAF] pt-3 text-sm leading-6 text-black"><SourceLink row={19}>Source: Australian Government, State of the Service Report 2024-25, 2025, pg. 32</SourceLink></p>
+                    <p data-citation-copy className="mt-3 border-t border-[#D9BCAF] pt-3 text-sm leading-6 text-black"><SourceLink row={19}>Source: Australian Government, State of the Service Report 2024 – of the Service Report 2024-25, 2025, pg. 32</SourceLink></p>
                   </section>
                 </Reveal>
               </div>
@@ -557,7 +559,7 @@ export default function FederalStateIndustryProfileView({
         </Reveal>
       </main>
 
-      <ReportFooter
+      <ReportFooter sectorPalette
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||

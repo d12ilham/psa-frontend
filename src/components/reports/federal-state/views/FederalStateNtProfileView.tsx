@@ -71,10 +71,10 @@ const sources = [
 export default function FederalStateNtProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
   const ContentTag = embedded ? "div" : "main";
   return (
-    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+    <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
       {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
       <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-        {!embedded && <ReportNavButtons
+        {!embedded && <ReportNavButtons sectorPalette
           slug={slug}
           currentPage="industry_profile_nt"
           prev={{ label: "NSW Workforce Overview", href: `/reports/${slug}/industry_profile_nsw` }}
@@ -100,7 +100,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />
         </section>
 
-        <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+        <Section title="NT Workforce Overview">
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
@@ -118,7 +118,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           </div>
           <div data-nt-overview-statistics className="mt-6 grid gap-4 lg:grid-cols-2">
               <div data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
-              <div data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-sm font-bold">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="text-[10px] text-[#382219]">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
+              <div data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-lg font-bold text-[#252B37]">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="mt-1 block text-base font-semibold leading-6 text-[#252B37] sm:text-lg">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
             <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md    p-4 sm:p-5`}>
@@ -155,7 +155,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           </div>
         </Section>
 
-        <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+        <Section title="NT Workforce Trends">
           <div className="grid gap-5 lg:grid-cols-2">
             <p className="text-xs leading-6 text-[#42463B]">The NT Government has identified the following skilled occupations (October 2025) relevant to the Public Administration industry group, as high priority based on how hard they are to fill.<NtFootnote number={40} /> Additionally, the Jobs and Skills Australia Occupational Shortage List indicates that &apos;Contract, Program and Project Administrators&apos;, &apos;Welfare, Recreation and Community Arts Workers&apos;, &apos;Welfare Support Officers&apos; and &apos;Human Resource Professionals&apos; are in shortage for 2025.<NtFootnote number={41} /> Several of these occupations are listed under the priority occupation scheme for skilled migration in the Northern Territory. For 2025–26 the Northern Territory has been allocated 850 nominations for the Subclass 190 Skilled Nominated visa and 800 nominations for the Subclass 491 Skilled Work Regional (Provisional) visa. Skilled migrants, particularly under subclass 491 may help to alleviate occupational shortages in regional areas.</p>
             <IndustryInsightCard><p>Stakeholders noted that whilst skilled migration offers solutions for regional skills shortages, this can come with knowledge gaps and cultural challenges, particularly in regions with high populations of First Nations communities.</p></IndustryInsightCard>
@@ -174,14 +174,14 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           <ol start={36} className="mt-5 grid gap-x-8 gap-y-3 md:grid-cols-2">
             {sources.map(({ number, text }) => (
               <li id={`nt-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
-                <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] font-semibold text-white">{number}</span>
                 <span><NumberedSource number={number} text={text} /></span>
               </li>
             ))}
           </ol>
         </section>
       </ContentTag>
-      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+      {!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
     </div>
   );
 }

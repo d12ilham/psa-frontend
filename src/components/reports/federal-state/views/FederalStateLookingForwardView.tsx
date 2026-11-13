@@ -20,12 +20,12 @@ interface Report {
 
 const enquiries = [
   {
-    label: "LINE OF ENQUIRY 1",
+    label: "LINE OF INQUIRY 1",
     title: "Inclusion and participation of First Nations people, women and other genders in the Public Safety and Government workforces.",
     Icon: Globe2,
   },
   {
-    label: "LINE OF ENQUIRY 2",
+    label: "LINE OF INQUIRY 2",
     title: "The use of AI and digital transformation and the impact of these technologies on the Public Safety and Government Workforces.",
     Icon: Cpu,
   },
@@ -82,7 +82,7 @@ function LookingForwardArtwork() {
 export default function FederalStateLookingForwardView({ slug, report }: { slug: string; report: Report }) {
   return (
     <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
-      <ReportHeader sectorPalette slug={slug} report={report} currentPage="looking_forward" />
+      <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <ReportNavButtons
@@ -105,7 +105,9 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
           <LookingForwardArtwork />
         </section>
 
-        <section aria-label="2027 lines of enquiry" className="grid gap-6 md:grid-cols-3">
+        <p className="text-sm leading-6">The 2027 Workforce Insights Reports will focus on broader priorities detailed below and may be delivered throughout 2026/27:</p>
+
+        <section aria-label="2027 lines of inquiry" className="grid gap-6 md:grid-cols-3">
           {enquiries.map(({ label, title, Icon }, index) => (
             <div key={label} className="animate-card-entrance motion-reduce:animate-none" style={{ animationDelay: `${0.12 + index * 0.14}s` }}>
               <article className="group min-h-[305px] overflow-hidden rounded-md border border-[#E9EAEB] bg-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#754C2D] hover:shadow-md motion-reduce:hover:translate-y-0">
@@ -121,7 +123,7 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
         </section>
 
         <p className="animate-slide-up rounded-md border-2 border-[#754C2D] bg-[#EED4C4] px-6 py-5 text-sm leading-6 transition-[background-color,box-shadow] duration-300 hover:bg-[#FFFFFF] hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: "0.5s" }}>
-          Beyond these focused lines of enquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
+          Beyond these focused lines of inquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
         </p>
 
         <div data-looking-forward-ctas className="animate-slide-up flex flex-wrap items-center justify-center gap-3 pb-4 motion-reduce:animate-none" style={{ animationDelay: "0.65s" }}>

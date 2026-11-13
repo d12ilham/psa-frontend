@@ -29,10 +29,10 @@ const sources = [
 ];
 
 export default function FederalStateWorkforceInsightOneView({ slug, report }: { slug: string; report: Report }) {
-  return <div className="fstg-insights-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
+  return <div className="fstg-insights-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons slug={slug} currentPage="workforce_insight_1" prev={{ label: "Theme Overview – Future of the Public Service", href: `/reports/${slug}/workforce_insights#theme-one` }} next={{ label: "Insight 2 – Workforce Gaps", href: `/reports/${slug}/workforce_insight_2` }} prevPrefix="" nextPrefix="" />
+      <ReportNavButtons sectorPalette slug={slug} currentPage="workforce_insight_1" prev={{ label: "Theme Overview – Future of the Public Service", href: `/reports/${slug}/workforce_insights#theme-one` }} next={{ label: "Insight 2 – Workforce Gaps", href: `/reports/${slug}/workforce_insight_2` }} prevPrefix="" nextPrefix="" />
 
       <section className="rounded-md border border-[#ECECE5] bg-white p-5 sm:p-6 animate-slide-up">
         <div className="flex gap-5 rounded-md border-l-[12px] border-[#754D32] bg-[#F8EEE8] px-5 py-6 sm:gap-7 sm:px-7">
@@ -51,8 +51,8 @@ export default function FederalStateWorkforceInsightOneView({ slug, report }: { 
         <IndustryInsightCard headingAs="h2" className="animate-slide-up-delay"><p>There is a need to regularly upskill the public sector workforce for at least the next 5-10 years in technology, digital literacy and AI use, however this may shift as younger generations enter the workforce with those skills already. The public sector must remain agile to emerging skilling needs following the emergence of AI.</p></IndustryInsightCard>
       </section>
 
-      <section className="rounded-md border border-[#ECECE5] bg-white p-5 sm:p-6 animate-slide-up-delay"><h2 className="text-lg font-bold">Sources</h2><ol start={88} className="mt-5 space-y-3">{sources.map((source, index) => <li data-citation-copy id={`productivity-source-${88 + index}`} key={index} className="flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] text-white">{88 + index}</span><NumberedSource number={88 + index} text={source} /></li>)}</ol></section>
+      <section className="rounded-md border border-[#ECECE5] bg-white p-5 sm:p-6 animate-slide-up-delay"><h2 className="text-lg font-bold">Sources</h2><ol start={88} className="mt-5 space-y-3">{sources.map((source, index) => <li data-citation-copy id={`productivity-source-${88 + index}`} key={index} className="flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] text-white">{88 + index}</span><NumberedSource number={88 + index} text={source} /></li>)}</ol></section>
     </main>
-    <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+    <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
   </div>;
 }

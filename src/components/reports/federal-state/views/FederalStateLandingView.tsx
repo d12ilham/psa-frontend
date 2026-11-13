@@ -114,7 +114,7 @@ export default function FederalStateLandingView({
       </header>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
+        <ReportNavButtons sectorPalette
           slug={slug}
           prev={{ label: "Workforce Insights Reports", href: "/reports" }}
           next={{ label: "Introduction", href: `/reports/${slug}/introduction` }}
@@ -161,7 +161,7 @@ export default function FederalStateLandingView({
             <div>
               <button
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
-                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
+                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#EED4C4] text-black"
               >
                 <span>Explore the Introduction</span>
                 <span className="text-base font-normal">→</span>
@@ -194,7 +194,7 @@ export default function FederalStateLandingView({
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
-                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
+                className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#EED4C4] text-black"
               >
                 <span>Open the Executive Summary</span>
                 <span className="text-base font-normal">→</span>
