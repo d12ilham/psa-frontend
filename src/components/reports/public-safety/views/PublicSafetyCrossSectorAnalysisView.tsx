@@ -83,7 +83,6 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
     >
       <section className={styles.hero}>
         <div className={styles.heroCopy + " " + styles.enter}>
-          <p className={styles.eyebrow}>Public Safety WIR 2026 · Cross-Sector Analysis</p>
           <h1>Public Safety Cross-Sector Analysis</h1>
           <p className={styles.heroDescription}>Public Safety industry-sectors are responsible for safeguarding Australia’s people, property and environment through the combined efforts of the Defence, Fire and Emergency Services and Police industry-sectors. These industry-sectors prepare for, respond to and recover from natural disasters, emergency incidents, law and order, sovereign capabilities and geopolitical uncertainty.</p>
         </div>

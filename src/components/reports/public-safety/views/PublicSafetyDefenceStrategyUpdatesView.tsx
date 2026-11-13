@@ -8,6 +8,7 @@ import styles from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
 import sourceStyles from "./PublicSafetyDefenceEmergingTechnologyView.module.css";
 import { useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
 
 const projects = [
   { number:"01", completion:"June 2026", title:"Defence Youth Development Project", heading:"Defence Youth Development Project37", summary:"Redevelop the DEF21115 Certificate II in Military Skills to formally recognise skills acquired through Australian Defence Force Cadet participation. Update DEF10117 Certificate I in Defence Skills.\nWhen completed, this project will support Defence’s workforce targets as outlined in the Defence Workforce Plan 2024.\nThis project counterbalances the Defence Veterans – Supporting Transition strategy as it builds foundational skills for young people seeking to enter the Defence Workforce.", update:"In collaboration with Defence, Public Skills Australia has reviewed the following qualifications:", bullets:["DEF21115 Certificate II in Military Skills","DEF10117 Certificate I in Defence Skills"], updateEnd:"These will be consulted with Defence stakeholders, before finalisation and submission in 2026.", stakeholders:["Australian Air Force Cadets","Australian Army Cadets","Australian Navy Cadets","Defence Education, Learning and Training Authority (DELTA), Australian Defence College","Department of Defence","Department of Education, Training and Young People","State Training Authorities/Senior Responsible Officer","State and Territory Departments of Education","Training Package Assurance Body"], ministerial:"This project will contribute to building a skilled, adaptable and inclusive workforce.", strategic:"Support industry-sectors to continue to build and maintain capable and mobile workforces that are future-ready. Support industry-sectors through high quality training products.", drivers:["Workforce inclusivity","Challenges to workforce productivity"], connection:"Defence youth development and entry pathways." },
@@ -69,7 +70,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
         </div>
         <div key={project.number} className={`${styles.details} animate-content-switch`}>
           <header className={styles.detailHeader}>
-            <h3 id="defence-project-heading">{project.title}{project.number !== "05" && <sup>{36 + Number(project.number)}</sup>}</h3>
+            <h3 id="defence-project-heading">{project.title}{project.number !== "05" && <sup><PublicSafetyFootnoteLink number={36 + Number(project.number)} noteHref={`#defence-update-note-${36 + Number(project.number)}`} /></sup>}</h3>
             <span>Completion: {project.completion}</span>
           </header>
           <h4 className={styles.subheading}>Summary</h4>
@@ -102,7 +103,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
     <section data-report-sources className={sourceStyles.sources}>
       <h2>Sources</h2>
       <ol start={37}>
-        {["Previously referred to as Contemporary Cadet Training.", "Previously referred to as Development of Training Products for Emerging Skills in the Cyber Domain.", "Previously referred to as Development of Training Products for Emerging Skills in the Space Domain.", "Previously referred to as Defence Evolving Skills Requirements – VET System Pathways Framework."].map((source, index) => <li key={source}>
+        {["Previously referred to as Contemporary Cadet Training.", "Previously referred to as Development of Training Products for Emerging Skills in the Cyber Domain.", "Previously referred to as Development of Training Products for Emerging Skills in the Space Domain.", "Previously referred to as Defence Evolving Skills Requirements – VET System Pathways Framework."].map((source, index) => <li key={source} id={`defence-update-note-${index + 37}`}>
           <span className={sourceStyles.sourceNumber} aria-hidden="true">{index + 37}</span><span>{source}</span>
         </li>)}
       </ol>

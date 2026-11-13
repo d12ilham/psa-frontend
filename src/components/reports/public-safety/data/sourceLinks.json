@@ -1,0 +1,784 @@
+{
+  "pdfUrl": "https://psa-directus-prod.azurewebsites.net/assets/b3a99498-8d9f-4275-aa00-fcf73274d2ce.pdf",
+  "citations": {
+    "3": [
+      {
+        "title": "Organisational Resilience: Good Practice Guide",
+        "href": "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf?utm_source=copilot.com"
+      }
+    ],
+    "4": [
+      {
+        "title": "Five pillars of productivity inquiries – final reports,",
+        "href": "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/"
+      }
+    ],
+    "5": [
+      {
+        "title": "Five pillars of productivity inquiries,",
+        "href": "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/"
+      }
+    ],
+    "6": [
+      {
+        "title": "National framework for the assurance of artificial intelligence in government",
+        "href": "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government?utm_source=copilot.com"
+      },
+      {
+        "title": "Policy for the responsible use of AI in government",
+        "href": "https://www.digital.gov.au/ai/ai-in-government-policy?utm_source=copilot.com"
+      }
+    ],
+    "7": [
+      {
+        "title": "Director-General’s Annual Threat Assessment 2025,",
+        "href": "https://www.asio.gov.au/director-generals-annual-threat-assessment-2025"
+      }
+    ],
+    "8": [
+      {
+        "title": "OSCA – Occupation Standard Classification of Australia",
+        "href": "https://www.abs.gov.au/statistics/classifications/osca-occupation-standard-classification-australia/latest-release"
+      }
+    ],
+    "9": [
+      {
+        "title": "OSCA – Occupation Standard Classification of Australia",
+        "href": "https://www.abs.gov.au/statistics/classifications/osca-occupation-standard-classification-australia/latest-release"
+      }
+    ],
+    "11": [
+      {
+        "title": "Building a skilled and adaptable workforce,",
+        "href": "https://www.pc.gov.au/inquiries-and-research/adaptable-workforce/report/"
+      }
+    ],
+    "12": [
+      {
+        "title": "Defence Workforce Plan 2024",
+        "href": "https://www.defence.gov.au/about/strategic-planning/defence-workforce-plan"
+      }
+    ],
+    "13": [
+      {
+        "title": "Defence Annual Report 2024-25,",
+        "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+      }
+    ],
+    "14": [
+      {
+        "title": "Defence Workforce Plan 2024",
+        "href": "https://www.defence.gov.au/about/strategic-planning/defence-workforce-plan"
+      }
+    ],
+    "15": [
+      {
+        "title": "Defence Annual Report 2024-25,",
+        "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+      }
+    ],
+    "16": [
+      {
+        "title": "Connecting for Impact – The Jobs and Skills Report 2025,",
+        "href": "https://www.jobsandskills.gov.au/news/connecting-impact-jobs-and-skills-report-2025"
+      }
+    ],
+    "17": [
+      {
+        "title": "Digital Tasmania Strategy 2026-2031",
+        "href": "https://www.tas.gov.au/digital"
+      }
+    ],
+    "18": [
+      {
+        "title": "Digital Tasmania Strategy 2026-2031",
+        "href": "https://www.tas.gov.au/digital"
+      }
+    ],
+    "19": [
+      {
+        "title": "2024 National Defence Strategy and 2024 Integrated Investment Program,",
+        "href": "https://www.defence.gov.au/about/strategic-planning/2024-national-defence-strategy-2024-integrated-investment-program"
+      }
+    ],
+    "20": [
+      {
+        "title": "2024 National Defence Strategy,",
+        "href": "https://www.defence.gov.au/about/strategic-planning/2024-national-defence-strategy-2024-integrated-investment-program"
+      }
+    ],
+    "21": [
+      {
+        "title": "2024 National Defence Strategy,",
+        "href": "https://www.defence.gov.au/about/strategic-planning/2024-national-defence-strategy-2024-integrated-investment-program"
+      }
+    ],
+    "22": [
+      {
+        "title": "2024 Integrated Investment Program",
+        "href": "https://www.defence.gov.au/about/strategic-planning/2024-national-defence-strategy-2024-integrated-investment-program"
+      }
+    ],
+    "23": [
+      {
+        "title": "Albanese Government to invest up to $7 billion in counter drone defence",
+        "href": "https://www.minister.defence.gov.au/media-releases/2026-04-21/albanese-government-invest-up-7-billion-counter-drone-defence"
+      }
+    ],
+    "24": [
+      {
+        "title": "‘The drone war is moving too fast for old-school defense tech development, CEO warns’,",
+        "href": "https://www.businessinsider.com/drone-war-moving-too-fast-old-school-weapons-development-ceo-2025-11"
+      },
+      {
+        "title": "Drones in Modern Warfare: Lessons Learnt from the War in Ukraine,",
+        "href": "https://researchcentre.army.gov.au/sites/default/files/241022-Occasional-Paper-29-Lessons-Learnt-from-Ukraine_2.pdf"
+      }
+    ],
+    "25": [
+      {
+        "title": "‘The drone war is moving too fast for old-school defense tech development, CEO warns’,",
+        "href": "https://www.businessinsider.com/drone-war-moving-too-fast-old-school-weapons-development-ceo-2025-11"
+      }
+    ],
+    "26": [
+      {
+        "title": "Growing sovereign industrial base with 300 drones delivered to Defence",
+        "href": "https://www.defence.gov.au/news-events/releases/2025-08-19/growing-sovereign-industrial-base-300-drones-delivered-defence"
+      },
+      {
+        "title": "2024 National Defence Strategy and 2024 Integrated Investment Program,",
+        "href": "https://www.defence.gov.au/about/strategic-planning/2024-national-defence-strategy-2024-integrated-investment-program"
+      },
+      {
+        "title": "Counter-drone investment and drone championships",
+        "href": "https://www.minister.defence.gov.au/statements/2025-07-24/counter-drone-investment-drone-championships#:~:text=This%20will%20see%20some%20of,Thank%20you."
+      },
+      {
+        "title": "Albanese Government invests over $100 million to deliver next generation drones",
+        "href": "https://www.minister.defence.gov.au/media-releases/2024-07-15/albanese-government-invests-over-100-million-deliver-next-generation-drones"
+      }
+    ],
+    "27": [
+      {
+        "title": "Drone Training Takes Off",
+        "href": "https://www.defence.gov.au/news-events/news/2025-04-14/drone-training-takes-off"
+      }
+    ],
+    "28": [
+      {
+        "title": "$28 million TAFE Centre of Excellence to boost national security and upskill workers for AUKUS",
+        "href": "https://ministers.dewr.gov.au/giles/28-million-tafe-centre-excellence-boost-national-security-and-upskill-workers-aukus"
+      }
+    ],
+    "29": [
+      {
+        "title": "NSW Veterans Strategy and Action Plan 2025-2030,",
+        "href": "https://www.veterans.nsw.gov.au/assets/veterans-affairs/NSW-Veterans-Strategy-2025-2030-web.PDF"
+      }
+    ],
+    "30": [
+      {
+        "title": "Royal Commission into Defence and Veteran Suicide, Final Report – Volume 5: Transition, DVA and Support for Ex-Serving Members,",
+        "href": "https://defenceveteransuicide.royalcommission.gov.au/publications/final-report-volume-5"
+      }
+    ],
+    "31": [
+      {
+        "title": "Royal Commission into Defence and Veteran Suicide, Final Report – Volume 5: Transition, DVA and Support for Ex-Serving Members,",
+        "href": "https://defenceveteransuicide.royalcommission.gov.au/publications/final-report-volume-5"
+      }
+    ],
+    "32": [
+      {
+        "title": "Military Skill Recognition",
+        "href": "https://www.defence.gov.au/adf-members-families/military-life-cycle/transition/transition-support-members/military-skill-recognition"
+      }
+    ],
+    "33": [
+      {
+        "title": "Military Skill Recognition",
+        "href": "https://www.defence.gov.au/adf-members-families/military-life-cycle/transition/transition-support-members/military-skill-recognition"
+      }
+    ],
+    "34": [
+      {
+        "title": "How to Use a Qualification,",
+        "href": "https://www.defence.gov.au/sites/default/files/2023-10/How%20to%20Use%20a%20Qualification.pdf"
+      }
+    ],
+    "35": [
+      {
+        "title": "How to Use a Qualification,",
+        "href": "https://www.defence.gov.au/sites/default/files/2023-10/How%20to%20Use%20a%20Qualification.pdf"
+      }
+    ],
+    "36": [
+      {
+        "title": "Northern Territory Defence Veterans Strategy,",
+        "href": "https://defence.nt.gov.au/_resources/documents/nt-defence-veterans-strategy.pdf"
+      }
+    ],
+    "41": [
+      {
+        "title": "‘Progress since the Defence Strategic Review’,",
+        "href": "https://www.transparency.gov.au/publications/defence/department-of-defence/department-of-defence-annual-report-2023-24/progress-since-the-defence-strategic-review"
+      }
+    ],
+    "42": [
+      {
+        "title": "Defence Annual Report 2024-25.",
+        "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+      }
+    ],
+    "43": [
+      {
+        "title": "Emergency services for fire and other events",
+        "href": "https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/"
+      }
+    ],
+    "44": [
+      {
+        "title": "Major Incidents Report 2024-25’,",
+        "href": "https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf"
+      }
+    ],
+    "45": [
+      {
+        "title": "November 2025, Detailed Labour Force Survey (Table EQ08),",
+        "href": "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/latest-release#all-data-downloads"
+      }
+    ],
+    "46": [
+      {
+        "title": "Emergency services for fire and other events",
+        "href": "https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/"
+      }
+    ],
+    "47": [
+      {
+        "title": "2025 Occupation Shortage List",
+        "href": "https://www.jobsandskills.gov.au/data/occupation-shortage/occupation-shortage-list"
+      }
+    ],
+    "48": [
+      {
+        "title": "Emergency services for fire and other events",
+        "href": "https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/"
+      }
+    ],
+    "49": [
+      {
+        "title": "Key volunteering statistics in Australia,",
+        "href": "https://www.volunteeringaustralia.org/research/key-volunteering-statistics/"
+      }
+    ],
+    "50": [
+      {
+        "title": "2024/25 Annual Report",
+        "href": "https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025"
+      }
+    ],
+    "51": [
+      {
+        "title": "2024/25 Annual Report",
+        "href": "https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025"
+      }
+    ],
+    "53": [
+      {
+        "title": "‘Major Incidents Report 2024-25’,",
+        "href": "https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf"
+      }
+    ],
+    "54": [
+      {
+        "title": "‘Major Incidents Report 2022-23’,",
+        "href": "https://knowledge.aidr.org.au/media/10344/aidr_major-incidents-report_2022-23.pdf?trk=public_post_comment-text"
+      },
+      {
+        "title": "‘Major Incidents Report 2023-24’,",
+        "href": "https://knowledge.aidr.org.au/media/11929/aidr_major-incidents-report_2023-24.pdf"
+      },
+      {
+        "title": "‘Major Incidents Report 2024-25’",
+        "href": "https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf"
+      }
+    ],
+    "55": [
+      {
+        "title": "‘Royal Commission into National Natural Disaster Arrangements’ (Report),",
+        "href": "https://www.royalcommission.gov.au/natural-disasters/report"
+      }
+    ],
+    "56": [
+      {
+        "title": "‘National Recovery and Resilience Organisation Annual Report 2021-22’",
+        "href": "https://www.transparency.gov.au/publications/prime-minister-and-cabinet/national-recovery-and-resilience-agency/national-recovery-and-resilience-agency-annual-report-2021-22/part-3%3A-annual-performance-statements/analysis-of-performance"
+      }
+    ],
+    "57": [
+      {
+        "title": "‘Australian Institute for Disaster Resilience Handbook Collection: Community Recovery’",
+        "href": "https://knowledge.aidr.org.au/resources/handbook-community-recovery/"
+      }
+    ],
+    "58": [
+      {
+        "title": "‘Training package – PUA Public Safety’,",
+        "href": "https://training.gov.au/training/details/PUA/summary"
+      }
+    ],
+    "59": [
+      {
+        "title": "Total VET students and courses: VOCSTATS,",
+        "href": "https://www.ncver.edu.au/resources/vocstats.html"
+      }
+    ],
+    "60": [
+      {
+        "title": "National Principles for Disaster Recovery",
+        "href": "https://knowledge.aidr.org.au/resources/national-principles-for-disaster-recovery/"
+      }
+    ],
+    "63": [
+      {
+        "title": "2022/23 Annual Report,",
+        "href": "https://issuu.com/surflifesavingaustralia/docs/slsa_annualreport_2023?fr=xKAE9_zU1NQ"
+      },
+      {
+        "title": "2023/24 Annual Report,",
+        "href": "https://issuu.com/surflifesavingaustralia/docs/annualreport_2024_web"
+      },
+      {
+        "title": "2024/25 Annual Report,",
+        "href": "https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025"
+      }
+    ],
+    "64": [
+      {
+        "title": "Total VET students and courses 2024: DataBuilder",
+        "href": "https://www.ncver.edu.au/research-and-statistics/data/databuilder"
+      }
+    ],
+    "65": [
+      {
+        "title": "Emergency services for fire and other events",
+        "href": "https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/"
+      }
+    ],
+    "66": [
+      {
+        "title": "‘Unit of competency – PUASAR025 Undertake confined space rescue’",
+        "href": "https://training.gov.au/training/details/PUASAR025/qualifications"
+      }
+    ],
+    "67": [
+      {
+        "title": "Police services",
+        "href": "https://www.pc.gov.au/ongoing/report-on-government-services/justice/police-services/"
+      }
+    ],
+    "68": [
+      {
+        "title": "‘The 2025 WA state election promises made by Labor, Liberal, Greens and Nationals’,",
+        "href": "https://www.abc.net.au/news/2025-03-02/wa-state-election-2025-promises-tracker-list/104771966"
+      },
+      {
+        "title": "New Ministerial directions for ACT Policing",
+        "href": "https://www.cmtedd.act.gov.au/open_government/inform/act_government_media_releases/marisa-paterson-mla-media-releases/2025/new-ministerial-directions-for-act-policing"
+      },
+      {
+        "title": "Highest number of police applications on record",
+        "href": "https://www.premier.sa.gov.au/media-releases/news-items/highest-number-of-police-applications-on-record",
+        "unavailable": true
+      },
+      {
+        "title": "2023 ALP election policy costings",
+        "href": "https://www.parliament.nsw.gov.au/pbo/Pages/2023-ALP-election-policy-costing.aspx"
+      },
+      {
+        "title": "Crisafulli Government delivers 118 new police officers to frontline to make Queensland safer",
+        "href": "https://statements.qld.gov.au/statements/104100"
+      },
+      {
+        "title": "‘NT government pledges 200 more police officers to bolster force in $200m funding announcement",
+        "href": "https://www.abc.net.au/news/2024-04-03/nt-government-announces-200-more-police-over-four-years/103656458"
+      },
+      {
+        "title": "Strong Plan to Crack Down on Crime,",
+        "href": "https://www.premier.tas.gov.au/our-plan/supporting-our-communities/strong-plan-to-crack-down-on-crime"
+      },
+      {
+        "title": "Victoria Police to shorten training course to boost policing",
+        "href": "https://www.abc.net.au/news/2025-05-23/victoria-police-training-fasttrack-course/105326840"
+      }
+    ],
+    "69": [
+      {
+        "title": "What is computer forensics?,",
+        "href": "https://www.ibm.com/think/topics/computer-forensics"
+      }
+    ],
+    "70": [
+      {
+        "title": "Forensic science and the criminal justice system.",
+        "href": "https://lordslibrary.parliament.uk/forensic-science-and-the-criminal-justice-system/"
+      }
+    ],
+    "71": [
+      {
+        "title": "An inspection into how well the police and other organisations use digital forensics in their investigations",
+        "href": "https://hmicfrs.justiceinspectorates.gov.uk/publication-html/how-well-the-police-and-other-agencies-use-digital-forensics-in-their-investigations/"
+      }
+    ],
+    "72": [
+      {
+        "title": "An inspection into how well the police and other organisations use digital forensics in their investigations",
+        "href": "https://hmicfrs.justiceinspectorates.gov.uk/publication-html/how-well-the-police-and-other-agencies-use-digital-forensics-in-their-investigations/"
+      }
+    ],
+    "73": [
+      {
+        "title": "‘“What you say in the lab, stays in the lab”: A reflexive thematic analysis of current challenges and future directions of digital forensic investigations in the UK’,",
+        "href": "https://linkinghub.elsevier.com/retrieve/pii/S2666281724001665"
+      }
+    ],
+    "74": [
+      {
+        "title": "To research international digital forensics strategies to inform future operating models,",
+        "href": "https://www.churchilltrust.com.au/project/to-research-international-digital-forensics-strategies-to-inform-future-operating-models/"
+      }
+    ],
+    "75": [
+      {
+        "title": "What is computer forensics?,",
+        "href": "https://www.ibm.com/think/topics/computer-forensics"
+      }
+    ],
+    "76": [
+      {
+        "title": "National Digital Forensic Science Strategy,",
+        "href": "https://www.npcc.police.uk/SysSiteAssets/media/downloads/publications/publications-log/2020/national-digital-forensic-science-strategy.pdf"
+      }
+    ],
+    "77": [
+      {
+        "title": "Cyber security skills in demand as labour market evolves,",
+        "href": "https://www.jobsandskills.gov.au/news/cyber-security-skills-demand-labour-market-evolves"
+      }
+    ],
+    "78": [
+      {
+        "title": "Cyber security skills in demand as labour market evolves",
+        "href": "https://www.jobsandskills.gov.au/news/cyber-security-skills-demand-labour-market-evolves"
+      }
+    ],
+    "79": [
+      {
+        "title": "Australian Labour Market for Migrants – October 2025,",
+        "href": "https://www.jobsandskills.gov.au/publications/australian-labour-market-migrants-october-2025"
+      }
+    ],
+    "80": [
+      {
+        "title": "Second cohort of digital forensic apprentices begin work,",
+        "href": "https://www.fcn.police.uk/news/2024-11/second-cohort-digital-forensic-apprentices-begin-work"
+      }
+    ],
+    "81": [
+      {
+        "title": "Second cohort of digital forensic apprentices begin work",
+        "href": "https://www.fcn.police.uk/news/2024-11/second-cohort-digital-forensic-apprentices-begin-work"
+      }
+    ],
+    "82": [
+      {
+        "title": "To research international digital forensics strategies to inform future operating models",
+        "href": "https://www.churchilltrust.com.au/project/to-research-international-digital-forensics-strategies-to-inform-future-operating-models/"
+      }
+    ],
+    "83": [
+      {
+        "title": "‘Safety and Security in Remote, Rural, and Regional Policing’",
+        "href": "https://ruralcriminology.org/article/id/4304/"
+      }
+    ],
+    "85": [
+      {
+        "title": "‘Safety and Security in Remote, Rural, and Regional Policing’",
+        "href": "https://ruralcriminology.org/article/id/4304/"
+      }
+    ],
+    "87": [
+      {
+        "title": "Veterans’ Employment Strategy,",
+        "href": "https://www.act.gov.au/__data/assets/pdf_file/0011/2385758/ACT_Public_Service_Veterans_Employment_Strategy.pdf"
+      }
+    ],
+    "88": [
+      {
+        "title": "Veterans Employment Transition Guide ACT Public Service",
+        "href": "https://www.act.gov.au/__data/assets/pdf_file/0005/2385761/ACTPS-Veterans-Employment-Transition-Guide.pdf"
+      }
+    ],
+    "89": [
+      {
+        "title": "Military Skill Recognition,",
+        "href": "https://www.defence.gov.au/adf-members-families/military-life-cycle/transition/transition-support-members/military-skill-recognition"
+      }
+    ],
+    "90": [
+      {
+        "title": "Defence Annual Report 2024-25,",
+        "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+      }
+    ],
+    "91": [
+      {
+        "title": "ADF Member and Family Transition Guide 2024-25",
+        "href": "https://www.defence.gov.au/sites/default/files/2025-06/2024ADFMemberandFamilyTransitionGuide.pdf"
+      }
+    ],
+    "92": [
+      {
+        "title": "Training and Skills Guides,",
+        "href": "https://www.defence.gov.au/adf-members-families/military-life-cycle/transition/transition-support-members/military-skill-recognition"
+      }
+    ],
+    "93": [
+      {
+        "title": "Tasmanian Veterans’ Employment Strategy 2023-2027",
+        "href": "https://www.dpac.tas.gov.au/divisions/cpp/community-policy-and-engagement/veterans/tasmanian-veterans-employment-strategy/230127-Veteran-Employment-Strategy-2023-2027_wcag.pdf"
+      }
+    ],
+    "94": [
+      {
+        "title": "Veteran Transition Strategy,",
+        "href": "https://www.dva.gov.au/sites/default/files/2024-12/veteran-transition-strategy.pdf"
+      }
+    ],
+    "95": [
+      {
+        "title": "Veteran Transition Action Plan,",
+        "href": "https://www.dva.gov.au/sites/default/files/2024-12/veteran-transition-action-plan.pdf"
+      }
+    ],
+    "96": [
+      {
+        "title": "Veteran Employment Program",
+        "href": "https://www.veteransemployment.gov.au/about/veteran-employment-program"
+      }
+    ],
+    "97": [
+      {
+        "title": "Veteran Support and Services Guide,",
+        "href": "https://www.dva.gov.au/sites/default/files/2025-01/dva-services-guide.pdf"
+      }
+    ],
+    "98": [
+      {
+        "title": "Veteran Employment",
+        "href": "https://www.wa.gov.au/organisation/defence-west/veteran-employment"
+      }
+    ],
+    "99": [
+      {
+        "title": "Defence Industry – The Other Force: Veterans Defence Industry Career Explorer",
+        "href": "https://theotherforce.wa.gov.au/veterans-defence-industry-career-explorer"
+      }
+    ],
+    "100": [
+      {
+        "title": "NSW Government Rank to Grade Guide",
+        "href": "https://www.vep.veterans.nsw.gov.au/jobseekers/finding-the-right-role/rank-to-grade-guide"
+      }
+    ],
+    "101": [
+      {
+        "title": "Veterans Employment Program – About",
+        "href": "https://www.vep.veterans.nsw.gov.au/about/"
+      }
+    ],
+    "102": [
+      {
+        "title": "NSW Veterans Strategy and Action Plan, 2025-2030",
+        "href": "https://www.veterans.nsw.gov.au/assets/veterans-affairs/NSW-Veterans-Strategy-2025-2030-web.PDF"
+      }
+    ],
+    "103": [
+      {
+        "title": "Northern Territory Defence Veterans Strategy,",
+        "href": "https://defence.nt.gov.au/_resources/documents/nt-defence-veterans-strategy.pdf"
+      }
+    ],
+    "104": [
+      {
+        "title": "Ranks to Recognition",
+        "href": "https://www.tafensw.edu.au/programs/ranks-to-recognition"
+      }
+    ],
+    "105": [
+      {
+        "title": "Transitioning from the ADF",
+        "href": "https://www.tafesa.edu.au/industry/defence-force-personnel"
+      }
+    ],
+    "106": [
+      {
+        "title": "Veterans Queensland",
+        "href": "https://www.qld.gov.au/about/how-government-works/government-structure/veterans-queensland?SQ_VARIATION_110658=0"
+      }
+    ],
+    "107": [
+      {
+        "title": "Veterans SA",
+        "href": "https://veteranssa.sa.gov.au/"
+      }
+    ],
+    "108": [
+      {
+        "title": "Victorian Employment Workshops for Veterans",
+        "href": "https://www.vic.gov.au/victorian-employment-workshops-veterans"
+      }
+    ],
+    "109": [
+      {
+        "title": "Opportunities for veterans in the Victorian Public Sector",
+        "href": "https://www.vic.gov.au/opportunities-for-veterans-victorian-public-sector"
+      },
+      {
+        "title": "Employing veterans in the Victorian Public Sector",
+        "href": "https://www.vic.gov.au/employing-veterans-victorian-public-sector"
+      }
+    ],
+    "61": [
+      {
+        "title": "National Position on Prescribed Burning",
+        "href": "https://www.afac.com.au/public-resources/national-position-on-prescribed-burning"
+      }
+    ],
+    "62": [
+      {
+        "title": "PUAFIR201 Assist with prescribed burning",
+        "href": "https://training.gov.au/training/details/PUAFIR201"
+      },
+      {
+        "title": "PUAFIR402 Conduct simple prescribed burns",
+        "href": "https://training.gov.au/training/details/PUAFIR402"
+      },
+      {
+        "title": "PUAFIR406 Develop simple prescribed burn plans",
+        "href": "https://training.gov.au/training/details/PUAFIR406"
+      },
+      {
+        "title": "PUAFIR506 Conduct complex prescribed burns",
+        "href": "https://training.gov.au/training/details/PUAFIR506"
+      },
+      {
+        "title": "PUAFIR515 Develop complex prescribed burn plans",
+        "href": "https://training.gov.au/training/details/PUAFIR515"
+      }
+    ]
+  },
+  "captions": [
+    {
+      "title": "Defence Annual Report 2024-25",
+      "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+    },
+    {
+      "title": "Defence Annual Reports",
+      "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+    },
+    {
+      "title": "Defence Workforce Plan 2024",
+      "href": "https://www.defence.gov.au/about/strategic-planning/defence-workforce-plan"
+    },
+    {
+      "title": "Defence Annual Report 2023-24",
+      "href": "https://www.defence.gov.au/about/accessing-information/annual-reports"
+    },
+    {
+      "title": "Emergency services for fire and other events",
+      "href": "https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/"
+    },
+    {
+      "title": "‘Major Incidents Report 2024-25’",
+      "href": "https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf"
+    },
+    {
+      "title": "2024/25 Annual Report",
+      "href": "https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025"
+    },
+    {
+      "title": "Total VET students and courses: VOCSTATS",
+      "href": "https://www.ncver.edu.au/resources/vocstats.html"
+    },
+    {
+      "title": "Total VET students and courses 2024: DataBuilder",
+      "href": "https://www.ncver.edu.au/research-and-statistics/data/databuilder"
+    },
+    {
+      "title": "Police services",
+      "href": "https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fassets.pc.gov.au%2F2026-01%2Frogs-2026-partc-section6-police-services-data-tables_0.xlsx%3FVersionId%3Dq3WeE5YTGkfT3OJr.BR2plR.9sZzdCki&wdOrigin=BROWSELINK"
+    }
+  ],
+  "supplemental": [
+    {
+      "title": "National Position on Prescribed Burning",
+      "href": "https://www.afac.com.au/public-resources/national-position-on-prescribed-burning"
+    },
+    {
+      "title": "Australian Federal Police (including ACT Policing) Corporate Plan 2025-26",
+      "href": "https://www.afp.gov.au/sites/default/files/2025-08/AFPCorporatePlan2025-26.pdf"
+    },
+    {
+      "title": "Our Focus Our Future: Connected Workforce Connected Communities",
+      "href": "https://www.police.nsw.gov.au/__data/assets/pdf_file/0010/806464/v12_Corporate_Plan_-_Our_Focus_Our_Future_OP2.pdf"
+    },
+    {
+      "title": "'Be a Cop in Your Hometown' initiative",
+      "href": "https://www.police.nsw.gov.au/recruitment/careers_and_salary/be_a_cop_in_your_home_town"
+    },
+    {
+      "title": "Our Plan 2024-2027",
+      "href": "https://pfes.nt.gov.au/our-plan"
+    },
+    {
+      "title": "2030 Strategy - Safer Communities",
+      "href": "https://www.police.sa.gov.au/about-us/strategic-priorities"
+    },
+    {
+      "title": "Tasmania Police Strategy: Our Way Forward - 2023-2028",
+      "href": "https://www.police.tas.gov.au/uploads/Tasmania-Police-Strategic-Plan-2023-2028-ACCESSIBLE.pdf"
+    },
+    {
+      "title": "Disability Inclusion Plan - 2023-2027",
+      "href": "https://www.police.tas.gov.au/uploads/DPFEM-Disability-Inclusion-Plan-2023-2027.pdf"
+    },
+    {
+      "title": "LGBTIQA+ Action Plan - 2023-2026",
+      "href": "https://www.police.tas.gov.au/uploads/LGBTIQA-Action-Plan-2023-Web.pdf"
+    },
+    {
+      "title": "WA Police Strategic Framework",
+      "href": "https://www.wa.gov.au/organisation/western-australia-police-force/wa-police-force-strategic-framework"
+    },
+    {
+      "title": "Organisation Capability Review",
+      "href": "https://www.wa.gov.au/system/files/2025-05/agency_capability_review_program_wa_police.pdf"
+    },
+    {
+      "title": "OSCA, December 2024",
+      "href": "https://www.abs.gov.au/statistics/classifications/osca-occupation-standard-classification-australia/latest-release"
+    }
+  ],
+  "verificationNotes": [
+    "PDF hyperlink destinations were extracted from the published Public Safety 2026 PDF. The supplied FA_PRINT PDF has no annotations.",
+    "Reference 54: the PDF links all three annual-report titles to 2024-25. The first two now link to the corresponding 2022-23 and 2023-24 originals verified at AIDR.",
+    "Reference 68: the missing Victoria training-course news URL was verified at ABC. The SA government release returns 404 and is retained here for provenance, but is not rendered as a broken hyperlink.",
+    "Reference 61 and the five training products in reference 62 have verified original-publisher links despite lacking PDF hyperlink annotations.",
+    "Supplemental strategy links were checked against original publishers. Historical QPS 2024-28 and Victoria Keeping You Safe 2023-28 URLs still require approved copies; newer plans have not been substituted.",
+    "Reference 10 has no PDF URL; JSA now provides ASC data by request. Its citation text remains unchanged pending an approved source URL."
+  ]
+}

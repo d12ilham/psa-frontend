@@ -97,10 +97,10 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Cross-Sector Analysis · 02</p>
             <h1>Specialist Skill Alignment</h1>
-            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between, for example:", "See the specialist skills alignment diagram to the right."]} /></p>
+            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between industry-sectors.", "See the specialist skills alignment diagram to the right."]} /></p>
           </div>
           <div className={styles.diagram}>
-            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Specialist skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines. Search and Rescue is the worked example below." />
+            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Specialist skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines." />
           </div>
         </section>
 

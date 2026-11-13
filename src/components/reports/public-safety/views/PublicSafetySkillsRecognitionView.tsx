@@ -1,4 +1,6 @@
 "use client";
+
+import PublicSafetySourceText from "./PublicSafetySourceText";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -92,7 +94,7 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
         </section>
         <section data-report-sources data-reveal="sources" className={styles.sources + " " + reveal("sources")}>
           <h2>Sources</h2>
-          <ol start={11}><li id="recognition-source-11" value={11}><span className={styles.sourceNumber} aria-hidden="true">11</span><p>Productivity Commission, Building a skilled and adaptable workforce, Productivity Commission, Australian Government, 2025.</p></li></ol>
+          <ol start={11}><li id="recognition-source-11" value={11}><span className={styles.sourceNumber} aria-hidden="true">11</span><p><PublicSafetySourceText number={11} text={"Productivity Commission, Building a skilled and adaptable workforce, Productivity Commission, Australian Government, 2025."} /></p></li></ol>
         </section>
       </div>
     </PublicSafetyPageShell>

@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -96,11 +98,11 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
               </div>
             ))}
           </div>
-          <p className={styles.skillsClosing}>The Public Safety industry-sectors occupations further share core skills as illustrated below. <Footnote number={10} /></p>
         </section>
 
         <section data-reveal="graph" className={`${styles.graphPanel} ${reveal("graph")}`} aria-labelledby="core-graph-heading">
           <h2 id="core-graph-heading">Shared Core Skills · Australian Skills Classification (JSA)</h2>
+          <p className={styles.skillsClosing}>The Public Safety industry-sectors occupations further share core skills as illustrated below:<Footnote number={10} /></p>
           <div className={styles.graphRow}>
             <div className={`${styles.graph} ${reveal("graph")}`}>
               <Image src="/images/reports/public-safety/core-skills-radar-approved.png" width={1416} height={786} alt="Approved ten-axis core-skills radar chart with overlapping Emergency Service Worker, Fire Fighter and Police Officer profiles: digital engagement, initiative and innovation, learning, numeracy, oral communication, planning and organising, problem solving, reading, teamwork and writing" unoptimized />
@@ -111,15 +113,15 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
                 <span role="listitem">Fire Fighter</span>
                 <span role="listitem">Police Officer</span>
               </div>
-              <p className={styles.graphExplanation}>These three occupations encompass a range of core skills that may likely enable industry-sector cross-skilling, greater interoperability and would enhance national capability to prepare for, respond to and recover from natural disasters, emergency incidents and geopolitical uncertainty.</p>
+              <p className={styles.graphExplanation}>These three occupations encompass a range of core skills that may likely enable industry-sector cross skilling, greater interoperability and would enhance national capability to prepare for, respond to and recover from natural disasters, emergency incidents and geopolitical uncertainty.</p>
             </div>
           </div>
-          <p data-source-caption className={styles.graphSource}>Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024</p>
+          <p data-source-caption className={styles.graphSource}><PublicSafetySourceText text={"Source: JSA, Australian Skills Classification, 2023 · ABS, OSCA, December 2024"} /></p>
         </section>
 
         <section data-report-sources data-reveal="sources" className={`${styles.sources} ${reveal("sources")}`}>
           <h2>Sources</h2>
-          <ol start={8}>{sources.map(({ number, text }) => <li key={number} id={`core-source-${number}`} value={number}><span className={styles.sourceNumber} aria-hidden="true">{number}</span><span>{text}</span></li>)}</ol>
+          <ol start={8}>{sources.map(({ number, text }) => <li key={number} id={`core-source-${number}`} value={number}><span className={styles.sourceNumber} aria-hidden="true">{number}</span><span><PublicSafetySourceText number={number} text={text} /></span></li>)}</ol>
         </section>
       </div>
     </PublicSafetyPageShell>

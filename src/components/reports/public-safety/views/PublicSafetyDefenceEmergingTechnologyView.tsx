@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -61,9 +63,9 @@ export default function PublicSafetyDefenceEmergingTechnologyView({ slug, report
       </div>
       <h2 id="defence-technology-market">Emerging technologies across the labour market</h2>
       <div className={styles.body}>
-        <p>Across the broader labour market in Australia, emerging technologies are considered to be drivers of long-term productivity growth. Adopting these emerging technologies requires supporting workforces to rapidly train and upskill, changing traditional approaches to training.<sup>16</sup> It is anticipated that across the labour market, Australia will require 1.3 million technology professionals by 2030, equating to 52,000 employees.<sup>17</sup> Recent data indicates that between 2016 and 2021, 75,000 Information and Communication Technology (ICT) students entered the broader technology sector following completion of a university or VET qualification, which equates to only 15,000 ICT professionals annually.<sup>18</sup></p>
+        <p>Across the broader labour market in Australia, emerging technologies are considered to be drivers of long-term productivity growth. Adopting these emerging technologies requires supporting workforces to rapidly train and upskill, changing traditional approaches to training.<sup><PublicSafetyFootnoteLink number={16} /></sup> It is anticipated that across the labour market, Australia will require 1.3 million technology professionals by 2030, equating to 52,000 employees.<sup><PublicSafetyFootnoteLink number={17} /></sup> Recent data indicates that between 2016 and 2021, 75,000 Information and Communication Technology (ICT) students entered the broader technology sector following completion of a university or VET qualification, which equates to only 15,000 ICT professionals annually.<sup><PublicSafetyFootnoteLink number={18} /></sup></p>
         <p>While not Defence-specific, this shortage indicates the need to ensure the Australian Defence Force workforce is not only appropriately skilled to deploy emerging technologies, but that individuals are attracted and retained, noting the competing need for such professionals across the wider labour market.</p>
-        <p>The adoption of the 2024 National Defence Strategy has resulted in a change in capability priorities for the ADF, which has now moved “to an integrated, focused force designed to address Australia&apos;s most significant strategic risks”. This is markedly different from the previous balanced force approach, which was structured to respond to a range of possibilities.<sup>19</sup> Noting this change, ADF stakeholders who were consulted, emphasised the importance of training for capability that is agile and resilient to strategic shocks, and adaptable to government priorities.</p>
+        <p>The adoption of the 2024 National Defence Strategy has resulted in a change in capability priorities for the ADF, which has now moved “to an integrated, focused force designed to address Australia&apos;s most significant strategic risks”. This is markedly different from the previous balanced force approach, which was structured to respond to a range of possibilities.<sup><PublicSafetyFootnoteLink number={19} /></sup> Noting this change, ADF stakeholders who were consulted, emphasised the importance of training for capability that is agile and resilient to strategic shocks, and adaptable to government priorities.</p>
       </div>
     </section>
 
@@ -76,7 +78,7 @@ export default function PublicSafetyDefenceEmergingTechnologyView({ slug, report
           const number = index + 16;
           return <li key={number} className={sourcesVisible ? "animate-card-entrance" : undefined} style={{ animationDelay: `${index * .05 + .1}s` }}>
             <span className={styles.sourceNumber} aria-hidden="true">{number}</span>
-            <span>{source}</span>
+            <span><PublicSafetySourceText number={number} text={source} /></span>
           </li>;
         })}
       </ol>

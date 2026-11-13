@@ -1,5 +1,7 @@
 "use client";
 
+import { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import React from "react";
 import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -72,12 +74,12 @@ export default function PublicSafetyAboutView({ slug, report }: { slug: string; 
         <div className="ml-6 self-start pt-1">
           <h2 className="text-base font-bold leading-7 text-[#252D02]">Our commitment</h2>
           <p className="mt-2 max-w-[800px] text-sm leading-6 text-[#535862]">
-            Public Skills Australia remains committed to encouraging the participation of First Nations people,<sup>1</sup> those from culturally and linguistically diverse backgrounds, those living with or experiencing disabilities, women and other gender diverse people and mature people in the Public Safety and Government industry workforces.
+            Public Skills Australia remains committed to encouraging the participation of First Nations people,<sup><PublicSafetyFootnoteLink number={1} noteHref="#public-safety-note-1" /></sup> those from culturally and linguistically diverse backgrounds, those living with or experiencing disabilities, women and other gender diverse people and mature people in the Public Safety and Government industry workforces.
           </p>
         </div>
       </section>
 
-      <aside className="h-[120px] rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6">
+      <aside id="public-safety-note-1" className="h-[120px] rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6">
         <p className="max-w-[800px] text-sm leading-6 text-[#535862]">
           <sup>1.</sup> Please note, First Nations people will be used as preferred terminology inclusive of Aboriginal and Torres Strait Islanders. When citing a data source (such as government strategies or state of the sector reports) the terminology of the data source will be used to maintain accurate data representation.
         </p>

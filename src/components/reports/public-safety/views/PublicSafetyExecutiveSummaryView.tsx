@@ -133,7 +133,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
+        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
           <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>

@@ -13,7 +13,7 @@ export const defenceLocations = {
   ACT: { name: "Australian Capital Territory", values: ["7,691", "4,185", "9"] },
 } as const;
 
-export type DefenceLocation = keyof typeof defenceLocations | "NAT";
+export type DefenceLocation = keyof typeof defenceLocations;
 
 /** Keep Figma's exported paths and labels intact; bind selection to its layer IDs. */
 export default function PublicSafetyDefenceLocationMap({ selected, onSelect, className }: {

@@ -186,13 +186,13 @@ export default function CorrectionalServicesExecutiveSummaryView({
 
         <section data-summary-reveal="insights" className={`min-h-[964px] overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("insights")}`}>
           <div className="p-6">
-            <div className="group/heading grid grid-cols-[24px_minmax(0,1fr)] items-center gap-x-px gap-y-4 sm:grid-cols-[32px_minmax(0,1fr)_auto]">
+            <div className="group/heading grid grid-cols-[48px_minmax(0,1fr)] items-center gap-x-4 gap-y-4 border-b border-[#E9EAEB] pb-6 sm:grid-cols-[64px_minmax(0,1fr)_auto]">
               <Image
                 src={iconPath("Insights")}
                 alt=""
-                width={32}
-                height={32}
-                className="size-6 object-contain animate-zoom-in transition-transform duration-300 group-hover/heading:scale-105 motion-reduce:animate-none motion-reduce:transform-none motion-reduce:transition-none sm:size-8"
+                width={64}
+                height={64}
+                className="size-12 object-contain animate-zoom-in transition-transform duration-300 group-hover/heading:scale-105 motion-reduce:animate-none motion-reduce:transform-none motion-reduce:transition-none sm:size-16"
               />
               <h2 className="min-w-0 text-xl font-bold leading-7 text-[#252D02]">One Theme, Three Insights</h2>
               <div className="col-span-2 justify-self-start sm:col-span-1">
@@ -264,7 +264,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           </div>
         </section>
 
-        <section data-summary-reveal="strategy" className={`min-h-[1286px] overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("strategy")}`}>
+        <section data-summary-reveal="strategy" className={`overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("strategy")}`}>
           <div className="p-6">
             <SectionHeading
               icon="Strategies"
@@ -283,6 +283,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
                   type="button"
                   onClick={() => setStrategyOpen((open) => !open)}
                   aria-expanded={strategyOpen}
+                  aria-controls="strategy-1-approach"
                   className="inline-flex min-h-8 items-center gap-2 rounded-full bg-[#8AC900] px-4 text-xs font-bold text-[#252D02] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#78AF00] hover:shadow-sm motion-reduce:transform-none motion-reduce:transition-none"
                 >
                   {strategyOpen ? "Close" : "Open"}
@@ -293,13 +294,14 @@ export default function CorrectionalServicesExecutiveSummaryView({
                 Collaborate with HumanAbility<sup>2</sup> to analyse recent updates to the CHC Community Services Training Package to identify contemporary practice that could inform future updates to the Community Corrections specialisations in the officers Certificate III and Certificate IV in Correctional Practice.
               </h3>
 
-              <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${strategyOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
                   <div className="mt-6 grid gap-8 border-t border-[#E9EAEB] pt-6 lg:grid-cols-[minmax(0,800px)_1fr]">
                     <div className="space-y-5 text-sm font-medium leading-6 text-[#535862]">
                       <div><h4 className="font-bold text-[#252D02]">Workforce Insight:</h4><p>Community Corrections</p></div>
                       <div><h4 className="font-bold text-[#252D02]">JSC Function:</h4><p>Training Product Development and Implementation, Promotion and Monitoring</p></div>
                       <div><h4 className="font-bold text-[#252D02]">Objective:</h4><p>To provide the Correctional Services Subcommittee an analysis of contemporary community services practice that could inform the Community Corrections specialisations in the Certificate III and Certificate IV in Correctional Practice.</p></div>
+                      <div id="strategy-1-approach" aria-hidden={!strategyOpen} inert={!strategyOpen} className={`grid transition-[grid-template-rows,opacity] duration-500 motion-reduce:transition-none ${strategyOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                        <div className="overflow-hidden">
+                          <div className="space-y-5">
                       <div>
                         <h4 className="font-bold text-[#252D02]">Approach:</h4>
                         <p>In collaboration with HumanAbility, undertake an analysis of the recent updates to CHC Community Services Training Package addressing the following capability areas to consider contemporary practice in community services and case management and identify whether this may support CCO skills requirements:</p>
@@ -311,6 +313,9 @@ export default function CorrectionalServicesExecutiveSummaryView({
                       <div><h4 className="font-bold text-[#252D02]">Deliverable:</h4><p>Findings Report</p></div>
                       <div><h4 className="font-bold text-[#252D02]">Impact:</h4><p>Support the Correctional Services by providing analysis of contemporary practice in similar capability areas in different industry-sectors.</p></div>
                       <div><h4 className="font-bold text-[#252D02]">Anticipated timing:</h4><p>18-month project</p></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div className="lg:pl-2">
                       <h4 className="text-sm font-bold leading-6 text-[#252D02]">Key Stakeholders:</h4>
@@ -319,8 +324,6 @@ export default function CorrectionalServicesExecutiveSummaryView({
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

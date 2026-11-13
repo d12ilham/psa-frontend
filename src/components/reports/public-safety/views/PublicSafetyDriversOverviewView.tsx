@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -91,7 +93,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
             {sources.map(([number, source]) => (
               <li key={number} className="grid grid-cols-[20px_1fr] gap-3 text-xs leading-6 text-[#535862]">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0F3E5] text-xs font-bold text-[#598303]">{number}</span>
-                <span>{source}</span>
+                <span><PublicSafetySourceText number={number} text={source} /></span>
               </li>
             ))}
           </ol>

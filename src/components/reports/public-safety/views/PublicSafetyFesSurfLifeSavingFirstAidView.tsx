@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -45,7 +47,7 @@ function TreatmentsChart() {
 
   return <figure className={`${styles.chart} ${recovery.animatedSection}`}>
     <div className={styles.chartHeader}>
-      <h3>First Aid Treatments Administered by Surf Lifesavers <sup>63</sup></h3>
+      <h3>First Aid Treatments Administered by Surf Lifesavers <sup><PublicSafetyFootnoteLink number={63} /></sup></h3>
       <div className={styles.controls}>
         <button type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
         <button type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
@@ -95,8 +97,8 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     <section className={`${recovery.detail} animate-slide-up-delay`}>
       <div className={styles.columns}>
         <div className={styles.copy}>
-          <p>In 2024–25, volunteer surf lifesavers administered six times more first aid treatments compared to rescue operations. The number of yearly first aid treatments administered has also been increasing year-on-year since 2022–23.<sup>63</sup> This highlights a distinct operational capability requirement for volunteers. Skilling of volunteer surf lifesavers is provided through the PUA20119 Certificate II in Public Safety (Aquatic Rescue).</p>
-          <p>The importance of this qualification is strongly supported by its high utilisation with more than 1,500 completions per year since 2020.<sup>64</sup> The principal first aid unit of competency in this qualification is HLTAID010 Provide Basic Emergency Life Support. Recent consultation with industry stakeholders identified that this unit of competency is not meeting the increasing first aid requirements of Surf Life Saving.</p>
+          <p>In 2024–25, volunteer surf lifesavers administered six times more first aid treatments compared to rescue operations. The number of yearly first aid treatments administered has also been increasing year-on-year since 2022–23.<sup><PublicSafetyFootnoteLink number={63} /></sup> This highlights a distinct operational capability requirement for volunteers. Skilling of volunteer surf lifesavers is provided through the PUA20119 Certificate II in Public Safety (Aquatic Rescue).</p>
+          <p>The importance of this qualification is strongly supported by its high utilisation with more than 1,500 completions per year since 2020.<sup><PublicSafetyFootnoteLink number={64} /></sup> The principal first aid unit of competency in this qualification is HLTAID010 Provide Basic Emergency Life Support. Recent consultation with industry stakeholders identified that this unit of competency is not meeting the increasing first aid requirements of Surf Life Saving.</p>
           <p>Stakeholders identified that the HLTAID011 Provide First Aid unit of competency is considered a more complete resource for providing the increasing first aid skills demands for volunteer surf lifesavers. The differences between the training products are the range of medical conditions and injuries trained to be treated.</p>
         </div>
         <TreatmentsChart />
@@ -122,7 +124,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={63}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span>{source}</span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span><PublicSafetySourceText number={63 + index} text={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

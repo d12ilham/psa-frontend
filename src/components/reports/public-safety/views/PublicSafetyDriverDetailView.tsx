@@ -111,7 +111,7 @@ const sources = [
     citations: [{
       author: "Australian Security Intelligence Organisation (ASIO)",
       title: "Director-General’s Annual Threat Assessment 2025",
-      href: "https://www.asio.gov.au/resources/speeches-and-statements/director-generals-annual-threat-assessment-2025",
+      href: "https://www.asio.gov.au/director-generals-annual-threat-assessment-2025",
       details: "ASIO, 2025, accessed 25 February 2026",
     }],
   },

@@ -1,3 +1,4 @@
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
 import Image from "next/image";
 import { BookOpenCheck } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -46,9 +47,9 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
       <h2>The POL Police Training Package</h2>
       <div className={styles.trainingNarrative}>
       <div className={styles.trainingCopy}>
-        <p>Internationally, alternative pathways include paid internships for ex-defence personnel with digital forensics training and apprenticeship schemes offering a pathway into digital forensics.<sup>80</sup> Establishing career pathways also needs consideration in workforce planning to retain younger cohorts in digital forensics roles.<sup>81</sup></p>
+        <p>Internationally, alternative pathways include paid internships for ex-defence personnel with digital forensics training and apprenticeship schemes offering a pathway into digital forensics.<sup><PublicSafetyFootnoteLink number={80} /></sup> Establishing career pathways also needs consideration in workforce planning to retain younger cohorts in digital forensics roles.<sup><PublicSafetyFootnoteLink number={81} /></sup></p>
         <p>Stakeholder consultation identified that the POL Police Training Package could be leveraged to develop much needed digital forensics skills. Internationally, a lack of consistency in digital forensics training has been identified as a risk to both the efficiency and quality of digital forensic investigations. Developing training products through the VET system will provide police nationally consistent, industry-endorsed skills standards that will support mitigating the risks encountered internationally.</p>
-        <p>Additionally, these skills could be developed to cover general duties police officers right through to digital forensic specialist roles, ensuring police can develop consistent skills for handling digital forensics evidence.<sup>82</sup></p>
+        <p>Additionally, these skills could be developed to cover general duties police officers right through to digital forensic specialist roles, ensuring police can develop consistent skills for handling digital forensics evidence.<sup><PublicSafetyFootnoteLink number={82} /></sup></p>
       </div>
       <span className={styles.trainingGraphic} aria-hidden="true"><BookOpenCheck size={64} strokeWidth={1.5} /></span>
       </div>
@@ -59,7 +60,7 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
       <h2>Sources</h2>
       <ol start={80}>
         {sources.map((source, index) => (
-          <li key={index}><span aria-hidden="true">{index + 80}</span><span>{source}</span></li>
+          <li key={index}><span aria-hidden="true">{index + 80}</span><span><PublicSafetySourceText number={index + 80} text={source} /></span></li>
         ))}
       </ol>
     </section>

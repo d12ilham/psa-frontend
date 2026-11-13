@@ -202,9 +202,31 @@ export default function CorrectionalServicesExistingStrategiesView({
   const [activeIndex, setActiveIndex] = React.useState(0);
   const activeGroup = jurisdictionGroups.find((group) => group.indices.includes(activeIndex))!;
   const visibleIndices = [activeIndex];
+  const workspaceRef = React.useRef<HTMLElement>(null);
   const detailStartRef = React.useRef<HTMLDivElement>(null);
-  const strategyPanelRefs = React.useRef<(HTMLElement | null)[]>([]);
   const strategyListRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    let frame = 0;
+    const updateHeight = () => {
+      frame = 0;
+      const workspace = workspaceRef.current;
+      if (!workspace || window.innerWidth < 1024) return;
+      const top = Math.max(76, workspace.getBoundingClientRect().top);
+      workspace.style.setProperty("--strategy-pane-height", `${Math.max(200, window.innerHeight - top - 24)}px`);
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateHeight);
+    };
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
 
   React.useEffect(() => {
     const list = strategyListRef.current;
@@ -213,7 +235,10 @@ export default function CorrectionalServicesExistingStrategiesView({
     const bounds = list.getBoundingClientRect();
     const item = selected.getBoundingClientRect();
     if (item.top < bounds.top || item.bottom > bounds.bottom) {
-      list.scrollTop += item.top - bounds.top;
+      list.scrollTo({
+        top: list.scrollTop + (item.top < bounds.top ? item.top - bounds.top : item.bottom - bounds.bottom),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
     }
   }, [activeIndex]);
 
@@ -221,8 +246,17 @@ export default function CorrectionalServicesExistingStrategiesView({
     const nextIndex = (index + strategies.length) % strategies.length;
     setActiveIndex(nextIndex);
     window.requestAnimationFrame(() => {
-      const nextPanel = visibleIndices.includes(nextIndex) ? strategyPanelRefs.current[nextIndex] : detailStartRef.current;
-      nextPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const detail = detailStartRef.current;
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      if (window.innerWidth >= 1024) {
+        detail?.scrollTo({ top: 0, behavior: "auto" });
+        const workspace = workspaceRef.current;
+        if (workspace && Math.abs(workspace.getBoundingClientRect().top - 76) > 4) {
+          workspace.scrollIntoView({ behavior, block: "start" });
+        }
+      } else {
+        detail?.scrollIntoView({ behavior, block: "start" });
+      }
     });
   };
 
@@ -255,10 +289,10 @@ export default function CorrectionalServicesExistingStrategiesView({
           </select>
         </div>
 
-        <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Jurisdiction strategies" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+        <section ref={workspaceRef} className="grid scroll-mt-[76px] items-start gap-6 lg:sticky lg:top-[76px] lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
+          <nav aria-label="Jurisdiction strategies" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:flex lg:h-[var(--strategy-pane-height,calc(100dvh-100px))] lg:flex-col">
             <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#424996]">Selected: {activeGroup.jurisdiction}</p>
-            <div ref={strategyListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
+            <div ref={strategyListRef} tabIndex={0} role="region" aria-label="Strategy list" className="min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain p-1 focus-visible:outline-2 focus-visible:outline-[#424996]">
             {strategyEntries.map((group) => {
               const isActive = group.index === activeIndex;
               return (
@@ -282,11 +316,11 @@ export default function CorrectionalServicesExistingStrategiesView({
             </div>
           </nav>
 
-          <div ref={detailStartRef} className="min-w-0 space-y-6 scroll-mt-[172px] lg:scroll-mt-[76px]" aria-live="polite">
+          <div ref={detailStartRef} tabIndex={0} role="region" aria-label="Selected strategy details" className="min-w-0 space-y-6 rounded-[14px] scroll-mt-[172px] focus-visible:outline-2 focus-visible:outline-[#424996] lg:sticky lg:top-[76px] lg:h-[var(--strategy-pane-height,calc(100dvh-100px))] lg:overflow-y-auto lg:overscroll-contain lg:scroll-mt-[76px]" aria-live="polite">
             {visibleIndices.map((index) => {
               const strategy = strategies[index];
-              return <article key={strategy.number} ref={(element) => { strategyPanelRefs.current[index] = element; }} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
-            <div data-strategy-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-[76px]">
+              return <article key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
+            <div data-strategy-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:static">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
@@ -409,6 +443,7 @@ export default function CorrectionalServicesExistingStrategiesView({
             })}
           </div>
         </section>
+        <div aria-hidden="true" className="hidden h-[100px] lg:block" />
       </main>
 
       <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />

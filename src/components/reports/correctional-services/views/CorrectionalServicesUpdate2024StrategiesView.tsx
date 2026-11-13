@@ -17,14 +17,14 @@ type Report = {
 const strategies = [
   {
     id: "demand-management",
-    eyebrow: "Strategy One",
+    eyebrow: "Project One",
     title: "Demand Management",
     border: "#9DA8D0",
     summary: "Correctional Services organisations face a range of recruitment, retention and attrition challenges, indicated by reduced employee numbers and increasing prison populations. This also manifests in attraction based challenges, relating to perceptions and stereotypical narratives about working in this industry-sector.",
   },
   {
     id: "workforce-mobility",
-    eyebrow: "Strategy Two",
+    eyebrow: "Project Two",
     title: "Workforce Mobility",
     border: "#424996",
     summary: "Correctional services organisations face challenges in relation to participation in the VET sector and particularly with the implementation of the Certificate III in Correctional Practice, the entry level qualification for Correctional Services.",

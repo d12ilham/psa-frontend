@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -105,8 +107,8 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
           </header>
           <h4 className={styles.supportHeading}>How it Supports Transitioning and Transitioned Veterans</h4>
           <p className={layout.copy}>
-            {firstSentence}<sup className={styles.footnote}>{references[0]}</sup>
-            {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}>{references[1]}</sup></>}
+            {firstSentence}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[0]} /></sup>
+            {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[1]} /></sup></>}
           </p>
         </div>
       </article></ReportSelectionPanel>
@@ -116,7 +118,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       <h2>Sources</h2>
       <ol start={87}>
         {sources.map((source, index) => <li key={source}>
-          <span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 87}</span><span>{source}</span>
+          <span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 87}</span><span><PublicSafetySourceText number={index + 87} text={source} /></span>
         </li>)}
       </ol>
     </section>

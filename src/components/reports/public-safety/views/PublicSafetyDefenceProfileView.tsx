@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import { useEffect, useRef, useState } from "react";
@@ -70,7 +72,7 @@ function HeadcountChart() {
         </svg>
       </div>
       <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
-      <p data-source-caption className={styles.headcountSource}>SOURCE: Defence Annual Report 2024-25, 2025 &amp; Defence Annual Report 2023-24, 2024</p>
+      <p data-source-caption className={styles.headcountSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025 & Defence Annual Report 2023-24, 2024"} /></p>
     </div>
   </section>;
 }
@@ -109,7 +111,7 @@ function SeparationChart() {
         </svg>
       </div>
       <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
-      <p data-source-caption className={styles.separationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+      <p data-source-caption className={styles.separationSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
     </div>
   </section>;
 }
@@ -144,7 +146,7 @@ function GenderChart() {
           <rect x={88} y={518} width={14} height={14} rx={7} fill="#64645E" /><text x={110} y={530}>Male (%)</text>
           <rect x={195} y={518} width={14} height={14} rx={7} fill="#D3992C" /><text x={217} y={530}>Female (%)</text>
         </g>
-        <text data-source-caption x={24} y={570} className={styles.genderSource}>SOURCE: Defence Annual Report 2024-25, 2025</text>
+        <text data-source-caption x={24} y={570} className={styles.genderSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></text>
       </svg>
     </div>
   </section>;
@@ -182,7 +184,7 @@ function FirstNationsChart() {
 
         </g>)}
         <g className={styles.yearLabels} aria-hidden="true"><text x={188.64} y={523.5} textAnchor="middle">2024</text><text x={619.265} y={523.5} textAnchor="middle">2025</text></g>
-        <text data-source-caption x={28} y={575} className={styles.genderSource}>SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025</text>
+        <text data-source-caption x={28} y={575} className={styles.genderSource}><PublicSafetySourceText text={"SOURCE: DEFENCE ANNUAL REPORT 2024–25, 2025"} /></text>
       </svg>
     </div>
     <ul className={styles.seriesLegend} aria-label="Chart legend">{series.map(item => <li key={item.name}><span style={{ backgroundColor: item.colour }} aria-hidden="true" />{item.name}</li>)}</ul>
@@ -190,23 +192,23 @@ function FirstNationsChart() {
 }
 
 function LocationChart() {
-  const states: DefenceLocation[] = ["NAT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA", "ACT"];
+  const states: DefenceLocation[] = ["NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA", "ACT"];
   const [selectedState, setSelectedState] = useState<DefenceLocation>("WA");
-  const location = selectedState === "NAT" ? null : defenceLocations[selectedState];
+  const location = defenceLocations[selectedState];
   return <section className={`${styles.locationPanel} animate-card-entrance`} aria-labelledby="defence-location-title">
     <h2 id="defence-location-title">ADF Employees and Major Facilities by Location</h2>
     <div className={styles.locationControls} role="group" aria-label="Select an ADF workforce jurisdiction">
-      {states.map((state) => <button type="button" key={state} aria-pressed={state === selectedState} aria-label={state === "NAT" ? "National map" : defenceLocations[state].name} onClick={() => setSelectedState(state)}>{state}</button>)}
+      {states.map((state) => <button type="button" key={state} aria-pressed={state === selectedState} aria-label={defenceLocations[state].name} onClick={() => setSelectedState(state)}>{state}</button>)}
     </div>
     <div className={styles.locationGrid}>
       <div className={styles.locationMap}><PublicSafetyDefenceLocationMap className={styles.locationMapAsset} selected={selectedState} onSelect={setSelectedState} /></div>
       <aside className={styles.locationDetails} aria-live="polite" aria-atomic="true">
-        <h3>{selectedState === "NAT" ? "Australia" : selectedState}</h3>
-        {location ? <div key={selectedState} className={styles.locationStats}>{location.values.map((value, index) => <div key={index} className={styles.locationStat} style={{ animationDelay: `${index * .1 + .15}s` }}><strong>{value}</strong><span>{["Permanent ADF", "ADF Reserves", "Major Defence bases*"][index]}</span></div>)}</div> : <p className={styles.locationPrompt}>Select a state or territory to view workforce and major Defence base figures.</p>}
+        <h3>{selectedState}</h3>
+        <div key={selectedState} className={styles.locationStats}>{location.values.map((value, index) => <div key={index} className={styles.locationStat} style={{ animationDelay: `${index * .1 + .15}s` }}><strong>{value}</strong><span>{["Permanent ADF", "ADF Reserves", "Major Defence bases*"][index]}</span></div>)}</div>
       </aside>
     </div>
     <p className={styles.locationNote}>*Major Defence bases. Please note total number of bases may change in the next 12 months inline with recommendations from the Defence Estate Audit</p>
-    <p data-source-caption className={styles.locationSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+    <p data-source-caption className={styles.locationSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
   </section>;
 }
 
@@ -302,7 +304,7 @@ function OperationsChart() {
       </svg>
     </div>
     <p className={styles.operationsNote}>{note}</p>
-    <p data-source-caption className={styles.operationsSource}>SOURCE: {source}</p>
+    <p data-source-caption className={styles.operationsSource}><PublicSafetySourceText text={`SOURCE: ${source}`} /></p>
   </section>;
 }
 

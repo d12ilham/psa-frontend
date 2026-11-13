@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import Link from "next/link";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -43,7 +45,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
       <div className={styles.body}>
         <p>While much of the focus for transitioning veterans was based on issuing VET qualifications post-service, a challenge raised by Defence stakeholders related to enabling veterans to articulate their skills through their VET qualifications to prospective employers. Current support for veterans to articulate their skills is available, however the programs and information differ based on states and territories.</p>
         <p>Defence stakeholders advised that the current support should be bolstered – <Link className="underline underline-offset-2" href={`${reportPath}/defence_federal_initiatives`}>Appendix A – Defence Veterans’ Programs and Initiatives</Link> – highlights some of the programs in each state and territory, and the information available to support veteran transition out of the ADF and into the civilian workforce.</p>
-        <p>Some programs, such as TAFE NSW Ranks to Recognition Program, mirror the ADF programs offered to transitioning and transitioned veterans. Additionally, some states and territories (such as the Northern Territory) have adopted initiatives like the Rank to Grade Guide to better support veterans.<sup>36</sup> In the ACT, the ACTPS Veterans’ Employment Strategy has not been updated since 2020 but rather aligned to the broader programs at the federal level.</p>
+        <p>Some programs, such as TAFE NSW Ranks to Recognition Program, mirror the ADF programs offered to transitioning and transitioned veterans. Additionally, some states and territories (such as the Northern Territory) have adopted initiatives like the Rank to Grade Guide to better support veterans.<sup><PublicSafetyFootnoteLink number={36} /></sup> In the ACT, the ACTPS Veterans’ Employment Strategy has not been updated since 2020 but rather aligned to the broader programs at the federal level.</p>
         <p>Defence stakeholders emphasised that transitioning veterans should be provided with clear information to understand how the qualifications they obtained during service is relevant in the civilian workforce. This may be further supported through guidance on the programs on offer, options available and understanding how the varying roles and ranks across the ADF could translate to a civilian context. An additional benefit could be the identification of where such services could be streamlined.</p>
       </div>
     </section>
@@ -63,7 +65,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
       <ol start={36}>
         <li>
           <span className={styles.sourceNumber} aria-hidden="true">36</span>
-          <span>Northern Territory Government, Northern Territory Defence Veterans Strategy, n.d., Northern Territory Government, accessed 16 December 2025.</span>
+          <span><PublicSafetySourceText number={36} text={"Northern Territory Government, Northern Territory Defence Veterans Strategy, n.d., Northern Territory Government, accessed 16 December 2025."} /></span>
         </li>
       </ol>
     </section>

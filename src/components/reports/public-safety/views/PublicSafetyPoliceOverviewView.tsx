@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import PublicSafetySourceLink, { policeWorkforceSourceUrl } from "./PublicSafetySourceLink";
 
 import ReportSelectionPanel from "./ReportSelectionPanel";
@@ -228,7 +230,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
       <section data-report-sources className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
         <h2>Sources</h2>
         <ol className={styles.sources} start={67}>
-          {sources.map((source, index) => <li id={`police-overview-source-${index + 67}`} key={source}><span aria-hidden="true">{index + 67}</span><span>{index === 0 ? <PublicSafetySourceLink href={policeWorkforceSourceUrl}>{source}</PublicSafetySourceLink> : source}</span></li>)}
+          {sources.map((source, index) => <li id={`police-overview-source-${index + 67}`} key={source}><span aria-hidden="true">{index + 67}</span><span><PublicSafetySourceText number={index + 67} text={source} /></span></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

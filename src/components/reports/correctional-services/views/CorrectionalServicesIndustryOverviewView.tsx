@@ -127,11 +127,11 @@ export default function CorrectionalServicesIndustryOverviewView({
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <div className="flex flex-col gap-6 lg:min-h-[220px] lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-[860px]">
-              <h1 className="animate-slide-up text-[32px] font-bold leading-[1.25] text-[#424996] sm:text-[40px] sm:leading-[54px]">
+            <div className="min-w-0 flex-1">
+              <h1 className="animate-slide-up text-[32px] font-bold leading-[1.25] text-[#424996] sm:text-[40px] sm:leading-[54px] lg:whitespace-nowrap lg:text-[clamp(1.5rem,calc(3.5vw_-_8px),2.5rem)]">
                 Correctional Services Industry-Sector Overview
               </h1>
-              <p className="animate-slide-up-delay mt-4 text-sm leading-6 text-[#535862]">
+              <p className="animate-slide-up-delay mt-4 max-w-[860px] text-sm leading-6 text-[#535862]">
                 The Correctional Services industry-sector plays a critical role in managing offenders. The workforce spans a broad range of occupations, including COs, who deliver custodial services in correctional facilities, and CCOs, who supervise offenders serving non-custodial sentences or parole in the community. The workforce also includes public servants working inside and outside correctional environments across functions such as administration, education, health, policy and intelligence.
               </p>
             </div>

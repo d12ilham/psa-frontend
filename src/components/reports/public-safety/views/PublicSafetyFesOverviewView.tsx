@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
@@ -13,7 +15,7 @@ const datapoints = [
   { title:"Demand for Services", copy:"Demand continues to increase as communities face more frequent and complex emergency events, including natural disasters and climate-related incidents." },
   { title:"Career Firefighters and Emergency Services Employees", copy:"Career firefighters and emergency services employees: In the 20 years from August 2005 to August 2025, the career Fire and Emergency Services occupation (ANZSCO 4412) experienced a 65.9 per cent growth, outpacing the wider job market at 48.4 per cent." },
   { title:"Volunteer Services", copy:"Despite relative increases in career Firefighter and operational SES members from 2019–20 to 2024–25, in absolute terms, the increases in career employees are heavily negated by the decreases experienced in volunteer cohorts. Collectively, in the five years from 2019–2020, a total of 1,130 career Firefighters and SES members were added to Australia’s emergency response capability, while a total of 10,336 volunteers were lost." },
-  { title:"Surf Life Saving", copy:<>Surf Life Saving: Across 2024–2025, Surf Life Saving provided a combined total of 1.95 million hours of lifesaving patrol activity, with New South Wales and Queensland accounting for more than 70 per cent of total hours served.<sup>50</sup> This enabled a combined total of 2.19 million preventative actions, along with 65,942 administrations of first aid and 8,207 rescues across both volunteer and career surf lifesavers.<sup>51</sup></> },
+  { title:"Surf Life Saving", copy:<>Surf Life Saving: Across 2024–2025, Surf Life Saving provided a combined total of 1.95 million hours of lifesaving patrol activity, with New South Wales and Queensland accounting for more than 70 per cent of total hours served.<sup><PublicSafetyFootnoteLink number={50} /></sup> This enabled a combined total of 2.19 million preventative actions, along with 65,942 administrations of first aid and 8,207 rescues across both volunteer and career surf lifesavers.<sup><PublicSafetyFootnoteLink number={51} /></sup></> },
 ];
 
 const sources = [
@@ -83,7 +85,7 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
         </g>
       ))}
     </svg>
-    <figcaption data-source-caption>Source: {source}</figcaption>
+    <figcaption data-source-caption><PublicSafetySourceText text={`Source: ${source}`} /></figcaption>
   </figure>;
 }
 
@@ -123,7 +125,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                 <span className={styles.pill}>{expanded ? "Close" : "Open"} <ChevronDown size={14} aria-hidden="true" /></span>
               </button>
               {expanded && <div id={`fes-overview-panel-${index}`} className={`${styles.panel} animate-content-switch`}>
-                <p className={styles.copy}>{index === 0 ? <>Demand for services: Demand for both firefighter and state and territory emergency services (SES) increased by 7.6 per cent from 488,242 (total combined emergency response activities) in 2019–20 to 525,317 in 2023–24.<sup>43</sup> 40 major emergency incidents were documented from July 2024 to June 2025 (an increase from 30 the previous year).<sup>44</sup></> : index === 1 ? <>{item.copy}<sup>45</sup> This is supported by growth in student enrolments from 2019 to 2024 in the two core qualifications required for firefighters. Similarly, the total career operational and support emergency services personnel have experienced year-on-year increases since 2019–20.<sup>46</sup></> : index === 2 ? <>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup>48</sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup>49</sup></> : item.copy}</p>
+                <p className={styles.copy}>{index === 0 ? <>Demand for services: Demand for both firefighter and state and territory emergency services (SES) increased by 7.6 per cent from 488,242 (total combined emergency response activities) in 2019–20 to 525,317 in 2023–24.<sup><PublicSafetyFootnoteLink number={43} /></sup> 40 major emergency incidents were documented from July 2024 to June 2025 (an increase from 30 the previous year).<sup><PublicSafetyFootnoteLink number={44} /></sup></> : index === 1 ? <>{item.copy}<sup><PublicSafetyFootnoteLink number={45} /></sup> This is supported by growth in student enrolments from 2019 to 2024 in the two core qualifications required for firefighters. Similarly, the total career operational and support emergency services personnel have experienced year-on-year increases since 2019–20.<sup><PublicSafetyFootnoteLink number={46} /></sup></> : index === 2 ? <>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup><PublicSafetyFootnoteLink number={48} /></sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup><PublicSafetyFootnoteLink number={49} /></sup></> : item.copy}</p>
                 {index === 0 && <div className={styles.chartGrid}>
                   <WorkforceChart title="Combined Total Yearly Fire and Other Emergency Incidents Responded to by Fire and Emergency Services Organisations Across Australia" values={demandSeries} domain={[400000, 600000]} dashed source="Productivity Commission, Emergency services for fire and other events – Tables 9A.6 and 9A.7, 2026" />
                   <WorkforceChart title="Documented Major Emergency Incidents Australia" values={[27, 30, 40]} labels={years.slice(-3)} domain={[20, 45]} source="Australian Institute for Disaster Resilience (AIDR), Major Incidents Report 2024–25, 2025" />
@@ -132,9 +134,9 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                   <p className={styles.copy}>While data indicates the growth, the following occupations were assessed as being ‘in shortage’ since 2025:</p>
                   <div className={styles.callouts}>
                     <div>Firefighter occupation (OSCA 451232) in New South Wales</div>
-                    <div>Emergency Services Officer occupation (OSCA 451231) in New South Wales and South Australia<sup>47</sup></div>
+                    <div>Emergency Services Officer occupation (OSCA 451231) in New South Wales and South Australia<sup><PublicSafetyFootnoteLink number={47} /></sup></div>
                   </div>
-                  <p className={styles.copy}>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup>48</sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup>49</sup></p>
+                  <p className={styles.copy}>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup><PublicSafetyFootnoteLink number={48} /></sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup><PublicSafetyFootnoteLink number={49} /></sup></p>
                   <div className={styles.chartGrid}>
                     <WorkforceChart title="Career Firefighters (headcount)" values={careerFirefighterSeries} domain={[17500, 19500]} dashed />
                     <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed />
@@ -166,7 +168,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
       <section data-report-sources className={`${sourcesStyles.sources} ${styles.sources} animate-slide-up-delay`}>
         <h2>Sources</h2>
         <ol start={43}>
-          {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span>{index === 0 || index === 3 || index === 5 ? <a className="underline underline-offset-2" href="https://www.pc.gov.au/ongoing/report-on-government-services/emergency-management/emergency-services/" target="_blank" rel="noopener noreferrer">{source}</a> : index === 1 ? <a className="underline underline-offset-2" href="https://www.aidr.org.au/media/11931/aidr_major-incidents-report_2024-25.pdf" target="_blank" rel="noopener noreferrer">{source}</a> : index === 2 ? <a className="underline underline-offset-2" href="https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia-detailed/nov-2025" target="_blank" rel="noopener noreferrer">{source}</a> : index === 4 ? <a className="underline underline-offset-2" href="https://www.jobsandskills.gov.au/data/occupation-shortage/occupation-shortage-list" target="_blank" rel="noopener noreferrer">{source}</a> : index === 6 ? <a className="underline underline-offset-2" href="https://www.volunteeringaustralia.org/research/key-volunteering-statistics/" target="_blank" rel="noopener noreferrer">{source}</a> : index === 7 || index === 8 ? <a className="underline underline-offset-2" href="https://issuu.com/surflifesavingaustralia/docs/slsa_annual_report_2025" target="_blank" rel="noopener noreferrer">{source}</a> : source}</span></li>)}
+          {sources.map((source, index) => <li key={index}><span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 43}</span><span><PublicSafetySourceText number={index + 43} text={source} /></span></li>)}
         </ol>
       </section>
     </div>

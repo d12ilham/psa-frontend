@@ -75,7 +75,7 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
         <section className="grid items-center gap-8 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:px-8">
           <div className="max-w-[850px] text-pretty animate-slide-up">
             <h1 className="text-[32px] font-semibold leading-tight text-[#424996] sm:text-[40px]">Workforce Insights</h1>
-            <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail page.</p>
+            <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail&nbsp;page.</p>
           </div>
           <div className="mx-auto w-full max-w-[480px] animate-zoom-in motion-reduce:animate-none">
             <Image

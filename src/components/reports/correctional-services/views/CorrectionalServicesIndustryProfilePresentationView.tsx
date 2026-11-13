@@ -209,20 +209,21 @@ function FacilitiesMap() {
           ))}
           {jurisdictions.filter(({ code }) => code !== "ACT").map(({ code, employees }, index) => {
             const [x, y] = mapLabels[code] ?? [0, 0];
+            const badgeOffset = code === "VIC" || code === "TAS" ? 0 : 12;
             return (
               <g key={code} className={`pointer-events-none motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: `${0.35 + index * 0.08}s` } : undefined}>
                 {(code === "VIC" || code === "TAS") && <>
                   <circle cx={mapData.states[code].center[0]} cy={mapData.states[code].center[1]} r="3" fill="#424996" />
                   <path d={`M${mapData.states[code].center.join(" ")}L${x - 60} ${y - 7.5}H${x - 22}`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </>}
-                <rect x={x - 22} y={y - 20} width="44" height="25" rx="12.5" fill="#424996" />
-                <text x={x} y={y - 3} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{code}</text>
+                <rect x={x - 22} y={y - 20 - badgeOffset} width="44" height="25" rx="12.5" fill="#424996" />
+                <text x={x} y={y - 3 - badgeOffset} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{code}</text>
                 <text x={x} y={y + (code === "VIC" || code === "TAS" ? 26 : 20)} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>{employees.toLocaleString()}</text>
               </g>
             );
           })}
           <g className={`motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.91s" } : undefined}>
-            <path d={`M${mapData.states.ACT.center.join(" ")}L670 455H728`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
+            <path d={`M${mapData.states.ACT.center.join(" ")}L670 443H728`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
             <circle
               cx={mapData.states.ACT.center[0]}
               cy={mapData.states.ACT.center[1]}
@@ -245,8 +246,8 @@ function FacilitiesMap() {
             >
               <title>Select Australian Capital Territory</title>
             </circle>
-            <rect x="728" y="443" width="45" height="24" rx="12" fill="#424996" />
-            <text x="750" y="460" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ACT</text>
+            <rect x="728" y="431" width="45" height="24" rx="12" fill="#424996" />
+            <text x="750" y="448" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ACT</text>
             <text x="750" y="481" textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>568</text>
           </g>
         </svg>

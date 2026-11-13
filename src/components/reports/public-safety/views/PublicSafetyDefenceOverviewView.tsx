@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -110,7 +112,7 @@ function CurrentWorkforceCharts() {
             <div className={styles.currentLabels} aria-hidden="true">{bars.map((bar) => <span key={bar.value} style={{ left: `${bar.left / 782 * 100}%` }}>{bar.label}</span>)}</div>
           </div>
         </div>
-        <p data-source-caption className={styles.currentChartSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentChartSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </section>
       <aside className={styles.currentStats} aria-label="Defence enlistment statistics">
         <div className={styles.currentStatsGrid}>
@@ -121,7 +123,7 @@ function CurrentWorkforceCharts() {
             </div><p>{label}</p>
           </div>)}
         </div>
-        <p data-source-caption className={styles.currentStatsSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentStatsSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </aside>
     </div>
   </div>;
@@ -156,7 +158,7 @@ function FutureWorkforceCharts() {
               <text x={center} y={484} textAnchor="middle" className={styles.futureAxisText}>{years[index]}</text>
             </g>;
           })}
-          <text data-source-caption x={52} y={551} className={styles.futureChartSource}>SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25</text>
+          <text data-source-caption x={52} y={551} className={styles.futureChartSource}><PublicSafetySourceText text={"SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25"} /></text>
         </svg>
       </div>
       <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF permanent workforce forecast chart; scroll horizontally on smaller screens">
@@ -187,7 +189,7 @@ function FutureWorkforceCharts() {
             <path d="M 227.9291 653.1254 L 531.2361 559.5824" strokeDasharray="6.022 4.022" />
           </g>
           {forecastYearPositions.map((x, index) => <text key={x} x={x} y={750} textAnchor="middle" fontSize={7.5}>{2023 + index}</text>)}
-          <text data-source-caption x={546} y={776} textAnchor="end" fontSize={7.5}>Sources: Defence Annual Report 2024–25, 2025 &amp; Defence Workforce Plan 2024, 2024</text>
+          <text data-source-caption x={546} y={776} textAnchor="end" fontSize={7.5}><PublicSafetySourceText text={"Sources: Defence Annual Report 2024–25, 2025 & Defence Workforce Plan 2024, 2024"} /></text>
         </svg>
       </div>
     </div>
@@ -208,7 +210,7 @@ function VeteransCharts() {
             <strong><AnimatedNumber value={value} delay={index * 120 + 150} /></strong><p>{label}</p>
           </article>)}
         </div>
-        <p data-source-caption className={styles.veteransSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.veteransSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </div>
     </div>
   </div>;
@@ -290,7 +292,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
       <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? styles.enter : styles.pending}`}>
         <h2>Sources</h2>
         <ol start={12}>
-          {sources.map((source, index) => <li id={`defence-overview-source-${index + 12}`} value={index + 12} key={index} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.1}s` } : undefined} className={sourcesVisible ? styles.enter : styles.pending}><span className={styles.sourceNumber} aria-hidden="true">{index + 12}</span><p>{source}</p></li>)}
+          {sources.map((source, index) => <li id={`defence-overview-source-${index + 12}`} value={index + 12} key={index} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.1}s` } : undefined} className={sourcesVisible ? styles.enter : styles.pending}><span className={styles.sourceNumber} aria-hidden="true">{index + 12}</span><p><PublicSafetySourceText number={index + 12} text={source} /></p></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

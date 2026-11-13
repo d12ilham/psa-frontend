@@ -52,11 +52,7 @@ const reportSections: ReportSection[] = [
     title: "Industry Overview",
     icon: "/images/reports/introduction/Overview.svg",
     description: "An overview of the industry-sector and workforce profile data",
-    tags: [
-      "Correctional Services Industry-Sector Overview",
-      "Industry Profile",
-      "Eight State and Territory Workforce Overviews",
-    ],
+    tags: ["Industry Profile"],
     path: "industry_overview",
   },
   {
@@ -80,7 +76,7 @@ const reportSections: ReportSection[] = [
       "Update on 2024 Strategies",
       "Update on 2025 Strategies",
       "Existing Industry-Sector Strategies",
-      "Commonwealth Government Initiatives",
+      "Federal Government Initiatives",
     ],
     path: "workforce_strategies",
   },
@@ -136,19 +132,6 @@ export default function CorrectionalServicesIntroductionView({
   const router = useRouter();
   const structureRef = React.useRef<HTMLDivElement>(null);
   const [isStructureVisible, setIsStructureVisible] = React.useState(false);
-
-  const getPreviousReportSlug = () => {
-    const currentYear = parseInt(report?.year?.label || "2026", 10);
-    const prevYear = Number.isNaN(currentYear) ? 2025 : currentYear - 1;
-
-    if (slug.endsWith(`-${currentYear}`)) {
-      return slug.replace(new RegExp(`-${currentYear}$`), `-${prevYear}`);
-    }
-    if (/-\d{4}$/.test(slug)) {
-      return slug.replace(/-\d{4}$/, `-${prevYear}`);
-    }
-    return `${slug}-${prevYear}`;
-  };
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -206,13 +189,12 @@ export default function CorrectionalServicesIntroductionView({
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
-              <button
-                type="button"
-                onClick={() => router.push(`/reports/${getPreviousReportSlug()}`)}
+              <a
+                href={`/reports/${slug}/downloads`}
                 className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-[#F0F5DF] text-[#598303] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
-              </button>
+              </a>
               <a
                 href={
                   report.psaSectorPageUrl ||
@@ -247,7 +229,7 @@ export default function CorrectionalServicesIntroductionView({
                         key={metric.label}
                         className="flex flex-col items-start"
                       >
-                        <span className="text-2xl font-bold text-[#424996]">
+                        <span className="text-2xl font-bold text-[#8AC900]">
                           <AnimatedCounter
                             target={metric.value}
                             formatNumber={metric.formatNumber}
@@ -260,8 +242,8 @@ export default function CorrectionalServicesIntroductionView({
                             <>Workforce<br />Employees</>
                           ) : metric.label === "Workforce Insights" ? (
                             <>Workforce<br />Insights</>
-                          ) : metric.label === "Proposed 2026 Strategies" ? (
-                            <>Proposed 2026<br />Strategies</>
+                          ) : metric.label === "Proposed 2026 Strategy" ? (
+                            <>Proposed 2026<br />Strategy</>
                           ) : (
                             metric.label
                           )}

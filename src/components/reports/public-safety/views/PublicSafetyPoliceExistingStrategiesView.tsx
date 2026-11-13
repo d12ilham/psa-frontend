@@ -5,6 +5,7 @@ import ReportSelectionPanel from "./ReportSelectionPanel";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import PublicSafetySourceText from "./PublicSafetySourceText";
 
 const strategies = [
   { owner: "Australian Federal Police", title: "Australian Federal Police (including ACT Policing) Corporate Plan 2025-26", period: "2025-26 to 2028-29" },
@@ -147,7 +148,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
         {strategies.map((item, index) => (
           <li key={item.title} className="group flex items-start gap-3 rounded-md hover:bg-[#F0F3E5] motion-safe:transition-colors">
             <span aria-hidden="true" className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-[#598303] leading-none text-white motion-safe:transition-transform motion-safe:group-hover:scale-110">{index + 1}</span>
-            <span>{item.publisher ?? item.owner}, <cite className="not-italic">{item.title}</cite> ({item.period}).</span>
+            <span>{item.publisher ?? item.owner}, <cite className="not-italic"><PublicSafetySourceText text={item.title} /></cite> ({item.period}).</span>
           </li>
         ))}
       </ol>

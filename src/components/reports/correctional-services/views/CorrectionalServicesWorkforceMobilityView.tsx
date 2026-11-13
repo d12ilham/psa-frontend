@@ -76,7 +76,7 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[232px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[820px]">
             <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">2024 Workforce Strategies</span>
-            <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.2]">Workforce Mobility</h1>
+            <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.2]">2. Workforce Mobility</h1>
             <p className="mt-4 text-sm leading-6">The Corrections Implementation Report 2025 (Implementation Report) assessed the skills maintenance and training delivery challenges in relation to the implementation of the Certificate III in Correctional Practice. The Implementation Report supported the following strategic priorities:</p>
           </div>
           <Image src="/images/reports/correctional-workforce-strategies-frame-436.svg" width={480} height={140} alt="" className="h-auto w-full max-w-[480px] shrink-0 animate-zoom-in motion-reduce:animate-none lg:w-[480px]" />

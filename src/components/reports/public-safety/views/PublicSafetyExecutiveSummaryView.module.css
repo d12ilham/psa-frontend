@@ -23,7 +23,7 @@
 .action svg { width: 14px; height: 14px; transition: transform .25s; }
 .action:hover svg { transform: translateX(3px); }
 .heading > .action { margin-left: auto; }
-.insightActions { display: flex; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 0; margin-left: auto; }
+.insightActions { display: flex; flex: 0 1 auto; flex-direction: column; align-items: stretch; justify-content: flex-end; gap: 8px; min-width: 0; margin-left: auto; }
 .insightActions .action { flex-shrink: 1; max-width: 100%; text-align: center; }
 .insightActions svg { flex-shrink: 0; }
 .action:focus-visible, .toggle:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }

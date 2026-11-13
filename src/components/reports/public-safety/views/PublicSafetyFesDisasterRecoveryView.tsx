@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -71,16 +73,16 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
       <h2>Major emergency incidents and the Royal Commission in 2020</h2>
       <div className={styles.columns}>
         <div className={styles.narrative}>
-          <p>From July 2024 to June 2025, the Australian Institute for Disaster Resilience Major Incidents Report documented 40 major emergency incidents, spanning fires, floods, storms, tropical cyclones, health outbreaks, technology failures and repatriations from international conflict zones.<sup>53</sup> This is an increase from both the 2022–23 and 2023–24 financial years as detailed below:</p>
-          <p>Fire and Emergency Services stakeholders noted that at the time of the Royal Commission into National Natural Disaster Arrangements in 2020 (Royal Commission in 2020), specialist disaster recovery skills and functions were identified as different to those required in emergency management. Following the Royal Commission in 2020, a suite of nationally accredited training products related to disaster recovery were developed.<sup>55</sup> Facilitated through the National Recovery Training Program,<sup>56</sup> newly developed disaster recovery training products included one qualification, nine skill sets and four units of competency (refer Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements).</p>
+          <p>From July 2024 to June 2025, the Australian Institute for Disaster Resilience Major Incidents Report documented 40 major emergency incidents, spanning fires, floods, storms, tropical cyclones, health outbreaks, technology failures and repatriations from international conflict zones.<sup><PublicSafetyFootnoteLink number={53} /></sup> This is an increase from both the 2022–23 and 2023–24 financial years as detailed below:</p>
+          <p>Fire and Emergency Services stakeholders noted that at the time of the Royal Commission into National Natural Disaster Arrangements in 2020 (Royal Commission in 2020), specialist disaster recovery skills and functions were identified as different to those required in emergency management. Following the Royal Commission in 2020, a suite of nationally accredited training products related to disaster recovery were developed.<sup><PublicSafetyFootnoteLink number={55} /></sup> Facilitated through the National Recovery Training Program,<sup><PublicSafetyFootnoteLink number={56} /></sup> newly developed disaster recovery training products included one qualification, nine skill sets and four units of competency (refer Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements).</p>
           <button type="button" className={`${styles.appendix} ${styles.animatedAppendix}`} onClick={() => router.push(`${reportPath}/fes_disaster_recovery_training_products`)}>
             <span>Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements</span>
             <span className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
           </button>
-          <p>Collectively, these training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup>57</sup></p>
+          <p>Collectively, these training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup><PublicSafetyFootnoteLink number={57} /></sup></p>
         </div>
         <figure className={`${styles.chart} ${styles.animatedChart}`}>
-          <h3>Major Emergency Incidents Reported by the Australian Institute for Disaster Resilience <sup>54</sup></h3>
+          <h3>Major Emergency Incidents Reported by the Australian Institute for Disaster Resilience <sup><PublicSafetyFootnoteLink number={54} /></sup></h3>
           <IncidentsChart />
         </figure>
       </div>
@@ -90,7 +92,7 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
     <section data-report-sources className={`${sourceStyles.sources} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={53}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span>{source}</span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span><PublicSafetySourceText number={53 + index} text={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

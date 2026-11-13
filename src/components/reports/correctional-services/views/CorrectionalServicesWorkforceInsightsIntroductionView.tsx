@@ -47,15 +47,16 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
           slug={slug}
           currentPage="workforce_insights"
           prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-          next={{ label: "2026 Proposed Correctional Services Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+          next={{ label: "2026 Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
         />
 
         <section className="grid items-center gap-6 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,1fr)_389px] lg:px-8">
+          <h1 className="min-w-0 animate-slide-up text-[30px] font-semibold leading-[1.15] text-[#424996] sm:text-[40px] lg:col-span-2 lg:text-[clamp(1.5rem,calc(3.5vw_-_8px),2.5rem)]">
+            <span className="lg:whitespace-nowrap">Workforce Insights 2026: Community Corrections</span>
+            <span className="block">Introduction</span>
+          </h1>
           <div className="max-w-[850px] animate-slide-up">
-            <h1 className="max-w-[650px] text-[30px] font-semibold leading-[1.15] text-[#424996] sm:text-[40px]">
-              Workforce Insights 2026: Community Corrections Introduction
-            </h1>
-            <p className="mt-5 text-sm leading-6">
+            <p className="text-sm leading-6">
               Recent trends across Australia&apos;s Correctional Services industry-sector underscore the growing importance of community-based supervision and the workforce required to deliver it. While previous Workforce Insights Reports focused primarily on the custodial setting, this report focuses on community corrections roles which form an increasingly critical component of the criminal justice system.
             </p>
             <p className="mt-4 text-sm leading-6">

@@ -88,7 +88,7 @@ export default function CorrectionalServicesDemandManagementView({ slug, report 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[232px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[820px]">
             <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">2024 Workforce Strategies</span>
-            <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.2]">Demand Management</h1>
+            <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px] sm:leading-[1.2]">1. Demand Management</h1>
             <p className="mt-4 text-sm leading-6">The Drivers for Recruitment, Attrition and Retention (Corrections) Report 2025 (Drivers Report) examined public perceptions of working in the Correctional Services industry-sector and its impact on recruitment, attraction and attrition. This work supported several strategic priorities including:</p>
           </div>
           <Image src="/images/reports/correctional-workforce-strategies-frame-436.svg" width={480} height={140} alt="" className="h-auto w-full max-w-[480px] shrink-0 animate-zoom-in motion-reduce:animate-none lg:w-[480px]" />
