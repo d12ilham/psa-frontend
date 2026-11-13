@@ -54,7 +54,7 @@ export default function IndustryOverviewView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
+              <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
                 <Link href={`/reports/${slug}/industry_profile`} className="text-inherit">
                   Local Government Industry-Sector Overview
                 </Link>
