@@ -58,7 +58,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
       <div className="animate-slide-up">
         <span className={styles.badge}>Defence</span>
         <h1>2025 Public Safety Workforce Insights Report – Defence Strategies Updates</h1>
-        <p>Public Skills Australia identified workforce strategies for the Defence industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
+        <p>Public Skills Australia identified workforce strategies for the Defence industry-sector as part of the <em>2025 Public Safety Workforce Insights Report</em>. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
       <picture className={`${styles.artwork} animate-zoom-in`}>
         <source media="(prefers-reduced-motion: reduce)" srcSet="/images/reports/public-safety/defence-industry-overview-group-93.svg" />

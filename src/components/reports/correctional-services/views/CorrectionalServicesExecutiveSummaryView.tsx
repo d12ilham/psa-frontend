@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { correctionalInsights, correctionalTheme } from "../data/workforceInsights";
 import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -17,20 +18,7 @@ type CorrectionalServicesReport = {
 
 const iconPath = (name: string) => `/images/reports/introduction/${name}.svg`;
 
-const insights = [
-  {
-    title: "Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community.",
-    detail: "This means that CCOs require the capability to support the reduction of recidivism and enable rehabilitation.",
-  },
-  {
-    title: "CCO roles require more specialised capability provided in Certificate IV in Correctional Practice.",
-    detail: "The CCO role is comparatively complex, often requiring an understanding of behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.",
-  },
-  {
-    title: "Higher education requirements may constrain the CO-to-CCO pathway.",
-    detail: "Consultations indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. This pipeline is often limited by the recruitment requirement for higher education qualifications, which may impact the eligibility of COs to apply.",
-  },
-];
+const insights = correctionalInsights.map((insight) => ({ title: insight.lead, detail: insight.detail }));
 
 const capabilityAreas = [
   "community services",
@@ -178,7 +166,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           <SectionHeading
             icon="Drivers"
             title="Drivers of Change"
-            description="Four drivers of change impacting workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports."
+            description="Four drivers of change that will impact workforce planning in the short to medium term aligned with the nine megatrends detailed in previous Workforce Insights Reports that remain relevant to long term workforce trends."
             action="Present Drivers of Change"
             onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
           />
@@ -206,7 +194,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           <div className="px-6 pb-6">
             <div className="overflow-hidden rounded-[14px] border border-[#E9EAEB] border-t-[10px] border-t-[#424996] bg-white p-6 transition-shadow duration-300 hover:shadow-sm sm:p-8">
               <p className="text-xs font-bold uppercase leading-5 text-[#598303]">Theme 1 - 3 Insights</p>
-              <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">CSC Correctional Services Training Package</h3>
+              <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">{correctionalTheme}</h3>
               <button
                 type="button"
                 onClick={() => setThemeOpen((open) => !open)}
@@ -220,19 +208,12 @@ export default function CorrectionalServicesExecutiveSummaryView({
               <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${themeOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                   <div className="max-w-[800px] pt-5 text-sm font-medium leading-6 text-[#535862]">
-                    <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
-                    <ul className="mt-2 list-disc space-y-1 pl-5">
-                      <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
-                      <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation). As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
-                      <li>Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</li>
-                    </ul>
+                    <p>This Report also outlines two key challenges impacting the Correctional Services workforce that were identified in the 2025 Correctional Services Workforce Insights Report and the 2024 Correctional Services Workforce Plan – namely, the Correctional Services recruitment pipeline and the implementation of vocational education and training (VET) – as well as the strategies devised to support efforts to address them. These challenges and their related projects focused on Correctional Officer (CO) occupations in custodial settings rather than Community Corrections Officer (CCO) occupations in community settings. Accordingly, the community corrections workforce became the primary focus for this Report.</p>
                   </div>
                 </div>
               </div>
 
-              <p className="mt-5 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
-                This Report also outlines two key challenges impacting the Correctional Services workforce that were identified in the 2025 Correctional Services Workforce Insights Report and the 2024 Correctional Services Workforce Plan – namely, the Correctional Services recruitment pipeline and the implementation of vocational education and training (VET) – as well as the strategies devised to support efforts to address them. These challenges and their related projects focused on Correctional Officer (CO) occupations in custodial settings rather than Community Corrections Officer (CCO) occupations in community settings. Accordingly, the community corrections workforce became the primary focus for this Report.
-              </p>
+
               <p className="mt-5 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">The Report identifies three industry insights relating to the community corrections workforce. These include:</p>
               <div className="mt-5 space-y-2">
                 {insights.map((insight, index) => {
@@ -260,6 +241,16 @@ export default function CorrectionalServicesExecutiveSummaryView({
                   );
                 })}
               </div>
+              <section aria-labelledby="summary-training-challenges" className="mt-6 border-t border-[#E9EAEB] pt-5 text-sm leading-6 text-[#535862]">
+                <h4 id="summary-training-challenges" className="mb-3 text-lg font-bold text-[#252D02]">CSC Correctional Services Training Package — challenges</h4>
+                    <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
+                    <ul className="mt-2 list-disc space-y-1 pl-5">
+                      <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
+                      <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation).<sup><a href="#correctional-summary-source-23" className="ml-0.5 text-[#424996] hover:underline">23</a></sup> As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
+                      <li>Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</li>
+                    </ul>
+              </section>
+
             </div>
           </div>
         </section>
@@ -293,6 +284,10 @@ export default function CorrectionalServicesExecutiveSummaryView({
               <h3 className="mt-5 max-w-[800px] text-lg font-bold leading-7 text-[#252D02] sm:text-xl">
                 Collaborate with HumanAbility<sup>2</sup> to analyse recent updates to the CHC Community Services Training Package to identify contemporary practice that could inform future updates to the Community Corrections specialisations in the officers Certificate III and Certificate IV in Correctional Practice.
               </h3>
+
+              <p className="mt-4 max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
+                To provide the Correctional Services Subcommittee with an analysis of the suitability of contemporary practices outlined in the CHC Community Services Training Package for potential application to Community Corrections Officer training.
+              </p>
 
                   <div className="mt-6 grid gap-8 border-t border-[#E9EAEB] pt-6 lg:grid-cols-[minmax(0,800px)_1fr]">
                     <div className="space-y-5 text-sm font-medium leading-6 text-[#535862]">
@@ -340,6 +335,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
 
         <aside data-summary-reveal="sources" className={`rounded-[14px] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`} aria-label="Sources">
           <p><sup>2.</sup> HumanAbility is the Jobs and Skills council for the care and support sectors. They are responsible for maintaining and updating the CHC Community Services, HLT Health, and SIS Sports, Fitness and Recreation Training Packages.</p>
+          <p id="correctional-summary-source-23" className="mt-3 scroll-mt-24"><sup>23.</sup> Public Skills Australia 2025, Corrections Implementation Report, unpublished.</p>
         </aside>
       </main>
 

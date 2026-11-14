@@ -63,6 +63,11 @@ const sources = [
   "Victorian Government, Opportunities for veterans in the Victorian Public Sector [website], 6 June 2024; Victorian Government, Employing veterans in the Victorian Public Sector [website], 8 April 2024.",
 ] as const;
 
+function renderDescription(text: string) {
+  return text.split(/(ADF Transition Guide App|Veteran Employment(?= service)|Royal Commission into Defence and Veterans Suicide|TAFE SA’s STEP|Public Sector Veteran Employment Strategy \(2016\))/g)
+    .map((part, index) => index % 2 === 1 ? <em key={index}>{part}</em> : part);
+}
+
 export default function PublicSafetyDefenceFederalInitiativesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [active, setActive] = useState(0);
   const [, title, description, references] = initiatives[active];
@@ -103,12 +108,12 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
         </div>
         <div key={title} className={`${layout.details} animate-content-switch`}>
           <header className={styles.detailHeading}>
-            <h3 id="defence-veterans-heading">{title}</h3>
+            <h3 id="defence-veterans-heading">{active < 13 ? <em>{title}</em> : title}</h3>
           </header>
           <h4 className={styles.supportHeading}>How it Supports Transitioning and Transitioned Veterans</h4>
           <p className={layout.copy}>
-            {firstSentence}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[0]} /></sup>
-            {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[1]} /></sup></>}
+            {renderDescription(firstSentence)}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[0]} /></sup>
+            {actionPlan && <> The <em>Veteran Transition Action Plan</em>{actionPlan}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[1]} /></sup></>}
           </p>
         </div>
       </article></ReportSelectionPanel>

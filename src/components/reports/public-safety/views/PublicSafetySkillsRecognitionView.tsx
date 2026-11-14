@@ -76,7 +76,7 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
             {[{ title: "Challenges with RPL fraud", body: copy.fraud }, { title: "RPL processes are costly and complex", body: copy.costs }].map((item, index) => (
               <article key={item.title} className={styles.challengeCard + " " + reveal("challenges")} style={{ animationDelay: index * .14 + "s" }}>
                 <span className={styles.accent} /><span className={styles.number} aria-hidden="true">{index + 1}</span>
-                <h3>{item.title}</h3><p>{item.body}</p>
+                <h3>{item.title}</h3><p>{item.body.split(/(2025 Standards for RTOs)/g).map((part, partIndex) => partIndex % 2 ? <em key={partIndex}>{part}</em> : part)}</p>
               </article>
             ))}
           </div>

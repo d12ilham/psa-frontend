@@ -946,6 +946,19 @@ export default function StateTerritoryView({
   >("all");
 
   const currentState = STATES_DATA[selectedState] || STATES_DATA.NSW;
+  const selectedRating = {
+    all: null,
+    shortage: "S",
+    regional: "R",
+    noshortage: "NS",
+  }[ratingFilter];
+
+  const renderNationalRating = (status: string) => {
+    if (selectedRating && status !== "-" && status !== selectedRating) {
+      return <span className="sr-only">Filtered out</span>;
+    }
+    return renderBadge(status);
+  };
   const alphabeticalCompareOccupations = [...COMPARE_OCCUPATIONS].sort((a, b) =>
     a.name.localeCompare(b.name, "en-AU"),
   );
@@ -1030,9 +1043,10 @@ export default function StateTerritoryView({
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     if (!matchesSearch) return false;
-    if (ratingFilter === "shortage") return item.aus === "S";
-    if (ratingFilter === "regional") return item.aus === "R";
-    if (ratingFilter === "noshortage") return item.aus === "NS";
+    if (selectedRating) {
+      return [item.aus, item.nsw, item.nt, item.qld, item.sa, item.tas, item.vic, item.wa]
+        .includes(selectedRating);
+    }
     return true;
   }).sort((a, b) => {
     if (sortBy === "shortages" && a.shortageCount !== b.shortageCount) {
@@ -1333,6 +1347,13 @@ export default function StateTerritoryView({
                       </div>
                     </div>
 
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Rating filters show matching cells across all jurisdictions.
+                      Blank cells are filtered out; dashes mean the occupation was
+                      not identified through the Skills Audit. Select All Ratings
+                      to restore every rating.
+                    </p>
+
                     {/* Legend */}
                     <div className="flex items-center gap-x-6 gap-y-2 text-sm font-semibold text-gray800 pt-1">
                       <div className="flex items-center gap-2 shrink-0">
@@ -1498,28 +1519,28 @@ export default function StateTerritoryView({
                                 )}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.aus)}
+                                {renderNationalRating(item.aus)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.nsw)}
+                                {renderNationalRating(item.nsw)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.nt)}
+                                {renderNationalRating(item.nt)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.qld)}
+                                {renderNationalRating(item.qld)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.sa)}
+                                {renderNationalRating(item.sa)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.tas)}
+                                {renderNationalRating(item.tas)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.vic)}
+                                {renderNationalRating(item.vic)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.wa)}
+                                {renderNationalRating(item.wa)}
                               </td>
                             </tr>
                           ))}

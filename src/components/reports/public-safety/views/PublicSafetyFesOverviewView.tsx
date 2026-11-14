@@ -54,9 +54,18 @@ type ChartProps = {
   source?: string;
   bars?: boolean;
   dashed?: boolean;
+  yAxisTicks?: number[];
+  chartTextFontSize?: number;
+  axisLabelX?: number;
+  yearLabelXOffset?: number;
+  yearLabelYOffset?: number;
+  yearLabelAnchors?: ("start" | "middle" | "end")[];
+  valueLabelOffsets?: number[];
+  valueLabelFontSize?: number;
+  valueLabelAnchors?: ("start" | "middle" | "end")[];
 };
 
-function WorkforceChart({ title, values, labels = years, domain: [min, max], source = rogsSource, bars = false, dashed = false }: ChartProps) {
+function WorkforceChart({ title, values, labels = years, domain: [min, max], source = rogsSource, bars = false, dashed = false, yAxisTicks, chartTextFontSize, axisLabelX = 54, yearLabelXOffset = 0, yearLabelYOffset = 26, yearLabelAnchors, valueLabelOffsets, valueLabelFontSize, valueLabelAnchors }: ChartProps) {
   const width = 584;
   const bottom = 442;
   const spacing = width / values.length;
@@ -67,12 +76,11 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
 
   return <figure className={styles.chart}>
     <h3>{title}</h3>
-    <svg viewBox="0 0 660 488" role="img" aria-label={`${title}. ${labels.map((label, index) => `${label}: ${values[index].toLocaleString("en-AU")}`).join(", ")}`}>
-      {[0, 1, 2, 3, 4].map(index => {
-        const value = min + (max - min) * index / 4;
+    <svg viewBox="0 0 660 488" style={chartTextFontSize ? { fontSize: chartTextFontSize } : undefined} role="img" aria-label={`${title}. ${labels.map((label, index) => `${label}: ${values[index].toLocaleString("en-AU")}`).join(", ")}`}>
+      {(yAxisTicks ?? [0, 1, 2, 3, 4].map(index => min + (max - min) * index / 4)).map((value, index) => {
         return <g key={index}>
           <line x1="64" x2="650" y1={y(value)} y2={y(value)} stroke="#dfdfd5" />
-          <text x="54" y={y(value) + 4} textAnchor="end">{value.toLocaleString("en-AU", { maximumFractionDigits: 1 })}</text>
+          <text x={axisLabelX} y={y(value) + 4} textAnchor="end">{value.toLocaleString("en-AU", { maximumFractionDigits: 1 })}</text>
         </g>;
       })}
       {!bars && <polyline points={points} fill="none" stroke="#ad271b" strokeWidth="3" strokeDasharray={dashed ? "5 4" : undefined} className="animate-content-switch" />}
@@ -80,8 +88,8 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
         <g key={labels[index]} className={styles.mark}>
           {bars ? <rect x={x(index) - barWidth / 2} y={y(value)} width={barWidth} height={bottom - y(value)} rx="2" fill="#ad271b" className="animate-industry-chart-bar" />
             : <circle cx={x(index)} cy={y(value)} r="5" fill="#ad271b" className="animate-industry-chart-point" />}
-          <text x={x(index)} y={y(value) - 12} textAnchor="middle" className={bars ? styles.barValue : styles.lineValue}>{value.toLocaleString("en-AU")}</text>
-          <text x={x(index)} y={bottom + 26} textAnchor="middle">{labels[index]}</text>
+          <text x={x(index)} y={y(value) + (valueLabelOffsets?.[index] ?? -12)} textAnchor={valueLabelAnchors?.[index] ?? "middle"} fontSize={valueLabelFontSize} className={bars ? styles.barValue : styles.lineValue}>{value.toLocaleString("en-AU")}</text>
+          <text x={x(index) + yearLabelXOffset} y={bottom + yearLabelYOffset} textAnchor={yearLabelAnchors?.[index] ?? "middle"}>{labels[index]}</text>
         </g>
       ))}
     </svg>
@@ -127,18 +135,18 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
               {expanded && <div id={`fes-overview-panel-${index}`} className={`${styles.panel} animate-content-switch`}>
                 <p className={styles.copy}>{index === 0 ? <>Demand for services: Demand for both firefighter and state and territory emergency services (SES) increased by 7.6 per cent from 488,242 (total combined emergency response activities) in 2019–20 to 525,317 in 2023–24.<sup><PublicSafetyFootnoteLink number={43} /></sup> 40 major emergency incidents were documented from July 2024 to June 2025 (an increase from 30 the previous year).<sup><PublicSafetyFootnoteLink number={44} /></sup></> : index === 1 ? <>{item.copy}<sup><PublicSafetyFootnoteLink number={45} /></sup> This is supported by growth in student enrolments from 2019 to 2024 in the two core qualifications required for firefighters. Similarly, the total career operational and support emergency services personnel have experienced year-on-year increases since 2019–20.<sup><PublicSafetyFootnoteLink number={46} /></sup></> : index === 2 ? <>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup><PublicSafetyFootnoteLink number={48} /></sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with the wider decline in volunteerism trends.<sup><PublicSafetyFootnoteLink number={49} /></sup></> : item.copy}</p>
                 {index === 0 && <div className={styles.chartGrid}>
-                  <WorkforceChart title="Combined Total Yearly Fire and Other Emergency Incidents Responded to by Fire and Emergency Services Organisations Across Australia" values={demandSeries} domain={[400000, 600000]} dashed source="Productivity Commission, Emergency services for fire and other events – Tables 9A.6 and 9A.7, 2026" />
-                  <WorkforceChart title="Documented Major Emergency Incidents Australia" values={[27, 30, 40]} labels={years.slice(-3)} domain={[20, 45]} source="Australian Institute for Disaster Resilience (AIDR), Major Incidents Report 2024–25, 2025" />
+                  <WorkforceChart title="Combined Total Yearly Fire and Other Emergency Incidents Responded to by Fire and Emergency Services Organisations Across Australia" values={demandSeries} domain={[400000, 600000]} dashed valueLabelOffsets={[-18, 40, -18, 40, 40, -18]} valueLabelFontSize={18} valueLabelAnchors={["start", "middle", "middle", "middle", "middle", "end"]} source="Productivity Commission, Emergency services for fire and other events – Tables 9A.6 and 9A.7, 2026" />
+                  <WorkforceChart title="Documented Major Emergency Incidents Australia" values={[27, 30, 40]} labels={years.slice(-3)} domain={[20, 45]} yAxisTicks={[20, 25, 30, 35, 40, 45]} chartTextFontSize={18} yearLabelAnchors={["start", "middle", "end"]} source="Australian Institute for Disaster Resilience (AIDR), Major Incidents Report 2024–25, 2025" />
                 </div>}
                 {index === 1 && <>
-                  <p className={styles.copy}>While data indicates the growth, the following occupations were assessed as being ‘in shortage’ since 2025:</p>
+                  <p className={styles.copy}>While data indicates the growth, the following occupations were assessed as being <em>‘in shortage’</em> since 2025:</p>
                   <div className={styles.callouts}>
                     <div>Firefighter occupation (OSCA 451232) in New South Wales</div>
                     <div>Emergency Services Officer occupation (OSCA 451231) in New South Wales and South Australia<sup><PublicSafetyFootnoteLink number={47} /></sup></div>
                   </div>
                   <p className={styles.copy}>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup><PublicSafetyFootnoteLink number={48} /></sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup><PublicSafetyFootnoteLink number={49} /></sup></p>
                   <div className={styles.chartGrid}>
-                    <WorkforceChart title="Career Firefighters (headcount)" values={careerFirefighterSeries} domain={[17500, 19500]} dashed />
+                    <WorkforceChart title="Career Firefighters (headcount)" values={careerFirefighterSeries} domain={[17500, 19500]} dashed chartTextFontSize={18} axisLabelX={64} yearLabelXOffset={-16} yearLabelYOffset={36} valueLabelOffsets={[-38, -28, -18, 36, -24, -18]} valueLabelAnchors={["start", "middle", "middle", "middle", "middle", "end"]} />
                     <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed />
                   </div>
                   <p className={styles.copy}>{datapoints[2].copy}</p>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { correctionalInsights } from "../data/workforceInsights";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -113,8 +114,8 @@ export default function CorrectionalServicesWorkforceInsightTwoView({ slug, repo
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">2</span>
               <div className="max-w-[810px]">
                 <p className="text-sm font-medium text-[#424996]">Theme One, Insight Two</p>
-                <h1 className="mt-5 text-2xl font-semibold leading-8">CCO roles require more specialised capability provided in Certificate IV in Correctional Practice</h1>
-                <p className="mt-5 text-sm leading-6">The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. As such, it is seen as more specialised than what the current Certificate III in Correctional Practice offers. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.</p>
+                <h1 className="mt-5 text-2xl font-semibold leading-8">{correctionalInsights[1].lead}</h1>
+                <p className="mt-5 text-sm leading-6">{correctionalInsights[1].detail}</p>
               </div>
             </div>
             <Image

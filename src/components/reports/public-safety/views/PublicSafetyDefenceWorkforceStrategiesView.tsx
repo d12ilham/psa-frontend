@@ -40,7 +40,7 @@ const strategies: Strategy[] = [
     accent: "#64645E",
     insight: "Transitioning Veterans",
     jsc: "Implementation, Promotion and Monitoring",
-    objective: <>Support Recommendation 83(c) of the Royal Commission into Defence and Veteran Suicide by supporting up-to-date information facilitated by state and territory initiatives that assist transitioning veterans.</>,
+    objective: <>Support Recommendation 83(c) of the <em>Royal Commission into Defence and Veteran Suicide</em> by supporting up-to-date information facilitated by state and territory initiatives that assist transitioning veterans.</>,
     approach: <>Collaborate with Defence to map ADF job roles and training to the Australian Qualifications Framework (AQF) levels and approximate equivalent civilian qualifications.<br />Develop material that translates military terminology into civilian contexts, to build collective understanding for both transitioning veterans and prospective civilian employers.<br />Collaborate with Defence to share this information back through state and territories to be included on their websites for veterans.</>,
     deliverable: <ul className="list-disc pl-5"><li>Mapping Report</li><li>Military Terminology Guide</li></ul>,
     impact: <>Support Recommendation 83(c) by providing information through Defence, states and territories that support veterans to translate their Defence skills and experience into civilian-recognised language.</>,

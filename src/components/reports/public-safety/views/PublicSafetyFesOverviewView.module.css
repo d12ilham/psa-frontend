@@ -118,3 +118,13 @@
   .services > div:hover img,
   .toggle:hover .pill { transform: none; }
 }
+
+.panel[id="fes-overview-panel-0"] .copy sup,
+.panel[id="fes-overview-panel-1"] .copy sup,
+.panel[id="fes-overview-panel-2"] .copy sup {
+  position: relative;
+  top: -0.5em;
+  vertical-align: baseline;
+  font-size: 0.75em;
+  line-height: 0;
+}

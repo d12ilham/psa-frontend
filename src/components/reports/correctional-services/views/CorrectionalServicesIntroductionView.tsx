@@ -83,7 +83,7 @@ const reportSections: ReportSection[] = [
   {
     title: "Looking Forward",
     icon: "/images/reports/introduction/Summary.svg",
-    description: "The future lines of enquiry and priorities for the next reports.",
+    description: "The future lines of inquiry and priorities for the next reports.",
     tags: ["2027 and Beyond"],
     path: "looking_forward",
   },

@@ -140,7 +140,7 @@ export default function CorrectionalServicesAboutView({
         <section ref={undertakesRef} className="flex flex-col gap-6">
           <div className="border-b border-[#D5D7DA] pb-2">
             <h2 className="text-2xl font-bold leading-8 text-[#252D02]">
-              Public Skills Australia Undertakes:
+              Public Skills Australia:
             </h2>
           </div>
 

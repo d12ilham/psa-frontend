@@ -263,7 +263,7 @@ function FacilitiesMap() {
           </div>
         </div>
       </div>
-      <p className="mt-3 text-[10px] leading-4 text-[#598303]">Source: Productivity Commission 2026, Report on Government Services, Corrective Services Table 8A.3. Employment: approved Correctional Services jurisdiction reference (2025).</p>
+      <p className="mt-3 text-[10px] leading-4 text-[#598303]">Source: Productivity Commission Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.3</p>
     </>
   );
 }

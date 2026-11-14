@@ -29,12 +29,12 @@ const projects = [
   {
     label: "2025 Project 1",
     title: "Drivers for Recruitment, Attrition and Retention (Corrections)",
-    body: "The Drivers for Recruitment, Attrition and Retention (Corrections) Report 2025 examined public perceptions of working in the Correctional Services industry-sector and their impact on recruitment, attrition and retention. It identified five findings that will be considered by the Corrective Services Administrators' Council (CSAC) in 2026. Further information is in Workforce Insights: Update on 2025 Strategies.",
+    body: "The Drivers for Recruitment, Attrition and Retention (Corrections) Report 2025 examined public perceptions of working in the Correctional Services industry-sector and their impact on recruitment, attrition and retention. It identified five findings that will be considered by the Corrective Services Administrators’ Council (CSAC) in 2026. Further information about this Report can be found in the Workforce Insights: Update on 2025 Strategies section (and in the attachments to this Report).",
   },
   {
     label: "2025 Project 2",
     title: "Implementation Report",
-    body: "The Corrections Implementation Report 2025 focused on the skills maintenance and training challenges in relation to the implementation of the Certificate III in Correctional Practice. Public Skills Australia researched use of the qualification and made three recommendations. Further information is in Workforce Insights: Update on 2025 Strategies.",
+    body: "The Corrections Implementation Report 2025 focused on the skills maintenance and training challenges in relation to the implementation of the Certificate III in Correctional Practice. Public Skills Australia undertook a research and analysis project regarding the use of the qualification and made three recommendations. Further information about this Report can be found in the Workforce Insights: Update on 2025 Strategies section.",
   },
 ];
 

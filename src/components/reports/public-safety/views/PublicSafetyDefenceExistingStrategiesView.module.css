@@ -66,3 +66,11 @@
 .compactSummary p + ul {
   margin-top: -12px;
 }
+
+.summary .footnote {
+  position: relative;
+  top: -0.5em;
+  vertical-align: baseline;
+  font-size: 0.75em;
+  line-height: 0;
+}

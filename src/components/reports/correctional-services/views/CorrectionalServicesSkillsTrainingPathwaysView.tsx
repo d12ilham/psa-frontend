@@ -77,6 +77,7 @@ export default function CorrectionalServicesSkillsTrainingPathwaysView({ slug, r
         </section>
 
         <section aria-label="Strategic priorities" className="grid gap-6 md:grid-cols-3">
+          <p className="text-sm leading-6 md:col-span-3">This work will support several strategic priorities including:</p>
           {priorities.map((priority, index) => (
             <article key={priority.title} className="min-h-[154px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
               <h2 className="text-base font-semibold">{priority.title}</h2>

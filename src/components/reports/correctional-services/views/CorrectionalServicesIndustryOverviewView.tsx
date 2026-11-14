@@ -132,7 +132,7 @@ export default function CorrectionalServicesIndustryOverviewView({
                 Correctional Services Industry-Sector Overview
               </h1>
               <p className="animate-slide-up-delay mt-4 max-w-[860px] text-sm leading-6 text-[#535862]">
-                The Correctional Services industry-sector plays a critical role in managing offenders. The workforce spans a broad range of occupations, including COs, who deliver custodial services in correctional facilities, and CCOs, who supervise offenders serving non-custodial sentences or parole in the community. The workforce also includes public servants working inside and outside correctional environments across functions such as administration, education, health, policy and intelligence.
+                The Correctional Services industry-sector plays a critical role in managing offenders. The workforce spans a broad range of occupations, including COs, who deliver custodial services in corrections facilities, and CCOs, who supervise offenders serving non-custodial sentences or parole in the community. The workforce also includes public servants working inside and outside correctional environments across functions such as administration, education, health, policy and intelligence.
               </p>
             </div>
             <Image

@@ -80,6 +80,13 @@ function BetterTogetherText({ text }: { text: string }) {
 }
 
 function InitiativeImpactDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "14") {
+    const auditTitle = /(Local Government Skills Audit)/g;
+    return <>{item.impactDescription.split(auditTitle).map((part, index) =>
+      index % 2 === 1 ? <em key={index}>{part}</em> : part
+    )}</>;
+  }
+
   if (item.number === "09") {
     return <BetterTogetherText text={item.impactDescription} />;
   }
@@ -172,6 +179,7 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
     const [challengeSection, recommendationSection] = item.description.split("\n\n");
     const [challengeIntroduction, ...challenges] = challengeSection.split("\n");
     const [recommendationIntroduction, ...recommendations] = recommendationSection.split("\n");
+    const paperTitle = /(Speeding up progress towards gender economic equality)/g;
 
     return (
       <div className="space-y-4">
@@ -187,7 +195,9 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
           </ul>
         </div>
         <div className="space-y-2">
-          <p>{recommendationIntroduction}</p>
+          <p>{recommendationIntroduction.split(paperTitle).map((part, index) =>
+            index % 2 === 1 ? <em key={index}>{part}</em> : part
+          )}</p>
           <ol className="list-decimal space-y-1 pl-5">
             {recommendations.map((recommendation) => (
               <li key={recommendation} className="pl-1">

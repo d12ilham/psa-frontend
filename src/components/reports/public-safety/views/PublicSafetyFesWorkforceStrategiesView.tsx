@@ -48,6 +48,11 @@ const strategies = [
   },
 ];
 
+function StrategyText({ text }: { text: string }) {
+  const parts = text.split(/(Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident|PUASAR025 Undertake confined space rescue)/g);
+  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+}
+
 function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: typeof strategies[number]; open: boolean; onToggle: () => void; appendixHref?: string }) {
   const id = `strategy-${strategy.number.replace("Strategy ", "")}`;
   const rows = [
@@ -74,7 +79,7 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
         <dl>
           {rows.map(([label, value]) => <div key={label}>
             <dt>{label}:</dt>
-            <dd>{typeof value === "string" ? value : <ul className="list-disc ps-5">{value.map(item => <li key={item}>{item}</li>)}</ul>}</dd>
+            <dd>{typeof value === "string" ? <StrategyText text={value} /> : <ul className="list-disc ps-5">{value.map(item => <li key={item}>{item}</li>)}</ul>}</dd>
           </div>)}
         </dl>
         <h3>Key Stakeholders:</h3>

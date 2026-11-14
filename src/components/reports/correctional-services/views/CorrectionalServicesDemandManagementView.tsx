@@ -104,7 +104,7 @@ export default function CorrectionalServicesDemandManagementView({ slug, report 
         </section>
 
         <section className="space-y-5 pt-1 animate-slide-up motion-reduce:animate-none">
-          <h2 className="max-w-[1000px] px-6 text-base font-semibold leading-6">The Drivers Report identified five findings and associated recommendations that were presented to the Corrective Services Administrative Council (CSAC) for consideration in 2026</h2>
+          <h2 className="max-w-[1000px] px-6 text-base font-semibold leading-6">The Drivers Report identified five findings and associated recommendations that were presented to the Corrective Services Administrators’ Council (CSAC) for consideration in 2026</h2>
           <h3 className="px-6 text-base font-semibold">The five findings are summarised in the table below:</h3>
           <div className="overflow-x-auto rounded-[12px] border border-[#E9EAEB] bg-white">
             <table className="w-full min-w-[720px] border-collapse text-left text-sm leading-6">

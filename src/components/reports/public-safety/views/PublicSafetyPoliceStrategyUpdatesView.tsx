@@ -75,7 +75,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
       <div className={styles.heroCopy}>
         <span className={`${layout.badge} ${styles.badge}`}>POL Strategy Updates</span>
         <h1>2025 Public Safety Workforce Insights Report – Police Strategies Updates</h1>
-        <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
+        <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the <em>2025 Public Safety Workforce Insights Report</em>. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
       <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
         <Image src="/images/reports/public-safety/police-services-vehicle.svg" width={136} height={136} alt="" unoptimized priority />
@@ -115,14 +115,14 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             <p>{project.update}</p>
             {project.bullets.length > 0 && <>
               <p>Release 11.0 will update:</p>
-              <ul>{project.bullets.map(item => <li key={item}>{item}</li>)}</ul>
+              <ul>{project.bullets.map(item => <li key={item}><em>{item}</em></li>)}</ul>
             </>}
             <p>{project.secondUpdate}</p>
             {project.secondBullets.length > 0 && <>
               <p>Release 12.0 will update:</p>
-              <ul>{project.secondBullets.map(item => <li key={item}>{item}</li>)}</ul>
+              <ul>{project.secondBullets.map(item => <li key={item}><em>{item}</em></li>)}</ul>
             </>}
-            {project.futureUpdate && <p>{project.futureUpdate}</p>}
+            {project.futureUpdate && <p>{project.futureUpdate.split(/(Annual Plan)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</p>}
           </div>
 
           <div className={`${layout.note} ${styles.note} ${styles.stakeholders}`}>
@@ -139,7 +139,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             ].map(([title, copy]) => (
               <section key={title} className={`${layout.note} ${styles.note}`}>
                 <h4>{title}</h4>
-                <p>{copy}</p>
+                <p>{title === "2026 Police Strategies Connection" ? <>{copy.split(/(Develop Training Products for Digital Forensics)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</> : copy}</p>
               </section>
             ))}
           </div>

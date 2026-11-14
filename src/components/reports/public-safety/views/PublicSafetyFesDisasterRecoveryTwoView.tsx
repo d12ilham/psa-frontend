@@ -49,7 +49,7 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
           <ul className="list-disc ps-5">
             <li>seven of the nine newly developed skill sets are not on scope for any RTO</li>
             <li>only one RTO has the qualification and four associated units of competency on scope</li>
-            <li>only five RTOs have the PUASS00098 Manage a Recovery Centre skill set on scope.<sup><PublicSafetyFootnoteLink number={58} /></sup></li>
+            <li>only five RTOs have the <em>PUASS00098 Manage a Recovery Centre</em> skill set on scope.<sup><PublicSafetyFootnoteLink number={58} /></sup></li>
           </ul>
           <p>Additionally, there have been no enrolment or completion data for all 14 recovery training products since their release in 2022.<sup><PublicSafetyFootnoteLink number={59} /></sup></p>
         </div>

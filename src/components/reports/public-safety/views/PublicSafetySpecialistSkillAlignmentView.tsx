@@ -113,7 +113,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                 <span className={styles.accent} style={{ backgroundColor: item.color }} />
                 <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
                 <h3>{item.code}</h3>
-                <p>{item.title}</p>
+                <p><em>{item.title}</em></p>
               </article>
             ))}
           </div>
@@ -146,7 +146,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                       <span className={styles.accent} style={{ backgroundColor: item.color }} />
                       <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
                       <h3>{item.code}</h3>
-                      <p>{item.title}</p>
+                      <p><em>{item.title}</em></p>
                     </div>
                   </th>
                 ))}

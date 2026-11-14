@@ -134,7 +134,7 @@ function FutureWorkforceCharts() {
   const forecastTicks = [85000, 80000, 75000, 70000, 65000, 60000, 55000, 50000];
 
   return <div className={styles.futureContent}>
-    <p className={styles.futureSummary}>To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654-6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year (between 2026-2040). Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
+    <p className={styles.futureSummary}>To meet targets set in the <em>Defence Workforce Plan 2024</em>, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654-6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year (between 2026-2040). Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
     <div className={styles.futureCharts}>
       <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF separation rate chart; scroll horizontally on smaller screens">
         <svg className={styles.futureChart} width={1440} height={584.727} viewBox="0 0 1440 584.727" role="img" aria-labelledby="defence-separation-title defence-separation-description">
@@ -268,7 +268,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
       </section>
 
       <section ref={introRef} className={`${styles.intro} ${introVisible ? styles.enter : styles.pending}`}>
-        <p>The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the Defence Workforce Plan 2024. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.<sup className={styles.footnote}><a href="#defence-overview-source-12" aria-label="Source 12">12</a></sup></p>
+        <p>The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the <em>Defence Workforce Plan 2024</em>. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.<sup className={styles.footnote}><a href="#defence-overview-source-12" aria-label="Source 12">12</a></sup></p>
         <h2><span>The following datapoints were identified through this industry-sector overview for the Defence workforce:</span></h2>
       </section>
 

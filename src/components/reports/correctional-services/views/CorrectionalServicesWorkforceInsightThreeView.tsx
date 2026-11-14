@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { correctionalInsights } from "../data/workforceInsights";
 import Link from "next/link";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -82,8 +83,8 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">3</span>
               <div className="max-w-[810px]">
                 <p className="text-sm font-medium text-[#424996]">Theme One, Insight Three</p>
-                <h1 className="mt-5 text-2xl font-semibold leading-8">Higher Education requirements may constrain the CO-to-CCO pathway</h1>
-                <p className="mt-5 text-sm leading-6">Consultations with the Correctional Services industry-sector indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. However, this pipeline into CCO roles is often limited by the recruitment requirement for higher education qualifications, which may impact the eligibility of COs to apply.</p>
+                <h1 className="mt-5 text-2xl font-semibold leading-8">{correctionalInsights[2].lead}</h1>
+                <p className="mt-5 text-sm leading-6">{correctionalInsights[2].detail}</p>
               </div>
             </div>
             <div className="shrink-0 self-center animate-zoom-in motion-reduce:animate-none">
@@ -94,7 +95,6 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
 
         <section data-career-reveal="introduction" className={`rounded-[14px] border border-[#E9EAEB] bg-white p-6 motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("introduction")}`}>
           <h2 className="text-2xl font-semibold">Enrolment and Completion Rates</h2>
-          <p className="mt-5 max-w-[850px] text-sm leading-6">Stakeholders noted that some organisations were electing to train community corrections officers through the Certificate IV in Correctional Practice rather than the Certificate III. Enrolments in community corrections specialisations show this difference.<sup><a href="#correctional-career-source-21" className="ml-0.5 text-[#424996] hover:underline">21</a></sup></p>
         </section>
 
         <div data-career-reveal="metrics" className="grid gap-5 md:grid-cols-3">

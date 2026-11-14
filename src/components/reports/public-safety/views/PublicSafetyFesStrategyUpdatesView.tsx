@@ -63,6 +63,11 @@ const projects = [
   },
 ];
 
+function ProjectUpdateText({ text }: { text: string }) {
+  const parts = text.split(/(2025 Public Safety Workforce Insights Report|Stakeholder Insights Report)/g);
+  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+}
+
 function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: number) => void }) {
   const project = projects[index];
   const headingId = `fes-update-heading-${index}`;
@@ -83,7 +88,7 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
       <h4 className={`${layout.subheading} ${styles.subheading}`}>Summary</h4>
       <p className={layout.copy}>{project.summary}</p>
       <h4 className={`${layout.subheading} ${styles.subheading}`}>Update</h4>
-      <p className={layout.copy}>{project.update}</p>
+      <p className={layout.copy}><ProjectUpdateText text={project.update} /></p>
       <div className={layout.groups}>
         <section className={`${layout.note} ${styles.note}`}>
           <h4>Key Stakeholders</h4>
