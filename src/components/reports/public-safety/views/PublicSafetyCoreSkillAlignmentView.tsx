@@ -70,7 +70,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Cross-Sector Analysis · 01</p>
             <h1>Core Skill Alignment</h1>
-            <p className={styles.heroDescription}>The Occupation Standard Classification for Australia (OSCA) recently released by the ABS, collectively categorises the following four Public Safety occupations in the Protective Service Workers Minor Group (group 45).<Footnote number={8} /></p>
+            <p className={styles.heroDescription}>The Occupation Standard Classification for Australia (OSCA) recently released by the ABS, collectively categorises the following four Public Safety occupations in the Protective Service Workers Minor Group (group).<Footnote number={8} /></p>
           </div>
           <div className={styles.diagram}>
             <Image src="/images/reports/public-safety/core-alignment-group-92.svg" width={524} height={125} alt="Defence, police, navy, fire and air force vehicles connected by a dotted line" loading="eager" unoptimized />

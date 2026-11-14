@@ -61,7 +61,20 @@ export default function FederalStateWorkforceInsightsView({ slug, report }: { sl
 
       <section className="grid gap-6 rounded-md border border-[#ECECE5] bg-white p-6 transition-colors duration-300 hover:border-[#D8C7BA] lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center lg:gap-12 lg:px-7 lg:py-8">
         <div className="animate-slide-up"><h1 className="text-[32px] font-bold leading-tight text-[#754D32] sm:text-[38px]">Workforce Insights</h1><p className="mt-4 max-w-[800px] text-xs leading-6">The Federal and State/Territory Government Public Service employs over 2 million people.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">83</sup> Employment in the public sector is also projected to grow across all states and territories and the APS over the next 10 years.</p><p className="mt-4 max-w-[800px] text-xs leading-6">However, with increasing budgetary constraints and changing priorities being experienced across the Federal and State/Territory Governments, the following overarching theme emerged from Public Skills Australia&apos;s sector analysis and industry insights:</p></div>
-        <Image src="/images/reports/workforce-insights.png" alt="Workforce insights" width={390} height={206} className="mx-auto h-auto w-full max-w-[340px] animate-zoom-in motion-safe:transition-transform motion-safe:duration-500 motion-safe:hover:scale-[1.03]" priority />
+        {/* Recolour the shared artwork only here; retain its original geometry and animation. */}
+        <svg width="0" height="0" aria-hidden="true" focusable="false" className="pointer-events-none absolute">
+          <defs>
+            <filter id="fstg-workforce-insights-colours" colorInterpolationFilters="sRGB">
+              <feColorMatrix type="matrix" values="0 1 0 0 0  0 1 0 0 0  0 1 0 0 0  0 0 0 1 0" />
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues="0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.933333 0.933333 1" />
+                <feFuncG type="table" tableValues="0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.831373 0.831373 1" />
+                <feFuncB type="table" tableValues="0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.768627 0.768627 1" />
+              </feComponentTransfer>
+            </filter>
+          </defs>
+        </svg>
+        <Image src="/images/reports/workforce-insights.png" alt="Workforce insights" width={390} height={206} style={{ filter: "url(#fstg-workforce-insights-colours)" }} className="mx-auto h-auto w-full max-w-[340px] animate-zoom-in motion-safe:transition-transform motion-safe:duration-500 motion-safe:hover:scale-[1.03]" priority />
       </section>
 
       <section id="theme-one" ref={themeRef} className={`scroll-mt-24 border-t-[8px] border-[#E7CDBF] bg-white px-5 py-6 sm:px-7 sm:py-7 ${themeVisible ? "animate-slide-up" : "motion-safe:opacity-0"}`}>

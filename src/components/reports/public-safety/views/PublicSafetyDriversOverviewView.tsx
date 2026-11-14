@@ -10,7 +10,7 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 const drivers = [
   { label: "DRIVER 1", title: "Resilience of organisations to respond to strategic shocks", path: "driver_1" },
   { label: "DRIVER 2", title: "Challenges to workforce productivity", path: "driver_2" },
-  { label: "DRIVER 3", title: "Emergence of AI, greater automation and broader digital transformation", path: "driver_3" },
+  { label: "DRIVER 3", title: "Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation", path: "driver_3" },
   { label: "DRIVER 4", title: "Workforce inclusivity", path: "driver_4" },
 ];
 

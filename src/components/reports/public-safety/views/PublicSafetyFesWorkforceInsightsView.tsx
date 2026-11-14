@@ -13,7 +13,7 @@ const themes = [
     eyebrow: "Theme 1 · 3 insights",
     title: "1. Disaster Recovery",
     insights: [
-      { number: "1", href: "fes_disaster_recovery", label: "Theme One, Insight One", text: "Specialist disaster recovery functions are operationally focused; a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted." },
+      { number: "1", href: "fes_disaster_recovery", label: "Theme One, Insight One", text: "Specialist disaster recovery functions are operationally focused, a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted." },
       { number: "2", href: "fes_disaster_recovery_2", label: "Theme One, Insight Two", text: "Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters." },
       { number: "3", href: "fes_disaster_recovery_3", label: "Theme One, Insight Three", text: "Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression." },
     ],
@@ -50,7 +50,7 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
       <div className={`${layout.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
         <h1>Workforce Insights</h1>
-        <p>This Report identifies the following themes and industry insights relating to the Fire and Emergency Services Workforce:</p>
+        <p>This Report has identified the following themes and industry insights relating to the Fire and Emergency Services Workforce:</p>
       </div>
       <Image className={`${layout.artwork} ${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-workforce-insights-first-aid-ring.svg" width={446} height={100} alt="" unoptimized priority />
     </section>

@@ -104,7 +104,7 @@ export default function PublicSafetyFesWorkforceStrategiesView({ slug, report }:
       <div className={`${styles.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${styles.badge}`}>Fire and Emergency Services Workforce Strategies</span>
         <h1>Proposed Strategies 2026</h1>
-        <p className={layout.intro}>Public Skills Australia proposes the following strategies to align to the workforce insights identified to support Fire and Emergency Services:</p>
+        <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support Fire and Emergency Services:</p>
         <button type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
           {allOpen ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
         </button>

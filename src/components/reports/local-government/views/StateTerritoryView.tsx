@@ -647,7 +647,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "S",
     nsw: { val: "3", type: "S" },
     nt: "-",
-    qld: { val: "1", type: "NS" },
+    qld: { val: "2", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -657,8 +657,8 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Tradesperson",
     aus: "NS",
     nsw: { val: "4", type: "S" },
-    nt: { val: "5", type: "S" },
-    qld: { val: "5", type: "NS" },
+    nt: { val: "3", type: "S" },
+    qld: { val: "3", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -701,7 +701,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Works Officer",
     aus: "NS",
     nsw: "-",
-    nt: { val: "3", type: "S" },
+    nt: { val: "4", type: "S" },
     qld: "-",
     sa: "-",
     tas: "-",
@@ -712,7 +712,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Community Program Coordinator",
     aus: "NS",
     nsw: "-",
-    nt: { val: "4", type: "S" },
+    nt: { val: "5", type: "S" },
     qld: "-",
     sa: "-",
     tas: "-",
@@ -724,7 +724,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "R",
     nsw: "-",
     nt: "-",
-    qld: { val: "2", type: "R" },
+    qld: { val: "1", type: "R" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -735,7 +735,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "NS",
     nsw: "-",
     nt: "-",
-    qld: { val: "3", type: "NS" },
+    qld: { val: "4", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -746,7 +746,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "NS",
     nsw: "-",
     nt: "-",
-    qld: { val: "4", type: "NS" },
+    qld: { val: "5", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -946,6 +946,9 @@ export default function StateTerritoryView({
   >("all");
 
   const currentState = STATES_DATA[selectedState] || STATES_DATA.NSW;
+  const alphabeticalCompareOccupations = [...COMPARE_OCCUPATIONS].sort((a, b) =>
+    a.name.localeCompare(b.name, "en-AU"),
+  );
 
   const renderCellBadge = (
     cell: { val: string; type?: "NS" | "R" | "S" } | string,
@@ -1010,7 +1013,19 @@ export default function StateTerritoryView({
     return "bg-gray-100 text-gray600";
   };
 
-  const filteredOccupations = NATIONAL_OCCUPATIONS.filter((item) => {
+  const filteredOccupations = NATIONAL_OCCUPATIONS.map((item) => ({
+    ...item,
+    shortageCount: [
+      item.aus,
+      item.nsw,
+      item.nt,
+      item.qld,
+      item.sa,
+      item.tas,
+      item.vic,
+      item.wa,
+    ].filter((rating) => rating === "S").length,
+  })).filter((item) => {
     const matchesSearch = item.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -1019,6 +1034,11 @@ export default function StateTerritoryView({
     if (ratingFilter === "regional") return item.aus === "R";
     if (ratingFilter === "noshortage") return item.aus === "NS";
     return true;
+  }).sort((a, b) => {
+    if (sortBy === "shortages" && a.shortageCount !== b.shortageCount) {
+      return b.shortageCount - a.shortageCount;
+    }
+    return a.name.localeCompare(b.name, "en-AU");
   });
 
   return (
@@ -1191,6 +1211,7 @@ export default function StateTerritoryView({
                       <div className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
                         <AustraliaInteractiveMap
                           selectedState="NATIONAL"
+                          stateNameScale={2}
                           onSelectState={setSelectedState}
                           statesData={STATES_DATA}
                         />
@@ -1254,6 +1275,7 @@ export default function StateTerritoryView({
                         </button>
                         <button
                           onClick={() => setSortBy("shortages")}
+                          title="Sort by the number of S ratings across AUS, NSW, NT, QLD, SA, TAS, VIC and WA, highest first"
                           className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             sortBy === "shortages"
                               ? "bg-[#8AC900] text-[#252D02]"
@@ -1461,8 +1483,12 @@ export default function StateTerritoryView({
                           </tr>
                         </thead>
                         <tbody className="bg-white">
-                          {filteredOccupations.map((item, idx) => (
-                            <tr key={idx} className="hover:bg-gray-50/50">
+                          {filteredOccupations.map((item) => (
+                            <tr
+                              key={item.name}
+                              data-shortage-count={item.shortageCount}
+                              className="hover:bg-gray-50/50"
+                            >
                               <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                                 <div>{item.name}</div>
                                 {item.lgSpecific && (
@@ -2070,6 +2096,36 @@ export default function StateTerritoryView({
               </div>
 
               {/* Comprehensive Matrix Table */}
+              <div className="space-y-3">
+                <h3
+                  id="top-occupation-shortages-heading"
+                  className="text-xl font-bold text-foreground"
+                >
+                  Top Occupation Shortages Comparison by State and Territory
+                </h3>
+                <div
+                  id="top-occupation-shortages-description"
+                  className="space-y-2 text-xs text-gray600 leading-relaxed"
+                >
+                  <p>
+                    This table brings together the top occupation shortages
+                    identified through the Local Government Skills Audit for each
+                    state and territory. Numbers 1–5 show an occupation’s position
+                    in that jurisdiction’s list. The lists were compiled state by
+                    state; the row order does not represent an agreed national
+                    priority ranking.
+                  </p>
+                  <p>
+                    The AUS column shows the Australia-wide Jobs and Skills
+                    Australia Occupational Shortage List (OSL) rating. Badge
+                    colours show the corresponding national or state/territory
+                    OSL rating: green = NS (No Shortage), yellow = R (Regional
+                    Shortage), and orange = S (Shortage). A dash (–) means the
+                    occupation was not identified in that jurisdiction’s top
+                    shortage list; it does not mean No Shortage.
+                  </p>
+                </div>
+              </div>
               <div
                 style={{
                   height: "480px",
@@ -2080,6 +2136,8 @@ export default function StateTerritoryView({
                 className="border border-gray200 rounded-xl"
               >
                 <table
+                  aria-labelledby="top-occupation-shortages-heading"
+                  aria-describedby="top-occupation-shortages-description"
                   style={{
                     borderCollapse: "separate",
                     borderSpacing: 0,
@@ -2191,8 +2249,8 @@ export default function StateTerritoryView({
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {COMPARE_OCCUPATIONS.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-gray-50/50">
+                    {alphabeticalCompareOccupations.map((item) => (
+                      <tr key={item.name} className="hover:bg-gray-50/50">
                         <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                           {item.name}
                         </td>

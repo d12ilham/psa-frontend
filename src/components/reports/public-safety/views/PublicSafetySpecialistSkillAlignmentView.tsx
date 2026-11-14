@@ -129,9 +129,9 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           </div>
         </section>
 
-        <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Cross Industry-Sector Units of Competency Insights</h2>
+        <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Comparison Table</h2>
 
-        <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007 and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
+        <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
 
         <section data-reveal="table" className={reveal("table")}>
           <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>

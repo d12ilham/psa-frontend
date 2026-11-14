@@ -173,8 +173,8 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
       <section className={`${styles.hero} animate-slide-up`}>
         <div className={styles.heroCopy}>
           <h1>Drivers of Change</h1>
-          <p>In 2024, Public Skills Australia identified nine megatrends impacting the Public Safety and Government industry-sectors. These megatrends were further considered in the development of the 2025 <span className={styles.reportTitle}>Workforce Insights Reports.</span></p>
-          <p>While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the 2026 <span className={styles.reportTitle}>Workforce Insights Reports</span> have built on these and analysed four key drivers of change that cut across most megatrends. This is important as these drivers of change will likely impact the Public Safety and Government industry-sectors in the short to medium term.</p>
+          <p>In 2024, Public Skills Australia identified nine megatrends impacting the Public Safety and Government industry-sectors. These megatrends were further considered in the development of the <em>2025 <span className={styles.reportTitle}>Workforce Insights Reports</span></em><span className={styles.reportTitle}>.</span></p>
+          <p>While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the <em>2026 <span className={styles.reportTitle}>Workforce Insights Reports</span></em> have built on these and analysed four key drivers of change that cut across most megatrends. This is important as these drivers of change will likely impact the Public Safety and Government industry-sectors in the short to medium term.</p>
         </div>
         <div className={`${styles.diagram} animate-drivers-pop-settle`}>
           <Image src="/images/reports/drivers-of-change-diagram.png" alt="Four connected drivers of change" width={250} height={240} className="animate-drivers-spin" />
@@ -208,7 +208,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
             <article id="driver-detail" aria-labelledby="driver-detail-title" className={`${styles.detailPanel} ${styles.driverPanel}`}>
               <span className={styles.presenting}>Now presenting · Driver {lastActiveIndex + 1}</span>
               <h2 id="driver-detail-title">{displayedDriver.detailTitle}</h2>
-              <p>{displayedDriver.body.map(({ text, reference }, index) => <span key={index}>{text}{reference && <sup className={styles.reference}><a href={`#driver-source-${reference}`} aria-label={`Source ${reference}`}>{reference}</a></sup>}</span>)}</p>
+              <p>{displayedDriver.body.map(({ text, reference }, index) => <span key={index}>{text.split(/(Five Pillars of Productivity)/g).map((part, partIndex) => partIndex % 2 ? <em key={partIndex}>{part}</em> : part)}{reference && <sup className={styles.reference}><a href={`#driver-source-${reference}`} aria-label={`Source ${reference}`}>{reference}</a></sup>}</span>)}</p>
             </article>
           </div>
         </div>

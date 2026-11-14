@@ -364,7 +364,16 @@ export default function Theme2InsightSubView({
               </ul>
             </div>
             <div className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
-              <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/frame-7.svg"
+                    alt=""
+                    className="w-8 h-8 object-contain animate-zoom-in"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders from New South Wales noted challenges with delivery of
                 some civil qualifications which were deemed not sufficiently flexible

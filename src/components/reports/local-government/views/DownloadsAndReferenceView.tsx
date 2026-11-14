@@ -62,11 +62,11 @@ export default function DownloadsAndReferenceView({
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="relative bg-white border border-gray200 rounded-2xl p-6 overflow-hidden flex items-center justify-between min-h-[140px]">
-          <div className="space-y-1 relative z-10 max-w-xl">
+          <div className={`space-y-1 relative z-10 ${is2025Report ? "max-w-xl" : "min-w-0 flex-1"}`}>
             <span className="text-xs font-bold text-[#9CAA54] uppercase tracking-wider block">
               Download PDF
             </span>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#046D2A] leading-tight animate-slide-up">
+            <h1 className={`text-2xl sm:text-3xl ${is2025Report ? "lg:text-4xl" : "lg:text-[clamp(1.5rem,2.5vw,2.25rem)] lg:whitespace-nowrap"} font-bold text-[#046D2A] leading-tight animate-slide-up`}>
               Local Government Workforce Insights Reports PDFs
             </h1>
           </div>

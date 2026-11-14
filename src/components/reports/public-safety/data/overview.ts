@@ -4,7 +4,7 @@ export const PREVIOUS_PUBLIC_SAFETY_REPORT_URL =
 export const PUBLIC_SAFETY_SECTIONS = [
   { title: "Executive Summary", subtitle: "The Public Safety industry-sectors on one page", description: "A concise, presentation-friendly view of the report story.", path: "executive_summary", icon: "/images/reports/introduction/Executive.svg", accent: "#046D2A" },
   { title: "Drivers of Change", description: "Four key drivers of change and the nine megatrends shaping long-term workforce trends.", tags: ["Drivers of Change", "Nine Megatrends"], path: "drivers_of_change", icon: "/images/reports/introduction/Drivers.svg", accent: "#046D2A" },
-  { title: "Cross-Sector Analysis", description: "Analyses themes consistent across all three public safety industry-sector.", tags: ["Cross-Sector Analysis Overview", "Cross-Sector Alignment", "Specialist Skill Alignment", "Skill Recognition"], path: "cross_sector_analysis", icon: "/images/reports/introduction/Overview.svg", accent: "#046D2A" },
+  { title: "Cross-Sector Analysis", description: "Analyses themes consistent across all three Public Safety industry-sectors", tags: ["Cross-Sector Analysis Overview", "Cross-Sector Alignment", "Specialist Skill Alignment", "Skills Recognition"], path: "cross_sector_analysis", icon: "/images/reports/introduction/Overview.svg", accent: "#046D2A" },
   { title: "Defence", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "defence", icon: "/images/reports/public-safety/defence-introduction-icons.svg", accent: "#D7A32A", sector: "defence" },
   { title: "Fire and Emergency Services", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "fes", icon: "/images/reports/public-safety/fes-introduction-fire-engine.png", accent: "#C9481A", sector: "fire" },
   { title: "Police", tags: ["Industry-Sector Overview", "Industry Profile", "Workforce Insights", "2026 Proposed Workforce Strategies", "2025 Strategy Updates", "Existing Industry-Sector Strategies"], path: "police", icon: "/images/reports/public-safety/police-services-vehicle.svg", accent: "#0D71A3", sector: "police" },
@@ -32,28 +32,9 @@ export const PUBLIC_SAFETY_AT_A_GLANCE = [
   },
 ] as const;
 
-export const PUBLIC_SAFETY_DRIVERS = [
-  "Resilience of organisations to respond to strategic shocks",
-  "Challenges to workforce productivity",
-  "Artificial intelligence, automation and digital transformation",
-  "Workforce inclusivity",
-] as const;
-
-export const PUBLIC_SAFETY_SUBSECTORS = [
-  { name: "Defence", code: "DEF", summary: "Sovereign capability, emerging technology and transition pathways for Defence personnel." },
-  { name: "Fire and Emergency Services", code: "FES", summary: "Career and volunteer capability across emergency response, recovery and surf life saving." },
-  { name: "Police", code: "POL", summary: "Digital forensics, specialist capability and leadership across every jurisdiction." },
-] as const;
-
 export const PUBLIC_SAFETY_FUNCTIONS = [
   { title: "Workforce Insight and Strategy", description: "undertakes data analysis, research and consultation to deepen understandings of contemporary workforce challenges and what can be done to mitigate these challenges", icon: "/images/reports/about/Workforce.svg" },
   { title: "Training Product Quality & Development", description: "develops quality training products to strengthen the skills and capabilities of Public Safety and Government workforces", icon: "/images/reports/about/Training.svg" },
   { title: "Supports Career Pathways", description: "monitors and promotes the implementation of training products to support career pathways for the Public Safety and Government industry-sectors", icon: "/images/reports/about/Supports.svg" },
   { title: "Industry Stewardship", description: "consults with, advocates for and promotes the needs of the Public Safety and Government industry-sectors.", icon: "/images/reports/about/Industry.svg" },
-] as const;
-
-export const PUBLIC_SAFETY_GOVERNANCE = [
-  { step: "01", title: "Public Safety Subcommittee", description: "Reviews the evidence and consultation outcomes, then recommends the report to the Industry Advisory Group." },
-  { step: "02", title: "Industry Advisory Group", description: "Tests the report against industry priorities and endorses it for consideration by the Public Skills Australia Board." },
-  { step: "03", title: "Public Skills Australia Board", description: "Confirms the development and consultation process and approves submission to DEWR." },
 ] as const;

@@ -11,15 +11,12 @@ import styles from "./PublicSafetyDefenceOverviewView.module.css";
 const groups = [
   {
     title: "Current Workforce",
-    points: ["The permanent Australian Defence Force workforce comprised approximately 59,000 personnel in 2024-25.", "The Defence workforce also includes reservists and Australian Public Service employees who support capability, operations and policy.", "Workforce demand remains distributed across Navy, Army and Air Force roles and a broad range of civilian occupations."],
   },
   {
     title: "Future Workforce",
-    points: ["The Defence workforce is expected to grow substantially to meet emerging strategic and capability requirements.", "The Defence Workforce Plan identifies a target permanent ADF workforce of 69,000 by the early 2030s.", "The overall permanent ADF and APS workforce is planned to reach around 100,000 by 2040."],
   },
   {
     title: "Veterans",
-    points: ["Veterans bring highly transferable technical, leadership and operational skills to the Australian workforce.", "Supporting career transition and recognising prior learning can improve employment pathways after service.", "Industry collaboration remains important for translating Defence experience into civilian qualifications and occupations."],
   },
 ];
 
@@ -137,14 +134,14 @@ function FutureWorkforceCharts() {
   const forecastTicks = [85000, 80000, 75000, 70000, 65000, 60000, 55000, 50000];
 
   return <div className={styles.futureContent}>
-    <p className={styles.futureSummary}>To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654 and 6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year between 2026 and 2040. Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
+    <p className={styles.futureSummary}>To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654-6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year (between 2026-2040). Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
     <div className={styles.futureCharts}>
       <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF separation rate chart; scroll horizontally on smaller screens">
         <svg className={styles.futureChart} width={1440} height={584.727} viewBox="0 0 1440 584.727" role="img" aria-labelledby="defence-separation-title defence-separation-description">
           <title id="defence-separation-title">Australian Defence Force Separation Rate, June 2019 – June 2025</title>
           <desc id="defence-separation-description">{years.map((year, index) => `${year}: ${separation[index].toFixed(1)}%`).join("; ")}</desc>
           <text x={52} y={70} className={styles.futureChartTitle}>Australian Defence Force Separation Rate, June 2019 – June 2025</text>
-          <text x={52} y={105} className={styles.futureChartSubtitle}>Annual separation rate percentage (%)</text>
+          <text x={52} y={105} className={styles.futureChartSubtitle}>Percentage</text>
           {[12, 9, 6, 3, 0].map((tick, index) => {
             const y = 162.97 + index * 70.665;
             return <g key={tick} aria-hidden="true"><line x1={122} x2={1374} y1={y} y2={y} className={tick === 0 ? styles.futureBaseline : styles.futureGridline} /><text x={105} y={y + 8} textAnchor="end" className={styles.futureAxisText}>{tick.toFixed(1)}%</text></g>;

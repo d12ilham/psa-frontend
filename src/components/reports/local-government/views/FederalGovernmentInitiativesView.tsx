@@ -33,7 +33,121 @@ interface InitiativeItem {
 const INITIATIVES_DATA: InitiativeItem[] =
   federalInitiativesData as InitiativeItem[];
 
+function StrategicPrioritiesText({ text }: { text: string }) {
+  const titles = /(Australian Government's Strategic Priorities|Australian Government Strategic Priorities|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function WorkingForWomenText({ text }: { text: string }) {
+  const titles = /(Working for Women Strategy|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CleanEnergyText({ text }: { text: string }) {
+  const titles = /(The Clean Energy Generation|Local Government Emergency Management Skills Project)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CyberSecurityText({ text }: { text: string }) {
+  const titles = /(2023–2030 Australian Cyber Security Strategy|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CoreSkillsFindingsText({ text }: { text: string }) {
+  const title = /(2024 CSOL Key Findings Report)/g;
+  return <>{text.split(title).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function BetterTogetherText({ text }: { text: string }) {
+  const title = /(Better Together)/g;
+  return <>{text.split(title).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function InitiativeImpactDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "09") {
+    return <BetterTogetherText text={item.impactDescription} />;
+  }
+
+  if (item.number === "08") {
+    return <CoreSkillsFindingsText text={item.impactDescription} />;
+  }
+
+  if (item.number === "07" || item.number === "10") {
+    const reportTitle = /(2026 Local Government Workforce Insights Report)/g;
+    return <>{item.impactDescription.split(reportTitle).map((part, index) =>
+      index % 2 === 1 ? <em key={index}>{part}</em> : part
+    )}</>;
+  }
+
+  if (item.number === "05") {
+    return <CyberSecurityText text={item.impactDescription} />;
+  }
+
+  if (item.number === "04") {
+    return <CleanEnergyText text={item.impactDescription} />;
+  }
+
+  if (item.number === "03") {
+    return <WorkingForWomenText text={item.impactDescription} />;
+  }
+
+  if (item.number === "02") {
+    return <StrategicPrioritiesText text={item.impactDescription} />;
+  }
+
+  const title = "Local Government Skills Audit and uptake and utility of the Local Government Training Package";
+  const position = item.impactDescription.indexOf(title);
+
+  if (item.number !== "01" || position < 0) {
+    return <>{item.impactDescription}</>;
+  }
+
+  return (
+    <>
+      {item.impactDescription.slice(0, position)}
+      <em>{title}</em>
+      {item.impactDescription.slice(position + title.length)}
+    </>
+  );
+}
+
 function InitiativeDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "08") {
+    return <div className="whitespace-pre-line"><CoreSkillsFindingsText text={item.description} /></div>;
+  }
+
+  if (item.number === "05") {
+    return <div className="whitespace-pre-line"><CyberSecurityText text={item.description} /></div>;
+  }
+
+  if (item.number === "04") {
+    return <div className="whitespace-pre-line"><CleanEnergyText text={item.description} /></div>;
+  }
+
+  if (item.number === "03") {
+    return <div className="whitespace-pre-line"><WorkingForWomenText text={item.description} /></div>;
+  }
+
+  if (item.number === "02") {
+    return <div className="whitespace-pre-line"><StrategicPrioritiesText text={item.description} /></div>;
+  }
+
   if (item.number === "06") {
     const [advice, ...following] = item.description.split("\n\n");
     const [introduction, ...recommendations] = advice.split("\n");
@@ -95,7 +209,7 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
 
   return (
     <div className="space-y-4">
-      <p>{introduction}</p>
+      <p>{item.number === "09" ? <BetterTogetherText text={introduction} /> : introduction}</p>
       <ul className="space-y-2">
         {pillars.map((pillar) => {
           const separator = item.number === "09" ? pillar.indexOf(": ") : -1;
@@ -119,7 +233,7 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
           );
         })}
       </ul>
-      <p>{closing}</p>
+      <p>{item.number === "09" ? <BetterTogetherText text={closing} /> : closing}</p>
     </div>
   );
 }
@@ -299,7 +413,7 @@ export default function FederalGovernmentInitiativesView({
 
                           <div className="bg-[#F0F5DF] rounded-xl border-l-8 sm:border-l-12 border-l-[#9CAA54] p-3.5 sm:p-4 space-y-2">
                             <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                              {item.impactDescription}
+                              <InitiativeImpactDescription item={item} />
                             </p>
                           </div>
                         </div>
@@ -380,7 +494,7 @@ export default function FederalGovernmentInitiativesView({
 
                 <div className="bg-[#F0F5DF] rounded-xl border-l-12 border-l-[#9CAA54] p-4 sm:p-5 space-y-3">
                   <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    {selectedItem.impactDescription}
+                    <InitiativeImpactDescription item={selectedItem} />
                   </p>
                 </div>
               </div>

@@ -25,7 +25,7 @@ const chartCardLabels = [
   charts[1],
   "Proportion of Male and Female ADF and ADF Reserve\nMembers in 2025",
   "Proportion of First Nations Participation in the ADF\nand ADF Reserves Across 2024 and 2025",
-  "ADF Employees and Major Facilities by Location\nand ADF Reserves Across 2024 and 2025",
+  charts[4],
   charts[5],
 ];
 

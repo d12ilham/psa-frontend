@@ -108,8 +108,12 @@ const DRIVERS = [
     shortTitle: "Challenges to workforce productivity",
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
-    fullDesc:
-      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.",
+    fullDesc: (
+      <>
+        In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup>5</sup>{" "}
+        These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup>6</sup>
+      </>
+    ),
   },
   {
     id: 3,
@@ -119,8 +123,12 @@ const DRIVERS = [
     shortDesc: "Capability uplift — and a growing security risk...",
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
-    fullDesc:
-      "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.",
+    fullDesc: (
+      <>
+        AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.<sup>7</sup>{" "}
+        These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.<sup>8</sup>
+      </>
+    ),
   },
   {
     id: 4,
@@ -401,6 +409,7 @@ export default function DriversOfChangeView({
                           </h3>
                           <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                             {driver.fullDesc}
+                            {driver.id === 1 && <sup>4</sup>}
                           </p>
                         </div>
                       )}
@@ -434,6 +443,7 @@ export default function DriversOfChangeView({
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                       {activeDriver.fullDesc}
+                      {activeDriver.id === 1 && <sup>4</sup>}
                     </p>
                   </div>
                 </div>

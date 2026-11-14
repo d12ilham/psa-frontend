@@ -20,7 +20,7 @@ export const executiveSummaryInsights: ExecutiveSummarySector[] = [
           },
           {
             "number": "1.2",
-            "text": "Provisioning targeted training faster through short courses (often referred to as microcredentials). Leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.",
+            "text": "Provisioning targeted training faster through short courses (often referred to as micro-credentials). Leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.",
             "page": "defence_emerging_technology_2"
           }
         ]
@@ -211,7 +211,7 @@ export const executiveSummaryStrategies: ExecutiveSummarySector[] = [
         "number": "6",
         "details": [
           {
-            "text": "Develop a digital forensics qualification to be included in the POL Police Training Package.",
+            "text": "Develop a digital forensics qualification to be included in the POL Training Package.",
             "page": "police_workforce_strategies"
           }
         ]

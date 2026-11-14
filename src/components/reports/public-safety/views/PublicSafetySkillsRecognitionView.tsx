@@ -9,16 +9,16 @@ import styles from "./PublicSafetySkillsRecognitionView.module.css";
 const copy = {
   "intro": "VET training products can be leveraged to potentially reduce duplication of training package development, training material development and support skill recognition in and between the Public Safety industry-sectors (impacting workforce mobility, interoperability, career transition and enhancing productivity).",
   "integration": "When shared skills, such as those identified in the Specialist Skills Alignment section, are recognised and aligned, it may enable smoother integration of personnel in joint operations environments.",
-  "transition": "Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead-in times for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give effect to important recommendations such as Recommendation 83 of the Royal Commission into Defence and Veteran Suicide.",
+  "transition": "Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead in times for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give effect to important recommendations such as the Recommendation 83 of the Royal Commission into Defence and Veteran Suicide.",
   "fraud": "The prevalence of RPL fraud makes acceptance of RPL in the VET sector complicated, resulting in a loss of trust in the RPL process. In turn, this means that personnel often are required to complete training for a unit of competency that they already hold, resulting in productivity losses and more impost on already strained training services in the Public Safety industry-sectors. The Productivity Commission indicated that fewer than 5 per cent of successful completions/results are granted through RPL. Further, as the VET sector is highly regulated by quality assurance organisations such as the Training Accreditation Council (TAC – Western Australia), Victoria Registration Qualifications Authority (VRQA – Victoria) and the Australian Skills Quality Authority (ASQA – for the remainder of the states and territories), Registered Training Organisations (RTOs), TAFEs and employers are reluctant to accept RPL outcomes due to the evidence required of competency by documents such as the ASQA 2025 Standards for RTOs. This is loosely referred to as ‘audit fear’, dissuading genuine training providers from using RPL and/or underreporting its use.",
-  "costs": "RPL applications require the same rigour of assessment as when assessing a student’s competency for the first time. Extensive portfolios of evidence are required, often resulting in students requesting to either repeat training or undertaking vigorous assessments to prove competence. Further, RPL requires assessors familiar and experienced in RPL, which make RPL assessments costly (both timing and financial costs)."
+  "costs": "RPL applications require the same rigour of assessment as when assessing a student’s competency for the first time. Extensive portfolios of evidence are required, often resulting in students requested to either repeat training or undertaking vigorous assessments to ‘prove’ competence. Further, RPL requires assessors familiar and experience in RPL, which make RPL assessments costly (both timing and financial costs)."
 };
 const differences = [
   { lines: ["Policies and procedures"], icon: "policies" },
   { lines: ["Legislation and regulatory", "requirements"], icon: "legislation" },
   { lines: ["Roles and remits of Public", "Safety organisations"], icon: "organisations" },
   { lines: ["Operating contexts"], icon: "contexts" },
-  { lines: ["Equipment, appliances and", "other technology used"], icon: "equipment" },
+  { lines: ["Equipment, appliances etc and", "other technology used"], icon: "equipment" },
   { lines: ["Ranks and structures"], icon: "ranks" },
 ];
 
@@ -56,9 +56,9 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
             <p className={styles.heroIntro}><DesignLines lines={["VET training products can be leveraged to potentially reduce duplication of training package development, training material", "development and support skill recognition in and between the Public Safety industry-sectors (impacting workforce mobility,", "interoperability, career transition and enhancing productivity)."]} /></p>
             <p className={styles.integration}><DesignLines lines={["When shared skills, such as those identified in the Specialist Skills Alignment section, are recognised and aligned, it may enable", "smoother integration of personnel in joint operations environments."]} /></p>
             <p className={styles.transition}>
-              <span className={styles.designLine}>Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead-in times </span>
+              <span className={styles.designLine}>Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead in times </span>
               <span className={styles.designLine}>for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give </span>
-              <span className={styles.designLine}>effect to important recommendations such as Recommendation 83 of the <em>Royal Commission into Defence and Veteran </em></span>
+              <span className={styles.designLine}>effect to important recommendations such as the Recommendation 83 of the <em>Royal Commission into Defence and Veteran </em></span>
               <span className={styles.designLine}><em>Suicide</em>.</span>
             </p>
           </div>

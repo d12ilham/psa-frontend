@@ -22,8 +22,8 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
         <ReportNavButtons
           slug={slug}
           currentPage={currentPage}
-          prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : undefined)}
-          next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Executive Summary", href: `/reports/${slug}/executive_summary` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
+          prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : undefined)}
+          next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Methodology", href: `/reports/${slug}/methodology` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
           back={navigation?.back}
           backSecondary={navigation?.backSecondary}
           prevPrefix={navigation?.prevPrefix}

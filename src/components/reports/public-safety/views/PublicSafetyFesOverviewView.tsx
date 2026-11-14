@@ -19,7 +19,7 @@ const datapoints = [
 ];
 
 const sources = [
-  "Productivity Commission, Emergency services for fire and other events – Table 9A.6 and 9A.7 [data set], Productivity Commission, 2026, accessed 7 January 2026.",
+  "Productivity Commission, Emergency services for fire and other events – Table 9A.6 and 9A.7, [data set], Productivity Commission, 2025, accessed 7 January 2026.",
   "Australian Institute for Disaster Resilience (AIDR), Major Incidents Report 2024–25, Australian Government Department of Home Affairs, 2025.",
   "ABS, November 2025, Detailed Labour Force Survey (Table EQ08), ABS, data trended by Jobs and Skills Australia.",
   "Productivity Commission, Emergency services for fire and other events – Table 9A.5 [data set], Productivity Commission, 2026, accessed 24 February 2026.",

@@ -28,7 +28,7 @@ export const PUBLIC_SAFETY_PAGE_INVENTORY: PublicSafetyPageDefinition[] = [
   { key: "defence_workforce_strategies", title: "Defence 2026 Workforce Strategies", group: "Defence" },
   { key: "defence_update_2025_strategies", title: "Defence Update on 2025 Strategies", group: "Defence" },
   { key: "defence_existing_strategies", title: "Defence Existing Industry-Sector Strategies", group: "Defence" },
-  { key: "defence_federal_initiatives", title: "Defence Federal Government Initiatives", group: "Defence" },
+  { key: "defence_federal_initiatives", title: "Defence Veterans’ Programs and Initiatives", group: "Defence" },
   { key: "fes", title: "Fire and Emergency Services Chapter", group: "Fire and Emergency Services" },
   { key: "fes_industry_overview", title: "FES Industry-Sector Overview", group: "Fire and Emergency Services" },
   { key: "fes_industry_profile", title: "FES Industry Profile", group: "Fire and Emergency Services" },
@@ -50,7 +50,7 @@ export const PUBLIC_SAFETY_PAGE_INVENTORY: PublicSafetyPageDefinition[] = [
   { key: "police_update_2025_strategies", title: "Police Update on 2025 Strategies", group: "Police" },
   { key: "police_existing_strategies", title: "Police Existing Industry-Sector Strategies", group: "Police" },
   { key: "police_proposed_strategies_summary", title: "Proposed Strategies Summary", group: "Cross-Sector Strategies" },
-  { key: "police_federal_initiatives", title: "Police Federal Government Initiatives", group: "Police" },
+  { key: "police_federal_initiatives", title: "Commonwealth Government Initiatives", group: "Cross-Sector Strategies" },
   { key: "looking_forward", title: "2027 and Beyond", group: "Report" },
   { key: "downloads", title: "Downloads and References", group: "Report" },
 ];

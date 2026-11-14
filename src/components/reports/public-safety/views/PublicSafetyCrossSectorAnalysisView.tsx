@@ -16,7 +16,7 @@ const themes = [
   {
     label: "THEME 2",
     title: "Public Safety taskings",
-    body: "The Public Safety workforce is required to remain  agile and responsive to urgent taskings. This  requires that Public Safety organisations ensure  they are prepared to ‘scale up’ workforce resources  in response to natural disasters, emergency  incidents, geopolitical events etc, through  leveraging available surge capacity",
+    body: "The Public Safety workforce is required to remain  agile and responsive to urgent taskings. This  requires that Public Safety organisations ensure  they are prepared to ‘scale up’ workforce resources  in response to natural disasters, emergency  incidents, geopolitical events etc, through  leveraging available surge capacity.",
   },
   {
     label: "THEME 3",
@@ -26,14 +26,14 @@ const themes = [
   {
     label: "THEME 4",
     title: "Public Safety’s risk environment",
-    body: "The Public Safety workforce is exposed to  demanding and, at times, hazardous work  conditions. These workforces are trained to operate  within high-stress and challenging environments  but are not immune to resultant injury. This is a  significant factor affecting workforce sustainability",
+    body: "The Public Safety workforce is exposed to  demanding and, at times, hazardous work  conditions. These workforces are trained to operate  within high-stress and challenging environments  but are not immune to resultant injury. This is a  significant factor affecting workforce sustainability.",
   },
 ];
 
 const analysisLinks = [
   { number: "1", title: "Core Skill Alignment", path: "cross_sector_core_skill_alignment" },
   { number: "2", title: "Specialist Skill Alignment", path: "cross_sector_specialist_skill_alignment" },
-  { number: "3", title: "Skill Recognition", path: "cross_sector_skills_recognition" },
+  { number: "3", title: "Skills Recognition", path: "cross_sector_skills_recognition" },
 ];
 
 export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { slug: string; report: PublicSafetyReport }) {

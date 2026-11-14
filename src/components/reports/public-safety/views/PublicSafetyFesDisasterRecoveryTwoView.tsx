@@ -44,7 +44,7 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
       <h2>Access to disaster recovery training</h2>
       <div className={styles.narrative}>
         <div className="max-w-[800px]">
-          <p>Collectively, these disaster recovery training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup><PublicSafetyFootnoteLink number={57} /></sup></p>
+          <p>Collectively, these training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup><PublicSafetyFootnoteLink number={57} /></sup></p>
           <p>Despite the relevance and importance of disaster recovery training, there are limited TAFEs and RTOs equipped to deliver this training. For example:</p>
           <ul className="list-disc ps-5">
             <li>seven of the nine newly developed skill sets are not on scope for any RTO</li>

@@ -65,7 +65,7 @@ const sources = [
 
 export default function PublicSafetyDefenceFederalInitiativesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [active, setActive] = useState(0);
-  const [owner, title, description, references] = initiatives[active];
+  const [, title, description, references] = initiatives[active];
   const [firstSentence, actionPlan] = description.split(" The Veteran Transition Action Plan");
   const number = (index: number) => String(index + 1).padStart(2, "0");
   return <PublicSafetyPageShell contentClassName={layout.page} slug={slug} report={report} currentPage="defence_federal_initiatives" navigation={{back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`},backSecondary:{label:"Defence chapter",href:`/reports/${slug}/defence`},prev:{label:"Existing Industry-Sector Strategies",href:`/reports/${slug}/defence_existing_strategies`},next:{label:"Fire and Emergency Services",href:`/reports/${slug}/fes`},prevPrefix:"Previous Section:",nextPrefix:"Next Section:"}}>
@@ -85,9 +85,9 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       <div className="animate-slide-up-delay">
         <h2 id="defence-veterans-list">Strategies · {initiatives.length} · Select to open</h2>
         <div className={layout.projectList}>
-          {initiatives.map(([agency, name], index) => (
+          {initiatives.map(([, name], index) => (
             <button key={name} type="button" aria-pressed={active === index} aria-controls="defence-veterans-panel" className={layout.projectButton} onClick={() => setActive(index)}>
-              <span><small>{number(index)} · {agency}</small><strong>{name}</strong></span>
+              <span><small>{number(index)}</small><strong>{name}</strong></span>
               <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
@@ -95,7 +95,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       </div>
       <ReportSelectionPanel selection={active} label="Defence veterans program details"><article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
         <div className={layout.panelHeader}>
-          <span className={layout.badge} title={owner}>{number(active)} · DEF</span>
+          <span className={layout.badge}>{number(active)} · DEF</span>
           <div className={layout.controls}>
             {active > 0 && <button className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
             {active < initiatives.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}

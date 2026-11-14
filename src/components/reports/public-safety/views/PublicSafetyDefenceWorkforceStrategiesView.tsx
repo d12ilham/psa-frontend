@@ -128,7 +128,7 @@ export default function PublicSafetyDefenceWorkforceStrategiesView({ slug, repor
       <div className="animate-slide-up">
         <p className={styles.badge}>Defence · Proposed Strategies 2026</p>
         <h1 id="defence-strategies-title">Proposed Strategies 2026</h1>
-        <p className={styles.intro}>Public Skills Australia proposes the following strategies aligned to the workforce insights identified to support Defence.</p>
+        <p className={styles.intro}>Public Skills Australia proposes the following strategies aligned to the workforce insights identified to support Defence:</p>
       </div>
       <picture className={`${styles.artwork} animate-zoom-in`}>
         <source media="(prefers-reduced-motion: reduce)" srcSet="/images/reports/public-safety/defence-industry-overview-group-93.svg" />

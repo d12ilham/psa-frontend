@@ -37,7 +37,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
         <span className={styles.number} aria-hidden="true">2</span>
         <div className={styles.calloutCopy}>
           <p className={styles.insightLabel}>Theme Two, Insight Two</p>
-          <p className={styles.insightText}>Greater focus is required to support transitioning veterans to articulate the transferability of their VET qualifications and the relevance of their ADF experience to the civilian workforce. Where support is available, the information provided could be bolstered.</p>
+          <p className={styles.insightText}>Greater focus is required to support transitioning veterans to articulate the transferability of their VET qualifications and the relevance of their ADF experience to the civilian workforce. Where support is available, the information provided at times is out of date and inconsistent.</p>
         </div>
         <Image className={`${styles.icon} animate-zoom-in`} src="/images/reports/public-safety/defence-emerging-insight-icon.png" width={120} height={120} alt="" unoptimized />
       </div>

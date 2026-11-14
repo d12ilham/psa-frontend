@@ -18,6 +18,11 @@ const icons = {
 
 type SummaryIcon = keyof typeof icons;
 
+function SummaryText({ text }: { text: string }) {
+  const parts = text.split(/(2026 Public Safety Workforce Insights Report|Recommendation 83\(c\) of the Royal Commission into Defence and Veteran Suicide|Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident|2027 Workforce Insights Reports)/g);
+  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+}
+
 function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return <button type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
 }
@@ -28,7 +33,7 @@ function SectionHeading({ icon, title, description, children }: { icon: SummaryI
       <Image src={icons[icon]} alt="" width={64} height={64} className={styles.sectionIcon} />
       <div className={styles.headingCopy}>
         <h2>{title}</h2>
-        <p>{description}</p>
+        <p><SummaryText text={description} /></p>
       </div>
       {children}
     </div>
@@ -52,7 +57,7 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay, show
           return (
             <div key={id} className={`${styles.tile} ${expanded ? styles.tileOpen : ""}`}>
               <span className={styles.number} aria-hidden="true">{number}</span>
-              <p className={styles.tileTitle}>{title}</p>
+              <p className={styles.tileTitle}><SummaryText text={title} /></p>
               <button type="button" aria-label={`${expanded ? "Close" : "Open"} ${title}`} aria-expanded={expanded} aria-controls={`${id}-detail`} onClick={() => onToggle(id)} className={styles.toggle}>
                 {expanded ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={expanded ? styles.expandedChevron : undefined} />
               </button>
@@ -63,7 +68,7 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay, show
                       <div key={detail.page} className={detail.number ? styles.numberedDetail : styles.detailRow}>
                         {detail.number && <span className={styles.detailNumber}>{detail.number}</span>}
                         <div className={styles.detailBody}>
-                          <p className={styles.detailText}>{detail.text}</p>
+                          <p className={styles.detailText}><SummaryText text={detail.text} /></p>
                           {showDetailLinks && <Link href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
                             Open<ArrowRight aria-hidden="true" />
                           </Link>}
@@ -118,7 +123,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
         <div className={styles.heroCopy}>
           <h1 className={`${styles.heroTitle} animate-slide-up`}>Executive Summary</h1>
           <div className="animate-slide-up-delay">
-            <p>Public Skills Australia’s 2026 Public Safety Workforce Insights Report considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
+            <p>Public Skills Australia’s <em>2026 Public Safety Workforce Insights Report</em> considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
             <p>The Report analyses themes consistent across all three Public Safety industry-sectors before examining each Public Safety industry-sector individually. The report provides data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.</p>
           </div>
         </div>
@@ -133,7 +138,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
+        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Industry Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
           <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
@@ -142,7 +147,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section ref={strategiesRef} className={`${styles.panel} ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights."><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
+        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support and address challenges identified through the above industry insights"><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
         <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} showDetailLinks={false} />)}</div>
       </section>
 

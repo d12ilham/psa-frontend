@@ -206,7 +206,7 @@ export default function ProposedStrategies2026View({
           >
             <div className="flex items-center justify-between gap-4">
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                PROJECT 2
+                STRATEGY 2
               </span>
               <button
                 onClick={() => setStrategy2Open(!strategy2Open)}

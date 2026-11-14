@@ -113,7 +113,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
         <span className={styles.number} aria-hidden="true">2</span>
         <div className={styles.calloutCopy}>
           <p className={styles.insightLabel}>Theme One, Insight Two</p>
-          <p className={styles.insightText}>Provisioning targeted training faster through short courses (often referred to as <span className={styles.keepWord}>micro-credentials</span>). Leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.</p>
+          <p className={styles.insightText}>Provisioning targeted training faster through short courses (often referred to as <span className={styles.keepWord}>micro-credentials</span>) leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.</p>
         </div>
         <Image className={`${styles.icon} ${contentVisible ? "animate-zoom-in" : ""}`} src="/images/reports/public-safety/defence-emerging-insight-icon.png" width={120} height={120} alt="" unoptimized />
       </div>
@@ -122,7 +122,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
       <div className={styles.columns}>
         <div className={styles.body}>
           <p>Recruitment, training and retention of a highly specialised and skilled workforce is necessary to meet emerging technology challenges and future capability needs.<sup><PublicSafetyFootnoteLink number={20} /></sup> As detailed in the Industry Overview section, the ADF workforce has been expanding in recent years due to an increase in enlistments alongside a decline in separations. Defence stakeholders noted that the ADF workforce will need to enhance their ability to upskill this workforce to be technically proficient in new and emerging technologies.<sup><PublicSafetyFootnoteLink number={21} /></sup></p>
-          <p>The 2024 Integrated Investment Program outlines $330 billion through to 2033-34 on capability investment priorities that include the following areas (relating to new and emerging technologies):<sup><PublicSafetyFootnoteLink number={22} /></sup></p>
+          <p>The <em>2024 Integrated Investment Program</em> outlines $330 billion through to 2033-34 on capability investment priorities that include the following areas (relating to new and emerging technologies):<sup><PublicSafetyFootnoteLink number={22} /></sup></p>
           <p>As a result of the need to acquire emerging technologies to be able to respond to future threats, the ADF faces the challenge of ensuring that their personnel can rapidly acquire and refresh highly technical skills (at pace with operational needs), while continuing to meet current job role requirements in increasingly complex and dangerous environments.</p>
         </div>
         <TileList items={capabilities} compact />

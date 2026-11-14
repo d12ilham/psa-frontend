@@ -125,6 +125,6 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
       </article></ReportSelectionPanel>
     </section>
 
-    <section data-report-sources className={sources.sources}><h2>Sources</h2><ol start={41}>{["Australian Government, ‘Progress on the Defence Strategic Review’, Transparency Portal, Australian Government website, 2026, accessed 3 February 2026.","Department of Defence, Defence Annual Report 2024–25, Department of Defence, Australian Government, 2025, accessed 4 February 2026."].map((source,index)=><li key={source}><span className={sources.sourceNumber} aria-hidden="true">{index+41}</span><span><PublicSafetySourceText number={index + 41} text={source} /></span></li>)}</ol></section>
+    <section data-report-sources className={sources.sources}><h2>Sources</h2><ol start={41}>{["Australian Government, ‘Progress since the Defence Strategic Review’, Transparency Portal, Australian Government website, 2024, accessed 2 February 2026.","Department of Defence, Defence Annual Report 2024-25. Department of Defence, Australian Government, 2025, pp 166-215."].map((source,index)=><li key={source}><span className={sources.sourceNumber} aria-hidden="true">{index+41}</span><span><PublicSafetySourceText number={index + 41} text={source} /></span></li>)}</ol></section>
   </PublicSafetyPageShell>;
 }
