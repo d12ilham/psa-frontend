@@ -210,16 +210,16 @@ export default function CorrectionalServicesIntroductionView({
             </div>
           </div>
 
-          <aside className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+          <aside className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#E8E9EF] border border-[#B4B9D3] rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
-              <span className="text-xs font-semibold text-[#598303] uppercase mb-4 block">
+              <span className="text-xs font-semibold text-[#424996] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
               </span>
               <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2">
                 {atAGlanceStats.map((stat, index) => (
                   <div
                     key={index}
-                    className={`min-w-0 bg-white rounded-xl p-4 border border-gray200/60 transition-all duration-300 hover:shadow-xs ${
+                    className={`min-w-0 bg-white rounded-xl p-4 border border-[#DDE2F0] transition-all duration-300 hover:border-[#9DA8D0] hover:shadow-xs ${
                       stat.metrics.length > 1
                         ? "grid grid-cols-2 items-start gap-4"
                         : "flex flex-col items-start justify-start"
@@ -230,7 +230,7 @@ export default function CorrectionalServicesIntroductionView({
                         key={metric.label}
                         className="flex flex-col items-start"
                       >
-                        <span className="text-2xl font-bold text-[#8AC900]">
+                        <span className="text-2xl font-bold text-[#424996]">
                           <AnimatedCounter
                             target={metric.value}
                             formatNumber={metric.formatNumber}

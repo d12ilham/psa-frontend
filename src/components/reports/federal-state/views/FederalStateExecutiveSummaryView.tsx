@@ -35,7 +35,7 @@ export default function FederalStateExecutiveSummaryView({
 
   const strategiesRef = useRef<HTMLDivElement>(null);
   const [isStrategiesVisible, setIsStrategiesVisible] = useState(false);
-  const [isStrategyOpen, setIsStrategyOpen] = useState(true);
+  const [isStrategyOpen, setIsStrategyOpen] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
@@ -316,8 +316,8 @@ export default function FederalStateExecutiveSummaryView({
               <button
                 type="button"
                 aria-expanded={isStrategyOpen}
-                aria-controls="summary-strategy-details"
-                aria-label={isStrategyOpen ? "Close strategy details" : "Open strategy details"}
+                aria-controls="summary-strategy-additional-details"
+                aria-label={isStrategyOpen ? "Close additional strategy details" : "Open additional strategy details"}
                 onClick={() => setIsStrategyOpen((open) => !open)}
                 className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-[#EED4C4] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
               >
@@ -334,7 +334,6 @@ export default function FederalStateExecutiveSummaryView({
               id="summary-strategy-details"
               role="region"
               aria-labelledby="summary-strategy-title"
-              hidden={!isStrategyOpen}
               data-summary-strategy-details
               className="max-w-[72ch] space-y-3.5 border-t border-gray-200 pt-4 text-xs"
             >
@@ -362,6 +361,14 @@ export default function FederalStateExecutiveSummaryView({
                 </p>
               </div>
 
+            </div>
+            <div
+              id="summary-strategy-additional-details"
+              role="region"
+              aria-labelledby="summary-strategy-title"
+              hidden={!isStrategyOpen}
+              className="max-w-[72ch] space-y-3.5 border-t border-gray-200 pt-4 text-xs"
+            >
               <div>
                 <h5 className="text-xs font-bold text-gray800">Approach:</h5>
                 <p className="text-xs text-gray600 leading-relaxed">

@@ -320,8 +320,7 @@ export default function CorrectionalServicesExistingStrategiesView({
             {visibleIndices.map((index) => {
               const strategy = strategies[index];
               return <article key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
-            <div data-strategy-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:static">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+            <div data-strategy-heading className="sticky top-[156px] z-20 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-0">
               <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
                 <Link href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
@@ -337,7 +336,6 @@ export default function CorrectionalServicesExistingStrategiesView({
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <h2 className="max-w-[720px] text-xl font-semibold leading-8">{strategy.title}</h2>
               <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">{strategy.period}</span>
-            </div>
             </div>
 
             <div className="mt-6 rounded-[14px] bg-[#FAFAF0] p-6 sm:p-8">

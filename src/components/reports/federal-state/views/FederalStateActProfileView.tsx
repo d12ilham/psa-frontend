@@ -143,7 +143,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           <div className="min-w-0 [container-type:inline-size]">
             <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Australian Capital Territory · Selected jurisdiction</p>
             <HeadingTag data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Australian Capital Territory<br /><span className="whitespace-nowrap">Public Service</span></HeadingTag>
-            <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
+            <p className="mt-5 text-base font-semibold text-black">ACT Workforce Overview</p>
             <div className="mt-3 max-w-[520px] space-y-3">
               <div className="rounded-md bg-[#F8EEE8] p-4">
                 <p className="text-base leading-6 text-black">In 2025, the ACT <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
@@ -160,7 +160,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           <JurisdictionMap slug={slug} selected="ACT" showLinks={!embedded} />
         </section>
 
-        <Section title="Workforce Overview">
+        <Section title="ACT Workforce Overview">
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>

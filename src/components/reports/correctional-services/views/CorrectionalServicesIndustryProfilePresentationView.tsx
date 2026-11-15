@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import PrisonCapacityChart from "./PrisonCapacityChart";
+import StateImprisonmentRateChart from "./StateImprisonmentRateChart";
 import { ArrowRight } from "lucide-react";
 import mapData from "@/data/australia_map_data.json";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -74,22 +76,6 @@ const imprisonmentRates = [
   { label: "Sep 2024", value: 207.8 }, { label: "Dec 2024", value: 206.8 },
   { label: "Mar 2025", value: 214.3 }, { label: "Jun 2025", value: 217.3 },
   { label: "Sep 2025", value: 216.1 }, { label: "Dec 2025", value: 217.4 },
-];
-
-const capacityJurisdictions = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
-const capacitySeries = [
-  { year: "2022–23", color: "#424996" },
-  { year: "2023–24", color: "#E0E4F1" },
-  { year: "2024–25", color: "#AFB8DC" },
-];
-
-const stateRateJurisdictions = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
-const stateRateSeries = [
-  { quarter: "December 2024", color: "#424996" },
-  { quarter: "March 2025", color: "#AEB6D7" },
-  { quarter: "June 2025", color: "#33439D" },
-  { quarter: "September 2025", color: "#D6DBEC" },
-  { quarter: "December 2025", color: "#8797C9" },
 ];
 
 const expenditure = [
@@ -422,51 +408,9 @@ function ChartContent({ active }: { active: number }) {
     </>
   );
 
-  if (active === 5) return (
-    <>
-      <p className="mt-2 text-[11px] text-[#667085]">Y-axis: Percentage, 0–100% · 2022–23 to 2024–25</p>
-      <div className="relative mt-5 overflow-x-auto">
-        <svg viewBox="0 0 900 490" className="min-w-[620px] w-full" role="img" aria-label="Prison capacity utilisation chart awaiting the approved source values for 2022–23, 2023–24 and 2024–25">
-          <text x="20" y="240" transform="rotate(-90 20 240)" textAnchor="middle" fill="#252D02" fontSize="13">Percentage</text>
-          {Array.from({ length: 11 }, (_, index) => 100 - index * 10).map((tick) => {
-            const y = 42 + ((100 - tick) / 100) * 390;
-            return <g key={tick}><line x1="82" x2="882" y1={y} y2={y} stroke="#E5E7EB" strokeWidth="1" /><text x="72" y={y + 5} textAnchor="end" fill="#252D02" fontSize="15">{tick}%</text></g>;
-          })}
-          {capacityJurisdictions.map((code, index) => <text key={code} x={130 + index * 100} y="463" textAnchor="middle" fill="#252D02" fontSize="14">{code}</text>)}
-        </svg>
-        <p className="absolute left-1/2 top-[46%] w-[min(80%,360px)] -translate-x-1/2 -translate-y-1/2 bg-white/95 px-5 py-4 text-center text-xs leading-5 text-[#535862]">
-          Approved source values are needed to plot these bars. The printed report does not label the individual values.
-        </p>
-      </div>
-      <div className="mt-1 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#535862]">
-        {capacitySeries.map(({ year, color }) => <span key={year} className="inline-flex items-center gap-2"><i className="size-3" style={{ backgroundColor: color }} />{year}</span>)}
-      </div>
-      <p className="mt-3 max-w-[580px] text-[11px] leading-5 text-[#68723E]">Source: Productivity Commission 2026, Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.15.</p>
-    </>
-  );
+  if (active === 5) return <PrisonCapacityChart visible={visible} />;
 
-  if (active === 6) return (
-    <>
-      <p className="mt-2 text-[11px] text-[#667085]">Y-axis: Imprisonment rate (per 100,000 adult population) · five quarters</p>
-      <div className="relative mt-5 overflow-x-auto">
-        <svg viewBox="0 0 900 490" className="min-w-[620px] w-full" role="img" aria-label="State and territory imprisonment rate chart awaiting approved source values from December 2024 to December 2025">
-          <text x="20" y="235" transform="rotate(-90 20 235)" textAnchor="middle" fill="#252D02" fontSize="12">Imprisonment rate (per 100,000 adult population)</text>
-          {Array.from({ length: 8 }, (_, index) => 1400 - index * 200).map((tick) => {
-            const y = 42 + ((1400 - tick) / 1400) * 390;
-            return <g key={tick}><line x1="82" x2="882" y1={y} y2={y} stroke="#E5E7EB" strokeWidth="1" /><text x="72" y={y + 5} textAnchor="end" fill="#252D02" fontSize="15">{tick.toLocaleString()}</text></g>;
-          })}
-          {stateRateJurisdictions.map((code, index) => <text key={code} x={130 + index * 100} y="463" textAnchor="middle" fill="#252D02" fontSize="14">{code}</text>)}
-        </svg>
-        <p className="absolute left-1/2 top-[46%] w-[min(80%,360px)] -translate-x-1/2 -translate-y-1/2 bg-white/95 px-5 py-4 text-center text-xs leading-5 text-[#535862]">
-          Approved source values are needed to plot these bars. The printed report does not label the individual values.
-        </p>
-      </div>
-      <div className="mt-1 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#535862]">
-        {stateRateSeries.map(({ quarter, color }) => <span key={quarter} className="inline-flex items-center gap-2"><i className="size-3" style={{ backgroundColor: color }} />{quarter}</span>)}
-      </div>
-      <p className="mt-3 max-w-[580px] text-[11px] leading-5 text-[#68723E]">Source: Australian Bureau of Statistics, Corrective Services, Australia – December quarter 2025, Table 3.</p>
-    </>
-  );
+  if (active === 6) return <StateImprisonmentRateChart visible={visible} />;
 
   return (
     <ExpenditureMap visible={visible} />

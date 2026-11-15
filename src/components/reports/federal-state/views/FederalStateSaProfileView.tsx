@@ -126,7 +126,7 @@ export default function FederalStateSaProfileView({ slug, report, embedded = fal
         <div className="min-w-0 [container-type:inline-size]">
           <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">South Australia · Selected jurisdiction</p>
           <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">South Australian<br /><span className="whitespace-nowrap">Public Service</span></h1>
-          <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
+          <p className="mt-5 text-base font-semibold text-black">SA Workforce Overview</p>
           <div className="mt-3 max-w-[520px] space-y-3">
             <div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the South Australian <span className="whitespace-nowrap">Public Service</span> was comprised of</p><strong className="mt-1 block text-4xl text-black">122,644</strong><p className="mt-1 text-base leading-6 text-black">employees (101,732 FTE)</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={96}>Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</SourceLink></p></div>
             <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">14,111</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
