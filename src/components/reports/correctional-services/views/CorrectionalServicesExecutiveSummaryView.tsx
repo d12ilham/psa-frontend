@@ -172,7 +172,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           />
         </section>
 
-        <section data-summary-reveal="insights" className={`min-h-[964px] overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("insights")}`}>
+        <section data-summary-reveal="insights" className={`overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white transition-[border-color,box-shadow] duration-300 hover:border-[#B8C9A0] hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("insights")}`}>
           <div className="p-6">
             <div className="group/heading grid grid-cols-[48px_minmax(0,1fr)] items-center gap-x-4 gap-y-4 border-b border-[#E9EAEB] pb-6 sm:grid-cols-[64px_minmax(0,1fr)_auto]">
               <Image
@@ -241,15 +241,6 @@ export default function CorrectionalServicesExecutiveSummaryView({
                   );
                 })}
               </div>
-              <section aria-labelledby="summary-training-challenges" className="mt-6 border-t border-[#E9EAEB] pt-5 text-sm leading-6 text-[#535862]">
-                <h4 id="summary-training-challenges" className="mb-3 text-lg font-bold text-[#252D02]">CSC Correctional Services Training Package — challenges</h4>
-                    <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
-                    <ul className="mt-2 list-disc space-y-1 pl-5">
-                      <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
-                      <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation).<sup><a href="#correctional-summary-source-23" className="ml-0.5 text-[#424996] hover:underline">23</a></sup> As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
-                      <li>Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</li>
-                    </ul>
-              </section>
 
             </div>
           </div>
@@ -335,7 +326,6 @@ export default function CorrectionalServicesExecutiveSummaryView({
 
         <aside data-summary-reveal="sources" className={`rounded-[14px] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`} aria-label="Sources">
           <p><sup>2.</sup> HumanAbility is the Jobs and Skills council for the care and support sectors. They are responsible for maintaining and updating the CHC Community Services, HLT Health, and SIS Sports, Fitness and Recreation Training Packages.</p>
-          <p id="correctional-summary-source-23" className="mt-3 scroll-mt-24"><sup>23.</sup> Public Skills Australia 2025, Corrections Implementation Report, unpublished.</p>
         </aside>
       </main>
 

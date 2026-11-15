@@ -59,7 +59,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
           </div>
         </section>
 
-        <section className="grid items-center gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 lg:grid-cols-[minmax(0,1fr)_72px]">
+        <section className="grid items-center gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 lg:grid-cols-[minmax(0,1fr)_212px] xl:grid-cols-[minmax(0,1fr)_252px]">
           <div>
             <h2 className="text-2xl font-semibold">The Role of a Community Corrections Officer (CCO)</h2>
             <div className="mt-5 max-w-[850px] space-y-5 text-sm leading-6">
@@ -67,7 +67,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
               <p>Through research and consultation, Public Skills Australia identified several distinct challenges that have implications for the workforce and training specific to CCOs across jurisdictions within the Correctional Services industry-sector.</p>
             </div>
           </div>
-          <span className="order-first grid size-[72px] place-items-center rounded-full bg-[#EDEDF5] text-[#424996] lg:order-last"><BriefcaseBusiness size={38} strokeWidth={1.5} aria-hidden="true" /></span>
+          <span className="order-first grid size-[180px] place-items-center justify-self-center rounded-full bg-[#EDEDF5] text-[#424996] lg:order-last lg:mr-8 lg:justify-self-end xl:size-[220px]"><BriefcaseBusiness size={96} className="size-20 xl:size-24" strokeWidth={1.5} aria-hidden="true" /></span>
         </section>
 
         <div className="grid gap-6 lg:grid-cols-2">

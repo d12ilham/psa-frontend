@@ -129,7 +129,7 @@ export default function FederalStateIntroductionView({
         <ReportNavButtons sectorPalette slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-[100px]">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-8 xl:gap-[100px]">
           <div className="flex-1 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="animate-slide-up space-y-2">
@@ -137,7 +137,8 @@ export default function FederalStateIntroductionView({
                   INTRODUCTION
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray800 leading-tight">
-                  2026 Federal and State/Territory Government Workforce Insights Report
+                  <span className="lg:block">2026 Federal and State/Territory Government</span>{" "}
+                  <span className="lg:block lg:whitespace-nowrap">Workforce Insights Report</span>
                 </h1>
               </div>
               <div className="space-y-3 animate-slide-up-delay">
@@ -182,7 +183,7 @@ export default function FederalStateIntroductionView({
           </div>
 
           {/* Right Panel: "THIS REPORT AT A GLANCE" */}
-          <div className="w-full lg:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+          <div className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
               <span className="text-xs font-semibold text-[#252b37] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { MessageSquareText, UserRound } from "lucide-react";
 import { correctionalInsights } from "../data/workforceInsights";
 import Link from "next/link";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -109,11 +110,23 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
           ))}
         </div>
 
-        <section data-career-reveal="details" className={`group rounded-[14px] border border-[#E9EAEB] bg-white px-6 py-6 text-sm leading-6 transition-shadow duration-200 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("details")}`}>
-          <p>Stakeholders noted that some organisations were electing to train CCOs through the Certificate IV in Correctional Practice rather than the Certificate III in Correctional Practice. Enrolments in units of competency for the Certificate III unique to community corrections specialisations are estimated at approximately 160, whereas enrolments in units of competency for the Certificate IV community corrections specialisations are substantially higher at approximately 300.<sup><a href="#correctional-career-source-21" className="ml-0.5 text-[#424996] hover:underline">21</a></sup> This is despite, as the graphs indicate, 4,234 more enrolments in the Certificate III compared to the Certificate IV in 2024.<sup><a href="#correctional-career-source-22" className="ml-0.5 text-[#424996] hover:underline">22</a></sup> Proportionally, significantly more people are enrolling in these specialisations in the Certificate IV compared to the Certificate III.</p>
-          <Link href={`/reports/${slug}/workforce_insights_specialisations`} className="mt-4 inline-flex items-center rounded-full bg-[#424996] px-5 py-2.5 text-xs font-semibold text-white transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#343A7A] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">View the Certificate III and IV enrolment and completion charts</Link>
-          <p className="mt-4">Low enrolments and completions in the community corrections specialisations are further compounded by some jurisdictions indicating that they also accept a relevant higher education degree in social sciences. In some jurisdictions, such qualifications are a condition of employment, while in others they are considered highly desirable but not required as a condition for employment.</p>
-        </section>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <section data-career-reveal="details" className={`group rounded-[14px] border border-[#E9EAEB] bg-white px-6 py-6 text-sm leading-6 transition-shadow duration-200 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("details")}`}>
+            <p>Stakeholders noted that some organisations were electing to train CCOs through the Certificate IV in Correctional Practice rather than the Certificate III in Correctional Practice. Enrolments in units of competency for the Certificate III unique to community corrections specialisations are estimated at approximately 160, whereas enrolments in units of competency for the Certificate IV community corrections specialisations are substantially higher at approximately 300.<sup><a href="#correctional-career-source-21" className="ml-0.5 text-[#424996] hover:underline">21</a></sup> This is despite, as the graphs indicate, 4,234 more enrolments in the Certificate III compared to the Certificate IV in 2024.<sup><a href="#correctional-career-source-22" className="ml-0.5 text-[#424996] hover:underline">22</a></sup> Proportionally, significantly more people are enrolling in these specialisations in the Certificate IV compared to the Certificate III.</p>
+            <Link href={`/reports/${slug}/workforce_insights_specialisations`} className="mt-4 inline-flex items-center rounded-full bg-[#424996] px-5 py-2.5 text-xs font-semibold text-white transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#343A7A] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">View the Certificate III and IV enrolment and completion charts</Link>
+            <p className="mt-4">Low enrolments and completions in the community corrections specialisations are further compounded by some jurisdictions indicating that they also accept a relevant higher education degree in social sciences. In some jurisdictions, such qualifications are a condition of employment, while in others they are considered highly desirable but not required as a condition for employment.</p>
+          </section>
+          <aside data-career-reveal="industry-insight" aria-labelledby="career-industry-insight-heading" className={`rounded-[14px] border-l-[12px] border-[#9DA8D0] bg-[#E8E9EF] p-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("industry-insight")}`}>
+            <div className="flex items-center gap-4">
+              <span className="relative grid size-[70px] shrink-0 place-items-center rounded-full bg-white text-[#424996]">
+                <UserRound size={27} strokeWidth={1.5} aria-hidden="true" />
+                <MessageSquareText size={19} strokeWidth={1.5} className="absolute right-3 top-2" aria-hidden="true" />
+              </span>
+              <h2 id="career-industry-insight-heading" className="text-xl font-semibold text-[#252D02]">Industry Insight</h2>
+            </div>
+            <p className="mt-4 text-sm leading-6">{correctionalInsights[2].lead} {correctionalInsights[2].detail}</p>
+          </aside>
+        </div>
 
         <section data-career-reveal="sources" aria-labelledby="correctional-career-sources-heading" className={`rounded-[14px] border border-[#E9EAEB] bg-white p-6 motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`}>
           <h2 id="correctional-career-sources-heading" className="text-2xl font-semibold">Sources</h2>

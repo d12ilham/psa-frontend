@@ -95,7 +95,6 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
                 <span className="text-4xl font-light leading-none text-[#D4D8E9] sm:text-5xl">{index + 1}</span>
                 <span className="min-w-0">
                   <span className="block text-xs text-[#424996]">Theme One, Insight {index === 0 ? "One" : index === 1 ? "Two" : "Three"}</span>
-                  <strong className="mt-1 block text-base font-semibold">{insight.title}</strong>
                   <span className="mt-1 block text-xs leading-5 text-[#535862]">{insight.summary}</span>
                 </span>
                 <span className="grid size-9 place-items-center rounded-full bg-[#8AC900] transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"><ArrowRight size={16} aria-hidden="true" /></span>

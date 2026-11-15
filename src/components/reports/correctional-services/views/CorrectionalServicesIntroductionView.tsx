@@ -113,8 +113,8 @@ const atAGlanceStats: GlanceStat[] = [
   },
   {
     metrics: [
-      { value: 1, label: "Theme" },
-      { value: 3, label: "Insights" },
+      { value: 1, label: "Workforce Theme" },
+      { value: 3, label: "Workforce Insights" },
     ],
   },
   {
@@ -155,7 +155,7 @@ export default function CorrectionalServicesIntroductionView({
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         <ReportNavButtons slug={slug} currentPage="introduction" />
 
-        <section className="bg-white border border-[#E9EAEB] rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-[100px]">
+        <section className="bg-white border border-[#E9EAEB] rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-8 xl:gap-[100px]">
           <div className="flex-1 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="animate-slide-up space-y-2">
@@ -163,7 +163,8 @@ export default function CorrectionalServicesIntroductionView({
                   Introduction
                 </span>
                 <h1 className="max-w-[760px] text-3xl font-bold leading-tight text-[#252D02] sm:text-4xl">
-                  2026 Correctional Services Workforce Insights Report
+                  <span className="lg:block">2026 Correctional Services</span>{" "}
+                  <span className="lg:block lg:whitespace-nowrap">Workforce Insights Report</span>
                 </h1>
               </div>
 
@@ -209,7 +210,7 @@ export default function CorrectionalServicesIntroductionView({
             </div>
           </div>
 
-          <aside className="w-full lg:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+          <aside className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
               <span className="text-xs font-semibold text-[#598303] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
@@ -220,7 +221,7 @@ export default function CorrectionalServicesIntroductionView({
                     key={index}
                     className={`min-w-0 bg-white rounded-xl p-4 border border-gray200/60 transition-all duration-300 hover:shadow-xs ${
                       stat.metrics.length > 1
-                        ? "flex items-start justify-between gap-4"
+                        ? "grid grid-cols-2 items-start gap-4"
                         : "flex flex-col items-start justify-start"
                     }`}
                   >

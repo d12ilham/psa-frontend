@@ -37,13 +37,14 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
   return (
     <PublicSafetyPageShell slug={slug} report={report} currentPage="introduction">
       <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
-        <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-[100px]">
+        <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-8 xl:gap-[100px]">
           <div className="flex min-w-0 flex-1 flex-col justify-between space-y-6">
             <div>
               <div className="animate-slide-up">
                 <PublicSafetyEyebrow>INTRODUCTION</PublicSafetyEyebrow>
                 <h1 className="mt-4 text-3xl font-bold leading-tight text-[#252D02] sm:text-4xl">
-                  2026 Public Safety Workforce Insights Report
+                  <span className="lg:block">2026 Public Safety</span>{" "}
+                  <span className="lg:block lg:whitespace-nowrap">Workforce Insights Report</span>
                 </h1>
               </div>
               <div className="mt-4 max-w-[800px] space-y-4 text-sm font-normal leading-6 text-[#535862] animate-slide-up-delay">
@@ -65,7 +66,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
             </div>
           </div>
 
-          <aside className="w-full space-y-4 self-start rounded-2xl border border-gray200/80 bg-[#F5F5F5] p-5 animate-zoom-in lg:w-[444px] lg:shrink-0">
+          <aside className="w-full space-y-4 self-start rounded-2xl border border-gray200/80 bg-[#F5F5F5] p-5 animate-zoom-in lg:w-[360px] xl:w-[444px] lg:shrink-0">
             <span className="mb-4 block text-xs font-semibold uppercase text-notes">
               THIS REPORT AT A GLANCE
             </span>
