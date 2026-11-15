@@ -232,7 +232,7 @@ export default function FederalStateExecutiveSummaryView({
                 />
               </div>
               <div>
-                <h2 id="summary-insights-title" className="font-bold text-base text-gray800 pb-2">One Theme, Three Insights</h2>
+                <h2 id="summary-insights-title" className="font-bold text-base text-gray800 pb-2">Workforce Insights</h2>
                 <h3 className="text-base font-bold text-[#754C2D]">{workforceInsightsTheme}</h3>
               </div>
             </div>

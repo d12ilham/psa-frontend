@@ -32,8 +32,8 @@ export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: st
       <FederalStateJurisdictionMap key={selected} initialJurisdiction={selected} />
       {showLinks && (
         <>
-          <p className="mt-3 text-sm font-semibold uppercase text-black">Choose a state or territory</p>
-          <nav aria-label="Choose a state or territory" className="mt-2 flex flex-wrap gap-2">
+          <p className="mt-3 text-sm font-semibold uppercase text-black">Industry Profile</p>
+          <nav aria-label="Industry Profile" className="mt-2 flex flex-wrap gap-2">
             {jurisdictions.map((code) => (
               <Link
                 key={code}
@@ -153,7 +153,7 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
               </div>
               <div className="rounded-md bg-[#F8EEE8] p-4">
                 <strong className="block text-4xl text-black">70,221</strong>
-                <p className="mt-1 text-base leading-6 text-black">APS employees located in Australian Capital Territory</p>
+                <p className="mt-1 text-base leading-6 text-black">APS employees</p>
               </div>
             </div>
           </div>

@@ -31,7 +31,15 @@ function formatProjectCopy(text: string, projectNumber: string) {
             ? /((?:Royal Commission into Defence and Veteran Suicide)|(?:Defence Veterans – Supporting transition))/g
             : null;
   if (!titles) return text;
-  return text.split(titles).map((part, index) => index % 2 === 1 ? <em key={index}>{part}</em> : part);
+  const preserveRecommendationReference = (part: string, keyPrefix: string) => part.split(/(83\(c\))/g).map((segment, index) =>
+    segment === "83(c)"
+      ? <span key={`${keyPrefix}-${index}`} className={styles.literalReference}>83(c)</span>
+      : segment
+  );
+  return text.split(titles).map((part, index) => {
+    const content = preserveRecommendationReference(part, String(index));
+    return index % 2 === 1 ? <em key={index}>{content}</em> : content;
+  });
 }
 
 export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {

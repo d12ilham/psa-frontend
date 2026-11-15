@@ -73,7 +73,7 @@ export default function ProposedStrategies2026View({
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia proposes the following strategies aligned
-              to the workforce insights identified, to support the Local
+              to the workforce insights identified to support the Local
               Government industry-sector. Select a strategy to explore its
               detail.
             </p>

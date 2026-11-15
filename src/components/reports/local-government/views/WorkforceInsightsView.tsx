@@ -237,7 +237,7 @@ export default function WorkforceInsightsView({
                           Theme One, Insight One
                         </span>
                         <p className="text-xs text-gray600 leading-relaxed">
-                          Local Government employers require a diverse range of
+                          Local council employers require a diverse range of
                           skills to maintain the breadth of responsibilities
                           undertaken by local councils.
                         </p>

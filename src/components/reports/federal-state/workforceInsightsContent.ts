@@ -1,6 +1,26 @@
 export const workforceInsightsTheme = "Future of the Public Service";
 
-// Shared overview copy follows the approved report, pp. 66-69, and PPT heading order.
+// The three statements belong together in the theme table on printed p. 66.
+// Keep this table separate from the detail-page summaries below.
+export const workforceInsightsSectorAnalysis: {
+  prefix?: string;
+  sourceNumber?: number;
+  text: string;
+}[] = [
+  {
+    prefix: "The Public Administration and Safety industry",
+    sourceNumber: 84,
+    text: "is projected to grow steadily over the next decade, in line with broader increases in public sector workforce participation. Federal and State/Territory Governments operate under differing legislative and governance arrangements for workforce planning, resulting in variable levels of workforce planning maturity.",
+  },
+  {
+    text: "As Australia’s productivity growth remains relatively low, the effectiveness of the APS remains critical to supporting economic performance.",
+  },
+  {
+    text: "A skilled, adaptable and future-ready public service workforce has been identified as a priority, particularly in relation to technology, digital literacy and effective use of AI.",
+  },
+];
+
+// Detail-page and Executive Summary copy follows printed pp. 66–69.
 export const workforceInsightSummaries = [
   {
     title: "Productivity and Economic Growth",

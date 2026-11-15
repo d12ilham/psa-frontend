@@ -123,7 +123,7 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
                 <p className="mt-1 text-base leading-6 text-black">employees<br />55,959 FTE in metro areas<br />27,782 FTE in regional locations</p>
                 <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={55}>Source: NSW Government, Workforce Profile Report, 2025, Table 2.2</SourceLink></p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">33,646</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in New South Wales</p></div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">33,646</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
             </div>
           </div>
           <JurisdictionMap slug={slug} selected="NSW" showLinks={showJurisdictionLinks} />

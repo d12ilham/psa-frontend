@@ -99,8 +99,8 @@ function WorkforceChart({ title, values, labels = years, domain: [min, max], sou
 
 export default function PublicSafetyFesOverviewView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [open, setOpen] = useState<number | null>(null);
-  const fireVolunteers = <WorkforceChart title="Total Fire Volunteers (headcount)" values={fireVolunteerSeries} domain={[180000, 205000]} dashed />;
-  const sesVolunteers = <WorkforceChart title="Total SES Volunteers (FTE)" values={sesVolunteerSeries} domain={[23500, 26500]} dashed />;
+  const fireVolunteers = <WorkforceChart title="Total Fire Volunteers (headcount)" values={fireVolunteerSeries} domain={[180000, 205000]} dashed chartTextFontSize={18} />;
+  const sesVolunteers = <WorkforceChart title="Total SES Volunteers (FTE)" values={sesVolunteerSeries} domain={[23500, 26500]} dashed chartTextFontSize={18} />;
   return <PublicSafetyPageShell slug={slug} report={report} contentClassName={`${chapter.page} ${styles.page}`} currentPage="fes_industry_overview" navigation={{
     back: { label: "Executive Summary", href: `/reports/${slug}/executive_summary` },
     backSecondary: { label: "Fire and Emergency Services chapter", href: `/reports/${slug}/fes` },
@@ -147,7 +147,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                   <p className={styles.copy}>Volunteer services: Compared to career firefighting, total volunteer firefighter numbers (including support staff) decreased by nearly 12,000 volunteers from 2019–20 to 2024–25.<sup><PublicSafetyFootnoteLink number={48} /></sup> Similarly, SES has largely experienced year-on-year declines in total volunteers since 2019–20, in line with wider decline in volunteerism trends.<sup><PublicSafetyFootnoteLink number={49} /></sup></p>
                   <div className={styles.chartGrid}>
                     <WorkforceChart title="Career Firefighters (headcount)" values={careerFirefighterSeries} domain={[17500, 19500]} dashed chartTextFontSize={18} axisLabelX={64} yearLabelXOffset={-16} yearLabelYOffset={36} valueLabelOffsets={[-38, -28, -18, 36, -24, -18]} valueLabelAnchors={["start", "middle", "middle", "middle", "middle", "end"]} />
-                    <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed />
+                    <WorkforceChart title="Career Operational SES Employees (FTE)" values={operationalSesSeries} domain={[1400, 2300]} dashed chartTextFontSize={18} />
                   </div>
                   <p className={styles.copy}>{datapoints[2].copy}</p>
                   <div className={styles.chartGrid}>

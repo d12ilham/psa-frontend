@@ -94,7 +94,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
                 <p className="mt-1 text-base leading-6 text-black">employees (23,754 FTE)</p>
                 <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–2025, 2025, pg. 10</SourceLink></p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in the Northern Territory</p></div>
+              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
             </div>
           </div>
           <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />

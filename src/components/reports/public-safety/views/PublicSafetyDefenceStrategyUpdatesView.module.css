@@ -1,6 +1,7 @@
 .page { color: #252d02; }
 .page > :first-child button { height: 40px; min-height: 40px; font-size: 14px; font-weight: 700; line-height: 20px; }
 .page > :first-child button:nth-child(3) { border-color: #598303 !important; }
+.literalReference { font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0; }
 .hero {
   display: flex;
   align-items: center;

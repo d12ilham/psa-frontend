@@ -68,11 +68,11 @@ export default function ExistingStrategiesView({
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
           <div className="space-y-3">
             <h1 className="text-2xl sm:text-3xl font-bold text-[#046D2A] animate-slide-up">
-              Update on 2025 Workforce Strategies
+              Workforce Insights: Update on 2025 Strategies
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               Public Skills Australia's 2025 Local Government Workforce Insights
-              Report identified three challenges currently impacting Local
+              Report identified three challenges that are currently impacting Local
               Government workforces:
             </p>
           </div>
@@ -268,8 +268,8 @@ export default function ExistingStrategiesView({
                   </p>
                   <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
                     <li>expansion of core duties</li>
-                    <li>Recruitment and retention</li>
-                    <li>Competition for labour</li>
+                    <li>recruitment and retention</li>
+                    <li>competition for labour</li>
                   </ul>
                 </div>
 
@@ -403,11 +403,11 @@ export default function ExistingStrategiesView({
                     and drivers of change, particularly:
                   </p>
                   <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
-                    <li>Expansion of core duties</li>
-                    <li>Recruitment and retention</li>
-                    <li>Competition for labour</li>
-                    <li>Technological development</li>
-                    <li>Climate change</li>
+                    <li>expansion of core duties</li>
+                    <li>recruitment and retention</li>
+                    <li>competition for labour</li>
+                    <li>technological development</li>
+                    <li>climate change</li>
                   </ul>
                 </div>
 

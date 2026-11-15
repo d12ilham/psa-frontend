@@ -42,9 +42,17 @@ const pdfItalics: Record<string, readonly string[]> = {
 };
 
 function italicCopy(text: string, phrases: readonly string[]) {
-  if (!phrases.length) return text;
+  const preserveRecommendationReference = (part: string, keyPrefix: string) => part.split(/(83\(c\))/g).map((segment, index) =>
+    segment === "83(c)"
+      ? <span key={`${keyPrefix}-${index}`} className={existing.literalReference}>83(c)</span>
+      : segment
+  );
+  if (!phrases.length) return preserveRecommendationReference(text, "plain");
   const pattern = new RegExp(`(${[...phrases].sort((a, b) => b.length - a.length).map(phrase => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
-  return text.split(pattern).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part);
+  return text.split(pattern).map((part, index) => {
+    const content = preserveRecommendationReference(part, String(index));
+    return index % 2 ? <em key={index}>{content}</em> : content;
+  });
 }
 
 function footnotedCopy(text: string, phrases: readonly string[]) {

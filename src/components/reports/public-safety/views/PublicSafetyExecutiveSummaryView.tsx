@@ -20,7 +20,15 @@ type SummaryIcon = keyof typeof icons;
 
 function SummaryText({ text }: { text: string }) {
   const parts = text.split(/(2026 Public Safety Workforce Insights Report|Recommendation 83\(c\) of the Royal Commission into Defence and Veteran Suicide|Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident|2027 Workforce Insights Reports)/g);
-  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+  const preserveRecommendationReference = (part: string, keyPrefix: string) => part.split(/(83\(c\))/g).map((segment, index) =>
+    segment === "83(c)"
+      ? <span key={`${keyPrefix}-${index}`} className={styles.literalReference}>83(c)</span>
+      : segment
+  );
+  return <>{parts.map((part, index) => {
+    const content = preserveRecommendationReference(part, String(index));
+    return index % 2 ? <em key={index}>{content}</em> : content;
+  })}</>;
 }
 
 function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {

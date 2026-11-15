@@ -401,7 +401,7 @@ export default function FederalStateIndustryProfileView({
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-1.5 border-b border-[#E9E5DE] pb-3">
               <span className="mr-2 text-xs font-semibold uppercase text-black">
-                Choose a state or territory
+                Industry Profile
               </span>
               {["NATIONAL", ...selectableStates].map((tab, index) => {
                 const active = tab === selectedState;

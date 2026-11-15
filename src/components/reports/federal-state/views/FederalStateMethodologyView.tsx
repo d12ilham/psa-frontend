@@ -83,8 +83,8 @@ export default function FederalStateMethodologyView({
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Methodology & 5 Steps */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+          {/* Left Column: Approved methodology narrative */}
+          <div className="lg:col-span-7 space-y-6">
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
                 Methodology
@@ -114,122 +114,6 @@ export default function FederalStateMethodologyView({
               </div>
             </div>
 
-            {/* 5 Steps Grid */}
-            <div className="space-y-4 pt-2">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {/* STEP 1 */}
-                <div
-                  style={{ animationDelay: "0.10s" }}
-                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
-                >
-                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
-                    STEP 1
-                  </span>
-                  <div className="flex items-start gap-2.5">
-                    <img
-                      src="/images/reports/federal-state/sector-palette/reports/methodology/Workshops.svg"
-                      alt="Stakeholder consultations"
-                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xs text-gray800 mb-1">
-                        Stakeholder consultations
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-
-                {/* STEP 2 */}
-                <div
-                  style={{ animationDelay: "0.20s" }}
-                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
-                >
-                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
-                    STEP 2
-                  </span>
-                  <div className="flex items-start gap-2.5">
-                    <img
-                      src="/images/reports/federal-state/sector-palette/reports/methodology/National-survey.svg"
-                      alt="Thematic analysis"
-                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xs text-gray800 mb-1">
-                        Thematic analysis
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-
-                {/* STEP 3 */}
-                <div
-                  style={{ animationDelay: "0.30s" }}
-                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
-                >
-                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
-                    STEP 3
-                  </span>
-                  <div className="flex items-start gap-2.5">
-                    <img
-                      src="/images/reports/federal-state/sector-palette/reports/methodology/Data-sources.svg"
-                      alt="Secondary research"
-                      className="w-12 h-12 shrink-0 object-contain animate-zoom-in"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xs text-gray800 mb-1">
-                        Secondary research
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
-                {/* STEP 4 */}
-                <div
-                  style={{ animationDelay: "0.40s" }}
-                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
-                >
-                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
-                    STEP 4
-                  </span>
-                  <div className="flex items-start gap-2.5">
-                    <img
-                      src="/images/reports/federal-state/sector-palette/reports/methodology/Representatives.svg"
-                      alt="Validation"
-                      className="w-12 h-12 shrink-0 object-contain"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xs text-gray800 mb-1">
-                        Validation
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-
-                {/* STEP 5 */}
-                <div
-                  style={{ animationDelay: "0.50s" }}
-                  className="animate-card-entrance border border-gray200 rounded-xl p-3.5 bg-white space-y-4"
-                >
-                  <span className="text-xs font-bold text-[#754C2D] uppercase block">
-                    STEP 5
-                  </span>
-                  <div className="flex items-start gap-2.5">
-                    <img
-                      src="/images/reports/federal-state/sector-palette/reports/methodology/Governance.svg"
-                      alt="Governance"
-                      className="w-12 h-12 shrink-0 object-contain"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xs text-gray800 mb-1">
-                        Governance
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Key industry-sector representatives */}

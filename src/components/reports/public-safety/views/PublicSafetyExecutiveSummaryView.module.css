@@ -97,3 +97,4 @@
   .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
   .page :global(.animate-flow-item), .page :global(.animate-flow-separator), .page :global(.animate-card-entrance) { opacity: 1; transform: none; }
 }
+.literalReference { font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0; }

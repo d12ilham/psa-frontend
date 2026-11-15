@@ -22,7 +22,7 @@ const DRIVER_SOURCES: DriverSource[] = [
     citations: [{
       author: "Australian Government Department of Home Affairs",
       title: "Organisational Resilience: Good Practice Guide",
-      href: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf?utm_source=copilot.com",
+      href: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf",
       details: "Australian Government Department of Home Affairs, 2024, accessed 25 February 2026",
     }],
   },
@@ -50,13 +50,13 @@ const DRIVER_SOURCES: DriverSource[] = [
       {
         author: "Australian Government Department of Finance",
         title: "National framework for the assurance of artificial intelligence in government",
-        href: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government?utm_source=copilot.com",
+        href: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government",
         details: "Australian Government Department of Finance, 2024, accessed 25 February 2026",
       },
       {
         author: "Australian Government Digital Transformation Agency",
         title: "Policy for the responsible use of AI in government",
-        href: "https://www.digital.gov.au/ai/ai-in-government-policy?utm_source=copilot.com",
+        href: "https://www.digital.gov.au/ai/ai-in-government-policy",
         details: "Australian Government Digital Transformation Agency, 2025, accessed 25 February 2026",
       },
     ],

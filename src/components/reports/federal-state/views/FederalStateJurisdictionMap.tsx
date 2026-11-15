@@ -114,7 +114,7 @@ export default function FederalStateJurisdictionMap({ initialJurisdiction }: { i
           </div>
           <dl className="mt-3 space-y-3">
             <div><dt className="text-base leading-6">State/Territory <span className="whitespace-nowrap">Public Service</span> employees</dt><dd data-public-service-count className="mt-1 text-3xl font-bold tabular-nums">{info.publicService}</dd></div>
-            <div className="border-t border-[#E7E3DC] pt-3"><dt className="text-base leading-6">APS employees located here</dt><dd data-aps-count className="mt-1 text-3xl font-bold tabular-nums">{info.aps}</dd></div>
+            <div className="border-t border-[#E7E3DC] pt-3"><dt className="text-base leading-6">APS employees</dt><dd data-aps-count className="mt-1 text-3xl font-bold tabular-nums">{info.aps}</dd></div>
           </dl>
         </section>
       )}

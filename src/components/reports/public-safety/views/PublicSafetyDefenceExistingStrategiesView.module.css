@@ -74,3 +74,4 @@
   font-size: 0.75em;
   line-height: 0;
 }
+.literalReference { font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0; }

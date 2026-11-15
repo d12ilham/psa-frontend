@@ -110,7 +110,7 @@ export default function AboutView({
                 isUndertakesVisible ? "animate-slide-up" : "opacity-0"
               }`}
             >
-              Public Skills Australia Undertakes:
+              Public Skills Australia:
             </h2>
           </div>
 

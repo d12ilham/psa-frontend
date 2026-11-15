@@ -111,7 +111,7 @@ export default function Theme2InsightSubView({
                 Access to VET Qualifications and Training Delivery Partners
               </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full animate-slide-up">
-                Access to TAFE or RTOs in regional, rural and remote locations
+                Access to TAFE or RTO in regional, rural and remote locations
                 is limited.
               </h1>
             </div>
@@ -209,7 +209,7 @@ export default function Theme2InsightSubView({
               </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to find solutions to
+                decision makers, TAFEs, RTOs and councils to consider solutions to
                 challenges such as access to training, delivery options and
                 costs may support local councils to build the technical
                 capability they need for the future.

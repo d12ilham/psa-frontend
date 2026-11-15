@@ -64,7 +64,7 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "65,200",
     councils: 128,
     topShortages: [
-      "IT Officer / Cyber Specialist",
+      "IT Officer/Cyber Specialist",
       "Planner (including Town and Urban)",
       "Engineer (including Civil and Environmental)",
       "Tradesperson (including Mechanic and Construction)",
@@ -72,7 +72,7 @@ const STATES_DATA: Record<string, StateData> = {
     ],
     oslTable: [
       {
-        occupation: "IT Officer / Cyber Specialist",
+        occupation: "IT Officer/Cyber Specialist",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
@@ -90,7 +90,7 @@ const STATES_DATA: Record<string, StateData> = {
       },
     ],
     lgSpecificShortages: [
-      "IT Officer / Cyber Specialist",
+      "IT Officer/Cyber Specialist",
       "Planner (including Town and Urban)",
       "Tradesperson (including Mechanic and Construction)",
     ],
@@ -621,7 +621,7 @@ interface CompareOccupation {
 
 const COMPARE_OCCUPATIONS: CompareOccupation[] = [
   {
-    name: "IT Officer/ Cyber Specialist",
+    name: "IT Officer/Cyber Specialist",
     aus: "NS",
     nsw: { val: "1", type: "NS" },
     nt: "-",
@@ -753,7 +753,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Civil Engineer / Operations",
+    name: "Civil Engineer/Operations",
     aus: "S",
     nsw: "-",
     nt: "-",
@@ -775,7 +775,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Project Manager / Business Analyst",
+    name: "Project Manager/Business Analyst",
     aus: "NS",
     nsw: "-",
     nt: "-",
@@ -819,7 +819,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Plumbing Inspectors",
+    name: "Plumbing Inspector",
     aus: "NS",
     nsw: "-",
     nt: "-",
@@ -852,7 +852,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Maternal Child Health Nurses",
+    name: "Maternal Child Health Nurse",
     aus: "S",
     nsw: "-",
     nt: "-",
@@ -1071,6 +1071,9 @@ export default function StateTerritoryView({
             <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
               State and Territory Workforce Profile
             </h1>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
+              The Local Government workforce is multidisciplinary, employing over an estimated 400 different occupations. Their workforces are managed individually at the local council level but are brought together and commonly represented through state and territory associations and the Australian Local Government Association (ALGA). It is estimated that the Local Government workforce is made up of approximately 218,000 employees. While employment projections have estimated significant growth in the Local Government workforce over the next ten years, successive Workforce Plans and Parliamentary Commissions of Inquiry have noted extensive challenges with recruitment and retention, and a significant expansion of roles and responsibilities for the Local Government industry-sector.
+            </p>
           </div>
 
           {/* Mode Switcher Pill Segmented Control */}
@@ -1197,8 +1200,7 @@ export default function StateTerritoryView({
                         <AnimatedCounter target={8.2} decimals={1} suffix="%" />
                       </span>
                       <p className="text-sm font-semibold text-gray600">
-                        of the national workforce identifies as First Nations
-                        (vs 3.8% of the population)<sup>26</sup>
+                        National workforce identifies as First Nations<sup>26</sup>
                       </p>
                     </div>
                     <div>

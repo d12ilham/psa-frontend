@@ -85,7 +85,7 @@ export default function Theme1InsightSubView({
                 Local Government Specific Occupational Shortages
               </p>
               <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
-                Local Government employers require a diverse range of skills to
+                Local council employers require a diverse range of skills to
                 maintain the breadth of responsibilities undertaken by local
                 councils.
               </h1>
