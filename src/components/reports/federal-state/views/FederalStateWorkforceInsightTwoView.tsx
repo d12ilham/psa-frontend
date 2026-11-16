@@ -5,7 +5,6 @@ import { workforceInsightsTheme, workforceInsightSummaries } from "../workforceI
 
 import IndustryInsightCard from "./IndustryInsightCard";
 
-import { Handshake } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -47,7 +46,6 @@ export default function FederalStateWorkforceInsightTwoView({ slug, report }: { 
 
       <div className="grid gap-5 lg:grid-cols-2 lg:items-stretch">
         <article data-workforce-gaps-narrative className="min-w-0 rounded-md border border-[#ECECE5] bg-white p-5 text-xs leading-6 animate-slide-up-delay sm:p-6">
-          <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#F8EEE8] text-[#754D32]"><Handshake aria-hidden="true" className="h-6 w-6" strokeWidth={1.25} /></span>
           <p>All Federal and State/Territory Governments are facing persistent and increasingly acute skills gaps. These gaps are anticipated to increase as projected employment growth in the Public Administration and Safety industry continues to increase. The 2025 Federal and State/Territory Government Workforce Insights Report detailed occupational shortages as found by Jobs and Skills Australia in the Federal and State/Territory Government industry-sector. Several of these continue to be in shortage as below:<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#workforce-gaps-source-93" aria-label="Source 93" className="underline">93</a></sup></p>
           <div role="region" aria-label="Occupations in shortage" tabIndex={0} className="mt-4 overflow-x-auto border border-[#968578] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
             <table className="w-full min-w-[520px] border-collapse text-left text-xs text-[#252B37]">

@@ -58,47 +58,47 @@ const DRIVERS = [
 const MEGATRENDS = [
   {
     id: "pathways",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Limitations.svg",
+    icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
   },
   {
     id: "labour",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Competition.svg",
+    icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
   },
   {
     id: "climate",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Climate.svg",
+    icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
   },
   {
     id: "demographics",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Demographic.svg",
+    icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
   },
   {
     id: "diversity",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Diversity.svg",
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
     title: "Diversity and inclusion",
   },
   {
     id: "duties",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Expansion.svg",
+    icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
   },
   {
     id: "trust",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Public.svg",
+    icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
   },
   {
     id: "recruitment",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Recruitment.svg",
+    icon: "/images/reports/drivers-of-change/Recruitment.svg",
     title: "Recruitment and retention",
   },
   {
     id: "tech",
-    icon: "/images/reports/federal-state/sector-palette/reports/drivers-of-change/Technological.svg",
+    icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
   },
 ];
@@ -167,7 +167,7 @@ export default function FederalStateDriversOfChangeView({
   const activeDriver = DRIVERS.find((d) => d.id === activeDriverId);
 
   return (
-    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#8AC900]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader
         slug={slug}
@@ -178,7 +178,7 @@ export default function FederalStateDriversOfChangeView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons sectorPalette slug={slug} currentPage="drivers_of_change" />
+        <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -192,7 +192,7 @@ export default function FederalStateDriversOfChangeView({
                 impacting the Public Safety and Government industry-sectors.
                 These megatrends were further considered in the development of
                 the 2025{" "}
-                <span className="font-semibold text-[#754C2D]">
+                <span className="font-semibold text-[#728C28]">
                   Workforce Insights Reports
                 </span>
                 .
@@ -201,7 +201,7 @@ export default function FederalStateDriversOfChangeView({
                 While these megatrends will continue to have longer term
                 implications for workforce planning and development across the
                 Public Safety and Government industry-sectors, the 2026{" "}
-                <span className="font-semibold text-[#754C2D]">
+                <span className="font-semibold text-[#728C28]">
                   Workforce Insights Reports
                 </span>{" "}
                 have built on these and analysed four key drivers of change that
@@ -213,19 +213,6 @@ export default function FederalStateDriversOfChangeView({
             </div>
           </div>
 
-          {/* Scope the existing diagram's colour treatment to this report. */}
-          <svg width="0" height="0" aria-hidden="true" className="absolute">
-            <defs>
-              <filter id="fstg-driver-sector-colours" colorInterpolationFilters="sRGB">
-                <feColorMatrix type="matrix" values="0 1 0 0 0  0 1 0 0 0  0 1 0 0 0  0 0 0 1 0" />
-                <feComponentTransfer>
-                  <feFuncR type="table" tableValues="0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.459 0.933 0.933 1" />
-                  <feFuncG type="table" tableValues="0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.298 0.831 0.831 1" />
-                  <feFuncB type="table" tableValues="0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.176 0.769 0.769 1" />
-                </feComponentTransfer>
-              </filter>
-            </defs>
-          </svg>
           {/* Right Diagram Image */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
             <div
@@ -236,7 +223,6 @@ export default function FederalStateDriversOfChangeView({
               <img
                 src="/images/reports/drivers-of-change-diagram.png"
                 alt="Drivers of Change Diagram"
-                style={{ filter: "url(#fstg-driver-sector-colours)" }}
                 className={`h-auto max-h-48 object-contain select-none pointer-events-none ${
                   isHeroMounted ? "animate-drivers-spin" : ""
                 }`}
@@ -274,12 +260,12 @@ export default function FederalStateDriversOfChangeView({
                         : "opacity-0 translate-y-6"
                     } ${
                       isActive
-                        ? "bg-[#F8EEE8] border-[#754C2D] border-2 border-t-8"
-                        : "bg-white border-gray200 border-t-8 border-t-[#754C2D] hover:border-2 hover:border-[#754C2D]"
+                        ? "bg-[#EBF1E4] border-[#728C28] border-2 border-t-8"
+                        : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
                     }`}
                   >
                     <div className="space-y-3">
-                      <span className="text-xs font-bold text-[#754C2D] uppercase block">
+                      <span className="text-xs font-bold text-[#728C28] uppercase block">
                         {driver.number}
                       </span>
                       <h3 className="font-bold text-base text-gray800 leading-snug">
@@ -293,7 +279,7 @@ export default function FederalStateDriversOfChangeView({
                           e.stopPropagation();
                           setActiveDriverId(isActive ? null : driver.id);
                         }}
-                        className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#754C2D] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"
+                        className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-colors"
                       >
                         {isActive ? "Close ▴" : "Open ▾"}
                       </button>
@@ -312,9 +298,9 @@ export default function FederalStateDriversOfChangeView({
                       {isActive && (
                         <div
                           key={`mobile-driver-${driver.id}`}
-                          className="animate-content-switch bg-[#F8EEE8] border-2 border-[#754C2D] border-l-8 rounded-2xl p-5 space-y-4"
+                          className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-5 space-y-4"
                         >
-                          <span className="bg-[#754C2D] text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
+                          <span className="bg-[#046D2A] text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
                             NOW PRESENTING - {driver.number}
                           </span>
                           <h3 className="text-base sm:text-lg font-bold text-gray800">
@@ -344,10 +330,10 @@ export default function FederalStateDriversOfChangeView({
               {activeDriver && (
                 <div
                   key={`desktop-driver-${activeDriverId}`}
-                  className="animate-content-switch bg-[#F8EEE8] border-2 border-[#754C2D] border-l-8 rounded-2xl p-6"
+                  className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-6"
                 >
                   <div className="space-y-4">
-                    <span className="bg-[#754C2D] text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
+                    <span className="bg-[#046D2A] text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
                       NOW PRESENTING - {activeDriver.number}
                     </span>
                     <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
@@ -376,7 +362,7 @@ export default function FederalStateDriversOfChangeView({
               <div
                 key={item.id}
                 style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
-                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#754C2D] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
+                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
               >
                 <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
                 <p className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</p>
@@ -391,7 +377,7 @@ export default function FederalStateDriversOfChangeView({
 
           <div className="space-y-3 text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#754C2D] text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 2
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={5}>Australian Government Department of Home Affairs, Organisational
@@ -400,7 +386,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#754C2D] text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 3
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={6}>Productivity Commission, Five pillars of productivity inquiries
@@ -409,7 +395,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#754C2D] text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={7}>Productivity Commission, Five pillars of productivity inquiries
@@ -417,7 +403,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#754C2D] text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 5
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={8}>Australian Government Department of Finance, National framework
@@ -430,7 +416,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#754C2D] text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 6
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={10}>Australian Security Intelligence Organisation (ASIO),
@@ -442,7 +428,7 @@ export default function FederalStateDriversOfChangeView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter sectorPalette contactUrl={report?.contactUrl} reportName={report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+      <ReportFooter contactUrl={report?.contactUrl} reportName={report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim()} />
     </div>
   );
 }

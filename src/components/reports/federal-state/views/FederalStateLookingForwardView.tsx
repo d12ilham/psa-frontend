@@ -110,11 +110,11 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
         <section aria-label="2027 lines of inquiry" className="grid gap-6 md:grid-cols-3">
           {enquiries.map(({ label, title, Icon }, index) => (
             <div key={label} className="animate-card-entrance motion-reduce:animate-none" style={{ animationDelay: `${0.12 + index * 0.14}s` }}>
-              <article className="group min-h-[305px] overflow-hidden rounded-md border border-[#E9EAEB] bg-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#754C2D] hover:shadow-md motion-reduce:hover:translate-y-0">
-                <div className={`h-2 ${index === 1 ? "bg-[#EED4C4]" : "bg-[#754C2D]"}`} />
+              <article className={`group min-h-[305px] overflow-hidden rounded-md border border-[#E9EAEB] bg-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 ${index < 2 ? "hover:border-[#046D2A]" : "hover:border-[#754C2D]"} hover:shadow-md motion-reduce:hover:translate-y-0`}>
+                <div className={`h-2 ${index < 2 ? "bg-[#046D2A]" : "bg-[#754C2D]"}`} />
                 <div className="px-6 py-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#EED4C4] text-[#754C2D] transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#FFFFFF] motion-reduce:transform-none"><Icon aria-hidden="true" className="h-7 w-7 stroke-[1.5]" /></div>
-                  <p className="mt-6 text-xs font-medium text-[#754C2D]">{label}</p>
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-full ${index < 2 ? "bg-[#F0F5DF] text-[#046D2A]" : "bg-[#EED4C4] text-[#754C2D]"} transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#FFFFFF] motion-reduce:transform-none`}><Icon aria-hidden="true" className="h-7 w-7 stroke-[1.5]" /></div>
+                  <p className={`mt-6 text-xs font-medium ${index < 2 ? "text-[#046D2A]" : "text-[#754C2D]"}`}>{label}</p>
                   <h2 className="mt-4 text-lg font-semibold leading-6">{title}</h2>
                 </div>
               </article>

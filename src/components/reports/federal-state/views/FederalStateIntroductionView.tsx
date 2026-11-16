@@ -190,7 +190,7 @@ export default function FederalStateIntroductionView({
               </span>
               <div className="grid grid-cols-2 gap-3">
                 {/* 1. Drivers of Change & Megatrends */}
-                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex items-start justify-between gap-4 transition-all duration-300 hover:shadow-xs">
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 grid grid-cols-2 items-start gap-4 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col items-start">
                     <span className="text-2xl font-bold text-[#694834]">
                       <AnimatedCounter target={4} />
@@ -220,13 +220,13 @@ export default function FederalStateIntroductionView({
                 </div>
 
                 {/* 3. Themes & Insights */}
-                <div className="bg-white rounded-xl p-4 border border-gray200/60 flex items-start justify-between gap-4 transition-all duration-300 hover:shadow-xs">
+                <div className="bg-white rounded-xl p-4 border border-gray200/60 grid grid-cols-2 items-start gap-4 transition-all duration-300 hover:shadow-xs">
                   <div className="flex flex-col items-start">
                     <span className="text-2xl font-bold text-[#694834]">
                       <AnimatedCounter target={1} />
                     </span>
                     <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
-                      Themes
+                      Workforce<br />Theme
                     </span>
                   </div>
                   <div className="flex flex-col items-start">
@@ -239,13 +239,13 @@ export default function FederalStateIntroductionView({
                   </div>
                 </div>
 
-                {/* 4. Proposed 2026 Strategies */}
+                {/* 4. Proposed 2026 Strategy */}
                 <div className="bg-white rounded-xl p-4 border border-gray200/60 flex flex-col items-start justify-start transition-all duration-300 hover:shadow-xs">
                   <span className="text-2xl font-bold text-[#694834]">
                     <AnimatedCounter target={1} />
                   </span>
                   <span className="text-xs font-semibold text-gray600 mt-2 leading-tight">
-                    Proposed 2026<br />Strategies
+                    Proposed 2026<br />Strategy
                   </span>
                 </div>
               </div>

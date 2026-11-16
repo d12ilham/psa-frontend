@@ -73,18 +73,18 @@ export default function FederalStateMethodologyView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons sectorPalette slug={slug} currentPage="methodology" />
+        <ReportNavButtons slug={slug} currentPage="methodology" />
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Approved methodology narrative */}
-          <div className="lg:col-span-7 space-y-6">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
+          {/* Approved methodology narrative */}
+          <div className="max-w-[110ch] space-y-6">
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray800 animate-slide-up">
                 Methodology
@@ -116,15 +116,15 @@ export default function FederalStateMethodologyView({
 
           </div>
 
-          {/* Right Column: Key industry-sector representatives */}
-          <div className="lg:col-span-5 bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+          {/* Representatives follow the narrative without stretching its height. */}
+          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-4">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
-                <h3 className="font-bold text-xl text-gray800 leading-snug max-w-[200px]">
+                <h3 className="font-bold text-xl text-gray800 leading-snug">
                   Key industry-sector representatives
                 </h3>
                 <img
-                  src="/images/reports/federal-state/sector-palette/reports/methodology/industry-sector representatives.svg"
+                  src="/images/reports/methodology/industry-sector representatives.svg"
                   alt="Key industry-sector representatives"
                   className="w-16 h-16 shrink-0 object-contain ml-auto animate-zoom-in"
                 />
@@ -135,12 +135,12 @@ export default function FederalStateMethodologyView({
                 consultation with key industry-sector representatives as below:
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 pt-1">
                 {STAKEHOLDERS.map((rep, idx) => (
                   <div
                     key={idx}
                     style={{ animationDelay: `${idx * 0.04 + 0.15}s` }}
-                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-[11px] font-semibold text-gray700 border border-gray200/60 hover:border-[#754C2D] hover:shadow-md hover:-translate-y-0.5 hover:text-[#754C2D] cursor-pointer relative hover:z-10 transition-all duration-300"
+                    className="animate-card-entrance bg-white rounded-lg p-2.5 text-[11px] font-semibold text-gray700 border border-gray200/60 hover:border-lg-dark hover:shadow-md hover:-translate-y-0.5 hover:text-lg-dark cursor-pointer relative hover:z-10 transition-all duration-300"
                   >
                     {rep}
                   </div>
@@ -180,13 +180,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.10s" } : undefined
               }
-              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-[#754C2D] uppercase block">
+              <span className="text-xs font-bold text-lg-dark uppercase block">
                 STEP 1
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -209,13 +209,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.22s" } : undefined
               }
-              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-[#754C2D] uppercase block">
+              <span className="text-xs font-bold text-lg-dark uppercase block">
                 STEP 2
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -239,13 +239,13 @@ export default function FederalStateMethodologyView({
               style={
                 isGovernanceVisible ? { animationDelay: "0.34s" } : undefined
               }
-              className={`bg-[#F8EEE8] rounded-xl p-6 space-y-4 border border-gray200/60 ${
+              className={`bg-[#F0F5DF] rounded-xl p-6 space-y-4 border border-gray200/60 ${
                 isGovernanceVisible
                   ? "animate-card-entrance"
                   : "opacity-0 translate-y-6"
               }`}
             >
-              <span className="text-xs font-bold text-[#754C2D] uppercase block">
+              <span className="text-xs font-bold text-lg-dark uppercase block">
                 STEP 3
               </span>
               <h3 className="font-bold text-lg sm:text-xl text-gray800">
@@ -278,7 +278,7 @@ export default function FederalStateMethodologyView({
             }`}
           >
             <img
-              src="/images/reports/federal-state/sector-palette/reports/methodology/Data-sources-bottom.svg"
+              src="/images/reports/methodology/Data-sources-bottom.svg"
               alt="Data sources"
               className="w-16 h-16 shrink-0 object-contain"
             />
@@ -312,7 +312,7 @@ export default function FederalStateMethodologyView({
             }`}
           >
             <img
-              src="/images/reports/federal-state/sector-palette/reports/methodology/With-thanks.svg"
+              src="/images/reports/methodology/With-thanks.svg"
               alt="With thanks"
               className="w-16 h-16 shrink-0 object-contain"
             />
@@ -330,7 +330,7 @@ export default function FederalStateMethodologyView({
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter sectorPalette
+      <ReportFooter
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||

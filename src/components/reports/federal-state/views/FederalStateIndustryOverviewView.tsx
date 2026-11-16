@@ -305,11 +305,25 @@ export default function FederalStateIndustryOverviewView({
               </p>
             </div>
 
+            {/* Scope sector colours to the hero and approved statistic graphics; retain original artwork. */}
+            <svg width="0" height="0" aria-hidden="true" focusable="false" className="pointer-events-none absolute">
+              <defs>
+                <filter id="fstg-industry-overview-hero-colours" colorInterpolationFilters="sRGB">
+                  <feColorMatrix type="matrix" values="0 1 0 0 0  0 1 0 0 0  0 1 0 0 0  0 0 0 1 0" />
+                  <feComponentTransfer>
+                    <feFuncR type="table" tableValues="0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.458824 0.933333 0.933333 1" />
+                    <feFuncG type="table" tableValues="0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.298039 0.831373 0.831373 1" />
+                    <feFuncB type="table" tableValues="0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.176471 0.768627 0.768627 1" />
+                  </feComponentTransfer>
+                </filter>
+              </defs>
+            </svg>
             {/* Right Diagram Image with local-government pulse-settle animation */}
             <div className="lg:col-span-4 flex justify-center lg:justify-end p-2">
               <img
                 src="/images/reports/federal-state/industry-overview/hero.png"
                 alt="Industry-Sector Overview Diagram"
+                style={{ filter: "url(#fstg-industry-overview-hero-colours)" }}
                 className={`h-auto max-h-48 object-contain select-none pointer-events-none ${
                   isHeroMounted ? "animate-hero-pulse-settle" : "opacity-0"
                 }`}
@@ -399,6 +413,7 @@ export default function FederalStateIndustryOverviewView({
               <img
                 src="/images/reports/federal-state/industry-overview/stat-agencies.png"
                 alt="102 agencies"
+                style={{ filter: "url(#fstg-industry-overview-hero-colours)" }}
                 className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
@@ -417,6 +432,7 @@ export default function FederalStateIndustryOverviewView({
               <img
                 src="/images/reports/federal-state/industry-overview/stat-aps-employees.png"
                 alt="198,529 employees"
+                style={{ filter: "url(#fstg-industry-overview-hero-colours)" }}
                 className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
@@ -438,6 +454,7 @@ export default function FederalStateIndustryOverviewView({
               <img
                 src="/images/reports/federal-state/industry-overview/stat-women.png"
                 alt="60.5% women"
+                style={{ filter: "url(#fstg-industry-overview-hero-colours)" }}
                 className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">
@@ -456,6 +473,7 @@ export default function FederalStateIndustryOverviewView({
               <img
                 src="/images/reports/federal-state/industry-overview/stat-first-nations.png"
                 alt="3.4% First Nations employees"
+                style={{ filter: "url(#fstg-industry-overview-hero-colours)" }}
                 className="w-14 h-14 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="space-y-2">

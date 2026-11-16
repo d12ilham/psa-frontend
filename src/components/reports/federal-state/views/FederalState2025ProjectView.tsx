@@ -50,7 +50,9 @@ function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: n
     <section data-project-update-header className="rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8">
       <div className="max-w-[1050px]">
         <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Project {projectNumber}</span>
-        <h1 className="mt-5 max-w-[960px] text-[30px] font-bold leading-tight text-gray800 sm:text-[38px]">{title}</h1>
+        <h1 className={`mt-5 text-[30px] font-bold leading-tight text-gray800 sm:text-[38px] ${projectNumber === 1 ? "max-w-none text-pretty" : "max-w-[960px]"}`}>
+          {projectNumber === 1 ? <>{title.slice(0, -"Qualification Review".length)}<span className="sm:whitespace-nowrap">Qualification Review</span></> : title}
+        </h1>
         <p className="mt-5 max-w-[96ch] text-xs leading-6 text-gray600">{intro}</p>
       </div>
     </section>

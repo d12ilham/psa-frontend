@@ -262,10 +262,12 @@ function BarChart({
 function Reveal({
   children,
   delay = 0,
+  threshold = 0.12,
   className = "",
 }: {
   children: React.ReactNode;
   delay?: number;
+  threshold?: number;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -287,11 +289,11 @@ function Reveal({
         setVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.12 }
+      { threshold }
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
 
   return (
     <div
@@ -342,11 +344,13 @@ function CountUp({ value, decimals = 0, suffix = "" }: { value: number; decimals
 export default function FederalStateIndustryProfileView({
   slug,
   report,
+  initialState = "NATIONAL",
 }: {
   slug: string;
   report: Report;
+  initialState?: ProfileState;
 }) {
-  const [selectedState, setSelectedState] = useState<ProfileState>("NATIONAL");
+  const [selectedState, setSelectedState] = useState<ProfileState>(initialState);
   const profile = profileDetails[selectedState];
   const otherStateView = selectedState === "ACT" ? <FederalStateActProfileView slug={slug} report={report} embedded />
     : selectedState === "NT" ? <FederalStateNtProfileView slug={slug} report={report} embedded />
@@ -365,12 +369,19 @@ export default function FederalStateIndustryProfileView({
         <Reveal>
           <ReportNavButtons sectorPalette
             slug={slug}
-            currentPage="industry_profile"
-            prev={{
+            currentPage={selectedState === "ACT" ? "industry_profile_act" : "industry_profile"}
+            onPrevious={selectedState === "ACT" && initialState === "NATIONAL" ? () => setSelectedState("NATIONAL") : undefined}
+            prev={selectedState === "ACT" ? {
+              label: "Industry Profile",
+              href: `/reports/${slug}/industry_profile`,
+            } : {
               label: "Federal and State/Territory Government Overview",
               href: `/reports/${slug}/industry_overview`,
             }}
-            next={{
+            next={selectedState === "ACT" ? {
+              label: "NSW Workforce Overview",
+              href: `/reports/${slug}/industry_profile_nsw`,
+            } : {
               label: "Workforce Insights",
               href: `/reports/${slug}/workforce_insights`,
             }}
@@ -392,7 +403,7 @@ export default function FederalStateIndustryProfileView({
           </section>
         </Reveal>
 
-        <Reveal delay={0.12}>
+        <Reveal delay={0.12} threshold={0}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white p-4 sm:p-5">
             <h2 className="text-xl font-bold text-black">
               {selectedState === "NATIONAL"
@@ -568,4 +579,9 @@ export default function FederalStateIndustryProfileView({
       />
     </div>
   );
+}
+
+// Both ACT entry paths use the same profile shell and selectors.
+export function FederalStateActIndustryProfileView({ slug, report }: { slug: string; report: Report }) {
+  return <FederalStateIndustryProfileView slug={slug} report={report} initialState="ACT" />;
 }
