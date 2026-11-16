@@ -25,9 +25,12 @@ const projects = [
     completion: "June 2026",
     title: "Volunteer Leadership Project",
     summary: "The objective of this project is to identify and address capability requirements for non-operational leadership across Fire and Emergency Services volunteer organisations. It seeks to capture the current and emerging needs of volunteer leaders.",
-    update: "The initial action of this Fire and Emergency Services stakeholder project, the Volunteer Leadership Skills Review Report, has been drafted and is now progressing through Public Skills Australia’s governance process. This project is on track to being completed on time by June 2026. It is anticipated that through consultation on this project, the industry-sector will also gain a clearer understanding of leadership development needs and priorities. This will better position agencies to support volunteer leaders and enhance organisational culture.",
+    update: [
+      "In collaboration with Fire and Emergency Services stakeholders, the Volunteer Leadership Skills Review Report has been drafted and is now progressing through Public Skills Australia’s governance process. This project is on track to being completed on time by June 2026.",
+      "It is anticipated that through the completion of this project, the industry-sector will develop a clearer understanding of leadership development needs and practices. This will better position agencies to support volunteer leaders and enhance organisational culture.",
+    ],
     stakeholders: ["Australian Council of State Emergency Services", "Australasian Fire and Emergency Service Authorities Council (AFAC)", "National State Emergency Services Volunteers Association", "State/Territory Volunteer Fire and Emergency Services Agencies", "Surf Life Saving Australia"],
-    priority: "This project will contribute to identifying opportunities to strengthen capabilities of the public safety and government workforce to respond to and manage natural hazards, and to support delivery of emergency services to communities.",
+    priority: "This project will contribute to identifying opportunities to strengthen capabilities of the public safety and government workforces in preparing for and responding to emergency events, including identification of emerging or revised skill requirements.",
     strategic: "Facilitate the promotion, uptake and implementation of training products.",
     driver: "Workforce inclusivity.",
   },
@@ -44,7 +47,7 @@ const projects = [
   {
     completion: "August 2026",
     title: "Complex Infrastructure Training Needs Analysis",
-    summary: "To identify training needs and skill requirements of firefighters responding to emergencies in complex infrastructure, such as tunnels and high-rise and multi-purpose dwellings.",
+    summary: "To identify training needs and skill requirements of firefighters responding to emergencies in complex infrastructure (such as tunnels and high-rise and multi-purpose dwellings).",
     update: "In collaboration with key Fire and Emergency Services stakeholders, this project will define current and emerging skills and knowledge requirements for emergencies involving complex infrastructure. This will be used as the evidence base to determine the potential future updates to relevant Public Safety Training Package products. Consultations with stakeholders have been undertaken and the first milestone of a Stakeholder Insights Report has been completed. Further stakeholder consultations are planned between February through April 2026, with a subsequent training needs analysis to be completed.",
     stakeholders: ["AFAC", "Fire Protection Association Australia", "State/Territory Volunteer Fire and Emergency Service Agencies", "United Firefighters Union Australia"],
     priority: "This project will contribute to identifying opportunities to strengthen capabilities of the public safety and government workforces in preparing for and responding to emergency events, including identification of emerging or revised skill requirements.",
@@ -88,7 +91,7 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
       <h4 className={`${layout.subheading} ${styles.subheading}`}>Summary</h4>
       <p className={layout.copy}>{project.summary}</p>
       <h4 className={`${layout.subheading} ${styles.subheading}`}>Update</h4>
-      <p className={layout.copy}><ProjectUpdateText text={project.update} /></p>
+      {(Array.isArray(project.update) ? project.update : [project.update]).map((paragraph, paragraphIndex) => <p key={paragraphIndex} className={layout.copy}><ProjectUpdateText text={paragraph} /></p>)}
       <div className={layout.groups}>
         <section className={`${layout.note} ${styles.note}`}>
           <h4>Key Stakeholders</h4>

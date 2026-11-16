@@ -21,7 +21,7 @@ const datapoints = [
   },
   {
     title: "State/Territory Police and the Australian Federal Police Workforce",
-    copy: "Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with enhanced recruitment drives, have taken considered action to increase their workforce numbers and improve retention rates. Importantly, these actions have positively impacted their workforce numbers, with six out of eight jurisdictions recording increases in sworn police officer FTE from June 2023 to June 2024. Some jurisdictions continue to face challenges in meeting their total workforce targets.",
+    copy: <>Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with enhanced recruitment drives, have taken considered action to increase their workforce numbers and improve retention rates.<sup><a href="#police-overview-source-68" aria-label="Source 68">68</a></sup> Importantly, these actions have positively impacted their workforce numbers, with six out of eight jurisdictions recording increases in sworn police officer FTE from June 2023 to June 2024. Some jurisdictions continue to face challenges in meeting their total workforce targets.</>,
   },
 ];
 
@@ -36,7 +36,7 @@ function NationalWorkforceChart() {
     <div className={styles.plot}>
       <svg viewBox="0 0 720 390" role="img" aria-label="Yearly National Sworn Police Officer FTE in Australia">
       <desc>{points.map(({ value }, index) => `${labels[index]}: ${value.toLocaleString("en-AU")}`).join(", ")}</desc>
-      {[58500, 59250, 60000, 60750, 61500].map((tick) => {
+      {[58500, 59000, 59500, 60000, 60500, 61000, 61500].map((tick) => {
         const y = chartY(tick);
         return <g key={tick}><line x1="68" x2="643" y1={y} y2={y} stroke="#E5E7EB" /><text x="5" y={y + 4}>{tick.toLocaleString("en-AU")}</text></g>;
       })}
@@ -51,7 +51,7 @@ function NationalWorkforceChart() {
         <g key={labels[index]}>
           <g className={`animate-radar-point ${styles.marker}`} style={{ animationDelay: `${index * 0.1 + 0.3}s` }}>
             <circle cx={x} cy={y} r="4.5" />
-            <text x={index === 0 ? x - 12 : x} y={y - (index === 0 ? 7 : 12)} textAnchor={index === 0 ? "end" : "start"}>{value.toLocaleString("en-AU")}</text>
+            <text x={index === 0 ? x + 12 : x} y={index === 0 ? y + 24 : y - 12} textAnchor="start">{value.toLocaleString("en-AU")}</text>
           </g>
           <text x={x} y="347" fontSize="12">{labels[index]}</text>
         </g>
@@ -218,7 +218,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
               </button>
               <div id={`${panelId}-${index}`} hidden={!isOpen}>
                 {isOpen && <div className={`${chapter.enter} ${index === 0 ? styles.national : styles.jurisdiction}`}>
-                  <p className={styles.prose}>{item.copy}<sup><a href={`#police-overview-source-${index === 0 ? 67 : 68}`} aria-label={`Source ${index === 0 ? 67 : 68}`}>{index === 0 ? 67 : 68}</a></sup></p>
+                  <p className={styles.prose}>{item.copy}{index === 0 && <sup><a href="#police-overview-source-67" aria-label="Source 67">67</a></sup>}</p>
                   {index === 0 ? <NationalWorkforceChart /> : <JurisdictionChartLibrary />}
                 </div>}
               </div>

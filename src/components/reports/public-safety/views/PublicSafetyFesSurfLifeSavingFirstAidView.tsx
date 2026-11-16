@@ -26,15 +26,15 @@ function TreatmentsPlot({ animate = false }: { animate?: boolean }) {
   const points = values.map((value, index) => ({ x: 90 + index * 278, y: 416 - (value - 15000) / 25000 * 380 }));
 
   return <svg viewBox="0 0 690 455" role="img" aria-label="First aid treatments: 21,828 in 2022–2023, 25,262 in 2023–2024, and 34,394 in 2024–2025">
-    {[15000, 21250, 27500, 33750, 40000].map((value, index) => {
-      const y = 416 - index * 95;
+    {[15000, 20000, 25000, 30000, 35000, 40000].map((value) => {
+      const y = 416 - (value - 15000) / 25000 * 380;
       return <g key={value}><line x1="86" x2="654" y1={y} y2={y} stroke="#e5d9d0" /><text x="80" y={y + 4} textAnchor="end">{value.toLocaleString("en-AU")}</text></g>;
     })}
     <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} fill="none" stroke="#ad271b" strokeWidth="3.5" pathLength={40} strokeDasharray={animate ? 40 : undefined} className={animate ? "animate-industry-projection-line" : undefined} />
     {points.map(({ x, y }, index) => (
       <g key={years[index]} className={styles.point}>
         <circle cx={x} cy={y} r="5.5" fill="#ad271b" className={animate ? "animate-industry-chart-point" : undefined} style={animate ? { animationDelay: `${index * 260}ms` } : undefined} />
-        <text x={x} y={y - 16} textAnchor={index === 2 ? "end" : "start"} className={styles.value}>{values[index].toLocaleString("en-AU")}</text>
+        <text x={x} y={y - 24} textAnchor="middle" className={styles.value}>{values[index].toLocaleString("en-AU")}</text>
         <text x={x} y="440" textAnchor={index === 2 ? "end" : index === 0 ? "start" : "middle"}>{years[index]}</text>
       </g>
     ))}
@@ -47,7 +47,7 @@ function TreatmentsChart() {
 
   return <figure className={`${styles.chart} ${recovery.animatedSection}`}>
     <div className={styles.chartHeader}>
-      <h3>First Aid Treatments Administered by Surf Lifesavers <sup><PublicSafetyFootnoteLink number={63} /></sup></h3>
+      <h3>First Aid Treatments Administered by Surf Lifesavers</h3>
       <div className={styles.controls}>
         <button type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
         <button type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
@@ -124,7 +124,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={63}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span><PublicSafetySourceText number={63 + index} text={source} /></span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span className={styles.sourceTitles}><PublicSafetySourceText number={63 + index} text={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

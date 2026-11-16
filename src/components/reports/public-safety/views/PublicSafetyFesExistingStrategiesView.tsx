@@ -19,7 +19,7 @@ const strategies = [
 const content = [
   {
     summary: <>
-      <p>The <em>National Disaster Risk Reduction Framework</em> was developed as an advancement to the <em>2011 National Strategy for Disaster Resilience</em> and in line with the global <em>Sendai Disaster Risk Reduction 2015–2030</em>. The framework was co-designed by all levels of government, industry and community representatives and intends to guide Australia&apos;s capability in reducing disaster risk associated with natural hazards.</p>
+      <p>The <em>National Disaster Risk Reduction Framework</em> was developed as an advancement to the <em>2011 National Strategy for Disaster Resilience</em> and in line with the global <em>Sendai Disaster Risk Reduction 2015–2030</em>. The framework was co-designed by all levels of government, industry and community representatives and intends to guide Australia&apos;s capability in reducing “disaster risk associated with natural hazards”.</p>
       <p>The four priorities of the framework are:</p>
       <ul>
         <li>Understand disaster risk</li>
@@ -27,7 +27,7 @@ const content = [
         <li>Enhanced investment</li>
         <li>Governance, ownership and responsibility</li>
       </ul>
-      <p>In August 2023, the Second National Action Plan was endorsed by all Emergency Management Ministers and provides an update on how the <em>National Disaster Risk Reduction Framework</em> can continue to be implemented. Specifically, National Action 21 describes that Australia must <em>better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</em></p>
+      <p>In August 2023, the Second National Action Plan was endorsed by all Emergency Management Ministers and provides an update on how the <em>National Disaster Risk Reduction Framework</em> can continue to be implemented. Specifically, National Action 21 describes that Australia must “<em>Better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</em>”</p>
     </>,
     notes: [
       <>

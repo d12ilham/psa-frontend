@@ -477,6 +477,7 @@
 }
 
 .sources {
+  max-width: none;
   gap: 16px;
 }
 
@@ -496,6 +497,11 @@
   background: #598303;
   color: white;
   font-size: 12px;
+}
+
+.sources li > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 1488px) {

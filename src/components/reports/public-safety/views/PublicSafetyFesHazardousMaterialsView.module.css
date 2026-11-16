@@ -2,10 +2,11 @@
 .heading { padding-bottom: 16px; border-bottom: 1px solid #d5d7da; }
 .columns { display: grid; grid-template-columns: minmax(0, 624fr) minmax(0, 710fr); align-items: start; gap: 60px; margin-top: 24px; }
 .copy { font-size: 14px; line-height: 24px; }
-.copy sup { top: auto; vertical-align: baseline; font-size: inherit; }
-.units { display: grid; gap: 8px; margin-top: 24px; counter-reset: units; }
-.unit { display: flex; align-items: center; gap: 24px; min-height: 142px; padding: 24px; border-radius: 8px; background: #faede9; color: #535862; font-size: 24px; font-weight: 700; line-height: 32px; }
-.unit::before { counter-increment: units; content: counter(units); color: rgb(201 72 26 / 12%); font-size: 48px; line-height: 1; }
+.copy sup { position: relative; top: -.5em; vertical-align: baseline; font-size: .75em; line-height: 0; }
+.units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
+.unit { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 176px; padding: 16px; background: #20331d; color: white; text-align: center; font-size: 14px; font-weight: 400; line-height: 20px; }
+.unit h3 { font-size: 16px; font-weight: 700; line-height: 24px; }
+.unit:not(:last-child)::after { content: ""; position: absolute; top: calc(50% - 12px); right: -22px; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 12px solid #20331d; }
 .chart { display: grid; gap: 10px; min-width: 0; min-height: 600px; padding: 24px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
 .chartTitle { font-size: 13px; font-weight: 800; line-height: 18px; }
 .legend { display: grid; gap: 6px; padding-top: 8px; border-top: 1px solid #e9eaeb; font-size: 11px; line-height: 16px; }
@@ -20,7 +21,9 @@
   .chart { min-height: 0; }
 }
 @media (max-width: 639px) {
-  .unit { min-height: 0; gap: 16px; padding: 16px; font-size: 18px; line-height: 26px; }
+  .units { grid-template-columns: minmax(0, 1fr); }
+  .unit { min-height: 142px; }
+  .unit:not(:last-child)::after { top: auto; right: calc(50% - 12px); bottom: -22px; border-top: 12px solid #20331d; border-bottom: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; }
   .chart { padding: 16px; }
 }
 

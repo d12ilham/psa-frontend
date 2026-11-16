@@ -20,9 +20,9 @@ const sources = [
 function EnrolmentsChart() {
   // The approved PDF (p. 72) provides plotted coordinates, but only labels the endpoints.
   const series = [
-    { code: "PUAFIR306", start: 1010, end: 2810, plotY: [422.101, 393.755, 356.906, 308.716, 317.220], color: "#c9481a", labelOffset: -8 },
-    { code: "PUAFIR308", start: 850, end: 2320, plotY: [430.607, 407.929, 393.757, 366.828, 351.238], color: "#456130", labelOffset: 5 },
-    { code: "PUAFIR324", start: 1115, end: 3130, plotY: [410.765, 368.245, 348.402, 318.638, 300.214], color: "#ad271b", labelOffset: -20 },
+    { code: "PUAFIR306", title: "Identify, detect and monitor hazardous materials at an incident", start: 1010, end: 2810, plotY: [422.101, 393.755, 356.906, 308.716, 317.220], color: "#c9481a", labelOffset: -15 },
+    { code: "PUAFIR308", title: "Employ personal protection at a hazardous materials incident", start: 850, end: 2320, plotY: [430.607, 407.929, 393.757, 366.828, 351.238], color: "#456130", labelOffset: 22 },
+    { code: "PUAFIR324", title: "Render hazardous materials incidents safe", start: 1115, end: 3130, plotY: [410.765, 368.245, 348.402, 318.638, 300.214], color: "#ad271b", labelOffset: -24 },
   ];
   const x = (index: number) => 66 + index * 137;
   const y = (value: number) => 325 - value / 3500 * 270;
@@ -38,14 +38,13 @@ function EnrolmentsChart() {
       {series.map(({ code, start, end, plotY, color, labelOffset }) => (
         <g key={code} fill={color} fontSize="11" fontWeight="700" className={styles.endpoints}>
           {plotY.map((point, index) => <circle key={index} cx={x(index)} cy={plotYToSvg(point)} r="4.5" className="animate-industry-chart-point" />)}
-          <text x={x(0) - 8} y={y(start) + labelOffset} textAnchor="end">{start.toLocaleString("en-AU")}</text>
+          <text x={code === "PUAFIR306" ? x(0) - 8 : x(0) + 12} y={plotYToSvg(plotY[0]) + labelOffset} textAnchor={code === "PUAFIR306" ? "end" : "start"} fontSize="13">{start.toLocaleString("en-AU")}</text>
           <text x={x(4) + 8} y={y(end) - 6}>{end.toLocaleString("en-AU")}</text>
         </g>
       ))}
     </svg>
-    <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[12px_1fr_auto_auto] items-center gap-2"><i className="size-2.5 rounded-full" style={{ backgroundColor: item.color }}/><strong>{item.code}</strong><span>2020: {item.start.toLocaleString()}</span><span>2024: {item.end.toLocaleString()}</span></div>)}</div>
+    <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[16px_minmax(0,1fr)] items-start gap-2"><i aria-hidden="true" className="mt-2 h-0.5 w-4" style={{ backgroundColor: item.color }}/><span>{item.code} – {item.title}</span></div>)}</div>
     <p data-source-caption className={styles.chartNote}><PublicSafetySourceText text={`Chart source: ${chartSource}`} /></p>
-    <p className={styles.chartNote}>Lines and markers reproduce the approved report chart. Exact counts are shown for 2020 and 2024, the years labelled in the report.</p>
   </figure>;
 }
 
@@ -73,10 +72,16 @@ export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: 
       <div className={styles.columns}>
         <div className={styles.copy}>
           <p>Each year, firefighting organisations around Australia respond to a range of emergency incidents. In 2024–25, this included, but was not limited to, 11,982 incidents relating to hazardous materials.<sup><PublicSafetyFootnoteLink number={65} /></sup> Specific to responding to hazardous materials incidents, training is enabled through three units of competency in the PUA Public Safety Training Package:</p>
-          <div className={styles.units}><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR306 Identify, detect and monitor hazardous materials at an incident</div><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR308 Employ personal protection at a hazardous materials incident</div><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR324 Render hazardous materials incidents safe</div></div>
-          <p className="mt-6">The importance of these three units of competency is supported by annual enrolment data, with all three products having high use rates since 2020.</p>
+          <div className={styles.units}>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR306</h3><p>Identify, detect and monitor hazardous materials at an incident</p></div>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR308</h3><p>Employ personal protection at a hazardous materials incident</p></div>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR324</h3><p>Render hazardous materials incidents safe</p></div>
+          </div>
         </div>
-        <EnrolmentsChart/>
+        <div className="min-w-0">
+          <p className={`${styles.copy} mb-6`}>The importance of these three units of competency is supported by annual enrolment data, with all three products having high use rates since 2020.</p>
+          <EnrolmentsChart/>
+        </div>
       </div>
       <h2 className={`${styles.heading} mt-6`}>PUAFIR306 as a prerequisite unit of competency</h2>
       <div className={`${styles.copy} ${styles.prose}`}>
