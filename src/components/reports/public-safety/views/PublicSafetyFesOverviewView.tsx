@@ -51,6 +51,8 @@ const services = [
 ];
 
 type ChartProps = {
+  className?: string;
+  plotLeft?: number;
   title: string;
   values: number[];
   labels?: string[];
@@ -70,21 +72,21 @@ type ChartProps = {
   valueLabelAnchors?: ("start" | "middle" | "end")[];
 };
 
-function WorkforceChart({ title, values, labels = years, domain: [min, max], source = rogsSource, bars = false, dashed = false, yAxisTicks, chartTextFontSize, axisLabelX = 54, yearLabelXOffset = 0, yearLabelYOffset = 26, yearLabelAnchors, valueLabelIndices, valueLabelOffsets, valueLabelFontSize, valueLabelAnchors }: ChartProps) {
-  const width = 584;
+function WorkforceChart({ className, plotLeft = 64, title, values, labels = years, domain: [min, max], source = rogsSource, bars = false, dashed = false, yAxisTicks, chartTextFontSize, axisLabelX = 54, yearLabelXOffset = 0, yearLabelYOffset = 26, yearLabelAnchors, valueLabelIndices, valueLabelOffsets, valueLabelFontSize, valueLabelAnchors }: ChartProps) {
+  const width = 648 - plotLeft;
   const bottom = 442;
   const spacing = width / values.length;
   const barWidth = Math.min(112, spacing * 0.65);
-  const x = (index: number) => bars ? 64 + spacing * (index + 0.5) : 80 + index * 548 / (values.length - 1);
+  const x = (index: number) => bars ? plotLeft + spacing * (index + 0.5) : 80 + index * 548 / (values.length - 1);
   const y = (value: number) => bottom - (value - min) / (max - min) * 396;
   const points = values.map((value, index) => `${x(index)},${y(value)}`).join(" ");
 
-  return <figure className={styles.chart}>
+  return <figure className={`${styles.chart} ${className ?? ""}`}>
     <h3>{title}</h3>
     <svg viewBox="0 0 660 488" style={chartTextFontSize ? { fontSize: chartTextFontSize } : undefined} role="img" aria-label={`${title}. ${labels.map((label, index) => `${label}: ${values[index].toLocaleString("en-AU")}`).join(", ")}`}>
       {(yAxisTicks ?? [0, 1, 2, 3, 4].map(index => min + (max - min) * index / 4)).map((value, index) => {
         return <g key={index}>
-          <line x1="64" x2="650" y1={y(value)} y2={y(value)} stroke="#dfdfd5" />
+          <line x1={plotLeft} x2="650" y1={y(value)} y2={y(value)} stroke="#dfdfd5" data-baseline={value === 0 ? "true" : undefined} />
           <text x={axisLabelX} y={y(value) + 4} textAnchor="end">{value.toLocaleString("en-AU", { maximumFractionDigits: 1 })}</text>
         </g>;
       })}
@@ -165,7 +167,7 @@ export default function PublicSafetyFesOverviewView({ slug, report }: { slug: st
                 </>}
                 {index === 3 && <>
                   <div className={styles.chartGrid}>
-                    <WorkforceChart title="Total Patrolling Hours of Surf Lifesavers in 2024/25 by State/Territory" values={[802226,40130,594988,99525,22190,244138,149287]} labels={["NSW","NT","QLD","SA","TAS","VIC","WA"]} domain={[0, 900000]} yAxisTicks={[0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000]} chartTextFontSize={18} axisLabelX={74} valueLabelOffsets={[-24, -18, -18, -18, -18, -18, -18]} valueLabelAnchors={["start", "middle", "middle", "middle", "middle", "middle", "middle"]} source={surfSource} bars />
+                    <WorkforceChart className={styles.surfPatrollingChart} plotLeft={96} title="Total Patrolling Hours of Surf Lifesavers in 2024/25 by State/Territory" values={[802226,40130,594988,99525,22190,244138,149287]} labels={["NSW","NT","QLD","SA","TAS","VIC","WA"]} domain={[0, 900000]} yAxisTicks={[0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000]} chartTextFontSize={18} axisLabelX={90} valueLabelOffsets={[-10, -10, -10, -10, -10, -10, -10]} source={surfSource} bars />
                     <WorkforceChart title="Total Patrolling Hours of Career and Volunteer Surf Lifesavers in 2024–25" values={[1469465,483020]} labels={["Volunteer","Career"]} domain={[0, 1600000]} chartTextFontSize={18} axisLabelX={96} valueLabelOffsets={[-18, -18]} source={surfSource} bars />
                   </div>
                   <div className={`${styles.callouts} ${styles.surfFacts}`}>

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import { ArrowRight, Minus, Plus } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { themeOverviewSources, workforceInsightsTheme, workforceInsightSummaries } from "../workforceInsightsContent";
 
 interface Report {
@@ -254,8 +254,7 @@ export default function FederalStateExecutiveSummaryView({
                   onClick={() => setIsThemeOverviewOpen((open) => !open)}
                   className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#EED4C4] px-4 py-2 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
                 >
-                  Theme Overview: {isThemeOverviewOpen ? "Close" : "Open"}
-                  {isThemeOverviewOpen ? <Minus className="h-3.5 w-3.5" aria-hidden="true" /> : <Plus className="h-3.5 w-3.5" aria-hidden="true" />}
+                  Theme Overview <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isThemeOverviewOpen ? "rotate-180" : ""}`} />
                 </button>
               <div id="summary-theme-overview" role="region" aria-label="Theme Overview" hidden={!isThemeOverviewOpen}>
           <p className="max-w-[80ch] text-xs leading-6 text-gray600">
@@ -339,7 +338,7 @@ export default function FederalStateExecutiveSummaryView({
                 className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-[#EED4C4] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
               >
                 {isStrategyOpen ? "Close" : "Open"}
-                {isStrategyOpen ? <Minus className="h-3.5 w-3.5" aria-hidden="true" /> : <Plus className="h-3.5 w-3.5" aria-hidden="true" />}
+                <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isStrategyOpen ? "rotate-180" : ""}`} />
               </button>
             </div>
 

@@ -62,6 +62,12 @@
 .chart figcaption { color: #000; font-size: 14px; line-height: 20px; text-transform: uppercase; }
 .sources { color: #000; }
 .barValue, .lineValue { font-weight: 700; }
+.surfPatrollingChart h3 { max-width: none; font-size: 18px; line-height: 24px; color: #252525; }
+.surfPatrollingChart svg { fill: #252525; }
+.surfPatrollingChart rect { fill: #f69063; rx: 0; }
+.surfPatrollingChart .barValue { font-weight: 400; }
+.surfPatrollingChart line[data-baseline="true"] { stroke: #888; stroke-width: 1.5; }
+.surfPatrollingChart figcaption { text-align: right; text-transform: none; }
 .lineValue { fill: #ad271b; }
 
 @media (min-width: 1488px) {

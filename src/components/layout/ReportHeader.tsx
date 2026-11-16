@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Download } from "lucide-react";
 
-import { resolveSector } from "@/config/reports/sectors";
+import { resolveSector, SITE_SETTINGS } from "@/config/reports/sectors";
 import FederalStateReportHeader from "@/components/reports/federal-state/FederalStateReportHeader";
 
 interface ReportHeaderProps {
@@ -46,16 +47,32 @@ export default function ReportHeader({
       style={{ backgroundColor: isCorrectionalServices ? "#252D02" : sector.theme.headerBg }}
     >
       <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-        <div
-          onClick={() => router.push(`/reports/${slug}`)}
-          className="flex items-center gap-2 cursor-pointer font-bold text-base text-white transition-colors"
-        >
-          <span>
+        <div className="flex items-center gap-3 font-bold text-base text-white">
+          {(isLocalGovernment || isCorrectionalServices) && (
+            <a
+              href="https://publicskillsaustralia.org.au/"
+              aria-label="Visit the Public Skills Australia website"
+              className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              <Image
+                src={SITE_SETTINGS.logoLightUrl}
+                alt="Public Skills Australia"
+                width={180}
+                height={48}
+                className="h-9 w-auto max-w-[150px] object-contain"
+              />
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={() => router.push(`/reports/${slug}`)}
+            className="cursor-pointer text-left transition-colors"
+          >
             {sector.shortCode}{" "}
             <span style={{ color: isCorrectionalServices ? "#B2DB79" : sector.theme.accentColor }}>
               {report?.year?.label || sector.defaultYear}
             </span>
-          </span>
+          </button>
         </div>
 
         <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">

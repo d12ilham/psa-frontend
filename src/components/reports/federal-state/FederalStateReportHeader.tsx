@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Download, Menu, X } from "lucide-react";
+import { SITE_SETTINGS } from "@/config/reports/sectors";
 
 type NavigationItem = {
   label: string;
@@ -169,9 +171,24 @@ export default function FederalStateReportHeader({
   return (
     <header ref={headerRef} className={`sticky top-0 z-50 text-white ${sectorPalette ? "bg-[#754C2D]" : "bg-[#252D02]"}`}>
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3.5 sm:px-6 xl:flex-nowrap xl:px-8">
-        <Link href={base} prefetch={false} onClick={closeMenu} className={`shrink-0 text-base font-bold ${focusClass}`}>
-          FSTG WIR <span className={sectorPalette ? "text-[#EED4C4]" : "text-[#8AC900]"}>{year}</span>
-        </Link>
+        <div className="flex shrink-0 items-center gap-3">
+          <a
+            href="https://publicskillsaustralia.org.au/"
+            aria-label="Visit the Public Skills Australia website"
+            className={`shrink-0 rounded-sm ${focusClass}`}
+          >
+            <Image
+              src={SITE_SETTINGS.logoLightUrl}
+              alt="Public Skills Australia"
+              width={180}
+              height={48}
+              className="h-8 w-auto max-w-[130px] object-contain"
+            />
+          </a>
+          <Link href={base} prefetch={false} onClick={closeMenu} className={`shrink-0 text-base font-bold ${focusClass}`}>
+            FSTG WIR <span className={sectorPalette ? "text-[#EED4C4]" : "text-[#8AC900]"}>{year}</span>
+          </Link>
+        </div>
         <button
           type="button"
           aria-label={mobileOpen ? "Close report menu" : "Open report menu"}

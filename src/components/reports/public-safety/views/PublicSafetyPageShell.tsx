@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Image from "next/image";
 import { ChevronDown, Download, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import type { NavTarget } from "@/components/layout/ReportNavButtons";
+import { SITE_SETTINGS } from "@/config/reports/sectors";
 
 export interface PublicSafetyReport {
   contactUrl?: string;
@@ -136,12 +138,27 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
 
   return (
     <header className="sticky top-0 z-50 bg-[#252D02] text-white shadow-[0_1px_0_rgba(255,255,255,0.06)]">
-      <div className="mx-auto flex h-[60px] w-full max-w-[1488px] items-center justify-between gap-4 px-4 sm:px-6">
-        <button type="button" onClick={() => router.push(`/reports/${slug}`)} className="shrink-0 cursor-pointer whitespace-nowrap text-[14px] font-bold tracking-0 text-white">
-          PS WIR <span className="text-[#8AC900]">{report.year?.label || "2026"}</span>
-        </button>
+      <div className="mx-auto flex h-[60px] w-full max-w-[1488px] items-center justify-between gap-2 px-4 sm:px-6">
+        <div className="flex shrink-0 items-center gap-3">
+          <a
+            href="https://publicskillsaustralia.org.au/"
+            aria-label="Visit the Public Skills Australia website"
+            className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <Image
+              src={SITE_SETTINGS.logoLightUrl}
+              alt="Public Skills Australia"
+              width={180}
+              height={48}
+              className="h-6 w-auto max-w-[95px] object-contain min-[1400px]:h-7 min-[1400px]:max-w-[110px]"
+            />
+          </a>
+          <button type="button" onClick={() => router.push(`/reports/${slug}`)} className="shrink-0 cursor-pointer whitespace-nowrap text-xs font-bold tracking-0 text-white min-[1400px]:text-[14px]">
+            PS WIR <span className="text-[#8AC900]">{report.year?.label || "2026"}</span>
+          </button>
+        </div>
 
-        <nav className="hidden h-full items-center gap-[18px] text-xs font-semibold xl:flex" aria-label="Public Safety report navigation">
+        <nav className="hidden h-full items-center gap-2 text-[10px] font-semibold min-[1400px]:gap-3 min-[1400px]:text-xs xl:flex" aria-label="Public Safety report navigation">
           {items.map((item) => (
             <div key={item.label} className="group relative flex h-full items-center">
               <button

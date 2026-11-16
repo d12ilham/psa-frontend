@@ -60,46 +60,55 @@ const MEGATRENDS = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
-  },
-  {
-    id: "labour",
-    icon: "/images/reports/drivers-of-change/Competition.svg",
-    title: "Competition for labour",
+    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
   },
   {
     id: "climate",
     icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
+    desc: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
-    id: "demographics",
-    icon: "/images/reports/drivers-of-change/Demographic.svg",
-    title: "Demographic shifts",
-  },
-  {
-    id: "diversity",
-    icon: "/images/reports/drivers-of-change/Diversity.svg",
-    title: "Diversity and inclusion",
+    id: "labour",
+    icon: "/images/reports/drivers-of-change/Competition.svg",
+    title: "Competition for labour",
+    desc: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
     id: "duties",
     icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
+    desc: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
   },
   {
-    id: "trust",
-    icon: "/images/reports/drivers-of-change/Public.svg",
-    title: "Public trust and perceptions",
+    id: "diversity",
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
+    title: "Diversity and inclusion",
+    desc: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
   },
   {
-    id: "recruitment",
-    icon: "/images/reports/drivers-of-change/Recruitment.svg",
-    title: "Recruitment and retention",
+    id: "demographics",
+    icon: "/images/reports/drivers-of-change/Demographic.svg",
+    title: "Demographic shifts",
+    desc: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
     id: "tech",
     icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
+    desc: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
+  },
+  {
+    id: "recruitment",
+    icon: "/images/reports/drivers-of-change/Recruitment.svg",
+    title: "Recruitment and retention",
+    desc: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
+  },
+  {
+    id: "trust",
+    icon: "/images/reports/drivers-of-change/Public.svg",
+    title: "Public trust and perceptions",
+    desc: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
   },
 ];
 
@@ -113,6 +122,8 @@ export default function FederalStateDriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>("pathways");
+  const activeMegatrend = MEGATRENDS.find((item) => item.id === activeMegatrendId);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   React.useEffect(() => {
@@ -358,17 +369,43 @@ export default function FederalStateDriversOfChangeView({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
-            {MEGATRENDS.map((item, index) => (
-              <div
-                key={item.id}
-                style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
-                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
-              >
-                <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
-                <p className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</p>
-              </div>
-            ))}
+            {MEGATRENDS.map((item, index) => {
+              const isActive = activeMegatrendId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  id={`megatrend-${item.id}`}
+                  type="button"
+                  aria-expanded={isActive}
+                  aria-controls="megatrend-detail"
+                  onClick={() => setActiveMegatrendId(isActive ? null : item.id)}
+                  style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
+                  className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#728C28] ${isActive ? "bg-[#EBF1E4] border-[#728C28]" : "bg-white border-gray200 hover:border-[#728C28]"} ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
+                >
+                  <img src={isActive ? item.icon.replace(".svg", "-active.svg") : item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
+                  <span className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</span>
+                </button>
+              );
+            })}
           </div>
+          <div
+            id="megatrend-detail"
+            role="region"
+            aria-labelledby={activeMegatrend ? `megatrend-${activeMegatrend.id}` : undefined}
+            className={`grid transition-all duration-500 ease-in-out motion-reduce:transition-none ${activeMegatrend ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+          >
+            <div className="overflow-hidden min-h-0">
+              {activeMegatrend && (
+                <div key={activeMegatrend.id} className="animate-content-switch bg-[#EBF1E4] border border-[#728C28] border-l-4 rounded-xl p-5 sm:p-6 space-y-2">
+                  <h3 className="text-base sm:text-lg font-bold text-gray800">{activeMegatrend.title}</h3>
+                  <p className="text-sm text-gray600 leading-relaxed">{activeMegatrend.desc}</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <p className="text-sm text-gray800 leading-relaxed w-full xl:w-2/3">
+            These megatrends were identified in previous Workforce Insights Reports and will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors.
+          </p>
         </div>
 
         {/* ── SECTION 4: SOURCES CONTAINER ── */}
