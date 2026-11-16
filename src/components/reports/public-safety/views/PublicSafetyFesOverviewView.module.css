@@ -121,7 +121,8 @@
 
 .panel[id="fes-overview-panel-0"] .copy sup,
 .panel[id="fes-overview-panel-1"] .copy sup,
-.panel[id="fes-overview-panel-2"] .copy sup {
+.panel[id="fes-overview-panel-2"] .copy sup,
+.panel[id="fes-overview-panel-3"] .copy sup {
   position: relative;
   top: -0.5em;
   vertical-align: baseline;

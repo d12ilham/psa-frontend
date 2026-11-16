@@ -120,12 +120,12 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <RepresentationChart />
-          <ColumnChart title="Diversity in the Queensland Public Sector" data={[{ label: "First Nations", value: 2.7, text: "2.7%" }, { label: "Culturally and linguistically diverse", value: 9, text: "9.0%" }, { label: "People with disability", value: 3.6, text: "3.6%" }, { label: "LGBTQIA+", value: 6.6, text: "6.6%" }]} source={<SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report 2025, pg. 35</SourceLink>} />
+          <ColumnChart title="Diversity in the Queensland Public Sector" data={[{ label: "Aboriginal people and/or Torres Strait Islander", value: 2.7, text: "2.7%" }, { label: "Culturally and linguistically diverse", value: 9, text: "9.0%" }, { label: "People with disability", value: 3.6, text: "3.6%" }, { label: "LGBTQIA+", value: 6.6, text: "6.6%" }]} source={<SourceLink row={81}>SOURCE Queensland Government, State of the Sector Report 2025, pg. 35</SourceLink>} />
         </div>
       </Section>
       <Section title="Workforce Trends">
         <div className="grid gap-6 lg:grid-cols-2">
-          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025.<QldFootnote number={50} /> According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent.<QldFootnote number={51} /> However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation.<QldFootnote number={52} /> The Even Better Public Sector for Queensland Strategy 2024-2028 provides an opportunity to identify and grow current and future workforce skills.</p>
+          <p className="text-xs leading-6 text-[#42463B]">The QPS (excluding the education and health workforce) increased by 6.7 per cent between 2024 and 2025.<QldFootnote number={50} /> According to JSA employment projections, the projected growth for the Public Administration and Safety industry in QLD is 13 per cent.<QldFootnote number={51} /> However, the QLD Government is facing the challenge of delivering high quality services in a fiscally constrained environment, which will require strong performance and innovation.<QldFootnote number={52} /> The Even Better Public Sector for Queensland Strategy for 2024-2028 provides an opportunity to identify and grow current and future workforce skills.</p>
           <ProjectionChart />
         </div>
       </Section>

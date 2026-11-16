@@ -19,14 +19,22 @@ const sources = [
   "Australian Institute for Disaster Resilience, Australian Institute for Disaster Resilience Handbook Collection: Community Recovery, Australian Government Department of Home Affairs, 2018, page 6-7.",
 ];
 
+function InsightOneSourceText({ source, number }: { source: string; number: number }) {
+  if (number > 56) return <PublicSafetySourceText number={number} text={source} />;
+  const parts = source.split(/(Major Incidents Report 20\d{2}[–-]\d{2}|Royal Commission into National Natural Disaster Arrangements|National Recovery and Resilience Organisation Annual Report 20\d{2}[–-]\d{2})/g);
+  return parts.map((part, index) => index % 2 === 1
+    ? <em key={index}><PublicSafetySourceText number={number} text={part} /></em>
+    : part);
+}
+
 function IncidentsChart() {
   const values = [27, 30, 40];
   const years = ["2022–2023", "2023–2024", "2024–2025"];
   const points = values.map((value, index) => ({ x: [65, 343, 641][index], y: 459 - ((value - 20) / 25) * 434 }));
 
   return <svg viewBox="0 0 660 491" role="img" aria-label="Major emergency incidents. 27 in 2022–2023, 30 in 2023–2024, and 40 in 2024–2025.">
-    {[20, 26.3, 32.5, 38.8, 45].map((tick, index) => {
-      const y = 459 - index * 108.5;
+    {[20, 25, 30, 35, 40, 45].map((tick) => {
+      const y = 459 - ((tick - 20) / 25) * 434;
       return <g key={tick}><line x1="48" x2="658" y1={y} y2={y} stroke="#e5e3dc" /><text x="34" y={y - 2} textAnchor="end">{tick}</text></g>;
     })}
     <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} fill="none" stroke="#ad271b" strokeWidth="4" pathLength="40" strokeDasharray="40" className="animate-industry-projection-line" />
@@ -69,11 +77,11 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
       <Image src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
-    <section className={`${styles.detail} animate-slide-up-delay`}>
+    <section className={`${styles.detail} ${styles.insightOneDetail} animate-slide-up-delay`}>
       <h2>Major emergency incidents and the Royal Commission in 2020</h2>
       <div className={styles.columns}>
         <div className={styles.narrative}>
-          <p>From July 2024 to June 2025, the Australian Institute for Disaster Resilience <em>Major Incidents Report</em> documented 40 major emergency incidents, spanning fires, floods, storms, tropical cyclones, health outbreaks, technology failures and repatriations from international conflict zones.<sup><PublicSafetyFootnoteLink number={53} /></sup> This is an increase from both the 2022–23 and 2023–24 financial years as detailed below:</p>
+          <p>From July 2024 to June 2025, the Australian Institute for Disaster Resilience <em>Major Incidents Report</em> documented 40 major emergency incidents, spanning fires, floods, storms, tropical cyclones, health outbreaks, technology failures and repatriations from international conflict zones.<sup><PublicSafetyFootnoteLink number={53} /></sup> This is an increase from both the 2022–23 and 2023–24 financial years as detailed to the right:</p>
           <p>Fire and Emergency Services stakeholders noted that at the time of the <em>Royal Commission into National Natural Disaster Arrangements in 2020</em> (Royal Commission in 2020), specialist disaster recovery skills and functions were identified as different to those required in emergency management. Following the Royal Commission in 2020, a suite of nationally accredited training products related to disaster recovery were developed.<sup><PublicSafetyFootnoteLink number={55} /></sup> Facilitated through the <em>National Recovery Training Program</em>,<sup><PublicSafetyFootnoteLink number={56} /></sup> newly developed disaster recovery training products included one qualification, nine skill sets and four units of competency (refer <em>Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements</em>).</p>
           <button type="button" className={`${styles.appendix} ${styles.animatedAppendix}`} onClick={() => router.push(`${reportPath}/fes_disaster_recovery_training_products`)}>
             <span>Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements</span>
@@ -92,7 +100,7 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
     <section data-report-sources className={`${sourceStyles.sources} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={53}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span><PublicSafetySourceText number={53 + index} text={source} /></span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{53 + index}</span><span><InsightOneSourceText number={53 + index} source={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

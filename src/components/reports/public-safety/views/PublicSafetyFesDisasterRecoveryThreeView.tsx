@@ -11,6 +11,13 @@ const sources = [
   "PUAFIR201 Assist with prescribed burning; PUAFIR402 Conduct simple prescribed burns; PUAFIR406 Develop simple prescribed burn plans; PUAFIR506 Conduct complex prescribed burns; PUAFIR515 Develop complex prescribed burn plans.",
 ];
 
+function InsightThreeSourceText({ source, number }: { source: string; number: number }) {
+  const parts = source.split(/(National Principles for Disaster Recovery|National Position on Prescribed Burning|PUAFIR\d{3}[^;.]+)/g);
+  return parts.map((part, index) => index % 2 === 1
+    ? <em key={index}><PublicSafetySourceText number={number} text={part} /></em>
+    : part);
+}
+
 export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const reportPath = `/reports/${slug}`;
   const insightsPath = `${reportPath}/fes_workforce_insights`;
@@ -42,7 +49,7 @@ export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report 
       <Image className={`${styles.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
-    <section className={`${styles.detail} ${styles.animatedSection} animate-slide-up-delay`}>
+    <section className={`${styles.detail} ${styles.insightThreeDetail} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Community recovery and prescribed burning</h2>
       <div className={styles.narrative}>
         <div className="max-w-[800px] space-y-6">
@@ -58,7 +65,7 @@ export default function PublicSafetyFesDisasterRecoveryThreeView({ slug, report 
     <section data-report-sources className={`${sourceStyles.sources} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={60}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{60 + index}</span><span><PublicSafetySourceText number={60 + index} text={source} /></span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{60 + index}</span><span><InsightThreeSourceText number={60 + index} source={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

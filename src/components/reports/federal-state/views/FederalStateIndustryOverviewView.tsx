@@ -697,7 +697,7 @@ export default function FederalStateIndustryOverviewView({
                     },
                     {
                       percentage: 79,
-                      label: "Cyber security",
+                      label: "Cyber Security",
                       color: "#5A3D2B",
                     },
                   ]}

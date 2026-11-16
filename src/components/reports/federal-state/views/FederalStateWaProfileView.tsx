@@ -3,6 +3,7 @@
 
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import { GenderPayGapCard } from "./DocumentGenderGraphic";
+import { genderChartPalette } from "./genderChartPalette";
 
 import { ChartScroll, ProfileColumnChart } from "./FederalStateProfileCharts";
 import chartStyles from "./FederalStateProfileCharts.module.css";
@@ -23,7 +24,7 @@ interface Report {
 }
 
 const diversity = [
-  { label: "Women", value: 73.2 },
+  { label: "Women", value: 73.2, color: genderChartPalette.female },
   { label: "Aboriginal and Torres Strait Islander", value: 2.8 },
   { label: "Person with a disability", value: 1.7 },
   { label: "Culturally and linguistically diverse", value: 18.5 },

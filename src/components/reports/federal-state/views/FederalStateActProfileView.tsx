@@ -1,5 +1,6 @@
 "use client";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import { GenderChartHeading, GenderPayGapCard } from "./DocumentGenderGraphic";
 
@@ -82,12 +83,12 @@ function RepresentationChart() {
           <div role="img" aria-label="Representation was 2.1 percent in 2023, 2.1 percent in 2024, and 2.0 percent in 2025, against a 3.0 percent target each year" className="relative mt-3 h-[322.5px] min-w-[500px]">
             <svg viewBox="0 0 600 322.5" preserveAspectRatio="none" aria-hidden="true" className="absolute inset-0 h-full w-full">
               <line x1="18" y1="52.5" x2="582" y2="52.5" stroke="#A58D7B" strokeWidth="3" />
-              <polyline points="18,187.5 300,213 582,273" fill="none" stroke="#754D32" strokeWidth="3" strokeDasharray="6 6" />
+              <polyline points="18,187.5 300,187.5 582,273" fill="none" stroke="#754D32" strokeWidth="3" strokeDasharray="6 6" />
               {[18, 300, 582].map((x) => <circle key={`target-${x}`} cx={x} cy="52.5" r="5" fill="#A58D7B" />)}
-              {[[18, 125], [300, 142], [582, 182]].map(([x, y]) => <circle key={`actual-${x}`} cx={x} cy={y * 1.5} r="5" fill="#754D32" />)}
+              {[[18, 125], [300, 125], [582, 182]].map(([x, y]) => <circle key={`actual-${x}`} cx={x} cy={y * 1.5} r="5" fill="#754D32" />)}
             </svg>
             {[18, 300, 582].map((x, index) => <span data-act-chart-value key={`target-label-${x}`} className="absolute" style={{ left: `${x / 600 * 100}%`, top: `${11.5 / 322.5 * 100}%`, transform: `translateX(-${index * 50}%)` }}>3.0%</span>)}
-            {[[18, 166.5, "2.1%"], [300, 192, "2.1%"], [582, 252, "2.0%"]].map(([x, y, value], index) => <span data-act-chart-value key={`actual-label-${x}`} className="absolute" style={{ left: `${Number(x) / 600 * 100}%`, top: `${(Number(y) - 20) / 322.5 * 100}%`, transform: `translateX(-${index * 50}%)` }}>{value}</span>)}
+            {[[18, 166.5, "2.1%"], [300, 166.5, "2.1%"], [582, 252, "2.0%"]].map(([x, y, value], index) => <span data-act-chart-value key={`actual-label-${x}`} className="absolute" style={{ left: `${Number(x) / 600 * 100}%`, top: `${(Number(y) - 20) / 322.5 * 100}%`, transform: `translateX(-${index * 50}%)` }}>{value}</span>)}
             {[2023, 2024, 2025].map((year, index) => <span data-act-chart-year key={year} className="absolute bottom-0" style={{ left: `${[18, 300, 582][index] / 600 * 100}%`, transform: `translateX(-${index * 50}%)` }}>{year}</span>)}
           </div>
         </ChartScroll>
@@ -179,11 +180,11 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
             <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
               <GenderChartHeading>ACT Public Service by Gender</GenderChartHeading>
               <div className="mt-4 grid items-center gap-4 sm:grid-cols-[180px_minmax(0,1fr)]">
-                <div role="img" aria-label="Female 64.8%, male 35%, non-binary 0.2%" className="mx-auto flex aspect-square w-full max-w-[180px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#754D32 0 64.8%, #B6A79B 64.8% 99.8%, #E8DED6 99.8% 100%)" }}><div className="h-[60%] w-[60%] rounded-full bg-[#F8EEE8]" /></div>
+                <div role="img" aria-label="Female 64.8%, male 35%, non-binary 0.2%" className="mx-auto flex aspect-square w-full max-w-[180px] items-center justify-center rounded-full" style={{ background: `conic-gradient(${genderChartPalette.female} 0 64.8%, ${genderChartPalette.male} 64.8% 99.8%, ${genderChartPalette.other} 99.8% 100%)` }}><div className="h-[60%] w-[60%] rounded-full bg-[#F8EEE8]" /></div>
                 <dl className="space-y-2 text-sm">
-                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#754D32]" />Female</dt><dd className="font-semibold">64.8%</dd></div>
-                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#B6A79B]" />Male</dt><dd className="font-semibold">35%</dd></div>
-                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm bg-[#E8DED6]" />Non-Binary</dt><dd className="font-semibold">0.2%</dd></div>
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: genderChartPalette.female }} />Female</dt><dd className="font-semibold">64.8%</dd></div>
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: genderChartPalette.male }} />Male</dt><dd className="font-semibold">35%</dd></div>
+                  <div className="flex items-center gap-3"><dt className="flex min-w-[110px] items-center gap-2"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: genderChartPalette.other }} />Non-Binary</dt><dd className="font-semibold">0.2%</dd></div>
                 </dl>
                 <GenderPayGapCard value="-0.3%" source={<SourceLink row={37}>Source: ACT Government, State of the Service Report 2024–25, 2025, Table A.8</SourceLink>} inset className="sm:col-span-2" />
               </div>

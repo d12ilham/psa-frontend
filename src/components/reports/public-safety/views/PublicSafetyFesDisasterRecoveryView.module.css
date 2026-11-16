@@ -77,3 +77,9 @@
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .animatedSummaryIcon:hover { scale: 1.06; }
 }
+
+.insightOneDetail sup { position: relative; top: -.5em; vertical-align: baseline; font-size: .75em; line-height: 0; }
+
+.insightTwoDetail sup { position: relative; top: -.5em; vertical-align: baseline; font-size: .75em; line-height: 0; }
+
+.insightThreeDetail sup { position: relative; top: -.5em; vertical-align: baseline; font-size: .75em; line-height: 0; }

@@ -1,5 +1,6 @@
 "use client";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 import { GenderChartHeading } from "./DocumentGenderGraphic";
@@ -71,7 +72,7 @@ function GenderChart() {
   return <article data-sa-gender-chart data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.standard} flex h-full min-w-0 flex-col rounded-md p-4 text-black sm:p-5`}>
     <GenderChartHeading>South Australian Public Sector Employees – Gender</GenderChartHeading>
     <div role="img" aria-label="Female 69.6%, male 30.3%, other 0.1%" className="relative mx-auto mt-5 w-full max-w-[400px] pb-10 pt-4">
-      <div className="mx-auto aspect-square w-[82%] rounded-full" style={{ background: "conic-gradient(#BBA38F 0 69.6%, #807064 69.6% 99.9%, #DFD3C6 99.9% 100%)", transform: "rotate(180deg) scaleX(-1)" }}>
+      <div className="mx-auto aspect-square w-[82%] rounded-full" style={{ background: `conic-gradient(${genderChartPalette.female} 0 69.6%, ${genderChartPalette.male} 69.6% 99.9%, ${genderChartPalette.other} 99.9% 100%)`, transform: "rotate(180deg) scaleX(-1)" }}>
         <div className="relative left-[12.5%] top-[12.5%] h-[75%] w-[75%] rounded-full bg-[#F8EEE8]" />
       </div>
       <span className="absolute right-0 top-0 text-2xl font-bold text-[#807064] sm:text-3xl">69.6%</span>
@@ -79,9 +80,9 @@ function GenderChart() {
       <span className="absolute bottom-0 left-[52%] text-2xl font-bold text-[#807064] sm:text-3xl">0.1%</span>
     </div>
     <ul aria-label="Gender chart legend" className="mb-5 mt-3 space-y-1.5 text-sm">
-      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4 bg-[#BBA38F]" />Female</li>
-      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4 bg-[#807064]" />Male</li>
-      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4 bg-[#DFD3C6]" />Other</li>
+      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4" style={{ backgroundColor: genderChartPalette.female }} />Female</li>
+      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4" style={{ backgroundColor: genderChartPalette.male }} />Male</li>
+      <li className="flex items-center gap-2"><span aria-hidden="true" className="h-4 w-4" style={{ backgroundColor: genderChartPalette.other }} />Other</li>
     </ul>
     <p data-citation-copy data-chart-source className="mt-auto min-h-[80px] border-t border-[#E6DCD5] pt-4 text-sm leading-6 text-black"><SourceLink row={96}>Source: Government of South Australia, State of the Sector Report 2025, 2025, pg. 8</SourceLink></p>
   </article>;

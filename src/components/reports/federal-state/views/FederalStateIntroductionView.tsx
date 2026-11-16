@@ -126,7 +126,7 @@ export default function FederalStateIntroductionView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons sectorPalette slug={slug} currentPage="introduction" />
+        <ReportNavButtons sectorPalette nextButtonPalette="psa" slug={slug} currentPage="introduction" />
 
         {/* Top Hero Section */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-8 xl:gap-[100px]">

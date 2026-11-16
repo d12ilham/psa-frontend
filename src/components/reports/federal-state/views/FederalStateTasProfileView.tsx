@@ -1,5 +1,6 @@
 "use client";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 
@@ -23,11 +24,11 @@ interface Report {
 }
 
 const occupations = [
-  "Policy and Planning Managers - 12.4%",
-  "Intelligence and Policy Analysts - 14.6%",
-  "Contract, Program and Project Administrators - 8.6%",
-  "General Clerks - 11.2%",
-  "Other Information and Organisation Professionals - 10.5%",
+  "Policy and Planning Managers – 12.4%",
+  "Intelligence and Policy Analysts – 14.6%",
+  "Contract, Program and Project Administrators – 8.6%",
+  "General Clerks – 11.2%",
+  "Other Information and Organisation Professionals – 10.5%",
 ];
 
 const sources = [
@@ -46,8 +47,8 @@ function GenderChart() {
   return <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md  p-4 sm:p-5`}>
     <GenderChartHeading>Tasmanian State Service Employees - Gender</GenderChartHeading>
     <div className="mt-6 grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div role="img" aria-label="Female 71.6%, male 28.1%, other 0.3%" className="mx-auto flex aspect-square w-full max-w-[224px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#754D32 0 71.6%, #B6A294 71.6% 99.7%, #D8CBC1 99.7% 100%)" }}><span className="h-[60%] w-[60%] rounded-full bg-[#F8EEE8]" /></div>
-      <dl className="space-y-4 text-xs text-[#55483F]">{[["Female", "71.6%", "#754D32"], ["Male", "28.1%", "#B6A294"], ["Other", "0.3%", "#D8CBC1"]].map(([label, value, color]) => <div key={label} className="flex items-center gap-3"><span className="h-3 w-3 shrink-0 rounded-sm" style={{ backgroundColor: color }} /><dt className="min-w-20">{label}</dt><dd className="font-bold text-[#754D32]">{value}</dd></div>)}</dl>
+      <div role="img" aria-label="Female 71.6%, male 28.1%, other 0.3%" className="mx-auto flex aspect-square w-full max-w-[224px] items-center justify-center rounded-full" style={{ background: `conic-gradient(${genderChartPalette.female} 0 71.6%, ${genderChartPalette.male} 71.6% 99.7%, ${genderChartPalette.other} 99.7% 100%)` }}><span className="h-[60%] w-[60%] rounded-full bg-[#F8EEE8]" /></div>
+      <dl className="space-y-4 text-xs text-[#55483F]">{[["Female", "71.6%", genderChartPalette.female], ["Male", "28.1%", genderChartPalette.male], ["Other", "0.3%", genderChartPalette.other]].map(([label, value, color]) => <div key={label} className="flex items-center gap-3"><span className="h-3 w-3 shrink-0 rounded-sm" style={{ backgroundColor: color }} /><dt className="min-w-20">{label}</dt><dd className="font-bold text-[#754D32]">{value}</dd></div>)}</dl>
     </div>
     <p data-citation-copy className="mt-7 text-sm leading-6 text-black"><SourceLink row={112}>Source: Tasmanian Government, Tasmanian State Service Annual Report 2024-25, 2025, pg. 11</SourceLink></p>
   </div>;

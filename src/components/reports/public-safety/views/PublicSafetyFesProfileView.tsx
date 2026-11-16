@@ -1,6 +1,7 @@
 "use client";
 
 import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+import PublicSafetySourceLink from "./PublicSafetySourceLink";
 
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
@@ -17,7 +18,7 @@ import styles from "./PublicSafetyFesProfileView.module.css";
 const firefighterTitle = "Yearly Student Enrolments and Completions for Primary Firefighter Recruit Qualifications (Career and Volunteer)";
 const charts = [
   firefighterTitle,
-  "Yearly Student Enrolments and Completions for Firefighting Operations Qualifications",
+  "Yearly Student Enrolments and Completions for Firefighting Operations Qualifications (Career and Volunteer)",
   "Fire and Emergency Services Workforce by Jurisdiction",
   "Yearly Student Enrolments and Completions for SES Qualifications",
   "Yearly Student Enrolments and Completions for Surf Life Saving Qualifications",
@@ -47,8 +48,18 @@ function FirefighterQualificationsChart({ mode, title, height, note }: { mode: Q
   const darkValues = mode === "surf-completions" ? aquaticRescueCompletions : mode === "surf-enrolments" ? aquaticRescueEnrolments : mode === "ses-completions" ? sesCertificateThreeCompletions : mode === "ses-enrolments" ? sesCertificateThreeEnrolments : mode === "operations-completions" ? operationsCertificateTwoCompletions : mode === "operations-enrolments" ? operationsCertificateTwoEnrolments : mode === "completions" ? certificateTwoCompletions : certificateTwo;
   const lightValues = mode === "surf-completions" ? aquaticSearchRescueCompletions : mode === "surf-enrolments" ? aquaticSearchRescueEnrolments : mode === "ses-completions" ? sesCertificateThreeRescueCompletions : mode === "ses-enrolments" ? sesCertificateThreeRescueEnrolments : mode === "operations-completions" ? operationsCertificateThreeCompletions : mode === "operations-enrolments" ? operationsCertificateThreeEnrolments : mode === "completions" ? certificateThreeCompletions : certificateThree;
   const max = mode === "surf-enrolments" ? 9000 : mode === "ses-completions" ? 140 : ["completions", "operations-completions", "surf-completions"].includes(mode) ? 2500 : 3500;
+  const isPrimaryRecruit = mode === "enrolments" || mode === "completions";
+  const useLargeChartText = isPrimaryRecruit || mode.startsWith("operations-") || mode.startsWith("ses-") || mode.startsWith("surf-");
+  const chartTextSize = useLargeChartText ? 20 : 14;
+  const labelStaggerDistance = mode.startsWith("ses-") ? 24 : 18;
   const chartYears = mode === "ses-completions" ? years.slice(1) : years;
-  const ticks = Array.from({ length: 5 }, (_, index) => max * index / 4);
+  const ticks = mode === "surf-enrolments"
+    ? Array.from({ length: 7 }, (_, index) => index * 1500)
+    : mode === "ses-completions"
+    ? Array.from({ length: 8 }, (_, index) => index * 20)
+    : isPrimaryRecruit || mode.startsWith("operations-") || mode === "ses-enrolments" || mode === "surf-completions"
+    ? Array.from({ length: max / 500 + 1 }, (_, index) => index * 500)
+    : Array.from({ length: 5 }, (_, index) => max * index / 4);
   const legend = mode === "surf-enrolments" || mode === "surf-completions"
     ? ["Certificate II in Public Safety (Aquatic Rescue)", "Certificate III in Public Safety (Aquatic Search and Rescue)"]
     : mode === "ses-completions" || mode === "ses-enrolments"
@@ -59,9 +70,9 @@ function FirefighterQualificationsChart({ mode, title, height, note }: { mode: Q
   return <figure className={styles.chart} style={{ "--chart-height": `${height}px` } as React.CSSProperties}>
     <div><p className={styles.eyebrow}>FES · Presentation View</p><h3>{title}{note && <sup><PublicSafetyFootnoteLink number={52} noteHref="#fes-note-52" /></sup>}</h3></div>
     <svg viewBox="0 0 960 345" role="img" aria-label={`${title}. ${chartYears.map((year, index) => `${year}: ${darkValues[index]}, ${lightValues[index]}`).join("; ")}`}>
-    {ticks.map((value)=>{const y=295-value/max*244;return <g key={value}><line x1="58" x2="956" y1={y} y2={y} stroke="#E3E5DE"/><text x="45" y={y+4} textAnchor="end" fontSize="14" fill="#6B6E68">{value.toLocaleString()}</text></g>})}
-    {chartYears.map((year,index)=>{const groupX=58+(index+0.5)*898/chartYears.length-29;const darkHeight=darkValues[index]/max*244;const lightHeight=lightValues[index]/max*244;return <g key={year} className={styles.barGroup} style={{ animationDelay: `${index * 65}ms` }}><rect className="animate-industry-chart-bar" x={groupX} y={295-darkHeight} width="28" height={darkHeight} fill="#ad271b"/><rect className="animate-industry-chart-bar" x={groupX+30} y={295-lightHeight} width="28" height={lightHeight} fill="#de6b52"/><text x={groupX+14} y={285-darkHeight} textAnchor="middle" fontSize="14" fontWeight="700" fill="#252D02">{darkValues[index].toLocaleString()}</text><text x={groupX+44} y={285-lightHeight} textAnchor="middle" fontSize="14" fontWeight="700" fill="#252D02">{lightValues[index].toLocaleString()}</text><text x={groupX+29} y="319" textAnchor="middle" fontSize="14" fill="#252D02">{year}</text></g>})}
-  </svg><div className={styles.legend}>{legend.map((label, index) => <span key={label} className="inline-flex items-center gap-2"><i className={`size-2.5 shrink-0 rounded-full ${index === 0 ? "bg-[#ad271b]" : "bg-[#de6b52]"}`} /><em>{label}</em></span>)}</div><figcaption data-source-caption><PublicSafetySourceText text={"Source: NCVER, Total VET students and courses: VOCSTATS, 2026"} /></figcaption></figure>;
+    {ticks.map((value)=>{const y=295-value/max*244;return <g key={value}><line x1="58" x2="956" y1={y} y2={y} stroke="#E3E5DE"/><text x={mode.startsWith("surf-") ? 58 : useLargeChartText ? 54 : 45} y={y+4} textAnchor="end" fontSize={chartTextSize} fill="#6B6E68">{value.toLocaleString()}</text></g>})}
+    {chartYears.map((year,index)=>{const groupX=58+(index+0.5)*898/chartYears.length-29;const darkHeight=darkValues[index]/max*244;const lightHeight=lightValues[index]/max*244;const staggerLabels=useLargeChartText && Math.abs(darkHeight-lightHeight)<24;return <g key={year} className={styles.barGroup} style={{ animationDelay: `${index * 65}ms` }}><rect className="animate-industry-chart-bar" x={groupX} y={295-darkHeight} width="28" height={darkHeight} fill="#ad271b"/><rect className="animate-industry-chart-bar" x={groupX+30} y={295-lightHeight} width="28" height={lightHeight} fill="#de6b52"/><text x={groupX+14} y={285-darkHeight-(staggerLabels && darkHeight>=lightHeight ? labelStaggerDistance : 0)} textAnchor="middle" fontSize={chartTextSize} fontWeight="700" fill="#252D02">{darkValues[index].toLocaleString()}</text><text x={groupX+44} y={285-lightHeight-(staggerLabels && lightHeight>darkHeight ? labelStaggerDistance : 0)} textAnchor="middle" fontSize={chartTextSize} fontWeight="700" fill="#252D02">{lightValues[index].toLocaleString()}</text><text x={groupX+29} y="319" textAnchor="middle" fontSize={chartTextSize} fill="#252D02">{year}</text></g>})}
+  </svg><div className={styles.legend}>{legend.map((label, index) => <span key={label} className="inline-flex items-center gap-2"><i className={`size-2.5 shrink-0 rounded-full ${index === 0 ? "bg-[#ad271b]" : "bg-[#de6b52]"}`} /><em>{label}</em></span>)}</div><figcaption data-source-caption>Source: NCVER, <PublicSafetySourceLink href="https://www.ncver.edu.au/research-and-statistics/vocstats">Total VET students and courses: VOCSTATS</PublicSafetySourceLink>, 2026</figcaption></figure>;
 }
 
 const jurisdictionData: Record<string, [string, string, string][]> = {
@@ -102,7 +113,7 @@ function JurisdictionChart() {
     </div>
 
     <p><strong>Data are headcount except where * indicates full-time equivalent.</strong></p>
-    <p data-source-caption className={styles.mapSource}><PublicSafetySourceText text={"SOURCE: Report on Government Services, Emergency services for fire and other events, 2026; Surf Life Saving Australia, 2024/25 Annual Report, 2025."} /></p>
+    <p data-source-caption className={styles.mapSource}><PublicSafetySourceText text={"Source: Report on Government Services, Emergency Services for fire and other events, 2026; Surf Life Saving Australia, 2024/25 Annual Report, 2025"} /></p>
   </section>;
 }
 

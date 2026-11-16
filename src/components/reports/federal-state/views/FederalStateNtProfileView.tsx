@@ -1,5 +1,6 @@
 "use client";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 
@@ -125,18 +126,29 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
               <h3 className="text-lg font-bold text-[#292522]">Northern Territory Public Sector Employees - Gender</h3>
               <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
                 <div className="min-w-0">
-                  <div role="img" aria-label="Female 63.3%, male 36.5%, did not disclose 0.2%" className="relative mx-auto w-full max-w-[340px] pb-8">
-                    <div className="mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#BBA38F 0 63.3%, #807064 63.3% 99.8%, #DFD3C6 99.8% 100%)" }}>
-                      <div className="h-[75%] w-[75%] rounded-full bg-[#F8EEE8]" />
-                    </div>
-                    <span className="absolute right-0 top-0 text-2xl font-bold text-[#807064]">63.3%</span>
-                    <span className="absolute bottom-7 left-0 text-2xl font-bold text-[#807064]">36.5%</span>
-                    <span className="absolute bottom-0 right-5 text-2xl font-bold text-[#807064]">0.2%</span>
+                  <div role="img" aria-label="Female 63.3%, male 36.5%, did not disclose 0.2%" className="mx-auto w-full max-w-[340px]">
+                    <svg aria-hidden="true" viewBox="0 0 400 340" className="block w-full">
+                      <g transform="rotate(-90 200 180)" fill="none" strokeWidth="28">
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.female} strokeDasharray="63.3 36.7" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.male} strokeDasharray="36.5 63.5" strokeDashoffset="-63.3" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.other} strokeDasharray="0.2 99.8" strokeDashoffset="-99.8" />
+                      </g>
+                      <g fill="none" stroke={genderChartPalette.male} strokeWidth="1.5">
+                        <path d="M 313.3 230.3 L 334 240" />
+                        <path d="M 86.4 130.4 L 66 121" />
+                        <path d="M 199.2 56 L 199.2 36" />
+                      </g>
+                      <g fill={genderChartPalette.male} fontSize="24" fontWeight="700">
+                        <text data-nt-gender-label="female" x="396" y="263" textAnchor="end">63.3%</text>
+                        <text data-nt-gender-label="male" x="4" y="112">36.5%</text>
+                        <text data-nt-gender-label="did-not-disclose" x="200" y="28" textAnchor="middle">0.2%</text>
+                      </g>
+                    </svg>
                   </div>
                   <ul className="mt-3 space-y-1.5 text-sm text-[#292522]">
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Did not disclose</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.female }} />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.male }} />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.other }} />Did not disclose</li>
                   </ul>
 
                 </div>
@@ -144,7 +156,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
                   <DocumentGenderGraphic panel />
                   <div className="mt-auto pt-3">
                     <strong className="block text-4xl leading-none">5.3%</strong>
-                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <p className="mt-1 text-base font-semibold leading-tight">Women&apos;s<br />Gender Pay Gap</p>
                     <p data-citation-copy className="mt-2 text-sm leading-6 text-black rounded-md bg-white p-2"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–25, 2025, pg. 17</SourceLink></p>
                   </div>
                 </div>

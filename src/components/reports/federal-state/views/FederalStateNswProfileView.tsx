@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 
@@ -149,26 +150,37 @@ export function FederalStateNswProfileContent({ slug, showJurisdictionLinks = tr
               <h3 className="text-lg font-bold text-[#292522]">NSW Public Sector Employees by Gender</h3>
               <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
                 <div className="min-w-0">
-                  <div role="img" aria-label="Female 66.6%, male 33.3%, non-binary 0.1%" className="relative mx-auto w-full max-w-[340px] pb-8">
-                    <div className={`mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ background: "conic-gradient(#BBA38F 0 66.6%, #807064 66.6% 99.9%, #DFD3C6 99.9% 100%)", animationDelay: "0.12s" }}>
-                      <div className="h-[75%] w-[75%] rounded-full bg-[#F8EEE8]" />
-                    </div>
-                    <span className={`absolute right-0 top-0 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.22s" }}>66.6%</span>
-                    <span className={`absolute bottom-7 left-0 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.3s" }}>33.3%</span>
-                    <span className={`absolute bottom-0 right-5 text-2xl font-bold text-[#807064] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.38s" }}>0.1%</span>
+                  <div role="img" aria-label="Female 66.6%, male 33.3%, non-binary 0.1%" className="mx-auto w-full max-w-[340px]">
+                    <svg aria-hidden="true" viewBox="0 0 400 340" className={`block w-full ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.12s" }}>
+                      <g transform="rotate(-90 200 180)" fill="none" strokeWidth="28">
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.female} strokeDasharray="66.6 33.4" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.male} strokeDasharray="33.3 66.7" strokeDashoffset="-66.6" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.other} strokeDasharray="0.1 99.9" strokeDashoffset="-99.9" />
+                      </g>
+                      <g fill="none" stroke={genderChartPalette.male} strokeWidth="1.5">
+                        <path d="M 307.5 241.8 L 330 255" />
+                        <path d="M 92.2 118.6 L 73 107" />
+                        <path d="M 199.6 56 L 199.6 36" />
+                      </g>
+                      <g fill="#807064" fontSize="24" fontWeight="700">
+                        <text data-nsw-gender-label="female" x="396" y="278" textAnchor="end">66.6%</text>
+                        <text data-nsw-gender-label="male" x="4" y="99">33.3%</text>
+                        <text data-nsw-gender-label="non-binary" x="200" y="28" textAnchor="middle">0.1%</text>
+                      </g>
+                    </svg>
                   </div>
                   <ul className={`mt-3 space-y-1.5 text-sm text-[#292522] ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.42s" }}>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Non-binary</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.female }} />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.male }} />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.other }} />Non-binary</li>
                   </ul>
 
                 </div>
                 <div className={`flex min-h-[310px] flex-col bg-[#807064] p-4 text-white ${genderVisible ? "animate-card-entrance motion-reduce:animate-none" : ""}`} style={{ animationDelay: "0.24s" }}>
                   <DocumentGenderGraphic panel />
                   <div className="mt-auto pt-3">
-                    <strong className="block text-4xl leading-none">7.3%</strong>
-                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <strong className="block text-4xl leading-none">-7.3%</strong>
+                    <p className="mt-1 text-base font-semibold leading-tight">Women&apos;s<br />Gender Pay Gap</p>
                     <p data-citation-copy className="mt-2 text-sm leading-6 text-black rounded-md bg-white p-2">Source: NSW Government,<br /><SourceLink row={55}>Workforce Profile Report</SourceLink> 2025, pg. 3</p>
                   </div>
                 </div>
