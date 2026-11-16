@@ -59,14 +59,14 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
     <section className={`${styles.detail} ${styles.insightTwoDetail} ${styles.animatedSection} animate-slide-up-delay`}>
       <h2>Access to disaster recovery training</h2>
       <div className={styles.narrative}>
-        <div className="max-w-[800px]">
+        <div className="max-w-[900px]">
           <p>Despite the relevance and importance of disaster recovery training, there are limited TAFEs and RTOs equipped to deliver this training. For example:</p>
           <ul className="list-disc ps-5">
             <li>seven of the nine newly developed skill sets are not on scope for any RTO</li>
             <li>only one RTO has the qualification and four associated units of competency on scope</li>
             <li>only five RTOs have the <em>PUASS00098 Manage a Recovery Centre</em> skill set on scope.<sup><PublicSafetyFootnoteLink number={58} /></sup></li>
           </ul>
-          <p>Additionally, there have been no enrolment or completion data for all 14 recovery training products since their release in 2022<sup><a href={vocstatsSourceUrl} target="_blank" rel="noopener noreferrer" aria-label="Open original source 59" className="underline decoration-current underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-4">59</a></sup>.</p>
+          <p>Additionally, there have been no enrolment or completion data for all 14 recovery training products since their release in <span className="whitespace-nowrap">2022<sup><a href={vocstatsSourceUrl} target="_blank" rel="noopener noreferrer" aria-label="Open original source 59" className="underline decoration-current underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-4">59</a></sup>.</span></p>
         </div>
       </div>
     </section>

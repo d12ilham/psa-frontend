@@ -56,7 +56,9 @@ export default function Theme2InsightSubView({
           {insightId === 4 && (
             <button
               onClick={() =>
-                router.push(`/reports/${slug}/workforce_strategies`)
+                router.push(
+                  `/reports/${slug}/workforce_insights?insight=contextualisation`,
+                )
               }
               className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
             >

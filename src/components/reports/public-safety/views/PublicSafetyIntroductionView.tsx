@@ -74,7 +74,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
               {PUBLIC_SAFETY_AT_A_GLANCE.map((stat, index) => (
                 <div
                   key={index}
-                  className={`rounded-xl border border-gray200/60 bg-white p-4 transition-all duration-300 hover:shadow-xs ${
+                  className={`rounded-xl border border-gray200/60 bg-white p-4 transition-all duration-300 hover:shadow-xs ${index === 0 ? "col-span-2" : ""} ${
                     stat.metrics.length > 1
                       ? "flex items-start justify-between gap-4"
                       : "flex flex-col items-start justify-start"

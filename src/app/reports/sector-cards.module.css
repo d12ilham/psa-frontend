@@ -37,6 +37,10 @@
   box-shadow: inset 0 0 0 2px var(--sector-outline);
 }
 
+.card[data-sector="public-safety"]::after {
+  box-shadow: inset 0 0 0 2px var(--sector-outline);
+}
+
 /* The existing Figma exports include their original perimeter strokes. */
 .cover {
   position: absolute;

@@ -17,11 +17,12 @@
 .packageTag { display: inline-flex; align-items: center; min-height: 40px; padding: 10px 20px; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; line-height: 20px; text-transform: uppercase; }
 .packageCard h3 { margin-top: 16px; font-size: 20px; font-weight: 700; line-height: 28px; }
 .packageCard p { margin-top: 16px; color: #598303; font-size: 18px; font-weight: 700; line-height: 28px; }
-.sharedIntro { margin-top: 24px; font-size: 14px; font-weight: 500; line-height: 24px; text-transform: uppercase; }
+.sharedIntro { margin-top: 24px; font-size: 24px; font-weight: 700; line-height: 32px; text-transform: uppercase; }
 .sharedGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
 .sharedCard { position: relative; min-width: 0; min-height: 192px; padding: 16px 16px 16px 64px; border-radius: 8px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: #f0f5df; transition: transform .3s, background-color .3s, box-shadow .3s; }
 .number { position: absolute; top: 16px; left: 16px; width: 28px; color: #598303; opacity: .1; font-size: 52px; font-weight: 700; line-height: 50px; text-align: right; }
 .sharedCard h3 { font-size: 16px; font-weight: 700; line-height: 22px; }
+.sharedGrid .sharedCard h3 { min-height: 44px; }
 .sharedCard p { margin-top: 20px; font-size: 14px; line-height: 24px; }
 .note { padding: 24px; border-radius: 14px; background: linear-gradient(to right, #598303 8px, white 8px); }
 .note p { max-width: 1000px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
