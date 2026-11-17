@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import Link from "next/link";
 import { BrainCircuit, Download, Languages, MapPin, UsersRound } from "lucide-react";
@@ -42,12 +43,14 @@ export default function CorrectionalServicesLookingForwardView({ slug, report }:
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="looking_forward"
-          pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
-          prev={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="looking_forward"
+            pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
+            prev={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid min-h-[285px] items-center gap-8 rounded-md border border-[#ECECE5] bg-white px-6 py-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] lg:px-8">
           <div className="animate-slide-up motion-reduce:animate-none">

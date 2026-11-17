@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -72,7 +73,9 @@ export default function CorrectionalServicesMethodologyView({
       <ReportHeader slug={slug} report={report} currentPage="methodology" />
 
       <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="methodology" />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="methodology" />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 animate-slide-up">
           <h1 className="mb-3 text-[32px] font-bold leading-[1.25] text-[#252D02] sm:text-[40px] sm:leading-[54px]">

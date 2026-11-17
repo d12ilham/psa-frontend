@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useRef, useState } from "react";
 import { correctionalInsights, correctionalTheme } from "../data/workforceInsights";
 import { useRouter } from "next/navigation";
@@ -53,12 +54,14 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights_2026" />
       <main ref={mainRef} className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Workforce Insights Introduction", href: `/reports/${slug}/workforce_insights` }}
-          next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Workforce Insights Introduction", href: `/reports/${slug}/workforce_insights` }}
+            next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid items-center gap-8 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:px-8">
           <div className="max-w-[850px] text-pretty animate-slide-up">

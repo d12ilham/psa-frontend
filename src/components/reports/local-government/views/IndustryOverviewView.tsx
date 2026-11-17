@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -48,7 +49,9 @@ export default function IndustryOverviewView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons slug={slug} currentPage="industry_overview" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="industry_overview" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-8">

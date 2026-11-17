@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -303,21 +304,23 @@ export default function FederalGovernmentInitiativesView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button data-report-action="secondary"
-            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Existing
-            Industry-Sector Strategies
-          </button>
-          <button data-report-action="primary"
-            onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            Next Section: 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to Existing
+              Industry-Sector Strategies
+            </button>
+            <button data-report-action="primary"
+              onClick={() => router.push(`/reports/${slug}/looking_forward`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              Next Section: 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">

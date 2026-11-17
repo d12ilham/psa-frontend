@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import { BookOpenCheck, ChevronDown } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -219,7 +220,9 @@ export default function CorrectionalServicesWorkforceInsightsView({
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
 
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="workforce_insights" prev={{ label: "2026 Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }} next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }} />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="workforce_insights" prev={{ label: "2026 Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }} next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }} />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
           <div className="lg:col-span-8 space-y-4">

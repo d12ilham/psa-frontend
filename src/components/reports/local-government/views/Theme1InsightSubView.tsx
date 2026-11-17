@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Users, MessageSquare } from "lucide-react";
@@ -22,52 +23,54 @@ export default function Theme1InsightSubView({
   return (
     <div className="space-y-8">
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <button data-report-action="secondary"
-          onClick={onBackToOverview}
-          className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          <span>Back to Workforce Insights</span>
-        </button>
+      <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center justify-end gap-4">
+          <button data-report-action="secondary"
+            onClick={onBackToOverview}
+            className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span>Back to Workforce Insights</span>
+          </button>
 
-        <div className="flex items-center gap-4 self-end sm:self-auto">
-          <span className="text-xs font-semibold text-notes">
-            Insight {insightId} of 3 · Theme 1
-          </span>
-          <div className="flex items-center gap-2">
-            <button data-report-action="primary"
-              onClick={() => {
-                if (insightId > 1) onNavigateInsight(insightId - 1);
-              }}
-              disabled={insightId <= 1}
-              className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${
-                insightId <= 1
-                  ? "opacity-40 cursor-not-allowed text-gray600 border-gray200"
-                  : "hover:bg-gray200 text-[#252D02] cursor-pointer"
-              }`}
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Previous</span>
-            </button>
+          <div className="flex items-center gap-4 self-end sm:self-auto">
+            <span className="text-xs font-semibold text-notes">
+              Insight {insightId} of 3 · Theme 1
+            </span>
+            <div className="flex items-center gap-2">
+              <button data-report-action="primary"
+                onClick={() => {
+                  if (insightId > 1) onNavigateInsight(insightId - 1);
+                }}
+                disabled={insightId <= 1}
+                className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${
+                  insightId <= 1
+                    ? "opacity-40 cursor-not-allowed text-gray600 border-gray200"
+                    : "hover:bg-gray200 text-[#252D02] cursor-pointer"
+                }`}
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>Previous</span>
+              </button>
 
-            <button data-report-action="primary"
-              onClick={() => {
-                if (insightId < 3) onNavigateInsight(insightId + 1);
-              }}
-              disabled={insightId >= 3}
-              className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${
-                insightId >= 3
-                  ? "opacity-40 cursor-not-allowed text-gray600 border-gray200"
-                  : "hover:bg-gray200 text-[#252D02] cursor-pointer"
-              }`}
-            >
-              <span>Next</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+              <button data-report-action="primary"
+                onClick={() => {
+                  if (insightId < 3) onNavigateInsight(insightId + 1);
+                }}
+                disabled={insightId >= 3}
+                className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${
+                  insightId >= 3
+                    ? "opacity-40 cursor-not-allowed text-gray600 border-gray200"
+                    : "hover:bg-gray200 text-[#252D02] cursor-pointer"
+                }`}
+              >
+                <span>Next</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </LocalGovernmentReportUtilityRow>
 
       {/* ── HERO BANNER CONTAINER (WHITE BG WRAPPER) ── */}
       {insightId === 1 && (

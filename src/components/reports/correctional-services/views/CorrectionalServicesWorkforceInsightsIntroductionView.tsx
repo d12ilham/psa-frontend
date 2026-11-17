@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -43,12 +44,14 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-          next={{ label: "2026 Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
+            next={{ label: "2026 Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid items-center gap-6 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,1fr)_389px] lg:px-8">
           <h1 className="min-w-0 animate-slide-up text-[30px] font-semibold leading-[1.15] text-[#424996] sm:text-[40px] lg:col-span-2 lg:text-[clamp(1.5rem,calc(3.5vw_-_8px),2.5rem)]">

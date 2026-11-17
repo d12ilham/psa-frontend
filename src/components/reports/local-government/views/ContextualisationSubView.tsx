@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -18,27 +19,29 @@ export default function ContextualisationSubView({
   return (
     <div className="space-y-8">
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <button data-report-action="secondary"
-            onClick={onBackToOverview}
-            className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Back to Workforce Insights</span>
-          </button>
+      <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center justify-end gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={onBackToOverview}
+              className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Workforce Insights</span>
+            </button>
 
-          <button data-report-action="primary"
-            onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
-            className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <span>
-              Next Section: 2026 Proposed Local Government Workforce Strategies
-            </span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
+            <button data-report-action="primary"
+              onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
+              className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <span>
+                Next Section: 2026 Proposed Local Government Workforce Strategies
+              </span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
         </div>
-      </div>
+      </LocalGovernmentReportUtilityRow>
 
       {/* ── TOP HERO CARD ── */}
       <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-4">

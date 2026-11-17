@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import { MapPinned } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -131,7 +132,9 @@ export default function CorrectionalServicesStateTerritoryView({
       <ReportHeader slug={slug} report={report} currentPage="state_territory" />
 
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        <ReportNavButtons slug={slug} currentPage="state_territory" />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="state_territory" />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:grid-cols-12">
           <div className="lg:col-span-8 space-y-4">

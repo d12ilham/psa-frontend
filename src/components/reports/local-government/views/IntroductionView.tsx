@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -130,7 +131,9 @@ export default function IntroductionView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
-        <ReportNavButtons slug={slug} currentPage="introduction" />
+        <LocalGovernmentReportUtilityRow>
+            <ReportNavButtons slug={slug} currentPage="introduction" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* Top Hero Section */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-8 xl:gap-[100px]">

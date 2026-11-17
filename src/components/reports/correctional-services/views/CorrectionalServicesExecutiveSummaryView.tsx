@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import { correctionalInsights } from "../data/workforceInsights";
 import Image from "next/image";
@@ -122,7 +123,9 @@ export default function CorrectionalServicesExecutiveSummaryView({
       <ReportHeader slug={slug} report={report} currentPage="executive_summary" />
 
       <main ref={mainRef} className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="executive_summary" />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="executive_summary" />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[214px] flex-col justify-between gap-6 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:flex-row lg:items-center">
           <div className="max-w-[800px] animate-slide-up">

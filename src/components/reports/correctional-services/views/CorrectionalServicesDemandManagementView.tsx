@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -77,13 +78,15 @@ export default function CorrectionalServicesDemandManagementView({ slug, report 
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="update_2024_demand_management" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-5 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="update_2024_demand_management"
-          prev={{ label: "Update on 2024 Strategies", href: `/reports/${slug}/update_2024_strategies` }}
-          next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="update_2024_demand_management"
+            prev={{ label: "Update on 2024 Strategies", href: `/reports/${slug}/update_2024_strategies` }}
+            next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[232px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[820px]">

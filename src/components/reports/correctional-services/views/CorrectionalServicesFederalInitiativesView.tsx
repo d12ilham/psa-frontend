@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -248,13 +249,15 @@ export default function CorrectionalServicesFederalInitiativesView({
       <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
 
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="federal_initiatives"
-          prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
-          next={{ label: "Looking Forward", href: `/reports/${slug}/looking_forward` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="federal_initiatives"
+            prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
+            next={{ label: "Looking Forward", href: `/reports/${slug}/looking_forward` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[298px] flex-col justify-between gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:flex-row lg:items-center">
           <div className="min-w-0">

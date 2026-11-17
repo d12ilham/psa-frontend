@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -41,14 +42,16 @@ export default function LookingForwardView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
-        <div className="flex items-center">
-          <button data-report-action="secondary"
-            onClick={() => router.push(`/reports/${slug}/executive_summary`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0 cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Executive Summary
-          </button>
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div className="flex items-center">
+            <button data-report-action="secondary"
+              onClick={() => router.push(`/reports/${slug}/executive_summary`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0 cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to Executive Summary
+            </button>
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="group bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 transition-[border-color,box-shadow] duration-300 hover:border-[#B2DB79] hover:shadow-md">

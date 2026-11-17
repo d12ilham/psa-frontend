@@ -1,5 +1,6 @@
 "use client";
 
+import PublicSafetyReportUtilityRow from "../PublicSafetyReportUtilityRow";
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
 import { ChevronDown, Download, Menu, X } from "lucide-react";
@@ -21,18 +22,20 @@ export default function PublicSafetyPageShell({ slug, report, currentPage, child
     <div className="min-h-screen bg-[#FAFAF0] text-[#252D02] font-sans flex flex-col antialiased selection:bg-[#8AC900]/30">
       <PublicSafetyHeader slug={slug} report={report} currentPage={currentPage} />
       <main data-public-safety-report className={`mx-auto w-full max-w-[1488px] flex-1 space-y-6 px-4 py-6 sm:px-6 ${contentClassName}`}>
-        <ReportNavButtons
-          slug={slug}
-          currentPage={currentPage}
-          prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : undefined)}
-          next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Methodology", href: `/reports/${slug}/methodology` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
-          back={navigation?.back}
-          backSecondary={navigation?.backSecondary}
-          prevPrefix={navigation?.prevPrefix}
-          nextPrefix={navigation?.nextPrefix}
-          onPrevious={navigation?.onPrevious}
-          pagesOrder={navigation?.pagesOrder}
-        />
+        <PublicSafetyReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage={currentPage}
+            prev={navigation?.prev ?? (currentPage === "executive_summary" ? { label: "About Public Skills Australia", href: `/reports/${slug}/about` } : currentPage === "introduction" || currentPage === "methodology" ? { label: "Public Safety Overview", href: `/reports/${slug}` } : currentPage === "about" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : undefined)}
+            next={navigation?.next ?? (currentPage === "executive_summary" ? { label: "Introduction", href: `/reports/${slug}/introduction` } : currentPage === "about" ? { label: "Methodology", href: `/reports/${slug}/methodology` } : currentPage === "methodology" ? { label: "Drivers of Change", href: `/reports/${slug}/drivers_of_change` } : undefined)}
+            back={navigation?.back}
+            backSecondary={navigation?.backSecondary}
+            prevPrefix={navigation?.prevPrefix}
+            nextPrefix={navigation?.nextPrefix}
+            onPrevious={navigation?.onPrevious}
+            pagesOrder={navigation?.pagesOrder}
+          />
+        </PublicSafetyReportUtilityRow>
         {children}
       </main>
       <ReportFooter

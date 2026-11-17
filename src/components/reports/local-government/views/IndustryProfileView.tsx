@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -174,7 +175,9 @@ export default function IndustryProfileView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons slug={slug} currentPage="industry_profile" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="industry_profile" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

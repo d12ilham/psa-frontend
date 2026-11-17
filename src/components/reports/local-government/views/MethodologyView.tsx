@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -73,7 +74,9 @@ export default function MethodologyView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="methodology" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="methodology" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">

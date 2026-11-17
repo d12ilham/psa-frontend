@@ -100,7 +100,7 @@ export default function FederalStateExistingStrategiesFrameView({ slug, report }
           </button>)}
         </nav>
 
-        <section data-report-surface="neutral" ref={panelRef} id="existing-strategy-panel" aria-labelledby="existing-strategy-detail-title" aria-live="polite" className={`${styles.panel} animate-slide-up-delay rounded-md bg-[#EDE9DF] p-4 sm:p-5`}>
+        <section ref={panelRef} id="existing-strategy-panel" aria-labelledby="existing-strategy-detail-title" aria-live="polite" className={`${styles.panel} animate-slide-up-delay rounded-md bg-[#EDE9DF] p-4 sm:p-5`}>
           <div className={styles.context}>
             <div data-strategy-detail-controls className="flex shrink-0 flex-wrap items-center justify-between gap-3">
               <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-xs font-medium text-white">{String(selected + 1).padStart(2, "0")} · {strategy.source}</span>

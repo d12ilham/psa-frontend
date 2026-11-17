@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { correctionalInsights } from "../data/workforceInsights";
@@ -108,14 +109,16 @@ export default function CorrectionalServicesWorkforceInsightTwoView({ slug, repo
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Theme 1 – PSA Insight 1", href: `/reports/${slug}/workforce_insights_skills_capabilities` }}
-          next={{ label: "Theme 1 – PSA Insight 3", href: `/reports/${slug}/workforce_insights_career_pathways` }}
-          prevPrefix=""
-          nextPrefix="Next Insight:"
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Theme 1 – PSA Insight 1", href: `/reports/${slug}/workforce_insights_skills_capabilities` }}
+            next={{ label: "Theme 1 – PSA Insight 3", href: `/reports/${slug}/workforce_insights_career_pathways` }}
+            prevPrefix=""
+            nextPrefix="Next Insight:"
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-5 sm:p-6">
           <div data-report-surface="neutral" className="flex min-h-[274px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-5 py-6 sm:px-7 lg:flex-row lg:items-center lg:justify-between">

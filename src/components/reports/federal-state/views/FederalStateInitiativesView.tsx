@@ -304,7 +304,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
           </button>)}
         </nav>
 
-        <section data-report-surface="neutral" ref={panelRef} id="federal-initiative-panel" aria-labelledby="federal-initiative-title" aria-live="polite" className={`${styles.panel} animate-card-entrance rounded-md bg-[#E5E8DC] p-4 motion-reduce:animate-none sm:p-6`} style={{ animationDelay: "0.18s" }}>
+        <section ref={panelRef} id="federal-initiative-panel" aria-labelledby="federal-initiative-title" aria-live="polite" className={`${styles.panel} animate-card-entrance rounded-md bg-[#E5E8DC] p-4 motion-reduce:animate-none sm:p-6`} style={{ animationDelay: "0.18s" }}>
           <div data-initiative-context className={styles.context}>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="inline-flex max-w-full rounded-full bg-[#754C2D] px-5 py-2 text-xs font-medium text-white">{String(selected + 1).padStart(2, "0")} · {initiative.source}{selected < 3 && initiative.period ? ` ${initiative.period}` : ""}</span>

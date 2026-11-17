@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { MessageSquareText, UserRound } from "lucide-react";
@@ -69,14 +70,16 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
       <main ref={mainRef} className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Theme 1 – PSA Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
-          next={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
-          prevPrefix=""
-          nextPrefix="Next Section:"
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Theme 1 – PSA Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
+            next={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+            prevPrefix=""
+            nextPrefix="Next Section:"
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section data-career-reveal="hero" className={`rounded-[14px] border border-[#E9EAEB] bg-white p-5 motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 sm:p-6 ${revealClass("hero")}`}>
           <div data-report-surface="neutral" className="group flex min-h-[274px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-5 py-6 transition-colors duration-300 hover:bg-[#E3E5EF] motion-reduce:transition-none sm:px-7 lg:flex-row lg:items-center lg:justify-between">

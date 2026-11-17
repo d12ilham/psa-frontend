@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -119,11 +120,13 @@ export default function CorrectionalServicesIndustryOverviewView({
       <ReportHeader slug={slug} report={report} currentPage="industry_overview" />
 
       <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_overview"
-          next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="industry_overview"
+            next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile_presentation` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <div className="flex flex-col gap-6 lg:min-h-[220px] lg:flex-row lg:items-center lg:justify-between">

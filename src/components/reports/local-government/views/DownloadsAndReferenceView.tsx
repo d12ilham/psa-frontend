@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -42,23 +43,25 @@ export default function DownloadsAndReferenceView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
-        <div>
-          {is2025Report ? (
-            <Link data-report-action="secondary"
-              href="/reports/local-government-workforce-insights-report/introduction"
-              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full inline-flex items-center gap-2 transition-colors no-underline"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 report
-            </Link>
-          ) : (
-            <button data-report-action="secondary"
-              onClick={() => router.push(`/reports/${slug}/introduction`)}
-              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> Back to Introduction
-            </button>
-          )}
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div>
+            {is2025Report ? (
+              <Link data-report-action="secondary"
+                href="/reports/local-government-workforce-insights-report/introduction"
+                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full inline-flex items-center gap-2 transition-colors no-underline"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 report
+              </Link>
+            ) : (
+              <button data-report-action="secondary"
+                onClick={() => router.push(`/reports/${slug}/introduction`)}
+                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back to Introduction
+              </button>
+            )}
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="relative bg-white border border-gray200 rounded-2xl p-6 overflow-hidden flex items-center justify-between min-h-[140px]">

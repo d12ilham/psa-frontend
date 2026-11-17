@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -194,12 +195,14 @@ export default function CorrectionalServicesIndustryProfileView({ slug, report }
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
 
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-10 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_profile"
-          prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }}
-          next={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_community` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="industry_profile"
+            prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }}
+            next={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_community` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <p className="text-xs font-bold uppercase leading-6 text-[#598303]">Data Story 1</p>

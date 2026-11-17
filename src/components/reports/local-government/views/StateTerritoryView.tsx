@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -1063,7 +1064,9 @@ export default function StateTerritoryView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons slug={slug} currentPage="state_territory" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="state_territory" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
@@ -1109,8 +1112,8 @@ export default function StateTerritoryView({
             {/* Jurisdiction Selector Pills */}
             <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-gray200">
               <span
-                className="text-xs font-bold text-notes uppercase 
-              
+                className="text-xs font-bold text-notes uppercase
+
               mr-3"
               >
                 CHOOSE A STATE OR TERRITORY

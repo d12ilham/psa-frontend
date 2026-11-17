@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -140,14 +141,16 @@ export default function WorkforceInsightsView({
           /* ── MAIN WORKFORCE INSIGHTS OVERVIEW GRID ── */
           <>
             {/* Sub-Header Navigation Buttons (Only on overview page) */}
-            <ReportNavButtons
-              slug={slug}
-              currentPage="workforce_insights"
-              prev={{
-                label: "Executive Summary",
-                href: `/reports/${slug}/executive_summary`,
-              }}
-            />
+            <LocalGovernmentReportUtilityRow>
+              <ReportNavButtons
+                slug={slug}
+                currentPage="workforce_insights"
+                prev={{
+                  label: "Executive Summary",
+                  href: `/reports/${slug}/executive_summary`,
+                }}
+              />
+            </LocalGovernmentReportUtilityRow>
 
             {/* Hero Card */}
             <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
@@ -46,9 +47,11 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <button data-report-action="secondary" type="button" onClick={handleBack} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] px-5 text-xs font-semibold text-[#54710F] animate-content-switch transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none motion-reduce:hover:translate-y-0">
-          <ArrowLeft className="size-4" aria-hidden="true" /> Back
-        </button>
+        <CorrectionalServicesReportUtilityRow>
+          <button data-report-action="secondary" type="button" onClick={handleBack} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] px-5 text-xs font-semibold text-[#54710F] animate-content-switch transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none motion-reduce:hover:translate-y-0">
+            <ArrowLeft className="size-4" aria-hidden="true" /> Back
+          </button>
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="relative flex min-h-[194px] items-center overflow-hidden rounded-md border border-[#ECECE5] bg-white px-6 py-8 sm:px-8">
           <div className="relative z-10 max-w-[1050px] animate-slide-up motion-reduce:animate-none">

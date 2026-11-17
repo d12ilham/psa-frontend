@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
@@ -197,7 +198,9 @@ export default function CorrectionalServicesDriversOfChangeView({
       <ReportHeader slug={slug} report={report} currentPage="drivers_of_change" />
 
       <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="drivers_of_change" prev={{ label: "Methodology", href: `/reports/${slug}/methodology` }} />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="drivers_of_change" prev={{ label: "Methodology", href: `/reports/${slug}/methodology` }} />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[286px] flex-col justify-between gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:flex-row lg:items-center">
           <div className="max-w-[800px] space-y-4">

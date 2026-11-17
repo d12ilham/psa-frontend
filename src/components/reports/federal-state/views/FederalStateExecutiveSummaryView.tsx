@@ -465,7 +465,7 @@ export default function FederalStateExecutiveSummaryView({
         <section aria-labelledby="summary-sources-title" className="rounded-2xl border border-gray200 bg-white p-6">
           <h2 id="summary-sources-title" className="text-xs font-bold text-gray800">Sources</h2>
           <ol className="mt-3 max-w-[80ch] space-y-3 text-xs leading-5 text-gray600">
-            {themeOverviewSources.map(({ number, text }) => <li data-citation-copy key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3 text-sm leading-6 text-black"><span className="font-semibold text-[#754C2D]">{number}</span><span><NumberedSource number={number} text={text} /></span></li>)}
+            {themeOverviewSources.map(({ number, text }) => <li data-citation-copy key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3 text-sm leading-6 text-black"><span className="min-w-[2ch] shrink-0 whitespace-nowrap font-semibold text-[#754C2D]">{number}</span><span className="min-w-0"><NumberedSource number={number} text={text.replace(/1 December 2025/g, "1\u00a0December\u00a02025")} /></span></li>)}
           </ol>
         </section>
       </main>

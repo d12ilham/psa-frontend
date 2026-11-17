@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import { BriefcaseBusiness, MessageSquareText, UserRound } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -33,14 +34,16 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
-          next={{ label: "Theme 1 – Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
-          prevPrefix=""
-          nextPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
+            next={{ label: "Theme 1 – Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
+            prevPrefix=""
+            nextPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">
           <div data-report-surface="neutral" className="flex min-h-[270px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">

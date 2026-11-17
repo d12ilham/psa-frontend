@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import PrisonCapacityChart from "./PrisonCapacityChart";
 import StateImprisonmentRateChart from "./StateImprisonmentRateChart";
@@ -466,7 +467,9 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="industry_profile" prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }} next={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights` }} prevPrefix="Previous Section:" />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="industry_profile" prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }} next={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights` }} prevPrefix="Previous Section:" />
+        </CorrectionalServicesReportUtilityRow>
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-[10px] font-bold text-white">Correctional Services · Industry Overview</span>
           <h1 className="mt-4 text-[32px] font-bold leading-tight text-[#252D02] sm:text-[40px]">Industry Profile</h1>

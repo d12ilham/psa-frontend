@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -36,13 +37,15 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="update_2024_strategies" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="update_2024_strategies"
-          prev={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
-          next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="update_2024_strategies"
+            prev={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+            next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[208px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[850px]">
