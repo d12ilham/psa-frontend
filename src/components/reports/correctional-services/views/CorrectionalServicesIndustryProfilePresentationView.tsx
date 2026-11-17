@@ -180,7 +180,7 @@ function FacilitiesMap() {
         ))}
         <button type="button" onClick={() => setSelected("ALL")} aria-pressed={selected === "ALL"}
           className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] ${selected === "ALL" ? "bg-[#8AC900] text-[#252D02]" : "bg-white text-[#252D02] hover:bg-[#DBE8B5]"}`}>
-          Compare All
+          Show All
         </button>
       </div>
       <div ref={mapRef} className="relative mt-4 min-h-[300px] sm:min-h-[440px]">
@@ -282,10 +282,6 @@ function ExpenditureMap({ visible }: { visible: boolean }) {
               <text x={x} y={y + 24} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600">{display}</text>
             </g>;
           })}
-          <g className="transition-opacity duration-500 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0, transitionDelay: "680ms" }}>
-            <text x="45" y="535" fill="#727DB1" fontSize="18">AUSTRALIA</text>
-            <text x="45" y="559" fill="#252D02" fontSize="22" fontWeight="600">$6.38 billion</text>
-          </g>
         </svg>
       </div>
       <p className="mt-2 text-[11px] leading-5 text-[#68723E]">Source: Productivity Commission 2026, Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.2.</p>

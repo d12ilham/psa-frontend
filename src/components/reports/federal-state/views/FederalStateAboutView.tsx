@@ -126,11 +126,11 @@ export default function FederalStateAboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Workforce.svg"
-                  alt="Workforce Insight and Strategy"
+                  alt="Workforce Planning (Workforce Insights)"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Workforce Insight and Strategy
+                  Workforce Planning (Workforce Insights)
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Undertakes data analysis, research and consultation to deepen
@@ -153,11 +153,11 @@ export default function FederalStateAboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Training.svg"
-                  alt="Training Product Quality & Development"
+                  alt="Training Product Development"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Training Product Quality & Development
+                  Training Product Development
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Develops quality training products to strengthen the skills
@@ -179,11 +179,11 @@ export default function FederalStateAboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Supports.svg"
-                  alt="Supports Career Pathways"
+                  alt="Implementation, Promotion and Monitoring"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Supports Career Pathways
+                  Implementation, Promotion and Monitoring
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Monitors and promotes the implementation of training products

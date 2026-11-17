@@ -34,7 +34,7 @@ const projects = [
   {
     label: "2025 Project 2",
     title: "Implementation Report",
-    body: "The Corrections Implementation Report 2025 focused on the skills maintenance and training challenges in relation to the implementation of the Certificate III in Correctional Practice. Public Skills Australia undertook a research and analysis project regarding the use of the qualification and made three recommendations. Further information about this Report can be found in the Workforce Insights: Update on 2025 Strategies section.",
+    body: "The Corrections Implementation Report 2025 (Implementation Report) focused on the skills maintenance and training challenges in relation to the implementation of the Certificate III in Correctional Practice. Public Skills Australia undertook a research and analysis project regarding the use of the qualification and made three recommendations. Further information about this Report can be found in the Workforce Insights: Update on 2025 Strategies section.",
   },
 ];
 

@@ -33,8 +33,8 @@ export const PUBLIC_SAFETY_AT_A_GLANCE = [
 ] as const;
 
 export const PUBLIC_SAFETY_FUNCTIONS = [
-  { title: "Workforce Insight and Strategy", description: "undertakes data analysis, research and consultation to deepen understandings of contemporary workforce challenges and what can be done to mitigate these challenges", icon: "/images/reports/about/Workforce.svg" },
-  { title: "Training Product Quality & Development", description: "develops quality training products to strengthen the skills and capabilities of Public Safety and Government workforces", icon: "/images/reports/about/Training.svg" },
-  { title: "Supports Career Pathways", description: "monitors and promotes the implementation of training products to support career pathways for the Public Safety and Government industry-sectors", icon: "/images/reports/about/Supports.svg" },
+  { title: "Workforce Planning (Workforce Insights)", description: "undertakes data analysis, research and consultation to deepen understandings of contemporary workforce challenges and what can be done to mitigate these challenges", icon: "/images/reports/about/Workforce.svg" },
+  { title: "Training Product Development", description: "develops quality training products to strengthen the skills and capabilities of Public Safety and Government workforces", icon: "/images/reports/about/Training.svg" },
+  { title: "Implementation, Promotion and Monitoring", description: "monitors and promotes the implementation of training products to support career pathways for the Public Safety and Government industry-sectors", icon: "/images/reports/about/Supports.svg" },
   { title: "Industry Stewardship", description: "consults with, advocates for and promotes the needs of the Public Safety and Government industry-sectors.", icon: "/images/reports/about/Industry.svg" },
 ] as const;

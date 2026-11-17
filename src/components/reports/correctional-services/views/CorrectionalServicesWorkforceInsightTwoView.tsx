@@ -38,10 +38,19 @@ function QualificationChart({ title, rows, maximum, loaded }: { title: string; r
       <figcaption className="text-lg font-semibold leading-6 text-[#12224F]">{title}</figcaption>
       <p className="mt-1 text-xs text-[#68769A]">Y axis: Enrolments vs Completions, 0–{maximum.toLocaleString()}</p>
       <div role="region" aria-label={`${title} chart`} tabIndex={0} className="mt-5 overflow-x-auto rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]">
-        <div className="min-w-[580px]">
-          <div className="grid h-[220px] grid-cols-5 gap-3 border-b border-[#3B4C77] px-1" role="img" aria-label={`${title}: ${rows.map(([year, enrolments, completions]) => `${year}, ${enrolments} enrolments and ${completions} completions`).join("; ")}`}>
+        <div className="grid min-w-[580px] grid-cols-[80px_minmax(0,1fr)]">
+          <div className="relative mt-[45px] h-[175px] border-r border-[#3B4C77]">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 rotate-180 whitespace-nowrap text-xs font-medium text-[#68769A] [writing-mode:vertical-rl]">Number of students</span>
+            {Array.from({ length: 7 }, (_, index) => index * maximum / 6).map((tick) => (
+              <span key={tick} className="absolute right-2 translate-y-1/2 text-[11px] tabular-nums text-[#68769A]" style={{ bottom: `${tick / maximum * 100}%` }}>{tick.toLocaleString()}</span>
+            ))}
+          </div>
+          <div className="relative grid h-[220px] grid-cols-5 gap-3 border-b border-[#3B4C77] px-1" role="img" aria-label={`${title}: ${rows.map(([year, enrolments, completions]) => `${year}, ${enrolments} enrolments and ${completions} completions`).join("; ")}`}>
+            {Array.from({ length: 6 }, (_, index) => (index + 1) * maximum / 6).map((tick) => (
+              <div key={tick} aria-hidden="true" className="pointer-events-none absolute inset-x-0 border-t border-[#E9EAEB]" style={{ bottom: `${tick / maximum * 175}px` }} />
+            ))}
             {rows.map(([year, enrolments, completions], index) => (
-              <div key={year} className="flex min-w-0 items-end justify-center gap-1 sm:gap-2">
+              <div key={year} className="relative flex min-w-0 items-end justify-center gap-1 sm:gap-2">
                 <div className="flex h-full w-[43%] flex-col justify-end">
                   <span className="mb-1 whitespace-nowrap text-center text-lg font-semibold leading-6 tabular-nums text-[#12224F]">{enrolments.toLocaleString()}</span>
                   <span
@@ -61,7 +70,7 @@ function QualificationChart({ title, rows, maximum, loaded }: { title: string; r
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-5 gap-3 px-1 pt-3 text-center text-sm text-[#68769A]">
+          <div className="col-start-2 grid grid-cols-5 gap-3 px-1 pt-3 text-center text-sm text-[#68769A]">
             {rows.map(([year]) => <span key={year}>{year}</span>)}
           </div>
         </div>
