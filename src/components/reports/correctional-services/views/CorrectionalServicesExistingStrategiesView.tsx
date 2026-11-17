@@ -296,7 +296,7 @@ export default function CorrectionalServicesExistingStrategiesView({
             {strategyEntries.map((group) => {
               const isActive = group.index === activeIndex;
               return (
-                <button
+                <button data-report-surface="neutral"
                   key={group.index}
                   type="button"
                   aria-current={isActive ? "true" : undefined}
@@ -319,15 +319,15 @@ export default function CorrectionalServicesExistingStrategiesView({
           <div ref={detailStartRef} tabIndex={0} role="region" aria-label="Selected strategy details" className="min-w-0 space-y-6 rounded-[14px] scroll-mt-[172px] focus-visible:outline-2 focus-visible:outline-[#424996] lg:sticky lg:top-[76px] lg:h-[var(--strategy-pane-height,calc(100dvh-100px))] lg:overflow-y-auto lg:overscroll-contain lg:scroll-mt-[76px]" aria-live="polite">
             {visibleIndices.map((index) => {
               const strategy = strategies[index];
-              return <article key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
-            <div data-strategy-heading className="sticky top-[156px] z-20 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-0">
+              return <article data-report-surface="neutral" key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
+            <div data-report-surface="neutral" data-strategy-heading className="sticky top-[156px] z-20 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-0">
               <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
-                <Link href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
+                <Link data-report-action="primary" href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
                   Next <ArrowRight size={17} />
                 </Link>
               ) : (
-                <button type="button" onClick={() => showStrategy(index + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
+                <button data-report-action="primary" type="button" onClick={() => showStrategy(index + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
                   Next <ArrowRight size={17} />
                 </button>
               )}
@@ -423,7 +423,7 @@ export default function CorrectionalServicesExistingStrategiesView({
                     ["2025 Workforce Strategies", strategy.update2025],
                     ["2026 Workforce Strategies", strategy.update2026],
                   ].filter(([, body]) => body && body !== "Not applicable.").map(([title, body], sectionIndex) => (
-                    <div
+                    <div data-report-surface="neutral"
                       key={title}
                       style={{ animationDelay: `${sectionIndex * 0.08}s` }}
                       className="rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-7 py-6 animate-card-entrance transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md motion-reduce:animate-none motion-reduce:transition-none"

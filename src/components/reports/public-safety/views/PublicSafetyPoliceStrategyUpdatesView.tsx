@@ -89,18 +89,18 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
           {projects.map((item, index) => (
             <button key={item.title} type="button" className={`${layout.projectButton} ${styles.projectButton}`} onClick={() => setActive(index)} aria-pressed={active === index}>
               <span><small>0{index + 1} · Completion: {item.completion}</small><strong>{item.title}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
 
-      <ReportSelectionPanel selection={active} label="Police project details"><article className={`${layout.panel} ${styles.panel}`}>
+      <ReportSelectionPanel selection={active} label="Police project details"><article data-report-surface="neutral" className={`${layout.panel} ${styles.panel}`}>
         <div className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · Completion: {project.completion}</span>
           <div className={layout.controls}>
-            {active > 0 && <button type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < projects.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < projects.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={project.title} className={`${layout.details} ${chapter.enter}`}>
@@ -125,7 +125,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             {project.futureUpdate && <p>{project.futureUpdate.split(/(Annual Plan)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</p>}
           </div>
 
-          <div className={`${layout.note} ${styles.note} ${styles.stakeholders}`}>
+          <div data-report-surface="neutral" className={`${layout.note} ${styles.note} ${styles.stakeholders}`}>
             <h4>Key Stakeholders</h4>
             <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
           </div>
@@ -137,7 +137,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
               ["Drivers of Change connections", project.driver],
               ...(project.connection ? [["2026 Police Strategies Connection", project.connection]] : []),
             ].map(([title, copy]) => (
-              <section key={title} className={`${layout.note} ${styles.note}`}>
+              <section data-report-surface="neutral" key={title} className={`${layout.note} ${styles.note}`}>
                 <h4>{title}</h4>
                 <p>{title === "2026 Police Strategies Connection" ? <>{copy.split(/(Develop Training Products for Digital Forensics)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</> : copy}</p>
               </section>

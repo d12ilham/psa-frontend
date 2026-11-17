@@ -34,7 +34,7 @@ export function ProfileColumnChart({ title, data, source, surface = "standard", 
               const down = item.value < 0;
               return <div key={index} className="relative min-w-0">
                 <span data-chart-value className="absolute inset-x-0 text-center text-base font-bold tabular-nums" style={{ bottom: down ? baseline - height - 28 : baseline + height + 8 }}>{item.text}</span>
-                {height > 0 && <div data-chart-bar className={`absolute left-1/2 w-[94%] max-w-[128px] -translate-x-1/2 ${down ? "rounded-b-sm" : "rounded-t-sm"} ${item.muted ? "bg-[#B7A89D]" : "bg-[#754D32]"}`} style={{ height, bottom: down ? baseline - height : baseline, backgroundColor: item.color }} />}
+                {height > 0 && <div data-report-surface="neutral" data-chart-bar className={`absolute left-1/2 w-[94%] max-w-[128px] -translate-x-1/2 ${down ? "rounded-b-sm" : "rounded-t-sm"} ${item.muted ? "bg-[#B7A89D]" : "bg-[#754D32]"}`} style={{ height, bottom: down ? baseline - height : baseline, backgroundColor: item.color }} />}
               </div>;
             })}
           </div>

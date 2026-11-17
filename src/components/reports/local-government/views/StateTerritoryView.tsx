@@ -1079,7 +1079,7 @@ export default function StateTerritoryView({
           {/* Mode Switcher Pill Segmented Control */}
           <div className="pt-2">
             <div className="inline-flex items-center bg-[#F0F5DF] p-1.5 rounded-full border border-gray200">
-              <button
+              <button data-report-action="primary"
                 onClick={() => setViewMode("single")}
                 className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "single"
@@ -1089,7 +1089,7 @@ export default function StateTerritoryView({
               >
                 Single state
               </button>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setViewMode("compare")}
                 className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "compare"
@@ -1117,7 +1117,7 @@ export default function StateTerritoryView({
               </span>
               {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map(
                 (code) => (
-                  <button
+                  <button data-report-action="primary"
                     key={code}
                     onClick={() => setSelectedState(code)}
                     className={`px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer text-gray800 ${
@@ -1215,7 +1215,7 @@ export default function StateTerritoryView({
                 {/* National Australia Map & Shortage Comparison Table */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   {/* Left Australia Map Box */}
-                  <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
+                  <div data-report-surface="neutral" className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-xl font-bold text-gray800 pt-1">
                         National
@@ -1224,7 +1224,7 @@ export default function StateTerritoryView({
 
                     {/* National Interactive Map with 1px #252D0221 border and 12px rounded corner */}
                     <div className="w-full flex items-center justify-center p-0">
-                      <div className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
+                      <div data-report-surface="neutral" className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
                         <AustraliaInteractiveMap
                           selectedState="NATIONAL"
                           stateNameScale={2}
@@ -1279,7 +1279,7 @@ export default function StateTerritoryView({
 
                       {/* Sort Pill Control */}
                       <div className="inline-flex items-center bg-[#FAFAF0] p-1 rounded-full border border-gray200 shrink-0">
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setSortBy("alpha")}
                           className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             sortBy === "alpha"
@@ -1289,7 +1289,7 @@ export default function StateTerritoryView({
                         >
                           A-Z
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setSortBy("shortages")}
                           title="Sort by the number of S ratings across AUS, NSW, NT, QLD, SA, TAS, VIC and WA, highest first"
                           className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
@@ -1306,7 +1306,7 @@ export default function StateTerritoryView({
                     {/* Rating Filters Row */}
                     <div>
                       <div className="inline-flex flex-wrap items-center bg-[#FAFAF0] p-1 rounded-full border border-gray200 gap-1">
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("all")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "all"
@@ -1316,7 +1316,7 @@ export default function StateTerritoryView({
                         >
                           All Ratings
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("shortage")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "shortage"
@@ -1326,7 +1326,7 @@ export default function StateTerritoryView({
                         >
                           Shortages
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("regional")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "regional"
@@ -1336,7 +1336,7 @@ export default function StateTerritoryView({
                         >
                           Regional shortage
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("noshortage")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "noshortage"
@@ -1569,7 +1569,7 @@ export default function StateTerritoryView({
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in"
               >
                 {/* Left Zoomed Map Box */}
-                <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
+                <div data-report-surface="neutral" className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-xl font-bold text-gray800 pt-1">
                       {currentState.name}
@@ -1676,7 +1676,7 @@ export default function StateTerritoryView({
                       </h4>
                     </div>
 
-                    <div className="bg-[#EBF1E4] border border-lg-dark border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-5">
+                    <div data-report-surface="neutral" className="bg-[#EBF1E4] border border-lg-dark border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-5">
                       <span className="text-xl font-bold text-lg-dark uppercase block">
                         TOP 5 OCCUPATIONAL SHORTAGES
                       </span>
@@ -1853,7 +1853,7 @@ export default function StateTerritoryView({
                       </h4>
                     </div>
 
-                    <div className="bg-[#EBF1E4] border border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-3.5">
+                    <div data-report-surface="neutral" className="bg-[#EBF1E4] border border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-3.5">
                       <span className="text-sm font-bold text-notes uppercase block">
                         LOCAL GOVERNMENT SPECIFIC OCCUPATIONAL SHORTAGES
                       </span>
@@ -1915,7 +1915,7 @@ export default function StateTerritoryView({
               </div>
 
               {/* Dual Percentage Items Container with #F0F5DF bg */}
-              <div className="bg-[#F0F5DF] rounded-xl p-3 flex items-center justify-around gap-2">
+              <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-xl p-3 flex items-center justify-around gap-2">
                 {/* Female Gauge */}
                 <div className="flex flex-col items-center">
                   <div className="relative w-28 h-28 sm:w-30 sm:h-30 flex items-center justify-center">

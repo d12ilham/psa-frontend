@@ -202,7 +202,7 @@ function VeteransCharts() {
     </div>
     <div className={styles.veteransSupport}>
       <p>To support serving members and transitioned veterans the ADF Transition and Civil Recognition Cell completed the following in 2024-25:</p>
-      <div className={styles.veteransStats}>
+      <div data-report-surface="neutral" className={styles.veteransStats}>
         <div className={styles.veteransGrid}>
           {stats.map(([value, label], index) => <article key={value} className={styles.veteransStat} style={{ animationDelay: `${index * .12 + .15}s` }}>
             <strong><AnimatedNumber value={value} delay={index * 120 + 150} /></strong><p>{label}</p>
@@ -277,7 +277,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
           const open = openGroup === index;
           return (
             <article key={group.title} style={groupsVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`${styles.group} ${open ? styles.openGroup : styles.closedGroup} ${open && index === 0 ? styles.currentGroup : ""} ${open && index === 1 ? styles.futureGroup : ""} ${open && index === 2 ? styles.veteransGroup : ""} ${groupsVisible ? styles.enter : styles.pending}`}>
-              <button id={`defence-overview-toggle-${index}`} type="button" aria-expanded={open} aria-controls={`defence-overview-panel-${index}`} onClick={() => setOpenGroup(open ? null : index)} className={`${styles.toggle} ${open ? styles.openToggle : ""} ${open && index === 0 ? styles.currentToggle : ""} ${open && index === 1 ? styles.futureToggle : ""} ${open && index === 2 ? styles.veteransToggle : ""}`}>
+              <button data-report-surface="neutral" id={`defence-overview-toggle-${index}`} type="button" aria-expanded={open} aria-controls={`defence-overview-panel-${index}`} onClick={() => setOpenGroup(open ? null : index)} className={`${styles.toggle} ${open ? styles.openToggle : ""} ${open && index === 0 ? styles.currentToggle : ""} ${open && index === 1 ? styles.futureToggle : ""} ${open && index === 2 ? styles.veteransToggle : ""}`}>
                 <span className={`${styles.groupTitle} ${open ? styles.openTitle : ""}`}>{group.title}</span>
                 <span className={`${styles.control} ${open && index === 2 ? styles.veteransClose : ""}`}>{open ? "Close" : "Open"}{open ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}</span>
               </button>

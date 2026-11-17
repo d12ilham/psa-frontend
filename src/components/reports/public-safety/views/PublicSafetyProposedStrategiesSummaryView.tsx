@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import styles from "./PublicSafetyProposedStrategiesSummaryView.module.css";
 
 const strategySummary = [
   {
@@ -47,7 +48,14 @@ const strategySummary = [
 
 function SummaryText({ text }: { text: string }) {
   const parts = text.split(/(Recommendation 83\(c\)|Royal Commission into Defence and Veteran Suicide|Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident)/g);
-  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+  return <>{parts.map((part, index) => {
+    const content = part.split(/(83\(c\))/g).map((segment, segmentIndex) =>
+      segment === "83(c)"
+        ? <span key={`${index}-${segmentIndex}`} className={styles.literalReference}>83(c)</span>
+        : segment
+    );
+    return index % 2 ? <em key={index}>{content}</em> : content;
+  })}</>;
 }
 
 export default function PublicSafetyProposedStrategiesSummaryView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
@@ -92,7 +100,7 @@ export default function PublicSafetyProposedStrategiesSummaryView({ slug, report
     </section>
 
     <div className="flex flex-wrap justify-center gap-3">
-      {[{ label: "Open in the Defence Chapter", href: "defence_workforce_strategies" }, { label: "Open in the Fire and Emergency Services Chapter", href: "fes_workforce_strategies" }, { label: "Open in Police Chapter", href: "police_workforce_strategies" }].map(item => <Link key={item.href} href={`/reports/${slug}/${item.href}`} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-3 text-sm font-semibold text-[#253100]">{item.label}<ArrowRight size={14}/></Link>)}
+      {[{ label: "Open in the Defence Chapter", href: "defence_workforce_strategies" }, { label: "Open in the Fire and Emergency Services Chapter", href: "fes_workforce_strategies" }, { label: "Open in Police Chapter", href: "police_workforce_strategies" }].map(item => <Link data-report-action="primary" key={item.href} href={`/reports/${slug}/${item.href}`} className="inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-3 text-sm font-semibold text-[#253100]">{item.label}<ArrowRight size={14}/></Link>)}
     </div>
   </PublicSafetyPageShell>;
 }

@@ -48,14 +48,14 @@ export default function ExistingStrategiesView({
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 Proposed
             Workforce Strategies
           </button>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
             className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
@@ -175,7 +175,7 @@ export default function ExistingStrategiesView({
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 PROJECT 1 - 2025
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setProject1Open(!project1Open)}
                 aria-expanded={project1Open}
                 className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
@@ -274,7 +274,7 @@ export default function ExistingStrategiesView({
                 </div>
 
                 {/* NEXT STEPS Box */}
-                <div className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#9CAA54] rounded-2xl p-5 space-y-2">
+                <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#9CAA54] rounded-2xl p-5 space-y-2">
                   <span className="text-xs font-bold text-lg-dark uppercase block">
                     NEXT STEPS
                   </span>
@@ -297,7 +297,7 @@ export default function ExistingStrategiesView({
 
                 {/* Buttons */}
                 <div className="flex flex-col items-stretch sm:items-start gap-3 pt-2">
-                  <button
+                  <button data-report-action="primary"
                     onClick={() =>
                       router.push(`/reports/${slug}/industry_overview`)
                     }
@@ -320,7 +320,7 @@ export default function ExistingStrategiesView({
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 PROJECT 2 - 2025
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy2Open(!strategy2Open)}
                 aria-expanded={strategy2Open}
                 className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
@@ -412,7 +412,7 @@ export default function ExistingStrategiesView({
                 </div>
 
                 {/* NEXT STEPS Box */}
-                <div className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#046D2A] rounded-2xl p-5 space-y-2">
+                <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#046D2A] rounded-2xl p-5 space-y-2">
                   <span className="text-xs font-bold text-lg-dark uppercase block">
                     NEXT STEPS
                   </span>
@@ -430,7 +430,7 @@ export default function ExistingStrategiesView({
 
                 {/* Button */}
                 <div className="pt-2">
-                  <button
+                  <button data-report-action="primary"
                     onClick={() =>
                       router.push(`/reports/${slug}/industry_overview`)
                     }

@@ -217,7 +217,7 @@ export default function ExecutiveSummaryView({
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
             className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
           >
@@ -249,7 +249,7 @@ export default function ExecutiveSummaryView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
               className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
             >
@@ -273,7 +273,7 @@ export default function ExecutiveSummaryView({
                 <h3 className="text-xl font-bold text-gray800">
                   Local Government Specific Occupational Shortages
                 </h3>
-                <button
+                <button data-report-action="primary"
                   onClick={() => setShowTheme1Overview(!showTheme1Overview)}
                   className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                 >
@@ -389,7 +389,7 @@ export default function ExecutiveSummaryView({
                 <h3 className="text-xl font-bold text-gray800">
                   Access to VET Qualifications and Training Delivery Partners
                 </h3>
-                <button
+                <button data-report-action="primary"
                   onClick={() => setShowTheme2Overview(!showTheme2Overview)}
                   className="bg-[#8AC900] text-gray800 text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                 >
@@ -546,7 +546,7 @@ export default function ExecutiveSummaryView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
@@ -569,7 +569,7 @@ export default function ExecutiveSummaryView({
                 <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   STRATEGY 1
                 </span>
-                <button
+                <button data-report-action="primary"
                   onClick={() => setStrategy1Open(!strategy1Open)}
                   className="bg-[#8AC900] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                 >
@@ -675,7 +675,7 @@ export default function ExecutiveSummaryView({
                 <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   STRATEGY 2
                 </span>
-                <button
+                <button data-report-action="primary"
                   onClick={() => setStrategy2Open(!strategy2Open)}
                   className="bg-[#8AC900] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                 >
@@ -812,7 +812,7 @@ export default function ExecutiveSummaryView({
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/looking_forward`)}
             className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0"
           >
@@ -825,19 +825,19 @@ export default function ExecutiveSummaryView({
           <span className="font-semibold text-2xl text-gray800 mr-2">
             Supporting Sections:
           </span>
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
           >
             Update on 2025 Strategies
           </button>
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
           >
             Existing Industry-Sector Strategies
           </button>
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/state_territory`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-4 py-2 rounded-full cursor-pointer"
           >

@@ -63,16 +63,6 @@ export default function ReportHeader({
               />
             </a>
           )}
-          <button
-            type="button"
-            onClick={() => router.push(`/reports/${slug}`)}
-            className="cursor-pointer text-left transition-colors"
-          >
-            {sector.shortCode}{" "}
-            <span style={{ color: isCorrectionalServices ? "#B2DB79" : sector.theme.accentColor }}>
-              {report?.year?.label || sector.defaultYear}
-            </span>
-          </button>
         </div>
 
         <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">

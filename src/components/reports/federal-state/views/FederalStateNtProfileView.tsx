@@ -89,13 +89,13 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Northern Territory<br /><span className="whitespace-nowrap">Public Service</span></h1>
             <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
             <div className="mt-3 max-w-[520px] space-y-3">
-              <div className="rounded-md bg-[#F8EEE8] p-4">
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4">
                 <p className="text-base leading-6 text-black">In 2025, the Northern Territory <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
                 <strong className="mt-1 block text-4xl text-black">25,786</strong>
                 <p className="mt-1 text-base leading-6 text-black">employees (23,754 FTE)</p>
                 <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–2025, 2025, pg. 10</SourceLink></p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
             </div>
           </div>
           <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />
@@ -118,8 +118,8 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             </div>
           </div>
           <div data-nt-overview-statistics className="mt-6 grid gap-4 lg:grid-cols-2">
-              <div data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
-              <div data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-lg font-bold text-[#252B37]">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="mt-1 block text-base font-semibold leading-6 text-[#252B37] sm:text-lg">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
+              <div data-report-surface="neutral" data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
+              <div data-report-surface="neutral" data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-lg font-bold text-[#252B37]">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="mt-1 block text-base font-semibold leading-6 text-[#252B37] sm:text-lg">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
             <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md    p-4 sm:p-5`}>
@@ -176,7 +176,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             <div><h3 className="text-sm font-bold">ANZSCO CODE AND OCCUPATION</h3><div className="mt-3 overflow-x-auto rounded-md border border-[#E6E4E0]"><table className="w-full min-w-[470px] text-left text-xs"><thead className="bg-[#F3F3F2]"><tr><th className="p-3">ANZSCO Code</th><th className="p-3">Occupation</th></tr></thead><tbody className="divide-y divide-[#E6E4E0]">{occupations.map(([code, occupation]) => <tr key={code}><td className="p-3">{code}</td><td className="p-3">{occupation}</td></tr>)}</tbody></table></div></div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div><h3 className="text-sm font-bold">The NT Government&apos;s Skills Plan 2024–25 identifies several priorities relevant to the industry-sector including:<NtFootnote number={42} /></h3><ul className="mt-3 grid gap-3 sm:grid-cols-2">{priorities.map((priority) => <li key={priority} className="rounded-md bg-[#F8EEE8] p-4 text-xs leading-5 text-[#42463B]">{priority}</li>)}</ul></div>
+            <div><h3 className="text-sm font-bold">The NT Government&apos;s Skills Plan 2024–25 identifies several priorities relevant to the industry-sector including:<NtFootnote number={42} /></h3><ul className="mt-3 grid gap-3 sm:grid-cols-2">{priorities.map((priority) => <li data-report-surface="neutral" key={priority} className="rounded-md bg-[#F8EEE8] p-4 text-xs leading-5 text-[#42463B]">{priority}</li>)}</ul></div>
             <RepresentationChart title="Aboriginal and Torres Strait Islander Representation in Northern Territory Public Sector (2020–2025)" years={[2020, 2021, 2022, 2023, 2024, 2025]} values={[10.9, 10.3, 10.3, 10.8, 11.0, 11.1]} target={16} min={10} max={17} source={<SourceLink row={66}>SOURCE: Northern Territory Government, State of the Service Report 2024–25, 2025, Figure 18</SourceLink>} />
           </div>
         </Section>

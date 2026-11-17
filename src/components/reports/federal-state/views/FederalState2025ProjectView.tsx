@@ -80,7 +80,7 @@ export default function FederalState2025ProjectView({ slug, report, pageType }: 
             {projectNumber === 1 && <h2 className="text-sm font-bold text-gray800">Consultation for this project has been undertaken with the following stakeholders:</h2>}
             <ul data-project-stakeholders className="grid auto-rows-fr gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {project.stakeholders.map((name) => (
-                <li key={name} className="flex min-h-[72px] min-w-0 items-center rounded-md bg-[#EED4C4] px-4 py-3 text-[11px] font-medium leading-5 text-[#754C2D]">{name}</li>
+                <li data-report-surface="neutral" key={name} className="flex min-h-[72px] min-w-0 items-center rounded-md bg-[#EED4C4] px-4 py-3 text-[11px] font-medium leading-5 text-[#754C2D]">{name}</li>
               ))}
             </ul>
           </div>

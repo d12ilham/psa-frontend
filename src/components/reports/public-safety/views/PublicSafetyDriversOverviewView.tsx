@@ -70,7 +70,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
               <div className="mt-5">
                 <h3 className="text-xl font-bold leading-7 text-[#252D02]">{driver.title}</h3>
               </div>
-              <button type="button" onClick={() => router.push(`/reports/${slug}/${driver.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">Open <ChevronDown className="h-3.5 w-3.5" /></button>
+              <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${driver.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">Open <ChevronDown className="h-3.5 w-3.5" /></button>
             </article>
           ))}
         </div>

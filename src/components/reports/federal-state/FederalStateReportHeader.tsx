@@ -185,9 +185,6 @@ export default function FederalStateReportHeader({
               className="h-8 w-auto max-w-[130px] object-contain"
             />
           </a>
-          <Link href={base} prefetch={false} onClick={closeMenu} className={`shrink-0 text-base font-bold ${focusClass}`}>
-            FSTG WIR <span className={sectorPalette ? "text-[#EED4C4]" : "text-[#8AC900]"}>{year}</span>
-          </Link>
         </div>
         <button
           type="button"

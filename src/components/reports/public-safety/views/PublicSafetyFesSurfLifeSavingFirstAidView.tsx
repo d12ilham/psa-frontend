@@ -49,15 +49,15 @@ function TreatmentsChart() {
     <div className={styles.chartHeader}>
       <h3>First Aid Treatments Administered by Surf Lifesavers</h3>
       <div className={styles.controls}>
-        <button type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
-        <button type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
+        <button data-report-action="primary" type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
+        <button data-report-action="primary" type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
       </div>
     </div>
     <TreatmentsPlot key={replay} animate />
     <dialog ref={dialog} className={styles.dialog} aria-labelledby="fes-treatments-dialog">
       <div className={styles.chartHeader}>
         <h2 id="fes-treatments-dialog">First Aid Treatments Administered by Surf Lifesavers</h2>
-        <form method="dialog"><button type="submit" className={styles.close}>Close</button></form>
+        <form method="dialog"><button data-report-action="primary" type="submit" className={styles.close}>Close</button></form>
       </div>
       <TreatmentsPlot />
     </dialog>
@@ -84,7 +84,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
       <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-hero.png" width={180} height={180} alt="" unoptimized priority />
     </section>
 
-    <section className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-first-aid-insight">
+    <section data-report-surface="neutral" className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-first-aid-insight">
       <span className={recovery.insightNumber} aria-hidden="true">1</span>
       <div className={`${recovery.summaryCopy} ${recovery.wideSummaryCopy}`}>
         <p id="fes-first-aid-insight" className={recovery.insightLabel}>Theme Two, Insight One</p>

@@ -79,7 +79,7 @@ export default function PublicSafetyAboutView({ slug, report }: { slug: string; 
         </div>
       </section>
 
-      <aside id="public-safety-note-1" className="rounded-2xl border border-gray200 bg-[#F0F5DF] p-6 text-xs text-gray600 leading-relaxed">
+      <aside data-report-surface="neutral" id="public-safety-note-1" className="rounded-2xl border border-gray200 bg-[#F0F5DF] p-6 text-xs text-gray600 leading-relaxed">
         <p className="w-full xl:w-2/3">
           <sup>1.</sup> Please note, First Nations people will be used as preferred terminology inclusive of Aboriginal and Torres Strait Islanders. When citing a data source (such as government strategies or state of the sector reports) the terminology of the data source will be used to maintain accurate data representation.
         </p>

@@ -36,7 +36,7 @@ export default function PublicSafetyFesView({ slug, report }: { slug: string; re
         <article key={section.href} className={`${layout.card} ${styles.card} ${layout.enter}`} style={{ animationDelay: `${(index + 1) * 100}ms` }}>
           <h2>{section.title}</h2>
           <p>{section.copy}</p>
-          <button type="button" onClick={() => router.push(`/reports/${slug}/${section.href}`)} className={layout.open} aria-label={`Open ${section.title}`}>
+          <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${section.href}`)} className={layout.open} aria-label={`Open ${section.title}`}>
             Open <ArrowRight aria-hidden="true" />
           </button>
         </article>

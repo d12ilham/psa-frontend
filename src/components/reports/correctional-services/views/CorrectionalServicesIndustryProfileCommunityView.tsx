@@ -136,7 +136,7 @@ function JurisdictionRatios() {
   return (
     <div className="mt-5 grid grid-cols-4 gap-2 sm:grid-cols-8">
       {jurisdictions.map(({ name, value }) => (
-        <div key={name} title={`${name}: ${value}`} className="flex min-h-[76px] flex-col items-center justify-center rounded-md bg-[#F0F1F9] px-1 py-2 text-center transition-colors duration-200 hover:bg-[#DEE2F3]">
+        <div data-report-surface="neutral" key={name} title={`${name}: ${value}`} className="flex min-h-[76px] flex-col items-center justify-center rounded-md bg-[#F0F1F9] px-1 py-2 text-center transition-colors duration-200 hover:bg-[#DEE2F3]">
           <span className="text-[11px] font-semibold leading-4 text-[#424996]">{name}</span>
           <strong className="text-xl leading-7 tabular-nums text-[#172036]">{value}</strong>
         </div>

@@ -343,7 +343,7 @@ export default function DriversOfChangeView({
 
               return (
                 <React.Fragment key={driver.id}>
-                  <div
+                  <div data-report-surface="neutral"
                     style={
                       isDriversVisible
                         ? { animationDelay: `${index * 0.12}s` }
@@ -375,7 +375,7 @@ export default function DriversOfChangeView({
                     </div>
 
                     <div className="pt-2">
-                      <button
+                      <button data-report-action="primary"
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveDriverId(isActive ? null : driver.id);
@@ -397,7 +397,7 @@ export default function DriversOfChangeView({
                   >
                     <div className="overflow-hidden min-h-0">
                       {isActive && (
-                        <div
+                        <div data-report-surface="neutral"
                           key={`mobile-driver-${driver.id}`}
                           className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-4"
                         >
@@ -430,7 +430,7 @@ export default function DriversOfChangeView({
           >
             <div className="overflow-hidden min-h-0">
               {activeDriver && (
-                <div
+                <div data-report-surface="neutral"
                   key={`desktop-driver-${activeDriverId}`}
                   className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6"
                 >
@@ -466,7 +466,7 @@ export default function DriversOfChangeView({
 
               return (
                 <React.Fragment key={item.id}>
-                  <div
+                  <div data-report-surface="neutral"
                     style={
                       isMegatrendsVisible
                         ? { animationDelay: `${index * 0.06}s` }
@@ -513,7 +513,7 @@ export default function DriversOfChangeView({
                   >
                     <div className="overflow-hidden min-h-0">
                       {isActive && (
-                        <div
+                        <div data-report-surface="neutral"
                           key={`mobile-megatrend-${item.id}`}
                           className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-2"
                         >
@@ -542,7 +542,7 @@ export default function DriversOfChangeView({
           >
             <div className="overflow-hidden min-h-0">
               {activeMegatrend && (
-                <div
+                <div data-report-surface="neutral"
                   key={`desktop-megatrend-${activeMegatrendId}`}
                   className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6 space-y-2"
                 >

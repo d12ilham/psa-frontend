@@ -182,7 +182,7 @@ export default function CorrectionalServicesIntroductionView({
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <button
+              <button data-report-action="download"
                 type="button"
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
                 className="bg-[#046D2A] hover:bg-[#252D02] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
@@ -190,13 +190,13 @@ export default function CorrectionalServicesIntroductionView({
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
-              <a
+              <a data-report-action="secondary"
                 href={`/reports/${slug}/downloads`}
                 className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-[#F0F5DF] text-[#598303] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
               </a>
-              <a
+              <a data-report-action="secondary"
                 href={
                   report.psaSectorPageUrl ||
                   "https://publicskillsaustralia.org.au"
@@ -210,7 +210,7 @@ export default function CorrectionalServicesIntroductionView({
             </div>
           </div>
 
-          <aside className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#E8E9EF] border border-[#B4B9D3] rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+          <aside data-report-surface="neutral" className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#E8E9EF] border border-[#B4B9D3] rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
               <span className="text-xs font-semibold text-[#424996] uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
@@ -324,7 +324,7 @@ export default function CorrectionalServicesIntroductionView({
                   />
                 </div>
 
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={(event) => {
                     event.stopPropagation();
@@ -354,7 +354,7 @@ export default function CorrectionalServicesIntroductionView({
               icon: "/images/reports/introduction/Methodology.svg",
             },
           ].map((item) => (
-            <div
+            <div data-report-surface="neutral"
               key={item.path}
               className="bg-[#F0F5DF] border border-[#E9EAEB] rounded-2xl p-5 flex items-center justify-between gap-4 transition-all duration-300 hover:shadow-xs"
             >
@@ -373,7 +373,7 @@ export default function CorrectionalServicesIntroductionView({
                   <p className="text-xs text-[#535862]">{item.description}</p>
                 </div>
               </div>
-              <button
+              <button data-report-action="primary"
                 type="button"
                 onClick={() => router.push(`/reports/${slug}/${item.path}`)}
                 className="bg-[#8AC900] hover:bg-[#B2DB79] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"

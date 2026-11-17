@@ -15,7 +15,7 @@ type Report = {
 
 function IndustryInsight({ children }: { children: React.ReactNode }) {
   return (
-    <aside className="rounded-[14px] border-l-[12px] border-[#9DA8D0] bg-[#E8E9EF] p-6 text-[#535862]">
+    <aside data-report-surface="neutral" className="rounded-[14px] border-l-[12px] border-[#9DA8D0] bg-[#E8E9EF] p-6 text-[#535862]">
       <div className="flex items-center gap-4">
         <span className="relative grid size-[70px] shrink-0 place-items-center rounded-full bg-white text-[#424996]">
           <UserRound size={27} strokeWidth={1.5} aria-hidden="true" />
@@ -43,7 +43,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
         />
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">
-          <div className="flex min-h-[270px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <div data-report-surface="neutral" className="flex min-h-[270px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex min-w-0 gap-5">
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">1</span>
               <div className="max-w-[850px] animate-slide-up motion-reduce:animate-none">
@@ -94,7 +94,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
               <p>COs who move into community corrections bring valuable experience in managing offenders within the custodial environment, and this background is viewed as a strong foundation for case management roles. However, this potential pipeline from CO to CCO roles is often constrained by the recruitment requirement for higher education qualifications, which may impact the eligibility for COs to apply.</p>
             </div>
           </section>
-          <IndustryInsight>Consultations with the Correctional Services industry-sector indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. However, this pipeline into CCO roles is often limited by the recruitment requirement for higher education qualifications, which may impact the eligibility of COs to apply.</IndustryInsight>
+          <IndustryInsight>The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. As such, it is seen as more specialised than what the current Certificate III in Correctional Practice offers. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.</IndustryInsight>
         </div>
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">

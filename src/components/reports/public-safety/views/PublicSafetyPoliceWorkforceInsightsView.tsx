@@ -53,10 +53,10 @@ export default function PublicSafetyPoliceWorkforceInsightsView({ slug, report }
           <h2>{theme.title}</h2>
           <div className={layout.insights}>
             {theme.insights.map((insight) => (
-              <button key={insight.number} type="button" className={`${layout.insight} ${styles.insight}`} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
+              <button data-report-surface="neutral" key={insight.number} type="button" className={`${layout.insight} ${styles.insight}`} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
                 <span className={`${layout.number} ${styles.number}`} aria-hidden="true">{insight.number}</span>
                 <span className={`${layout.insightCopy} ${styles.insightCopy}`}><strong>{insight.label}</strong>{insight.text}</span>
-                <span className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
+                <span data-report-action="primary" className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
               </button>
             ))}
           </div>

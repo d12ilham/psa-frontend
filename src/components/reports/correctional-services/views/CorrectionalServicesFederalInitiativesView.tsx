@@ -286,7 +286,7 @@ export default function CorrectionalServicesFederalInitiativesView({
               {initiatives.map((item, index) => {
                 const isActive = index === activeIndex;
                 return (
-                  <button
+                  <button data-report-surface="neutral"
                     key={item.number}
                     type="button"
                     onClick={() => showInitiative(index)}
@@ -314,18 +314,18 @@ export default function CorrectionalServicesFederalInitiativesView({
             </div>
           </nav>
 
-          <article ref={detailRef} key={activeIndex} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
-            <div data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-[76px]">
+          <article data-report-surface="neutral" ref={detailRef} key={activeIndex} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
+            <div data-report-surface="neutral" data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-[76px]">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex max-w-full rounded-full bg-[#598303] px-5 py-3 text-sm font-semibold text-white">
                 {initiative.number} · {initiative.owner}{!["04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"].includes(initiative.number) && ` ${initiative.period}`}
               </span>
-                {activeIndex === initiatives.length - 1 ? <Link
+                {activeIndex === initiatives.length - 1 ? <Link data-report-action="primary"
                   href={`/reports/${slug}/looking_forward`}
                   className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] motion-reduce:transition-none"
                 >
                   Next <ArrowRight size={17} />
-                </Link> : <button
+                </Link> : <button data-report-action="primary"
                   type="button"
                   onClick={() => showInitiative(activeIndex + 1)}
                   className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] motion-reduce:transition-none"

@@ -102,7 +102,7 @@ export default function CorrectionalServicesMethodologyView({
           </h2>
           <div className="grid gap-4 md:grid-cols-3">
             {governanceSteps.map((step, index) => (
-              <article
+              <article data-report-surface="neutral"
                 key={step.title}
                 style={visible.governance ? { animationDelay: `${index * 0.12}s` } : undefined}
                 className={`min-h-[330px] rounded-lg bg-[#F0F5DF] p-6 transition-shadow duration-300 hover:shadow-md ${visible.governance ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}

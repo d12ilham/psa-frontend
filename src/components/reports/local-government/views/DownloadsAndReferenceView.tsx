@@ -44,14 +44,14 @@ export default function DownloadsAndReferenceView({
         {/* Sub-Header Navigation Button */}
         <div>
           {is2025Report ? (
-            <Link
+            <Link data-report-action="secondary"
               href="/reports/local-government-workforce-insights-report/introduction"
               className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full inline-flex items-center gap-2 transition-colors no-underline"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 report
             </Link>
           ) : (
-            <button
+            <button data-report-action="secondary"
               onClick={() => router.push(`/reports/${slug}/introduction`)}
               className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
             >
@@ -83,7 +83,7 @@ export default function DownloadsAndReferenceView({
         {/* ── REPORT PDF CARDS ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           {/* CARD 1: FULL REPORT (DEEP GREEN) */}
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.15s" }}
             className="animate-card-entrance bg-[#046D2A] border border-gray200 text-white rounded-2xl p-6 flex flex-col justify-between space-y-6"
           >
@@ -116,7 +116,7 @@ export default function DownloadsAndReferenceView({
 
             {/* Download Button */}
             <div>
-              <a
+              <a data-report-action="primary"
                 href={is2025Report
                   ? "https://psa-directus-prod.azurewebsites.net/assets/27231b35-4c58-42d7-87ce-5b9cc24d0408"
                   : "https://psa-directus-prod.azurewebsites.net/assets/895e9b7a-2c55-4531-95a1-dafa90b60a1c.pdf"}

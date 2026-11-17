@@ -20,7 +20,7 @@ export default function ContextualisationSubView({
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
-          <button
+          <button data-report-action="secondary"
             onClick={onBackToOverview}
             className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
@@ -28,7 +28,7 @@ export default function ContextualisationSubView({
             <span>Back to Workforce Insights</span>
           </button>
 
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
             className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
@@ -90,7 +90,7 @@ export default function ContextualisationSubView({
         </div>
 
         {/* Right Box: Industry Insight */}
-        <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-notes p-6 space-y-5 flex flex-col justify-between">
+        <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-notes p-6 space-y-5 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">

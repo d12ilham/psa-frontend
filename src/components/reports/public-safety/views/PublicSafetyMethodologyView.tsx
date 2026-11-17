@@ -82,7 +82,7 @@ export default function PublicSafetyMethodologyView({ slug, report }: { slug: st
             </p></div>
           </div>
 
-          <aside className="relative min-w-0 overflow-hidden rounded-[14px] bg-[#F0F5DF] p-6 ring-1 ring-inset ring-[#E9EAEB] transition-all duration-500 hover:-translate-y-1 hover:ring-[#728C28] hover:shadow-lg animate-zoom-in sm:p-8 xl:min-h-[252px] xl:p-10">
+          <aside data-report-surface="neutral" className="relative min-w-0 overflow-hidden rounded-[14px] bg-[#F0F5DF] p-6 ring-1 ring-inset ring-[#E9EAEB] transition-all duration-500 hover:-translate-y-1 hover:ring-[#728C28] hover:shadow-lg animate-zoom-in sm:p-8 xl:min-h-[252px] xl:p-10">
             <span className="absolute inset-y-0 left-0 w-2 bg-[#598303]" />
             <h2 className="text-base font-bold uppercase leading-7 text-[#252D02] sm:text-xl">Acknowledgement</h2>
             <p className="mt-6 text-sm font-medium leading-6 text-[#535862]">
@@ -100,7 +100,7 @@ export default function PublicSafetyMethodologyView({ slug, report }: { slug: st
         <div className="rounded-[14px] border border-[#E9EAEB] bg-white p-6 xl:min-h-[416px]">
           <div className="grid gap-5 xl:min-h-[368px] xl:grid-cols-3">
             {governanceSteps.map((item, index) => (
-              <article key={item.step} style={governanceVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`group min-w-0 break-words rounded-lg border border-transparent bg-[#F0F5DF] p-5 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:scale-[1.01] hover:border-[#728C28] hover:bg-white hover:shadow-xl sm:p-8 ${governanceVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
+              <article data-report-surface="neutral" key={item.step} style={governanceVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`group min-w-0 break-words rounded-lg border border-transparent bg-[#F0F5DF] p-5 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:scale-[1.01] hover:border-[#728C28] hover:bg-white hover:shadow-xl sm:p-8 ${governanceVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
                 <h3 className="text-xl font-bold leading-7 text-[#252D02] transition-colors duration-300 group-hover:text-[#046D2A]">{index + 1} · {item.title}</h3>
                 <div className="mt-2 space-y-2 text-sm leading-6 text-[#535862]">
                   {item.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

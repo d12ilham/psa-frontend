@@ -45,7 +45,7 @@ export default function Theme2InsightSubView({
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
-          <button
+          <button data-report-action="secondary"
             onClick={onBackToOverview}
             className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
@@ -54,7 +54,7 @@ export default function Theme2InsightSubView({
           </button>
 
           {insightId === 4 && (
-            <button
+            <button data-report-action="primary"
               onClick={() =>
                 router.push(
                   `/reports/${slug}/workforce_insights?insight=contextualisation`,
@@ -73,7 +73,7 @@ export default function Theme2InsightSubView({
             Insight {insightId} of 4 · Theme 2
           </span>
           <div className="flex items-center gap-2">
-            <button
+            <button data-report-action="primary"
               onClick={() => {
                 if (insightId > 1) onNavigateInsight(insightId - 1);
               }}
@@ -84,7 +84,7 @@ export default function Theme2InsightSubView({
               <span>Previous</span>
             </button>
 
-            <button
+            <button data-report-action="primary"
               onClick={() => {
                 if (insightId < 4) onNavigateInsight(insightId + 1);
               }}
@@ -194,7 +194,7 @@ export default function Theme2InsightSubView({
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <TrainingDeliveryCard title="Access to VET Training" body={consultationText} />
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -242,7 +242,7 @@ export default function Theme2InsightSubView({
               materials and interpreters.
             </p>
           </div>
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -288,7 +288,7 @@ export default function Theme2InsightSubView({
               $40,000 for water operator training for six participants.
             </p>
           </div>
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -365,7 +365,7 @@ export default function Theme2InsightSubView({
                 <li>Reflects jurisdiction-specific requirements, particularly for modules covering regulations and local laws, which may differ across LGAs</li>
               </ul>
             </div>
-            <div className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
+            <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
               <div className="flex items-center gap-3">
                 <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
                   <img

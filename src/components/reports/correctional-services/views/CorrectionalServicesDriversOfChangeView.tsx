@@ -248,7 +248,7 @@ export default function CorrectionalServicesDriversOfChangeView({
             {drivers.map((driver, index) => {
               const isActive = activeDriverId === driver.id;
               return (
-                <article
+                <article data-report-surface="neutral"
                   key={driver.id}
                   style={isDriversVisible ? { animationDelay: `${index * 0.12}s` } : undefined}
                   className={`flex min-h-[260px] flex-col justify-between rounded-xl border border-t-[8px] border-t-[#8AC900] p-6 transition-[border-color,box-shadow] duration-300 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
@@ -269,7 +269,7 @@ export default function CorrectionalServicesDriversOfChangeView({
                       {driver.shortTitle}
                     </h3>
                   </div>
-                  <button
+                  <button data-report-action="primary"
                     type="button"
                     onClick={() => setActiveDriverId(isActive ? null : driver.id)}
                     aria-expanded={isActive}
@@ -294,7 +294,7 @@ export default function CorrectionalServicesDriversOfChangeView({
           >
             <div className="overflow-hidden min-h-0">
               {activeDriver && (
-                <div
+                <div data-report-surface="neutral"
                   key={activeDriver.id}
                   className="animate-content-switch rounded-xl border border-[#B8C9A0] border-l-[8px] border-l-[#728C28] bg-[#F0F5DF] p-6"
                 >
@@ -329,7 +329,7 @@ export default function CorrectionalServicesDriversOfChangeView({
                   isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
                 }`}
               >
-                <button
+                <button data-report-surface="neutral"
                   id={`megatrend-${item.id}`}
                   type="button"
                   aria-expanded={activeMegatrendId === item.id}
@@ -352,7 +352,7 @@ export default function CorrectionalServicesDriversOfChangeView({
             ))}
           </ul>
 
-          <div
+          <div data-report-surface="neutral"
             id="correctional-megatrend-detail"
             role="region"
             aria-labelledby={activeMegatrend ? `megatrend-${activeMegatrend.id}` : undefined}

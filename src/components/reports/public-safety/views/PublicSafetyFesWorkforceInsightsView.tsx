@@ -64,10 +64,10 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
           <h2>{theme.title}</h2>
           <div className={layout.insights}>
             {theme.insights.map(insight => (
-              <button key={insight.number} type="button" className={`${layout.insight} ${styles.insight} animate-card-entrance`} style={{ animationDelay: `${250 + (Number(insight.number) - 1) * 85}ms` }} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
+              <button data-report-surface="neutral" key={insight.number} type="button" className={`${layout.insight} ${styles.insight} animate-card-entrance`} style={{ animationDelay: `${250 + (Number(insight.number) - 1) * 85}ms` }} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
                 <span className={`${layout.number} ${styles.number}`} aria-hidden="true">{insight.number}</span>
                 <span className={`${layout.insightCopy} ${styles.insightCopy}`}><strong>{insight.label}</strong><span>{insight.text}</span></span>
-                <span className={layout.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
+                <span data-report-action="primary" className={layout.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
               </button>
             ))}
           </div>
@@ -76,7 +76,7 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
     </section>
 
     <div>
-      <button type="button" className={`${layout.strategies} ${styles.strategies}`} onClick={() => router.push(strategiesPath)}>
+      <button data-report-action="primary" type="button" className={`${layout.strategies} ${styles.strategies}`} onClick={() => router.push(strategiesPath)}>
         Fire and Emergency Services Workforce Strategies <ArrowRight size={16} aria-hidden="true" />
       </button>
     </div>

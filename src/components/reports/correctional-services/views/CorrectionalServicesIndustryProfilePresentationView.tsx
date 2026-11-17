@@ -173,12 +173,12 @@ function FacilitiesMap() {
       <p className="mt-2 text-xs font-medium text-[#598303]">Choose a State or Territory to see the numbers</p>
       <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Choose a jurisdiction">
         {jurisdictions.map(({ code, name }) => (
-          <button key={code} type="button" onClick={() => setSelected(code)} aria-pressed={selected === code}
+          <button data-report-action="primary" key={code} type="button" onClick={() => setSelected(code)} aria-pressed={selected === code}
             className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] ${selected === code ? "bg-[#8AC900] text-[#252D02]" : "bg-white text-[#252D02] hover:bg-[#DBE8B5]"}`}>
             {name}
           </button>
         ))}
-        <button type="button" onClick={() => setSelected("ALL")} aria-pressed={selected === "ALL"}
+        <button data-report-action="primary" type="button" onClick={() => setSelected("ALL")} aria-pressed={selected === "ALL"}
           className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] ${selected === "ALL" ? "bg-[#8AC900] text-[#252D02]" : "bg-white text-[#252D02] hover:bg-[#DBE8B5]"}`}>
           Show All
         </button>
@@ -237,7 +237,7 @@ function FacilitiesMap() {
             <text x="750" y="481" textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>568</text>
           </g>
         </svg>
-        <div key={selected} className={`relative mx-auto mt-2 w-full max-w-[250px] rounded-md bg-[#424996] p-3 motion-reduce:opacity-100 motion-reduce:animate-none sm:absolute sm:right-0 sm:top-[14%] sm:mt-0 sm:w-[28%] ${mapVisible ? "animate-card-entrance" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.35s" } : undefined} aria-live="polite">
+        <div data-report-surface="neutral" key={selected} className={`relative mx-auto mt-2 w-full max-w-[250px] rounded-md bg-[#424996] p-3 motion-reduce:opacity-100 motion-reduce:animate-none sm:absolute sm:right-0 sm:top-[14%] sm:mt-0 sm:w-[28%] ${mapVisible ? "animate-card-entrance" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.35s" } : undefined} aria-live="polite">
           <h3 className="mb-2 text-xs font-semibold leading-4 text-white">{detail.name}</h3>
           <div className="space-y-1.5">
             {counts.filter(([label, value]) => value > 0 || label === "Total").map(([label, value]) => (
@@ -257,7 +257,7 @@ function FacilitiesMap() {
 function ExpenditureMap({ visible }: { visible: boolean }) {
   return (
     <div className="mt-6">
-      <div className="flex min-h-20 items-center justify-between gap-4 rounded-md bg-[#424996] px-5 py-4 text-white">
+      <div data-report-surface="neutral" className="flex min-h-20 items-center justify-between gap-4 rounded-md bg-[#424996] px-5 py-4 text-white">
         <span className="text-xs font-medium uppercase">Australia</span>
         <strong className="text-right text-2xl font-semibold tabular-nums sm:text-3xl">$6.38 billion</strong>
       </div>

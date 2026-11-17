@@ -25,7 +25,7 @@ export default function PublicSafetyPoliceWorkforceStrategiesView({ slug, report
       </div>
     </section>
 
-    <section className={`${layout.strategy} ${styles.strategy} ${chapter.enter}`}>
+    <section data-report-surface="neutral" className={`${layout.strategy} ${styles.strategy} ${chapter.enter}`}>
       <span className={`${layout.badge} ${styles.badge}`}>Strategy 1</span>
       <h2>Develop Training Products for Digital Forensics</h2>
 

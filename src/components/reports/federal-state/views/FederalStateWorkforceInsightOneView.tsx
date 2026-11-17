@@ -35,7 +35,7 @@ export default function FederalStateWorkforceInsightOneView({ slug, report }: { 
       <ReportNavButtons slug={slug} currentPage="workforce_insight_1" prev={{ label: "Theme Overview – Future of the Public Service", href: `/reports/${slug}/workforce_insights#theme-one` }} next={{ label: "Insight 2 – Workforce Gaps", href: `/reports/${slug}/workforce_insight_2` }} prevPrefix="" nextPrefix="" />
 
       <section className="rounded-md border border-[#ECECE5] bg-white p-5 sm:p-6 animate-slide-up">
-        <div className="flex gap-5 rounded-md border-l-[12px] border-[#754D32] bg-[#F8EEE8] px-5 py-6 sm:gap-7 sm:px-7">
+        <div data-report-surface="neutral" className="flex gap-5 rounded-md border-l-[12px] border-[#754D32] bg-[#F8EEE8] px-5 py-6 sm:gap-7 sm:px-7">
           <span className="shrink-0 text-5xl font-light leading-none text-[#E5D2C5]">1</span>
           <div><p className="text-xs font-medium text-[#754D32]">Theme 1 · {workforceInsightsTheme} · Insight 1</p><h1 className="mt-4 text-xl font-bold sm:text-2xl">{workforceInsightSummaries[0].title}</h1><p className="mt-4 max-w-[820px] text-xs leading-6">{workforceInsightSummaries[0].summary}</p></div>
         </div>

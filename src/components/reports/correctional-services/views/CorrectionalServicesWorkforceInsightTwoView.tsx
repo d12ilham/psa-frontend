@@ -118,7 +118,7 @@ export default function CorrectionalServicesWorkforceInsightTwoView({ slug, repo
         />
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-5 sm:p-6">
-          <div className="flex min-h-[274px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-5 py-6 sm:px-7 lg:flex-row lg:items-center lg:justify-between">
+          <div data-report-surface="neutral" className="flex min-h-[274px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-5 py-6 sm:px-7 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex min-w-0 gap-5 animate-slide-up motion-reduce:animate-none">
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">2</span>
               <div className="max-w-[810px]">

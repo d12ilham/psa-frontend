@@ -46,7 +46,7 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <button type="button" onClick={handleBack} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] px-5 text-xs font-semibold text-[#54710F] animate-content-switch transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none motion-reduce:hover:translate-y-0">
+        <button data-report-action="secondary" type="button" onClick={handleBack} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#B2DB79] px-5 text-xs font-semibold text-[#54710F] animate-content-switch transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none motion-reduce:hover:translate-y-0">
           <ArrowLeft className="size-4" aria-hidden="true" /> Back
         </button>
 
@@ -63,12 +63,12 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
         </section>
 
         <section aria-label="Reports available for download" className="grid items-stretch gap-6 lg:grid-cols-2">
-          <article className="group flex min-h-[310px] flex-col rounded-md bg-[#424996] p-6 text-white animate-card-entrance transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:animate-none motion-reduce:hover:translate-y-0 sm:p-8" style={{ animationDelay: "0.12s" }}>
+          <article data-report-surface="neutral" className="group flex min-h-[310px] flex-col rounded-md bg-[#424996] p-6 text-white animate-card-entrance transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:animate-none motion-reduce:hover:translate-y-0 sm:p-8" style={{ animationDelay: "0.12s" }}>
             <p className="text-xs font-medium">FULL REPORT</p>
             <Image src="/images/downloads-full-report-icon.png" alt="" width={100} height={100} className="mt-6 size-[100px] [filter:hue-rotate(90deg)] transition-transform duration-300 group-hover:scale-110 motion-reduce:transform-none" />
             <h2 className="mt-5 text-xl font-semibold leading-7">2026 Correctional Services Workforce Insights Report</h2>
             <div className="mt-auto pt-6">
-              <a href={approvedPdf} target="_blank" rel="noopener noreferrer" className="group/download inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#424996] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
+              <a data-report-action="primary" href={approvedPdf} target="_blank" rel="noopener noreferrer" className="group/download inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#424996] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
                 Open 2026 PDF <ExternalLink className="size-4 transition-transform duration-300 group-hover/download:-translate-y-0.5 group-hover/download:translate-x-0.5 motion-reduce:transform-none" aria-hidden="true" />
               </a>
             </div>
@@ -80,7 +80,7 @@ export default function CorrectionalServicesDownloadsView({ slug, report }: { sl
               <h2 className="text-xs font-medium text-[#535862]">PREVIOUS REPORTS</h2>
               <div className="mt-8 space-y-4">
                 {previousReports.map((previousReport, index) => (
-                  <a key={previousReport.year} href={previousReport.url} target="_blank" rel="noopener noreferrer" className="flex min-h-[58px] w-full items-center justify-between gap-4 rounded-full border border-[#8589B5] bg-[#F0F0F7] px-5 py-3 text-left text-xs font-semibold text-[#424996] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#424996] hover:bg-[#E9EAF3] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
+                  <a data-report-action="primary" key={previousReport.year} href={previousReport.url} target="_blank" rel="noopener noreferrer" className="flex min-h-[58px] w-full items-center justify-between gap-4 rounded-full border border-[#8589B5] bg-[#F0F0F7] px-5 py-3 text-left text-xs font-semibold text-[#424996] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#424996] hover:bg-[#E9EAF3] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
                     <span>{previousReport.year} {previousReport.title}</span>
                     <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
                   </a>

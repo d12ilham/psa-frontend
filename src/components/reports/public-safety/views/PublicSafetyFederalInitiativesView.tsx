@@ -50,7 +50,7 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
         <h2 className="mb-2 text-xl font-semibold uppercase text-[#252D02]">Strategies · {initiatives.length} · Select to open</h2>
         <div className="space-y-2">
           {initiatives.map((item, index) => (
-            <button key={item.title} type="button" aria-pressed={active === index} onClick={() => setActive(index)} className={`flex w-full items-center justify-between gap-2 rounded-2xl border p-6 text-left transition-colors ${active === index ? "border-[#598303] bg-[#E3EFDE] ring-1 ring-inset ring-[#598303]" : "border-[#E9EAEB] bg-white hover:border-[#598303]"}`}>
+            <button data-report-surface="neutral" key={item.title} type="button" aria-pressed={active === index} onClick={() => setActive(index)} className={`flex w-full items-center justify-between gap-2 rounded-2xl border p-6 text-left transition-colors ${active === index ? "border-[#598303] bg-[#E3EFDE] ring-1 ring-inset ring-[#598303]" : "border-[#E9EAEB] bg-white hover:border-[#598303]"}`}>
               <span>
                 <span className="block text-sm font-medium uppercase leading-6 text-[#598303]">{String(index + 1).padStart(2, "0")} · {item.owner}</span>
                 <strong className="mt-4 block text-lg font-semibold leading-6 text-[#252D02]">{item.title}</strong>
@@ -65,8 +65,8 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="rounded-full bg-[#598303] px-5 py-2.5 text-xs font-semibold uppercase leading-5 text-white">{String(active + 1).padStart(2, "0")} · {initiative.owner}</span>
           <div className="ml-auto flex flex-wrap gap-2">
-            {active > 0 && <button type="button" aria-label="Previous initiative" onClick={() => move(-1)} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#C5D997] bg-[#FAFAF0] px-5 text-sm font-semibold text-[#496900]"><ArrowLeft size={16} /> Previous</button>}
-            {active < initiatives.length - 1 && <button type="button" aria-label="Next initiative" onClick={() => move(1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold text-[#252D02]">Next <ArrowRight size={16} /></button>}
+            {active > 0 && <button data-report-action="secondary" type="button" aria-label="Previous initiative" onClick={() => move(-1)} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#C5D997] bg-[#FAFAF0] px-5 text-sm font-semibold text-[#496900]"><ArrowLeft size={16} /> Previous</button>}
+            {active < initiatives.length - 1 && <button data-report-action="primary" type="button" aria-label="Next initiative" onClick={() => move(1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold text-[#252D02]">Next <ArrowRight size={16} /></button>}
           </div>
         </div>
         <div className="mt-6 rounded-xl bg-[#FAFAF0] p-5 sm:p-8">

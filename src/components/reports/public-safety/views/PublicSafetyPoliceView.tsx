@@ -71,7 +71,7 @@ export default function PublicSafetyPoliceView({ slug, report }: { slug: string;
       {sections.map((section, index) => <article key={section.path} className={`${layout.card} ${styles.card} ${layout.enter}`} style={{ animationDelay: `${(index + 1) * 100}ms` }}>
         <h2>{section.title}</h2>
         <p>{section.description}</p>
-        <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className={layout.open} aria-label={`Open ${section.title}`}>
+        <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className={layout.open} aria-label={`Open ${section.title}`}>
           Open <ArrowRight aria-hidden="true" />
         </button>
       </article>)}

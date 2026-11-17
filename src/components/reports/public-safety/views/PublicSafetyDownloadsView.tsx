@@ -67,12 +67,12 @@ export default function PublicSafetyDownloadsView({ slug, report }: { slug: stri
       </section>
 
       <section aria-label="Reports available for download" className="grid items-stretch gap-6 lg:grid-cols-2">
-        <article className="group flex min-h-[310px] flex-col rounded-md bg-[#046D2A] p-6 text-white animate-card-entrance transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:animate-none motion-reduce:hover:translate-y-0 sm:p-8" style={{ animationDelay: "0.12s" }}>
+        <article data-report-surface="neutral" className="group flex min-h-[310px] flex-col rounded-md bg-[#046D2A] p-6 text-white animate-card-entrance transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:animate-none motion-reduce:hover:translate-y-0 sm:p-8" style={{ animationDelay: "0.12s" }}>
           <p className="text-xs font-medium">FULL REPORT</p>
           <Image src="/images/downloads-full-report-icon.png" alt="" width={100} height={100} className="mt-6 size-[100px] transition-transform duration-300 group-hover:scale-110 motion-reduce:transform-none" />
           <h2 className="mt-5 text-xl font-semibold leading-7">2026 Public Safety Workforce Insights Report</h2>
           <div className="mt-auto pt-6">
-            <a href={currentReportUrl} target="_blank" rel="noopener noreferrer" className="group/open inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-semibold text-[#046D2A] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
+            <a data-report-action="primary" href={currentReportUrl} target="_blank" rel="noopener noreferrer" className="group/open inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-semibold text-[#046D2A] transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[#EFF4D6] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:hover:translate-y-0">
               Open 2026 PDF <ExternalLink className="size-4 transition-transform duration-300 group-hover/open:-translate-y-0.5 group-hover/open:translate-x-0.5 motion-reduce:transform-none" aria-hidden="true" />
             </a>
           </div>
@@ -84,7 +84,7 @@ export default function PublicSafetyDownloadsView({ slug, report }: { slug: stri
             <h2 className="text-xs font-medium text-[#535862]">PREVIOUS REPORTS</h2>
             <div className="mt-8 space-y-4">
               {previousReports.map((previousReport, index) => (
-                <a key={previousReport.title} href={previousReport.url} target="_blank" rel="noopener noreferrer" className="flex min-h-[58px] w-full items-center justify-between gap-4 rounded-full border border-[#B4BDD3] bg-[#F2F5FA] px-5 py-3 text-left text-xs font-semibold text-[#182B5B] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#182B5B] hover:bg-[#E9EDF5] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#182B5B] motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
+                <a data-report-action="primary" key={previousReport.title} href={previousReport.url} target="_blank" rel="noopener noreferrer" className="flex min-h-[58px] w-full items-center justify-between gap-4 rounded-full border border-[#B4BDD3] bg-[#F2F5FA] px-5 py-3 text-left text-xs font-semibold text-[#182B5B] animate-content-switch transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#182B5B] hover:bg-[#E9EDF5] hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#182B5B] motion-reduce:animate-none" style={{ animationDelay: `${0.45 + index * 0.12}s` }}>
                   <span>{previousReport.title}</span>
                   <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
                 </a>

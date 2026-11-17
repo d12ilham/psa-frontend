@@ -23,7 +23,7 @@ export default function Theme1InsightSubView({
     <div className="space-y-8">
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <button
+        <button data-report-action="secondary"
           onClick={onBackToOverview}
           className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
         >
@@ -36,7 +36,7 @@ export default function Theme1InsightSubView({
             Insight {insightId} of 3 · Theme 1
           </span>
           <div className="flex items-center gap-2">
-            <button
+            <button data-report-action="primary"
               onClick={() => {
                 if (insightId > 1) onNavigateInsight(insightId - 1);
               }}
@@ -51,7 +51,7 @@ export default function Theme1InsightSubView({
               <span>Previous</span>
             </button>
 
-            <button
+            <button data-report-action="primary"
               onClick={() => {
                 if (insightId < 3) onNavigateInsight(insightId + 1);
               }}
@@ -177,7 +177,7 @@ export default function Theme1InsightSubView({
             </div>
 
             {/* Right Box: Industry Insight */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.22s" }}
               className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
             >
@@ -291,7 +291,7 @@ export default function Theme1InsightSubView({
           {/* Right Column (2 Light Green Cards) */}
           <div className="space-y-6">
             {/* Card 1: Industry Insight */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.15s" }}
               className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
             >
@@ -325,7 +325,7 @@ export default function Theme1InsightSubView({
             </div>
 
             {/* Card 2: Industry Insight */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.28s" }}
               className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5 flex flex-col justify-between"
             >
@@ -412,7 +412,7 @@ export default function Theme1InsightSubView({
           </div>
 
           {/* Right Column (Jurisdictional Shortage List Container) */}
-          <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 p-6 space-y-5">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-2xl border border-gray200 p-6 space-y-5">
             <div className="space-y-2">
               <h3 className="text-xl font-bold text-gray800">
                 The jurisdictional Local Government-specific shortage list

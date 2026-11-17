@@ -80,16 +80,16 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
         <div className={styles.projectList}>
           {projects.map((item, index) => <button key={item.number} type="button" aria-pressed={active === index} aria-controls="defence-project-panel" onClick={() => setActive(index)} className={styles.projectButton}>
             <span><small>{item.number} · Completion: {item.completion}</small><strong>{item.title}</strong></span>
-            <span className={styles.arrow} aria-hidden="true"><ArrowRight size={16} /></span>
+            <span data-report-action="primary" className={styles.arrow} aria-hidden="true"><ArrowRight size={16} /></span>
           </button>)}
         </div>
       </div>
-      <ReportSelectionPanel selection={active} label="Defence project details"><article id="defence-project-panel" className={styles.panel} aria-labelledby="defence-project-heading">
+      <ReportSelectionPanel selection={active} label="Defence project details"><article data-report-surface="neutral" id="defence-project-panel" className={styles.panel} aria-labelledby="defence-project-heading">
         <div className={styles.panelHeader}>
           <span className={styles.badge}>{project.number} · Completion: {project.completion}</span>
           <div className={styles.controls}>
-            {active > 0 && <button type="button" className={styles.previous} onClick={() => move(-1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < projects.length - 1 && <button type="button" onClick={() => move(1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" type="button" className={styles.previous} onClick={() => move(-1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < projects.length - 1 && <button data-report-action="primary" type="button" onClick={() => move(1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={project.number} className={`${styles.details} animate-content-switch`}>
@@ -106,11 +106,11 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
             <p>{formatProjectCopy(project.updateEnd, project.number)}</p>
           </div>
           <div className={styles.groups}>
-            <section className={styles.note}>
+            <section data-report-surface="neutral" className={styles.note}>
               <h4>Key Stakeholders</h4>
               <ul>{project.stakeholders.map((item, index) => <li key={`${project.number}-${index}`}>{item}</li>)}</ul>
             </section>
-            <section className={styles.note}>
+            <section data-report-surface="neutral" className={styles.note}>
               <h4 className={styles.connectionHeading}>Connection to 2026 Strategies</h4>
               <dl>
                 <div><dt>Ministerial Priority 2026</dt><dd>{project.ministerial}</dd></div>

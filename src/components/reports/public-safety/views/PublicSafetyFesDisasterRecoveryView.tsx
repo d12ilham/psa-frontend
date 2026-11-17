@@ -68,7 +68,7 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
       </div>
     </section>
 
-    <section className={`${styles.summary} ${styles.numberedSummary} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-one">
+    <section data-report-surface="neutral" className={`${styles.summary} ${styles.numberedSummary} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-one">
       <span className={styles.insightNumber} aria-hidden="true">1</span>
       <div className={styles.summaryCopy}>
         <p id="fes-recovery-insight-one" className={styles.insightLabel}>Theme One, Insight One</p>
@@ -83,9 +83,9 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
         <div className={styles.narrative}>
           <p>From July 2024 to June 2025, the Australian Institute for Disaster Resilience <em>Major Incidents Report</em> documented 40 major emergency incidents, spanning fires, floods, storms, tropical cyclones, health outbreaks, technology failures and repatriations from international conflict zones.<sup><PublicSafetyFootnoteLink number={53} /></sup> This is an increase from both the 2022–23 and 2023–24 financial years as detailed to the right:</p>
           <p>Fire and Emergency Services stakeholders noted that at the time of the <em>Royal Commission into National Natural Disaster Arrangements in 2020</em> (Royal Commission in 2020), specialist disaster recovery skills and functions were identified as different to those required in emergency management. Following the Royal Commission in 2020, a suite of nationally accredited training products related to disaster recovery were developed.<sup><PublicSafetyFootnoteLink number={55} /></sup> Facilitated through the <em>National Recovery Training Program</em>,<sup><PublicSafetyFootnoteLink number={56} /></sup> newly developed disaster recovery training products included one qualification, nine skill sets and four units of competency (refer <em>Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements</em>).</p>
-          <button type="button" className={`${styles.appendix} ${styles.animatedAppendix}`} onClick={() => router.push(`${reportPath}/fes_disaster_recovery_training_products`)}>
+          <button data-report-surface="neutral" type="button" className={`${styles.appendix} ${styles.animatedAppendix}`} onClick={() => router.push(`${reportPath}/fes_disaster_recovery_training_products`)}>
             <span>Appendix B – Disaster recovery training products from the Royal Commission into National Natural Disaster Arrangements</span>
-            <span className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
+            <span data-report-action="primary" className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
           </button>
           <p>Collectively, these training products are targeted at individuals without emergency service backgrounds, including local community members, social service providers, local government personnel, spontaneous volunteers or individuals from government organisations tasked with recovery coordination.<sup><PublicSafetyFootnoteLink number={57} /></sup></p>
         </div>

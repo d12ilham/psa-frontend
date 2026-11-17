@@ -65,10 +65,10 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
     ["Anticipated timing", strategy.timing],
   ] as const;
 
-  return <article id={id} className={`${layout.strategy} ${styles.strategy} animate-card-entrance`}>
+  return <article data-report-surface="neutral" id={id} className={`${layout.strategy} ${styles.strategy} animate-card-entrance`}>
     <div className={layout.cardHeader}>
       <span className={`${layout.badge} ${styles.badge}`}>{strategy.number}</span>
-      <button type="button" onClick={onToggle} aria-expanded={open} aria-controls={`${id}-detail`} className={layout.toggle}>
+      <button data-report-action="primary" type="button" onClick={onToggle} aria-expanded={open} aria-controls={`${id}-detail`} className={layout.toggle}>
         {open ? "Close" : "Open"} <ChevronDown size={16} aria-hidden="true" />
       </button>
     </div>
@@ -86,7 +86,7 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
         <ul className={layout.stakeholders}>
           {strategy.stakeholders.map(item => <li key={item}><span aria-hidden="true">•</span> {item}</li>)}
         </ul>
-        {appendixHref && <Link className={styles.appendix} href={appendixHref}>Appendix B – training products <ArrowRight size={16} aria-hidden="true" /></Link>}
+        {appendixHref && <Link data-report-action="primary" className={styles.appendix} href={appendixHref}>Appendix B – training products <ArrowRight size={16} aria-hidden="true" /></Link>}
       </div>
     </div>
   </article>;
@@ -110,7 +110,7 @@ export default function PublicSafetyFesWorkforceStrategiesView({ slug, report }:
         <span className={`${layout.badge} ${styles.badge}`}>Fire and Emergency Services Workforce Strategies</span>
         <h1>Proposed Strategies 2026</h1>
         <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support Fire and Emergency Services:</p>
-        <button type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
+        <button data-report-action="primary" type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
           {allOpen ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
         </button>
       </div>

@@ -188,18 +188,18 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
           {strategies.map((item, index) => (
             <button key={item.title} type="button" aria-pressed={active === index} aria-controls="fes-existing-panel" onClick={() => setActive(index)} className={`${layout.projectButton} ${styles.projectButton} animate-card-entrance`} style={{ animationDelay: `${100 + index * 80}ms` }}>
               <span><small>0{index + 1} · {item.owner}</small><strong>{item.title}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
 
-      <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
+      <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article data-report-surface="neutral" id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
         <div className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · {strategy.owner}</span>
           <div className={`${layout.controls} ${styles.controls}`}>
-            {active > 0 && <button type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < strategies.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < strategies.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
 
@@ -213,7 +213,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
           <div className={`${layout.groups} ${styles.groups}`}>
             <h4 className={styles.sectionHeading}>How this informs Public Skills Australia&apos;s work</h4>
             {detail.notes.map((note, index) => (
-              <section key={noteTitles[index]} className={`${layout.note} ${styles.note}`}>
+              <section data-report-surface="neutral" key={noteTitles[index]} className={`${layout.note} ${styles.note}`}>
                 <h5>{noteTitles[index]}</h5>
                 {note}
               </section>

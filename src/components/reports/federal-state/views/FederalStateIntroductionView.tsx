@@ -155,27 +155,27 @@ export default function FederalStateIntroductionView({
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <button
+              <button data-report-action="download"
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
-                className="bg-[#754C2D] hover:bg-[#5C3B23] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+                className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
-              <button
+              <button data-report-action="secondary"
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
-                className="border border-[#EED4C4] bg-[#F8EEE8] hover:bg-gray-50 text-[#754C2D] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
+                className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
               </button>
-              <a
+              <a data-report-action="secondary"
                 href={
                   report.psaSectorPageUrl ||
                   "https://publicskillsaustralia.org.au"
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-gray200 bg-white hover:bg-gray-50 text-gray800 font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer no-underline"
+                className="border border-gray200 bg-white hover:bg-gray-50 text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer no-underline"
               >
                 PSA Website
               </a>
@@ -327,8 +327,8 @@ export default function FederalStateIntroductionView({
 
                 {/* Bottom: Explore Button */}
                 <div>
-                  <span
-                    className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#754C2D] font-bold text-xs px-5 py-2 rounded-full inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+                  <span data-report-action="primary"
+                    className="bg-[#8AC900] hover:bg-[#79B000] text-[#252B37] font-bold text-xs px-5 py-2 rounded-full inline-flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
                     Explore <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
@@ -340,7 +340,7 @@ export default function FederalStateIntroductionView({
 
         {/* ── TWO FEATURE BANNERS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div data-report-surface="neutral" className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
                 src="/images/reports/federal-state/sector-palette/reports/introduction/About.svg"
@@ -356,15 +356,15 @@ export default function FederalStateIntroductionView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() => router.push(`/reports/${slug}/about`)}
-              className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+              className="bg-[#8AC900] hover:bg-[#79B000] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >
               View <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
 
-          <div className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div data-report-surface="neutral" className="bg-[#F8EEE8] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
                 src="/images/reports/federal-state/sector-palette/reports/introduction/Methodology.svg"
@@ -378,9 +378,9 @@ export default function FederalStateIntroductionView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() => router.push(`/reports/${slug}/methodology`)}
-              className="bg-[#EED4C4] hover:bg-[#D9BFB1] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+              className="bg-[#8AC900] hover:bg-[#79B000] text-[#252B37] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >
               View <ArrowRight className="h-3.5 w-3.5" />
             </button>

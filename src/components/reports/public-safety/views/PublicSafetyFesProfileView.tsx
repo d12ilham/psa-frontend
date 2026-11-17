@@ -101,7 +101,7 @@ function JurisdictionChart() {
       <div className={styles.map}>
         <AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="fire" compact showActLabel largeLabels />
       </div>
-      <aside className={styles.stateData}>
+      <aside data-report-surface="neutral" className={styles.stateData}>
         <h4>{selectedState}</h4>
         <table key={selectedState} className="animate-content-switch">
           <thead><tr><th scope="col"><span className="sr-only">Category</span></th><th scope="col">Career</th><th scope="col">Volunteer</th></tr></thead>
@@ -150,7 +150,7 @@ export default function PublicSafetyFesProfileView({ slug, report }: { slug: str
           {([0, 1, 2, 3, 4] as const).map(index => (
             <button key={index} type="button" aria-pressed={active === index} aria-controls="fes-profile-presentation" className={`${layout.projectButton} ${styles.selection} ${layout.enter}`} style={{ animationDelay: `${100 + index * 80}ms` }} onClick={() => setActive(index)}>
               <span><small>0{index + 1} · Chart · FES</small><strong>{charts[index]}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
@@ -164,7 +164,7 @@ export default function PublicSafetyFesProfileView({ slug, report }: { slug: str
                   <FirefighterQualificationsChart mode={mode} title={`Yearly Student ${label} for ${chartPairs[active].subject}`} height={chartPairs[active].heights[index]} note={showRecruitNote} />
                 </section>;
               })}
-              {showRecruitNote && <p id="fes-note-52" className={styles.note}>52 It should be noted that for several Fire and Emergency Services organisations recruit training focuses on completions of Units of Competency rather than full qualifications.</p>}
+              {showRecruitNote && <p data-report-surface="neutral" id="fes-note-52" className={styles.note}>52 It should be noted that for several Fire and Emergency Services organisations recruit training focuses on completions of Units of Competency rather than full qualifications.</p>}
             </div>
           )}
         </div></ReportSelectionPanel>

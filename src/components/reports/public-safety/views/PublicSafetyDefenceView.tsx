@@ -61,7 +61,7 @@ export default function PublicSafetyDefenceView({ slug, report }: { slug: string
           <article key={section.title} style={sectionsVisible ? { animationDelay: `${index * 0.1 + 0.1}s` } : undefined} className={`${styles.card} ${sectionsVisible ? styles.enter : styles.pending}`}>
             <h2>{section.title}</h2>
             <p>{section.description}</p>
-            <button type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className={styles.open} aria-label={`Open ${section.title}`}>Open <ArrowRight aria-hidden="true" /></button>
+            <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${section.path}`)} className={styles.open} aria-label={`Open ${section.title}`}>Open <ArrowRight aria-hidden="true" /></button>
           </article>
         ))}
       </section>

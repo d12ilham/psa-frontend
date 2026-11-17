@@ -141,17 +141,17 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
           {strategies.map((item, index) => (
             <button key={item.number} type="button" className={styles.projectButton} aria-pressed={active === index} aria-controls="defence-existing-panel" onClick={() => setActive(index)}>
               <span><small>{item.number} · {item.owner}</small><strong>{item.title}</strong></span>
-              <span className={styles.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={styles.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
-      <ReportSelectionPanel selection={active} label="Defence strategy details"><article id="defence-existing-panel" className={styles.panel} aria-labelledby="defence-existing-heading">
+      <ReportSelectionPanel selection={active} label="Defence strategy details"><article data-report-surface="neutral" id="defence-existing-panel" className={styles.panel} aria-labelledby="defence-existing-heading">
         <div className={styles.panelHeader}>
           <span className={styles.badge}>{strategy.number} · {active === 0 ? strategy.period : strategy.owner}</span>
           <div className={`${styles.controls} ${active > 0 ? existing.controls : ""}`}>
-            {active > 0 && <button className={styles.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < strategies.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" className={styles.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < strategies.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={strategy.number} className={`${styles.details} animate-content-switch`}>
@@ -170,7 +170,7 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
               ["2025 Workforce Strategies", strategy.update2025, "update2025"],
               ["2026 Workforce Strategies", strategy.update2026, "update2026"],
             ] as const).map(([title, body, field]) => body && (
-              <div key={title} className={`${styles.note} ${existing.note}`}>
+              <div data-report-surface="neutral" key={title} className={`${styles.note} ${existing.note}`}>
                 <h5>{title}</h5>
                 <StrategyText copy={body} emphasisKey={`${strategy.number}-${field}`} />
               </div>

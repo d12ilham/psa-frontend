@@ -175,7 +175,7 @@ export default function CorrectionalServicesStateTerritoryView({
               {jurisdictions.map((item, index) => {
                 const isActive = item.code === activeCode;
                 return (
-                  <button
+                  <button data-report-surface="neutral"
                     key={item.code}
                     type="button"
                     onClick={() => setActiveCode(item.code)}
@@ -216,7 +216,7 @@ export default function CorrectionalServicesStateTerritoryView({
                 ["Imprisonment rate", "Dataset required", "Approved source dataset required for 5 quarters"],
                 ["Operating expenditure", active.expenditure, "Prisons and community corrections"],
               ].map(([label, value, meta], index) => (
-                <article
+                <article data-report-surface="neutral"
                   key={label}
                   style={{ animationDelay: `${index * 0.08}s` }}
                   className="animate-card-entrance rounded-xl border border-[#BEEBFB] bg-[#FBFCFD] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md"
@@ -228,7 +228,7 @@ export default function CorrectionalServicesStateTerritoryView({
               ))}
             </div>
 
-            <div className="mt-6 rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
+            <div data-report-surface="neutral" className="mt-6 rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
               <h3 className="text-base font-bold text-[#252D02]">
                 Correctional Custodial Facilities by Jurisdiction
               </h3>

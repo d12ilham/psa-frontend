@@ -86,15 +86,15 @@ export default function PublicSafetyLookingForwardView({ slug, report }: { slug:
         <span className="absolute inset-x-0 top-0 h-[7px]" style={{ backgroundColor: area.color }}/>
         <span className="inline-flex rounded-full px-5 py-2.5 text-sm font-semibold uppercase text-white transition-transform duration-300 group-hover:scale-105" style={{ backgroundColor: area.color }}>{area.label}</span>
         <p className="mt-4 text-sm leading-6 text-black">{area.text}</p>
-        <Link href={`/reports/${slug}/${area.path}`} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-sm font-semibold text-[#252D02] hover:bg-[#78AF00] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#598303]">Explore {area.label} <span aria-hidden="true">→</span></Link>
+        <Link data-report-action="primary" href={`/reports/${slug}/${area.path}`} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-sm font-semibold text-[#252D02] hover:bg-[#78AF00] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#598303]">Explore {area.label} <span aria-hidden="true">→</span></Link>
       </article>)}
     </section>
     <div className="flex flex-wrap items-center justify-center gap-4 pt-2 sm:justify-start">
-      <Link href={`/reports/${slug}/downloads?${new URLSearchParams({ from: `/reports/${slug}/looking_forward` })}`} className="inline-flex items-center gap-2 rounded-full bg-[#046D2A] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#035822]">
+      <Link data-report-action="download" href={`/reports/${slug}/downloads?${new URLSearchParams({ from: `/reports/${slug}/looking_forward` })}`} className="inline-flex items-center gap-2 rounded-full bg-[#046D2A] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#035822]">
         Download {report.year?.label || "2026"} PDF <Download size={16} aria-hidden="true" />
       </Link>
-      <Link href={`/reports/${slug}/executive_summary`} className="inline-flex items-center rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-6 py-3 text-sm font-bold text-[#598303] transition-colors hover:bg-[#E9EAEB]">Revisit the Executive Summary</Link>
-      <a href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full border border-[#E9EAEB] px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-[#E9EAEB]">Contact Public Skills Australia</a>
+      <Link data-report-action="secondary" href={`/reports/${slug}/executive_summary`} className="inline-flex items-center rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-6 py-3 text-sm font-bold text-[#598303] transition-colors hover:bg-[#E9EAEB]">Revisit the Executive Summary</Link>
+      <a data-report-action="primary" href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full border border-[#E9EAEB] px-6 py-3 text-sm font-bold text-black transition-colors hover:bg-[#E9EAEB]">Contact Public Skills Australia</a>
     </div>
   </PublicSafetyPageShell>;
 }

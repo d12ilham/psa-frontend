@@ -207,11 +207,11 @@ function LocationChart() {
   return <section className={`${styles.locationPanel} animate-card-entrance`} aria-labelledby="defence-location-title">
     <h2 id="defence-location-title">ADF Employees and Major Facilities by Location</h2>
     <div className={styles.locationControls} role="group" aria-label="Select an ADF workforce jurisdiction">
-      {states.map((state) => <button type="button" key={state} aria-pressed={state === selectedState} aria-label={defenceLocations[state].name} onClick={() => setSelectedState(state)}>{state}</button>)}
+      {states.map((state) => <button data-report-action="primary" type="button" key={state} aria-pressed={state === selectedState} aria-label={defenceLocations[state].name} onClick={() => setSelectedState(state)}>{state}</button>)}
     </div>
     <div className={styles.locationGrid}>
       <div className={styles.locationMap}><PublicSafetyDefenceLocationMap className={styles.locationMapAsset} selected={selectedState} onSelect={setSelectedState} /></div>
-      <aside className={styles.locationDetails} aria-live="polite" aria-atomic="true">
+      <aside data-report-surface="neutral" className={styles.locationDetails} aria-live="polite" aria-atomic="true">
         <h3>{selectedState}</h3>
         <div key={selectedState} className={styles.locationStats}>{location.values.map((value, index) => <div key={index} className={styles.locationStat} style={{ animationDelay: `${index * .1 + .15}s` }}><strong>{value}</strong><span>{["Permanent ADF", "ADF Reserves", "Major Defence bases*"][index]}</span></div>)}</div>
       </aside>

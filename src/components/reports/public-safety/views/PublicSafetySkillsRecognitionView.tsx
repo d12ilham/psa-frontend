@@ -84,10 +84,10 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
         <section data-reveal="differences" className={reveal("differences")}>
           <h2 className={styles.sectionTitle}>Differences limiting the use of RPL between sectors</h2>
           <p className={styles.differencesIntro}><DesignLines lines={["Challenges with RPL are not exclusive to the Public Safety industry-sectors and are shared with other industries. Other", "factors that affect the limited use of RPL in the Public Safety industry-sector include:"]} /></p>
-          <div className={styles.differencesPanel}>
+          <div data-report-surface="neutral" className={styles.differencesPanel}>
             <p className={styles.panelLabel}>Differences</p>
             <div className={styles.differenceGrid}>{differences.map(({ lines, icon }, index) => (
-              <div key={icon} className={styles.differenceCard + " " + reveal("differences")} style={{ animationDelay: index * .08 + .1 + "s" }}>
+              <div data-report-surface="neutral" key={icon} className={styles.differenceCard + " " + reveal("differences")} style={{ animationDelay: index * .08 + .1 + "s" }}>
                 <Image src={"/images/reports/public-safety/skills-recognition/" + icon + ".svg"} width={72} height={72} alt="" unoptimized />
                 <span className={styles.differenceLabel}>{lines.map((line) => <span key={line}>{line}</span>)}</span>
               </div>

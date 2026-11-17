@@ -120,7 +120,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           <p className={styles.sharedIntro}>These three units of competency contain shared skills relating to:</p>
           <div className={styles.sharedGrid}>
             {sharedSkills.map((item, index) => (
-              <article key={item.number} className={`${styles.sharedCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .35}s` }}>
+              <article data-report-surface="neutral" key={item.number} className={`${styles.sharedCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .35}s` }}>
                 <span className={styles.number} aria-hidden="true">{item.number}</span>
                 <h3><DesignLines lines={skillTitleLines[index]} /></h3>
                 <p><DesignLines lines={skillBodyLines[index]} /></p>
@@ -131,7 +131,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
 
         <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Comparison Table</h2>
 
-        <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
+        <aside data-report-surface="neutral" data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
 
         <section data-reveal="table" className={reveal("table")}>
           <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>
@@ -156,7 +156,7 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                 return (
                 <tr key={row.skill}>
                   <th scope="row" className={styles.matchedSkillHeader}>
-                    <div className={styles.sharedCard}>
+                    <div data-report-surface="neutral" className={styles.sharedCard}>
                       <span className={styles.number} aria-hidden="true">{summary.number}</span>
                       <h3>{summary.title}</h3>
                       <p>{summary.body}</p>

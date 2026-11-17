@@ -124,9 +124,9 @@ function JurisdictionChartLibrary() {
               <h4>{jurisdictionChartTitle} {chart.name}</h4>
             </div>
             <div className={styles.chartControls}>
-              <button type="button" onClick={() => selectChart((selected - 1 + count) % count)}><ChevronLeft aria-hidden="true" /> Prev</button>
-              <button type="button" onClick={() => selectChart((selected + 1) % count)}>Next <ChevronRight aria-hidden="true" /></button>
-              <button type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
+              <button data-report-action="primary" type="button" onClick={() => selectChart((selected - 1 + count) % count)}><ChevronLeft aria-hidden="true" /> Prev</button>
+              <button data-report-action="primary" type="button" onClick={() => selectChart((selected + 1) % count)}>Next <ChevronRight aria-hidden="true" /></button>
+              <button data-report-action="primary" type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
             </div>
           </div>
           <div className={styles.jurisdictionPlot}>
@@ -212,7 +212,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
           {datapoints.map((item, index) => {
             const isOpen = open === index;
             return <article key={item.title}>
-              <button type="button" aria-expanded={isOpen} aria-controls={`${panelId}-${index}`} onClick={() => setOpen(isOpen ? null : index)} className={styles.toggle}>
+              <button data-report-surface="neutral" type="button" aria-expanded={isOpen} aria-controls={`${panelId}-${index}`} onClick={() => setOpen(isOpen ? null : index)} className={styles.toggle}>
                 <span>{item.title}</span>
                 <span className={styles.pill}>{isOpen ? "Close" : "Open"}<ChevronDown aria-hidden="true" /></span>
               </button>

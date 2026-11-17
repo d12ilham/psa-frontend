@@ -192,7 +192,7 @@ export default function CorrectionalServicesIndustryOverviewView({
                     <span key={metric} className="rounded bg-[#F0F0F7] px-3 py-1 text-xs font-semibold leading-[18px] text-[#424996]">{metric}</span>
                   ))}
                 </div>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={() => router.push(`/reports/${slug}/${story.href}`)}
                   className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] transition-colors hover:bg-[#78AF00]"

@@ -188,7 +188,7 @@ export default function WorkforceInsightsView({
                   <h2 className="text-xl sm:text-2xl font-bold text-gray800">
                     Local Government Specific Occupational Shortages
                   </h2>
-                  <button
+                  <button data-report-action="primary"
                     onClick={() => setShowTheme1Overview(!showTheme1Overview)}
                     className="bg-[#85B810] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                   >
@@ -323,7 +323,7 @@ export default function WorkforceInsightsView({
                   <h2 className="text-xl sm:text-2xl font-bold text-gray800">
                     Access to VET Qualifications and Training Delivery Partners
                   </h2>
-                  <button
+                  <button data-report-action="primary"
                     onClick={() => setShowTheme2Overview(!showTheme2Overview)}
                     className="bg-[#85B810] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer flex items-center gap-1"
                   >

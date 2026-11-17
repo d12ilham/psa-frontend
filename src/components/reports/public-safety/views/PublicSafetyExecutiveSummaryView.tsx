@@ -32,7 +32,7 @@ function SummaryText({ text }: { text: string }) {
 }
 
 function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
-  return <button type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
+  return <button data-report-action="primary" type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
 }
 
 function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description: string; children: React.ReactNode }) {
@@ -63,10 +63,10 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay, show
         {sector.items.map(({ id, title, number, details }) => {
           const expanded = expandedId === id;
           return (
-            <div key={id} className={`${styles.tile} ${expanded ? styles.tileOpen : ""}`}>
+            <div data-report-surface="neutral" key={id} className={`${styles.tile} ${expanded ? styles.tileOpen : ""}`}>
               <span className={styles.number} aria-hidden="true">{number}</span>
               <p className={styles.tileTitle}><SummaryText text={title} /></p>
-              <button type="button" aria-label={`${expanded ? "Close" : "Open"} ${title}`} aria-expanded={expanded} aria-controls={`${id}-detail`} onClick={() => onToggle(id)} className={styles.toggle}>
+              <button data-report-action="primary" type="button" aria-label={`${expanded ? "Close" : "Open"} ${title}`} aria-expanded={expanded} aria-controls={`${id}-detail`} onClick={() => onToggle(id)} className={styles.toggle}>
                 {expanded ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={expanded ? styles.expandedChevron : undefined} />
               </button>
               <div id={`${id}-detail`} aria-hidden={!expanded} inert={!expanded} className={`${styles.detail} ${expanded ? styles.detailOpen : ""}`}>
@@ -77,7 +77,7 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay, show
                         {detail.number && <span className={styles.detailNumber}>{detail.number}</span>}
                         <div className={styles.detailBody}>
                           <p className={styles.detailText}><SummaryText text={detail.text} /></p>
-                          {showDetailLinks && <Link href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
+                          {showDetailLinks && <Link data-report-action="primary" href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
                             Open<ArrowRight aria-hidden="true" />
                           </Link>}
                         </div>
@@ -147,9 +147,9 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
-          <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
         </div></SectionHeading></div>
         <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>
@@ -165,7 +165,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section className={styles.supporting}>
         <h2>Supporting Sections:</h2>
-        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["Defence Chapter", "defence"], ["Fire and Emergency Services Chapter", "fes"], ["Police Chapter", "police"]].map(([label, path]) => <button key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
+        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["Defence Chapter", "defence"], ["Fire and Emergency Services Chapter", "fes"], ["Police Chapter", "police"]].map(([label, path]) => <button data-report-action="primary" key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
       </section>
     </PublicSafetyPageShell>
   );

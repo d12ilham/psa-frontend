@@ -69,10 +69,10 @@ export default function FederalStateJurisdictionMap({ initialJurisdiction }: { i
   const popupVisible = selected === "NATIONAL" || (settledSelection === selected && popup === selected);
 
   return (
-    <div data-jurisdiction-map data-zoom-complete={settledSelection === selected} className="relative isolate overflow-hidden rounded-xl border border-[#E7E3DC] bg-[#FBF5F1] text-black" onKeyDown={(event) => { if (event.key === "Escape") setPopup(null); }}>
+    <div data-report-surface="neutral" data-jurisdiction-map data-zoom-complete={settledSelection === selected} className="relative isolate overflow-hidden rounded-xl border border-[#E7E3DC] bg-[#FBF5F1] text-black" onKeyDown={(event) => { if (event.key === "Escape") setPopup(null); }}>
       <div className="flex flex-wrap items-center justify-between gap-2 px-4 pt-4">
         <p className="text-base font-semibold">Select a state or territory on the map</p>
-        <button type="button" onClick={() => { if (selected !== "NATIONAL") setSettledSelection(null); setSelected("NATIONAL"); setPopup(null); }} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#754C2D] bg-white px-3 text-sm font-semibold hover:bg-[#EED4C4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
+        <button data-report-action="secondary" type="button" onClick={() => { if (selected !== "NATIONAL") setSettledSelection(null); setSelected("NATIONAL"); setPopup(null); }} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#754C2D] bg-white px-3 text-sm font-semibold hover:bg-[#EED4C4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
           <ZoomOut size={16} aria-hidden="true" /> Full Australia
         </button>
       </div>
@@ -110,7 +110,7 @@ export default function FederalStateJurisdictionMap({ initialJurisdiction }: { i
           className={`relative z-10 m-3 rounded-xl border border-[#D9BCAF] bg-white/95 p-4 shadow-lg sm:absolute sm:bottom-3 sm:right-3 sm:m-0 sm:w-[290px] ${popupVisible ? "opacity-100 motion-safe:transition-opacity motion-safe:duration-500" : "pointer-events-none opacity-0 transition-none"}`}>
           <div className="flex items-start justify-between gap-3">
             <h3 className="text-lg font-bold">{info.name}</h3>
-            <button type="button" aria-label="Close workforce pop-up" onClick={() => setPopup(null)} className="-mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-[#EED4C4] focus-visible:outline-2 focus-visible:outline-[#754C2D]"><X size={18} aria-hidden="true" /></button>
+            <button data-report-action="primary" type="button" aria-label="Close workforce pop-up" onClick={() => setPopup(null)} className="-mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-[#EED4C4] focus-visible:outline-2 focus-visible:outline-[#754C2D]"><X size={18} aria-hidden="true" /></button>
           </div>
           <dl className="mt-3 space-y-3">
             <div><dt className="text-base leading-6">State/Territory <span className="whitespace-nowrap">Public Service</span> employees</dt><dd data-public-service-count className="mt-1 text-3xl font-bold tabular-nums">{info.publicService}</dd></div>

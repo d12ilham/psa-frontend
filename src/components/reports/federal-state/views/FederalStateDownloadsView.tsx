@@ -44,7 +44,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <FederalStateReportUtilityRow>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="button" onClick={handleBack} className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer">
+            <button data-report-action="secondary" type="button" onClick={handleBack} className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer">
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Back
             </button>
           </div>
@@ -62,12 +62,12 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
 
         <section aria-label="Reports available for download" className="grid items-stretch gap-6 lg:grid-cols-2">
           <div className="animate-card-entrance motion-reduce:animate-none" style={{ animationDelay: "0.2s" }}>
-          <article className="group flex h-full min-h-[370px] flex-col rounded-md bg-[#754C2D] p-6 text-white transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:bg-[#694329] hover:shadow-lg motion-reduce:hover:translate-y-0 sm:p-8">
+          <article data-report-surface="neutral" className="group flex h-full min-h-[370px] flex-col rounded-md bg-[#754C2D] p-6 text-white transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:bg-[#694329] hover:shadow-lg motion-reduce:hover:translate-y-0 sm:p-8">
             <p className="text-xs font-medium">FULL REPORT</p>
             <span aria-hidden="true" className="animate-zoom-in mt-6 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white text-[#754C2D] transition-transform duration-300 group-hover:scale-105 motion-reduce:animate-none motion-reduce:transform-none"><FileDown size={56} strokeWidth={1.5} /></span>
             <h2 className="mt-6 text-xl font-semibold leading-7">2026 Federal and State/Territory Government Workforce Insights Report</h2>
             <div className="mt-auto pt-6">
-                <a href={currentReportUrl} target="_blank" rel="noopener noreferrer" aria-label="Download 2026 PDF (opens in a new tab or window)" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#754C2D] transition-[background-color,box-shadow] hover:bg-[#EED4C4] hover:shadow-sm">
+                <a data-report-action="primary" href={currentReportUrl} target="_blank" rel="noopener noreferrer" aria-label="Download 2026 PDF (opens in a new tab or window)" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-xs font-semibold text-[#754C2D] transition-[background-color,box-shadow] hover:bg-[#EED4C4] hover:shadow-sm">
                   Download 2026 PDF <Download aria-hidden="true" className="h-4 w-4" />
                 </a>
             </div>
@@ -81,7 +81,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
               <h2 className="text-xs font-medium text-[#555]">PREVIOUS REPORTS</h2>
               <div className="mt-9 space-y-4">
                 {previousReports.map(({ year, title, url }) => (
-                  <a key={year} href={url} target="_blank" rel="noopener noreferrer" aria-label={`${title} (opens in a new tab or window)`} className="animate-content-switch flex min-h-[60px] w-full items-center justify-between gap-4 rounded-full border border-[#754C2D] bg-[#EED4C4] px-5 text-left text-sm font-semibold text-[#754C2D] transition-[background-color,box-shadow] duration-300 hover:bg-[#EED4C4]/80 hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: `${0.5 + (2025 - year) * 0.13}s` }}>
+                  <a data-report-action="primary" key={year} href={url} target="_blank" rel="noopener noreferrer" aria-label={`${title} (opens in a new tab or window)`} className="animate-content-switch flex min-h-[60px] w-full items-center justify-between gap-4 rounded-full border border-[#754C2D] bg-[#EED4C4] px-5 text-left text-sm font-semibold text-[#754C2D] transition-[background-color,box-shadow] duration-300 hover:bg-[#EED4C4]/80 hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: `${0.5 + (2025 - year) * 0.13}s` }}>
                     <span>{title}</span>
                     <Download aria-hidden="true" className="h-4 w-4 shrink-0" />
                   </a>

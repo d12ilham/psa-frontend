@@ -73,14 +73,14 @@ export default function CorrectionalServicesAboutView({
 
       <main className="mx-auto flex w-full max-w-360 flex-1 flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
         <nav className="flex flex-wrap items-center gap-3" aria-label="Report sections">
-          <Link
+          <Link data-report-action="secondary"
             href={"/reports/" + slug + "/introduction"}
             className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 text-sm font-bold text-[#598303] no-underline transition-colors hover:bg-[#F0F5DF]"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
             Back to Introduction
           </Link>
-          <Link
+          <Link data-report-action="primary"
             href={"/reports/" + slug + "/methodology"}
             className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-bold text-[#252D02] no-underline transition-colors hover:bg-[#79B600]"
           >
@@ -202,7 +202,7 @@ export default function CorrectionalServicesAboutView({
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-gray200 bg-[#F0F5DF] p-6 text-xs text-gray600 leading-relaxed font-normal">
+          <aside data-report-surface="neutral" className="rounded-2xl border border-gray200 bg-[#F0F5DF] p-6 text-xs text-gray600 leading-relaxed font-normal">
             <ol className="w-full xl:w-2/3 list-decimal pl-5">
               <li>
                 Please note, First Nations people will be used as preferred

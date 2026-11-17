@@ -208,9 +208,9 @@ export default function FederalStateExecutiveSummaryView({
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-            className="bg-[#EED4C4] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#D9BFB1] transition-colors"
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
           >
             Present Drivers of Change <ArrowRight className="h-3.5 w-3.5" />
           </button>
@@ -233,10 +233,10 @@ export default function FederalStateExecutiveSummaryView({
               </div>
               <h2 id="summary-insights-title" className="font-bold text-base text-gray800">One Theme, Three Workforce Insights</h2>
             </div>
-            <button
+            <button data-report-action="primary"
               type="button"
               onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#EED4C4] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#8AC900] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
             >
               Present Workforce Insights <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </button>
@@ -246,13 +246,13 @@ export default function FederalStateExecutiveSummaryView({
             <div className="space-y-3">
               <p className="text-xs font-bold uppercase text-[#754C2D]">Theme 1 · 3 Insights</p>
               <h3 id="summary-theme-title" className="text-xl font-bold text-gray800">{workforceInsightsTheme}</h3>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   aria-expanded={isThemeOverviewOpen}
                   aria-controls="summary-theme-overview"
                   aria-label={isThemeOverviewOpen ? "Close Theme Overview" : "Open Theme Overview"}
                   onClick={() => setIsThemeOverviewOpen((open) => !open)}
-                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#EED4C4] px-4 py-2 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
+                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
                 >
                   Theme Overview <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isThemeOverviewOpen ? "rotate-180" : ""}`} />
                 </button>
@@ -264,7 +264,7 @@ export default function FederalStateExecutiveSummaryView({
             </div>
           <ol className="space-y-3" aria-label="Executive Summary insights">
             {workforceInsightSummaries.map((insight, index) => (
-              <li key={insight.title}
+              <li data-report-surface="neutral" key={insight.title}
                 style={isThemesVisible ? { animationDelay: `${0.10 + index * 0.12}s` } : undefined}
                 className={`summary-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#F8EEE8] p-4 motion-safe:transition-shadow motion-safe:hover:shadow-sm ${isThemesVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0 motion-safe:translate-y-4"}`}>
                 <span aria-hidden="true" className="w-9 shrink-0 select-none text-[50px] font-bold leading-none text-[#754C2D]/10">{index + 1}</span>
@@ -304,11 +304,11 @@ export default function FederalStateExecutiveSummaryView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
-              className="bg-[#EED4C4] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#D9BFB1] transition-colors"
+              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
             >
               Present 2026 Strategies <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -329,13 +329,13 @@ export default function FederalStateExecutiveSummaryView({
               <span className="bg-[#694834] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 STRATEGY 1
               </span>
-              <button
+              <button data-report-action="primary"
                 type="button"
                 aria-expanded={isStrategyOpen}
                 aria-controls="summary-strategy-additional-details"
                 aria-label={isStrategyOpen ? "Close additional strategy details" : "Open additional strategy details"}
                 onClick={() => setIsStrategyOpen((open) => !open)}
-                className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-[#EED4C4] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#D9BFB1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694834]"
+                className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
               >
                 {isStrategyOpen ? "Close" : "Open"}
                 <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isStrategyOpen ? "rotate-180" : ""}`} />
@@ -455,9 +455,9 @@ export default function FederalStateExecutiveSummaryView({
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className="bg-[#EED4C4] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#D9BFB1] transition-colors"
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
           >
             View 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
           </button>

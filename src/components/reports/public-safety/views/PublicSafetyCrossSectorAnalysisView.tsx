@@ -47,7 +47,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
   const [linksVisible, setLinksVisible] = useState(false);
   const selectedTheme = activeTheme === null ? null : themes[activeTheme];
   const themeDetail = selectedTheme ? (
-    <article id="cross-sector-theme-detail" data-theme={activeTheme === null ? undefined : activeTheme + 1} className={`${styles.detailPanel} ${styles.enter} ${activeTheme === 3 ? styles.detailPanelStandalone : ""}`}>
+    <article data-report-surface="neutral" id="cross-sector-theme-detail" data-theme={activeTheme === null ? undefined : activeTheme + 1} className={`${styles.detailPanel} ${styles.enter} ${activeTheme === 3 ? styles.detailPanelStandalone : ""}`}>
       <h2>{selectedTheme.title}</h2>
       <p>{selectedTheme.body}</p>
     </article>
@@ -94,7 +94,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
         </div>
       </section>
 
-      <section ref={themesRef} className={styles.themes + " " + (themesVisible ? styles.enter : styles.pending)}>
+      <section data-report-surface="neutral" ref={themesRef} className={styles.themes + " " + (themesVisible ? styles.enter : styles.pending)}>
         <h2 className={styles.themeIntro}><strong>Four Themes:</strong> The <em>2025 Public Safety Workforce Insights Report</em> identified four themes that consistently impact workforce planning across these industry-sectors, they include:</h2>
         <div className={styles.themeGrid + (selectedTheme ? " " + styles.themeGridOpen : "")}>
           {themes.map((theme, index) => {
@@ -103,7 +103,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
               <article key={theme.label} style={{ animationDelay: (index * 0.12 + 0.1) + "s" }} className={styles.themeCard + " " + (themesVisible ? styles.enter : styles.pending) + " " + (selected ? styles.selected : "")}>
                 <p className={styles.themeLabel}>{theme.label}</p>
                 <h3>{theme.title}</h3>
-                <button type="button" aria-expanded={selected} aria-controls="cross-sector-theme-detail" aria-label={(selected ? "Close " : "Open ") + theme.label.toLowerCase()} onClick={() => setActiveTheme(selected ? null : index)} className={styles.button}>
+                <button data-report-action="primary" type="button" aria-expanded={selected} aria-controls="cross-sector-theme-detail" aria-label={(selected ? "Close " : "Open ") + theme.label.toLowerCase()} onClick={() => setActiveTheme(selected ? null : index)} className={styles.button}>
                   {selected ? "Close" : "Open"}<ChevronDown className={selected ? styles.chevronOpen : undefined} />
                 </button>
               </article>
@@ -115,7 +115,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
 
       {activeTheme === 3 && themeDetail}
 
-      <section ref={interoperabilityRef} className={styles.interoperability + " " + (interoperabilityVisible ? styles.enter : styles.pending)}>
+      <section data-report-surface="neutral" ref={interoperabilityRef} className={styles.interoperability + " " + (interoperabilityVisible ? styles.enter : styles.pending)}>
         <div>
           <p>In addition to the themes above, Public Safety industry-sectors are increasingly required to improve cross-sector interoperability allowing organisations to interact, balance different legal arrangements and provide surge capacity. This requires a level of cross-industry skills recognition.</p>
           <p>Greater cross-industry skills recognition of transferable competencies is essential for sustainable interoperability. When personnel from Defence, Fire and Emergency Services and Police share a common understanding of incident-management language, technical skills (communications, logistics, command and control) and recognised qualifications, multi-organisation teams can integrate faster, reduce safety risks and maintain surge capability during prolonged or simultaneous operations.</p>
@@ -128,7 +128,7 @@ export default function PublicSafetyCrossSectorAnalysisView({ slug, report }: { 
           <article key={item.number} style={{ animationDelay: (index * 0.12 + 0.1) + "s" }} className={styles.analysisCard + " " + (linksVisible ? styles.enter : styles.pending)}>
             <span aria-hidden="true" className={styles.number}>{item.number}</span>
             <h2>{item.title}</h2>
-            <button type="button" onClick={() => router.push('/reports/' + slug + '/' + item.path)} aria-label={"View " + item.title} className={styles.button}>View <ArrowRight /></button>
+            <button data-report-action="primary" type="button" onClick={() => router.push('/reports/' + slug + '/' + item.path)} aria-label={"View " + item.title} className={styles.button}>View <ArrowRight /></button>
           </article>
         ))}
       </section>

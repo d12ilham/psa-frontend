@@ -85,7 +85,7 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
 
           <div className="mt-6 space-y-2">
             {insights.map((insight, index) => (
-              <button
+              <button data-report-surface="neutral"
                 key={insight.title}
                 type="button"
                 onClick={() => router.push(index === 0 ? `/reports/${slug}/workforce_insights_skills_capabilities` : index === 1 ? `/reports/${slug}/workforce_insights_specialisations` : `/reports/${slug}/workforce_insights_career_pathways`)}

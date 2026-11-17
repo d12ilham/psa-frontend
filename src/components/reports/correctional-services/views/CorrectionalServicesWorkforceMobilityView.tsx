@@ -84,7 +84,7 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
 
         <section aria-label="Strategic priorities" className="grid gap-5 md:grid-cols-3">
           {priorities.map((priority, index) => (
-            <article key={priority.title} className="min-h-[200px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
+            <article data-report-surface="neutral" key={priority.title} className="min-h-[200px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
               <h2 className="text-base font-semibold">{priority.title}</h2>
               <p className="mt-2 text-sm leading-6">{priority.description}</p>
             </article>
@@ -95,7 +95,7 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
           <h2 className="text-base font-semibold">The Implementation Report was delivered in multiple parts:</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {reportParts.map((part, index) => (
-              <article key={part.title} className="min-h-[316px] rounded-[14px] border border-[#E9EAEB] bg-[#F4F4F6] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
+              <article data-report-surface="neutral" key={part.title} className="min-h-[316px] rounded-[14px] border border-[#E9EAEB] bg-[#F4F4F6] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
                 <h3 className="text-[40px] font-semibold leading-none text-[#D9DAE1]">{part.title}</h3>
                 <p className="mt-7 text-sm leading-6 text-[#535862]">{part.description}</p>
               </article>
@@ -120,7 +120,7 @@ export default function CorrectionalServicesWorkforceMobilityView({ slug, report
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] px-6 py-6 animate-slide-up motion-reduce:animate-none">
+        <section data-report-surface="neutral" className="overflow-hidden rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] px-6 py-6 animate-slide-up motion-reduce:animate-none">
           <h2 className="text-xl font-semibold">Next Steps</h2>
           <p className="mt-4 max-w-[930px] text-sm leading-6">Public Skills Australia is now engaging with CSAC to work through the implementation of the Report’s findings. Public Skills Australia will also be working to support the implementation of the Report’s findings which will assist the delivery of the Certificate III in Correctional Practice, including:</p>
           <ul className="mt-1 max-w-[930px] list-disc space-y-1 pl-6 text-sm leading-6">

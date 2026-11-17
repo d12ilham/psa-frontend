@@ -1,0 +1,5 @@
+/* Keep the legal subsection literal: Manrope otherwise substitutes (c). */
+.literalReference {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+}

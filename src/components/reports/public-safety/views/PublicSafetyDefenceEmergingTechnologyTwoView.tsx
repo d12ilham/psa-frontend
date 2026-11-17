@@ -57,7 +57,7 @@ function TileList({ items, compact = false }: {
   }, []);
 
   return <ul ref={listRef} className={`${styles.tiles} ${compact ? styles.capabilityTiles : ""}`}>
-    {items.map(({ label, icon, note }, index) => <li key={icon} className={`${styles.tile} ${visible ? "animate-card-entrance" : styles.pending}`} style={{ animationDelay: `${index * .08 + .12}s` }}>
+    {items.map(({ label, icon, note }, index) => <li data-report-surface="neutral" key={icon} className={`${styles.tile} ${visible ? "animate-card-entrance" : styles.pending}`} style={{ animationDelay: `${index * .08 + .12}s` }}>
       {compact ? <CapabilityGraphic icon={icon} /> : <Image src={`/images/reports/public-safety/defence-technology/${icon}.png`} alt="" width={60} height={60} unoptimized />}
       <span>{label}{note && <sup><PublicSafetyFootnoteLink number={note} /></sup>}</span>
     </li>)}
@@ -101,7 +101,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
   >
     <section className={styles.hero} aria-labelledby="defence-technology-two-title">
       <div className="animate-slide-up">
-        <p className={styles.badge}>Theme 1. Emerging Technology. Insight Two</p>
+        <p data-report-surface="neutral" className={styles.badge}>Theme 1. Emerging Technology. Insight Two</p>
         <h1 id="defence-technology-two-title">1. Emerging Technology</h1>
         <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
       </div>
@@ -109,7 +109,7 @@ export default function PublicSafetyDefenceEmergingTechnologyTwoView({ slug, rep
     </section>
 
     <section ref={contentRef} className={`${styles.content} ${contentVisible ? "animate-slide-up" : styles.pending}`} aria-label="Emerging Technology Insight Two">
-      <div className={styles.callout}>
+      <div data-report-surface="neutral" className={styles.callout}>
         <span className={styles.number} aria-hidden="true">2</span>
         <div className={styles.calloutCopy}>
           <p className={styles.insightLabel}>Theme One, Insight Two</p>

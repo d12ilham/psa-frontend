@@ -25,7 +25,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
   >
     <section className={styles.hero} aria-labelledby="defence-veterans-two-title">
       <div className="animate-slide-up">
-        <p className={styles.badge}>Theme 2. Transitioning Veterans. Insight Two</p>
+        <p data-report-surface="neutral" className={styles.badge}>Theme 2. Transitioning Veterans. Insight Two</p>
         <h1 id="defence-veterans-two-title">2. Transitioning Veterans</h1>
         <p className={styles.heroSubtitle}>The complete supporting report content follows below. Use ‘Back to Workforce Insights’ to return to the presentation anchor.</p>
       </div>
@@ -33,7 +33,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
     </section>
 
     <section className={`${styles.content} animate-slide-up`} aria-labelledby="defence-veterans-two-support">
-      <div className={styles.callout}>
+      <div data-report-surface="neutral" className={styles.callout}>
         <span className={styles.number} aria-hidden="true">2</span>
         <div className={styles.calloutCopy}>
           <p className={styles.insightLabel}>Theme Two, Insight Two</p>
@@ -50,7 +50,7 @@ export default function PublicSafetyDefenceTransitioningVeteransTwoView({ slug, 
       </div>
     </section>
 
-    <div className={`${styles.callout} ${styles.additionalInsight}`} aria-label="Industry Insight">
+    <div data-report-surface="neutral" className={`${styles.callout} ${styles.additionalInsight}`} aria-label="Industry Insight">
       <div className={styles.calloutCopy}>
         <p className={styles.insightLabel}>Industry Insight</p>
         <p className={styles.insightText}>The Vocational Education and Training (VET) system remains important for the ADF as it provides a national standard, with meaningful qualifications written by industry, for industry.</p>

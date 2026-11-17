@@ -24,11 +24,11 @@ interface Report {
 }
 
 const occupations = [
-  "Policy and Planning Managers – 12.4%",
-  "Intelligence and Policy Analysts – 14.6%",
-  "Contract, Program and Project Administrators – 8.6%",
-  "General Clerks – 11.2%",
-  "Other Information and Organisation Professionals – 10.5%",
+  "Policy and Planning Managers 12.4%",
+  "Intelligence and Policy Analysts 14.6%",
+  "Contract, Program and Project Administrators 8.6%",
+  "General Clerks 11.2%",
+  "Other Information and Organisation Professionals 10.5%",
 ];
 
 const sources = [
@@ -62,7 +62,7 @@ export default function FederalStateTasProfileView({ slug, report, embedded = fa
       {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_tas" prev={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} next={{ label: "VIC Workforce Overview", href: `/reports/${slug}/industry_profile_vic` }} prevPrefix="" />}
       <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
         <div className="min-w-0 [container-type:inline-size]"><p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Tasmania · Selected jurisdiction</p><h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Tasmanian<br /><span className="whitespace-nowrap">Public Service</span></h1><p className="mt-5 text-base font-semibold text-black">TAS Workforce Overview</p>
-          <div className="mt-3 max-w-[520px] space-y-3"><div className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the Tasmanian State Service was comprised of</p><strong className="mt-1 block text-4xl text-black">36,168</strong><p className="mt-1 text-base leading-6 text-black">employees (29,789.09 FTE)</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={112}>Source: Tasmanian Government, Tasmanian State Service Annual Report 2024-25, 2025, pg. 10</SourceLink></p></div><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">4,734</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div></div>
+          <div className="mt-3 max-w-[520px] space-y-3"><div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><p className="text-base leading-6 text-black">In 2025, the Tasmanian State Service was comprised of</p><strong className="mt-1 block text-4xl text-black">36,168</strong><p className="mt-1 text-base leading-6 text-black">employees (29,789.09 FTE)</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={112}>Source: Tasmanian Government, Tasmanian State Service Annual Report 2024-25, 2025, pg. 10</SourceLink></p></div><div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">4,734</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div></div>
         </div><JurisdictionMap slug={slug} selected="TAS" showLinks={!embedded} />
       </section>
       <Section title="TAS Workforce Overview">
@@ -73,7 +73,7 @@ export default function FederalStateTasProfileView({ slug, report, embedded = fa
         <p className="max-w-4xl text-xs leading-6 text-[#42463B]">The Public Administration and Safety industry in Tasmania is expected to have 2,795 new employees by 2027 with a projected 10-year employment growth rate of 4 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">63</sup> However, for key Public Administration occupations, the employment growth rate expected by 2027 is as follows:<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">64</sup></p>
         <div role="region" aria-label="Tasmania occupation growth points" tabIndex={0} className="mt-4 min-w-0 overflow-x-auto pb-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
           <ol data-tas-occupations aria-label="Projected occupation growth by 2027" role="list" className="grid min-w-[900px] list-none grid-cols-5 gap-3">
-            {occupations.map((occupation, index) => <li key={occupation} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
+            {occupations.map((occupation, index) => <li data-report-surface="neutral" key={occupation} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
               <span aria-hidden="true" className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#754D32] text-base font-bold text-white">{index + 1}</span>
               <span data-occupation-copy>{occupation}</span>
             </li>)}
@@ -83,7 +83,7 @@ export default function FederalStateTasProfileView({ slug, report, embedded = fa
           <p data-tas-related-narrative className="min-w-0 text-xs leading-6 text-[#42463B]">In May 2025 the Tasmanian Government announced saving measures, which included a hiring freeze for some TSS roles.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">65</sup> This is likely to present a challenge for the industry in meeting employment projections. However strategic planning is underway for a centralised Human Resources Information System, delivered through the Human Resources Transformation Program, to track skills, training and occupational shortages in agencies of the TSS.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">66</sup></p>
           <IndustryInsightCard><p>Stakeholders identified the Human Resources Transformation Program as an essential emerging initiative to assist in tracking skills gaps training needs.</p></IndustryInsightCard>
         </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-2"><ColumnChart surface="representation" title="Tasmanian State Service Aboriginal Employment Level against Employment Target" data={[{ label: "Target", value: 3.5, text: "3.5%" }, { label: "Current Aboriginal employment", value: 3, text: "3.0%" }]} source={<SourceLink row={106}>SOURCE: Tasmanian Government, Tasmania State Service Aboriginal Employment Strategy to 2022, 2019, pg. 8</SourceLink>} /><div className="min-w-0"><div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">4%</strong><p className="mt-2 text-xs leading-5">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={115}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, Table 2</SourceLink></p></div></div></div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-2"><ColumnChart surface="representation" title="Tasmanian State Service Aboriginal Employment Level against Employment Target" data={[{ label: "Target", value: 3.5, text: "3.5%" }, { label: "Current Aboriginal employment", value: 3, text: "3.0%" }]} source={<SourceLink row={106}>SOURCE: Tasmanian Government, Tasmania State Service Aboriginal Employment Strategy to 2022, 2019, pg. 8</SourceLink>} /><div className="min-w-0"><div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">4%</strong><p className="mt-2 text-xs leading-5">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={115}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, Table 2</SourceLink></p></div></div></div>
       </Section>
       <section className="bg-white p-5 sm:p-6"><h2 className="text-base font-bold">Sources</h2><ol start={58} className="mt-4 space-y-3">{sources.map((source, index) => <li data-citation-copy key={index} className="flex gap-3 text-sm leading-6 text-black"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] text-white">{58 + index}</span><span><NumberedSource number={58 + index} text={source} /></span></li>)}</ol></section>
     </ContentTag>{!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}

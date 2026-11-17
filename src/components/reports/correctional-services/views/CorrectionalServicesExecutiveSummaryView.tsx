@@ -39,7 +39,7 @@ const stakeholders = [
 
 function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
-    <button
+    <button data-report-action="primary"
       type="button"
       onClick={onClick}
       className="group inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#78AF00] hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none"
@@ -195,7 +195,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
             <div className="overflow-hidden rounded-[14px] border border-[#E9EAEB] border-t-[10px] border-t-[#424996] bg-white p-6 transition-shadow duration-300 hover:shadow-sm sm:p-8">
               <p className="text-xs font-bold uppercase leading-5 text-[#598303]">Theme 1 - 3 Insights</p>
               <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">Correctional Industry-Sector Themes</h3>
-              <button
+              <button data-report-action="primary"
                 type="button"
                 onClick={() => setThemeOpen((open) => !open)}
                 aria-expanded={themeOpen}
@@ -219,7 +219,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
                 {insights.map((insight, index) => {
                   const expanded = expandedInsight === index;
                   return (
-                    <div key={insight.title} style={{ animationDelay: `${index * 0.12 + 0.2}s` }} className={`overflow-hidden rounded-[14px] border border-[#424996] border-l-[8px] bg-[#424996]/10 transition-[background-color,box-shadow] duration-300 hover:bg-[#424996]/15 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${visibleSections.includes("insights") ? "animate-card-entrance" : "translate-y-4 opacity-0"}`}>
+                    <div data-report-surface="neutral" key={insight.title} style={{ animationDelay: `${index * 0.12 + 0.2}s` }} className={`overflow-hidden rounded-[14px] border border-[#424996] border-l-[8px] bg-[#424996]/10 transition-[background-color,box-shadow] duration-300 hover:bg-[#424996]/15 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${visibleSections.includes("insights") ? "animate-card-entrance" : "translate-y-4 opacity-0"}`}>
                       <button
                         type="button"
                         onClick={() => setExpandedInsight(expanded ? null : index)}
@@ -261,7 +261,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
             <div className="rounded-[14px] border border-[#E9EAEB] border-t-[10px] border-t-[#424996] bg-white p-6 transition-shadow duration-300 hover:shadow-sm sm:p-8">
               <div className="flex items-start justify-between gap-4">
                 <span className="rounded-full bg-[#424996] px-3 py-1 text-xs font-bold uppercase text-white">Strategy 1</span>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={() => setStrategyOpen((open) => !open)}
                   aria-expanded={strategyOpen}
@@ -324,7 +324,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           />
         </section>
 
-        <aside data-summary-reveal="sources" className={`rounded-[14px] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`} aria-label="Sources">
+        <aside data-report-surface="neutral" data-summary-reveal="sources" className={`rounded-[14px] bg-[#F0F5DF] p-6 text-sm font-medium leading-6 text-[#535862] motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("sources")}`} aria-label="Sources">
           <p><sup>2.</sup> HumanAbility is the Jobs and Skills council for the care and support sectors. They are responsible for maintaining and updating the CHC Community Services, HLT Health, and SIS Sports, Fitness and Recreation Training Packages.</p>
         </aside>
       </main>

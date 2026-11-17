@@ -56,13 +56,13 @@ export function Section({ title, subtitle, children }: { title: string; subtitle
   const [open, setOpen] = useState(true);
   const id = title.toLowerCase().replace(/\s+/g, "-");
   return (
-    <section className="overflow-hidden rounded-md border border-[#866950] bg-[#F0ECE1]">
+    <section data-report-surface="neutral" className="overflow-hidden rounded-md border border-[#866950] bg-[#F0ECE1]">
       <div className="flex items-center justify-between gap-4 border-t-[5px] border-[#754D32] px-4 py-3 sm:px-5">
         <div>
           <h2 className="text-base font-bold text-[#252B37]">{title}</h2>
           {subtitle && <p className="mt-1 text-xs text-[#5B6152]">{subtitle}</p>}
         </div>
-        <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)} className="flex shrink-0 items-center gap-1 rounded-full bg-[#EED4C4] px-4 py-1.5 text-xs font-semibold text-[#252B37] transition-colors hover:bg-[#D9BFB1]">
+        <button data-report-action="primary" type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)} className="flex shrink-0 items-center gap-1 rounded-full bg-[#8AC900] px-4 py-1.5 text-xs font-semibold text-[#252B37] transition-colors hover:bg-[#79B000]">
           {open ? "Close" : "Open"} {open ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
         </button>
       </div>
@@ -146,13 +146,13 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
             <HeadingTag data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Australian Capital Territory<br /><span className="whitespace-nowrap">Public Service</span></HeadingTag>
             <p className="mt-5 text-base font-semibold text-black">ACT Workforce Overview</p>
             <div className="mt-3 max-w-[520px] space-y-3">
-              <div className="rounded-md bg-[#F8EEE8] p-4">
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4">
                 <p className="text-base leading-6 text-black">In 2025, the ACT <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
                 <strong className="mt-1 block text-4xl text-black">31,825</strong>
                 <p className="mt-1 text-base leading-6 text-black">employees (28,181 FTE) - ACT Public Servants represent 11.6% of the ACT workforce</p>
                 <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={37}>Source: ACT Government, State of the Service Report 2024–25, 2025, pg. 6</SourceLink></p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4">
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4">
                 <strong className="block text-4xl text-black">70,221</strong>
                 <p className="mt-1 text-base leading-6 text-black">APS employees</p>
               </div>
@@ -200,8 +200,8 @@ export default function FederalStateActProfileView({ slug, report, embedded = fa
           <p className="mt-3 max-w-4xl text-xs leading-6 text-[#42463B]">The ACT Skills Needs List identifies more than 150 occupational skills shortages. This list enables targeted workforce strategies by aligning in-need occupations and the VET qualifications that support them. The list includes two occupations split across five qualifications under the PSP Public Sector Training Package, which Public Skills Australia can address.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">22</sup></p>
           <div className="mt-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
             <div className="space-y-4">
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">16%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for ACT Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={41}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 2</SourceLink></p></div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><h4 className="text-sm font-semibold text-[#754D32]">ACT Occupational Shortages</h4><ul className="mt-2 list-disc pl-5 text-xs leading-5"><li>Social Professionals (Interpreters, Translators)</li><li>Inspectors and Regulatory Officers</li></ul><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={40}>Source: ACT Government, ACT Skills Needs List - Occupation needs employed by Public Administration and Safety Industry, 2025</SourceLink></p></div>
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">16%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for ACT Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={41}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 2</SourceLink></p></div>
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><h4 className="text-sm font-semibold text-[#754D32]">ACT Occupational Shortages</h4><ul className="mt-2 list-disc pl-5 text-xs leading-5"><li>Social Professionals (Interpreters, Translators)</li><li>Inspectors and Regulatory Officers</li></ul><p data-citation-copy className="mt-4 text-sm leading-6 text-black"><SourceLink row={40}>Source: ACT Government, ACT Skills Needs List - Occupation needs employed by Public Administration and Safety Industry, 2025</SourceLink></p></div>
             </div>
             <div>
               <h4 className="text-sm font-bold">As the table below indicates, they relate to skills gaps in Australian Sign Language (Auslan) qualifications and occupations:</h4>

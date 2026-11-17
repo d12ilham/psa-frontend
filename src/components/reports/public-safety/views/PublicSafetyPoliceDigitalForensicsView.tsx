@@ -30,7 +30,7 @@ export default function PublicSafetyPoliceDigitalForensicsView({ slug, report }:
   }}>
     <section className={`${styles.panel} ${styles.topicHero} ${layout.enter}`}>
       <div>
-        <p className={styles.topicBadge}>Theme 1. Digital Forensics. Insight One</p>
+        <p data-report-surface="neutral" className={styles.topicBadge}>Theme 1. Digital Forensics. Insight One</p>
         <h1>1. Digital Forensics</h1>
       </div>
       <div className={`${styles.illustration} animate-zoom-in`}>
@@ -39,7 +39,7 @@ export default function PublicSafetyPoliceDigitalForensicsView({ slug, report }:
     </section>
 
     <section className={`${styles.panel} ${layout.enter}`} aria-labelledby="police-forensics-insight-one">
-      <div className={`${styles.banner} ${styles.insightCallout}`}>
+      <div data-report-surface="neutral" className={`${styles.banner} ${styles.insightCallout}`}>
         <span className={styles.number} aria-hidden="true">1</span>
         <div className={styles.bannerCopy}>
           <p id="police-forensics-insight-one">Theme One, Insight One</p>

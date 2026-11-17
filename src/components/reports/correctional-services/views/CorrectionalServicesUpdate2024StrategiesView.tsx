@@ -64,7 +64,7 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
                   <p className="text-sm font-medium text-[#424996]">{strategy.eyebrow}</p>
                   <h2 className="mt-4 text-xl font-semibold">{strategy.title}</h2>
                   <p className="mt-4 flex-1 text-sm leading-6 text-[#535862]">{strategy.summary}</p>
-                  <Link
+                  <Link data-report-action="primary"
                     href={`/reports/${slug}/${index === 0 ? "update_2024_demand_management" : "update_2024_workforce_mobility"}`}
                     className="mt-6 inline-flex w-fit items-center gap-3 rounded-full bg-[#8AC900] px-5 py-2.5 text-sm font-semibold text-[#252D02] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#9ED41F] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none"
                   >

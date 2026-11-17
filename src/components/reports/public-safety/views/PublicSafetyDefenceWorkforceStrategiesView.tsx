@@ -78,7 +78,7 @@ function StrategyCard({ strategy, index }: { strategy: Strategy; index: number }
   ] as const;
 
   const detailsId = `strategy-details-${strategy.number}`;
-  return <article
+  return <article data-report-surface="neutral"
     id={`strategy-${strategy.number}`}
     ref={cardRef}
     className={`${styles.strategy} ${visible ? "animate-card-entrance" : styles.pending}`}
@@ -86,7 +86,7 @@ function StrategyCard({ strategy, index }: { strategy: Strategy; index: number }
   >
     <div className={styles.cardHeader}>
       <span className={styles.badge} style={{ backgroundColor: strategy.accent }}>Strategy {strategy.number}</span>
-      <button type="button" className={styles.toggle} aria-expanded={open} aria-controls={detailsId} onClick={() => setOpen(value => !value)}>
+      <button data-report-action="primary" type="button" className={styles.toggle} aria-expanded={open} aria-controls={detailsId} onClick={() => setOpen(value => !value)}>
         {open ? "Close" : "Open"} <ChevronDown size={16} aria-hidden="true" />
       </button>
     </div>
@@ -126,7 +126,7 @@ export default function PublicSafetyDefenceWorkforceStrategiesView({ slug, repor
   >
     <section className={styles.hero} aria-labelledby="defence-strategies-title">
       <div className="animate-slide-up">
-        <p className={styles.badge}>Defence · Proposed Strategies 2026</p>
+        <p data-report-surface="neutral" className={styles.badge}>Defence · Proposed Strategies 2026</p>
         <h1 id="defence-strategies-title">Proposed Strategies 2026</h1>
         <p className={styles.intro}>Public Skills Australia proposes the following strategies aligned to the workforce insights identified to support Defence:</p>
       </div>

@@ -117,7 +117,7 @@ export default function FederalStateMethodologyView({
           </div>
 
           {/* Representatives follow the narrative without stretching its height. */}
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-4">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 space-y-4">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-bold text-xl text-gray800 leading-snug">
@@ -176,7 +176,7 @@ export default function FederalStateMethodologyView({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Step 1 */}
-            <div
+            <div data-report-surface="neutral"
               style={
                 isGovernanceVisible ? { animationDelay: "0.10s" } : undefined
               }
@@ -205,7 +205,7 @@ export default function FederalStateMethodologyView({
             </div>
 
             {/* Step 2 */}
-            <div
+            <div data-report-surface="neutral"
               style={
                 isGovernanceVisible ? { animationDelay: "0.22s" } : undefined
               }
@@ -235,7 +235,7 @@ export default function FederalStateMethodologyView({
             </div>
 
             {/* Step 3 */}
-            <div
+            <div data-report-surface="neutral"
               style={
                 isGovernanceVisible ? { animationDelay: "0.34s" } : undefined
               }

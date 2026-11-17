@@ -243,7 +243,7 @@ export default function FederalStateAboutView({
           </div>
 
           {/* Footnote Box */}
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
             <p data-citation-copy className="w-full text-sm leading-6 text-black xl:w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.

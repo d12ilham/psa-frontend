@@ -185,7 +185,7 @@ export default function ReportLandingPage({
                 <p className="mt-3 text-left text-[11px] leading-[1.7] text-[#60636B]">
                   {card.description}
                 </p>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={() => router.push(`/reports/${slug}/${card.path}`)}
                   className="mt-auto flex w-fit cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-[10px] font-bold text-[#252D02] transition-all duration-300 hover:bg-[#79B700] hover:shadow-md"
@@ -215,7 +215,7 @@ export default function ReportLandingPage({
                 <h2 className="text-left text-[12px] font-bold leading-5 text-[#252D02]">
                   {card.title}
                 </h2>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={() => router.push(`/reports/${slug}/${card.path}`)}
                   className="mt-auto flex w-fit cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-[10px] font-bold text-[#252D02] transition-all duration-300 hover:bg-[#79B700] hover:shadow-md"
@@ -228,14 +228,14 @@ export default function ReportLandingPage({
         </main>
 
         <footer className="relative z-20 flex h-[58px] shrink-0 items-center justify-center gap-3 border-t border-[#E9EADC] bg-white px-4">
-          <button
+          <button data-report-action="secondary"
             type="button"
             onClick={() => router.push("/reports")}
             className="cursor-pointer rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 py-2 text-[10px] font-semibold text-[#598303] transition-colors hover:bg-[#F1F5E5]"
           >
             ← Back to PSA Website
           </button>
-          <a
+          <a data-report-action="secondary"
             href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
             target="_blank"
             rel="noopener noreferrer"
@@ -325,7 +325,7 @@ export default function ReportLandingPage({
               </p>
             </div>
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
                 className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90"
                 style={{
@@ -360,7 +360,7 @@ export default function ReportLandingPage({
               </p>
             </div>
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => router.push(`/reports/${slug}/executive_summary`)}
                 className={`font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 ${isCorrectionalServices ? "text-[#252D02]" : "text-white"}`}
                 style={{ backgroundColor: isCorrectionalServices ? "#8AC900" : sector.theme.primaryColor }}
@@ -375,13 +375,13 @@ export default function ReportLandingPage({
 
       {/* ── FOOTER / BOTTOM NAV ── */}
       <footer className={`w-full bg-white border-t ${isCorrectionalServices ? "border-[#E9EAEB]" : "border-gray200"} z-10 relative py-4 px-4 flex items-center justify-center gap-3`}>
-        <button
+        <button data-report-action="secondary"
           onClick={() => router.push("/reports")}
           className={`border ${isCorrectionalServices ? "border-[#E9EAEB] bg-white text-[#252D02]" : "border-[#B2DB79] bg-[#FAFAF0] text-notes"} font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer`}
         >
           <span>←</span> Back to PSA Website
         </button>
-        <a
+        <a data-report-action="secondary"
           href={
             report.contactUrl || "https://publicskillsaustralia.org.au/contact"
           }

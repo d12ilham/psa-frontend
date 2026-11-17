@@ -75,12 +75,12 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
   const project = projects[index];
   const headingId = `fes-update-heading-${index}`;
 
-  return <article className={`${layout.panel} ${styles.panel}`} aria-labelledby={headingId}>
+  return <article data-report-surface="neutral" className={`${layout.panel} ${styles.panel}`} aria-labelledby={headingId}>
     <div className={layout.panelHeader}>
       <span className={`${layout.badge} ${styles.badge}`}>0{index + 1} · Completion: {project.completion}</span>
       {onSelect && <div className={`${layout.controls} ${styles.controls}`}>
-        {index > 0 && <button type="button" className={layout.previous} onClick={() => onSelect(index - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-        <button type="button" onClick={() => onSelect((index + 1) % projects.length)}>Next <ArrowRight size={16} aria-hidden="true" /></button>
+        {index > 0 && <button data-report-action="primary" type="button" className={layout.previous} onClick={() => onSelect(index - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+        <button data-report-action="primary" type="button" onClick={() => onSelect((index + 1) % projects.length)}>Next <ArrowRight size={16} aria-hidden="true" /></button>
       </div>}
     </div>
     <div key={index} className={`${layout.details} animate-content-switch`}>
@@ -93,11 +93,11 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
       <h4 className={`${layout.subheading} ${styles.subheading}`}>Update</h4>
       {(Array.isArray(project.update) ? project.update : [project.update]).map((paragraph, paragraphIndex) => <p key={paragraphIndex} className={layout.copy}><ProjectUpdateText text={paragraph} /></p>)}
       <div className={layout.groups}>
-        <section className={`${layout.note} ${styles.note}`}>
+        <section data-report-surface="neutral" className={`${layout.note} ${styles.note}`}>
           <h4>Key Stakeholders</h4>
           <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
         </section>
-        <section className={`${layout.note} ${styles.note}`}>
+        <section data-report-surface="neutral" className={`${layout.note} ${styles.note}`}>
           <h4 className={layout.connectionHeading}>Connection to 2026 Strategies</h4>
           <dl>
             <div><dt>Ministerial Priority 2026</dt><dd>{project.priority}</dd></div>
@@ -135,7 +135,7 @@ export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { s
       </div>
       <Image className={styles.artwork} src="/images/reports/public-safety/fes-chapter-fire-engine.svg" width={180} height={180} alt="" unoptimized priority />
       <div className={`${layout.controls} ${styles.bulk}`}>
-        <button type="button" aria-expanded={expanded} aria-controls="fes-update-projects" onClick={() => setExpanded(value => !value)}>
+        <button data-report-action="primary" type="button" aria-expanded={expanded} aria-controls="fes-update-projects" onClick={() => setExpanded(value => !value)}>
           {expanded ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
         </button>
       </div>
@@ -148,7 +148,7 @@ export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { s
           {projects.map((project, index) => (
             <button key={project.title} type="button" aria-pressed={expanded || index === active} aria-controls="fes-update-projects" onClick={() => selectProject(index)} className={`${layout.projectButton} ${styles.projectButton}`}>
               <span><small>0{index + 1} · Completion: {project.completion}</small><strong>{project.title}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>

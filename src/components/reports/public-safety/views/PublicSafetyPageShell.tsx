@@ -153,9 +153,6 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
               className="h-6 w-auto max-w-[95px] object-contain min-[1400px]:h-7 min-[1400px]:max-w-[110px]"
             />
           </a>
-          <button type="button" onClick={() => router.push(`/reports/${slug}`)} className="shrink-0 cursor-pointer whitespace-nowrap text-xs font-bold tracking-0 text-white min-[1400px]:text-[14px]">
-            PS WIR <span className="text-[#8AC900]">{report.year?.label || "2026"}</span>
-          </button>
         </div>
 
         <nav className="hidden h-full items-center gap-2 text-[10px] font-semibold min-[1400px]:gap-3 min-[1400px]:text-xs xl:flex" aria-label="Public Safety report navigation">

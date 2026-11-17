@@ -1,0 +1,88 @@
+/* Digital reports share neutral surfaces and PSA actions. Sector identity stays
+   in small badges, icons, accent rules and the original chart/map series. */
+.report {
+  display: contents;
+  --report-action: #8ac900;
+  --report-action-hover: #046d2a;
+  --report-ink: #252b37;
+  --report-surface: #fff;
+  --report-copy-measure: 72ch;
+}
+
+/* Keep prose readable on wide displays without narrowing the surrounding
+   cards, grids or data visualisations. Smaller columns remain fluid. */
+.report main :is(p, li, blockquote, dd):not(
+  li[data-report-surface],
+  li[class*="rounded"],
+  figure *,
+  svg *,
+  table *,
+  nav *,
+  button *,
+  [data-report-action] *,
+  [role="img"] *,
+  [role="tab"] *
+) {
+  max-inline-size: min(100%, var(--report-copy-measure)) !important;
+  overflow-wrap: anywhere;
+}
+
+/* Preserve the centred presentation of landing-page introductions. */
+.report main [class~="text-center"] p,
+.report main p[class~="text-center"] {
+  margin-inline: auto;
+}
+
+.report [data-report-surface="neutral"] {
+  background-color: var(--report-surface) !important;
+  color: var(--report-ink) !important;
+}
+
+.report main :is(h1, h2, h3, h4, h5) {
+  color: var(--report-ink) !important;
+}
+
+/* Dark PDF-style panels previously inherited white copy. */
+.report [data-report-surface="neutral"] :is(h1, h2, h3, h4, h5, p, li),
+.report [data-report-surface="neutral"] > [class~="text-white"] {
+  color: var(--report-ink) !important;
+}
+
+.report [data-report-action] {
+  background-color: var(--report-action) !important;
+  border-color: var(--report-action) !important;
+  color: var(--report-ink) !important;
+}
+
+.report [data-report-action="secondary"] {
+  background-color: #fafaf0 !important;
+  border-color: #b2db79 !important;
+  color: #598303 !important;
+}
+
+.report [data-report-action="download"] {
+  background-color: var(--report-action-hover) !important;
+  border-color: var(--report-action-hover) !important;
+  color: #fff !important;
+}
+
+.report [data-report-action]:not(:disabled):not([aria-disabled="true"]):hover {
+  background-color: var(--report-action-hover) !important;
+  border-color: var(--report-action-hover) !important;
+  color: #fff !important;
+}
+
+.report [data-report-action]:not(:disabled):hover :is(span, svg) {
+  color: #fff !important;
+}
+
+.report [data-report-action]:focus-visible {
+  outline: 2px solid #598303 !important;
+  outline-offset: 3px;
+}
+
+.report [data-report-action]:is(:disabled, [aria-disabled="true"]) {
+  background-color: #f5f5f5 !important;
+  border-color: #e9eaeb !important;
+  color: #717680 !important;
+}

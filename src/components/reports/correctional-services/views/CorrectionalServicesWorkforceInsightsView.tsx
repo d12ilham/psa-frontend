@@ -151,7 +151,7 @@ function QualificationChart({
   loaded: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
+    <div data-report-surface="neutral" className="rounded-xl border border-[#D5D7DA] bg-[#FBFCFD] p-5">
       <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <h3 className="text-base font-bold text-[#252D02]">{title}</h3>
         <div className="flex gap-4 text-[11px] font-bold text-[#535862]">
@@ -251,7 +251,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
             </h2>
             <div className="mt-5 grid gap-4">
               {challenges.map((challenge) => (
-                <div key={challenge.title} className="rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8]">
+                <div data-report-surface="neutral" key={challenge.title} className="rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8]">
                   <span className="text-[10px] font-bold uppercase text-[#0B6DA8]">{challenge.label}</span>
                   <h3 className="mt-1 text-base font-bold text-[#252D02]">{challenge.title}</h3>
                   <p className="mt-2 text-xs leading-5 text-[#535862]">{challenge.body}</p>
@@ -278,7 +278,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
         </section>
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6 space-y-5">
-          <div className="rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-5">
+          <div data-report-surface="neutral" className="rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-5">
             <p className="text-xs font-bold uppercase text-[#0B6DA8]">Theme 1 · 3 insights</p>
             <h2 className="mt-2 text-xl font-bold text-[#252D02]">
               CSC Correctional Services Training Package
@@ -294,7 +294,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
             {insights.map((insight, index) => {
               const isActive = insight.id === activeInsightId;
               return (
-                <button
+                <button data-report-surface="neutral"
                   key={insight.id}
                   type="button"
                   onClick={() => { setLoaded(false); setActiveInsightId(insight.id); }}
@@ -336,7 +336,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
           </p>
           <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-3">
             {trainingPackageChallenges.map((challenge, index) => (
-              <article
+              <article data-report-surface="neutral"
                 key={challenge}
                 style={{ animationDelay: `${index * 0.08}s` }}
                 className="animate-card-entrance rounded-xl border border-[#BEEBFB] bg-[#E8F7FE] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md"
@@ -372,7 +372,7 @@ export default function CorrectionalServicesWorkforceInsightsView({
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {activeInsight.sections.map(([title, body], index) => (
-              <article
+              <article data-report-surface="neutral"
                 key={title}
                 style={{ animationDelay: `${index * 0.1}s` }}
                 className="animate-content-switch rounded-xl border border-[#BEEBFB] bg-[#FBFCFD] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B6DA8] hover:shadow-md"

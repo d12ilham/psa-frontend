@@ -135,7 +135,7 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
   const national = selectedState === "NATIONAL";
 
   return (
-    <div className={`relative rounded-md bg-[#FBF5F1] p-2 pb-20 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
+    <div data-report-surface="neutral" className={`relative rounded-md bg-[#FBF5F1] p-2 pb-20 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
@@ -458,7 +458,7 @@ export default function FederalStateIndustryProfileView({
 
               <div className="space-y-2.5 lg:order-1">
                 {selectedState !== "NATIONAL" && <Reveal>
-                  <section className="rounded-md bg-[#F8EEE8] p-3.5">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-3.5">
                     <h3 className="text-sm font-bold text-[#382219]">
                       {profile.name}
                     </h3>
@@ -478,9 +478,9 @@ export default function FederalStateIndustryProfileView({
                         {profile.publicServiceLabel}
                       </span>
                     </div>
-                    <a
+                    <a data-report-action="primary"
                       href={selectedState === "NT" ? `/reports/${slug}/industry_profile_nt` : selectedState === "QLD" ? `/reports/${slug}/industry_profile_qld` : selectedState === "SA" ? `/reports/${slug}/industry_profile_sa` : selectedState === "TAS" ? `/reports/${slug}/industry_profile_tas` : selectedState === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
-                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#EED4C4] px-3 text-[9px] font-bold text-[#252B37] transition-colors hover:bg-[#D9BFB1]"
+                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-3 text-[9px] font-bold text-[#252B37] transition-colors hover:bg-[#79B000]"
                     >
                       {profile.workforceCode} Workforce Overview <span aria-hidden="true">→</span>
                     </a>
@@ -488,7 +488,7 @@ export default function FederalStateIndustryProfileView({
                 </Reveal>}
 
                 <Reveal delay={0.06}>
-                  <section className="rounded-md bg-[#EDE9DC] p-4 text-black">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#EDE9DC] p-4 text-black">
                     <p className="text-base font-semibold">Total</p>
                     <strong className="mt-1 block text-3xl leading-tight"><CountUp value={198529} /></strong>
                     <p className="mt-2 text-sm leading-6">The APS workforce spans 586 locations, 102 agencies and 234 job roles.</p>
@@ -501,7 +501,7 @@ export default function FederalStateIndustryProfileView({
                   { label: "Overseas", value: 1596, share: "0.8%", graphic: "overseas" },
                 ].map((item, index) => (
                   <Reveal key={item.label} delay={0.1 + index * 0.05}>
-                    <div data-national-metric className="flex items-center gap-4 rounded-md bg-[#F8EEE8] p-4 text-black">
+                    <div data-report-surface="neutral" data-national-metric className="flex items-center gap-4 rounded-md bg-[#F8EEE8] p-4 text-black">
                       <Image src={`/images/reports/federal-state/industry-profile/${item.graphic}-document.svg`} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
                       <div className="min-w-0">
                         <p className="text-base font-semibold">{item.label}</p>
@@ -513,7 +513,7 @@ export default function FederalStateIndustryProfileView({
                 ))}
 
                 <Reveal delay={0.24}>
-                  <section className="rounded-md bg-[#F0D7CC] p-4 text-black">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#F0D7CC] p-4 text-black">
                     <div className="flex items-center gap-4">
                       <Image src="/images/reports/federal-state/industry-profile/gender-document.svg" alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
                       <div>

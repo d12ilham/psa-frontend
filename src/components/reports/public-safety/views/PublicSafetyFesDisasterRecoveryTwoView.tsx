@@ -47,7 +47,7 @@ export default function PublicSafetyFesDisasterRecoveryTwoView({ slug, report }:
       </div>
     </section>
 
-    <section className={`${styles.summary} ${styles.numberedSummary} ${styles.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-two">
+    <section data-report-surface="neutral" className={`${styles.summary} ${styles.numberedSummary} ${styles.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-recovery-insight-two">
       <span className={styles.insightNumber} aria-hidden="true">2</span>
       <div className={`${styles.summaryCopy} ${styles.wideSummaryCopy}`}>
         <p id="fes-recovery-insight-two" className={styles.insightLabel}>Theme One, Insight Two</p>

@@ -196,7 +196,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
                 <p className={styles.driverLabel}>DRIVER {index + 1}</p>
                 <h3>{driver.title}</h3>
                 <p className={styles.driverSummary}>{driver.summary}</p>
-                <button type="button" aria-label={`${selected ? "Close" : "Open"} Driver ${index + 1}`} onClick={() => toggleDriver(index)} aria-expanded={selected} aria-controls="driver-detail" className={styles.toggle}>
+                <button data-report-action="primary" type="button" aria-label={`${selected ? "Close" : "Open"} Driver ${index + 1}`} onClick={() => toggleDriver(index)} aria-expanded={selected} aria-controls="driver-detail" className={styles.toggle}>
                   {selected ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={selected ? styles.chevronOpen : ""} />
                 </button>
               </article>
@@ -205,7 +205,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         <div aria-hidden={activeIndex === null} inert={activeIndex === null} className={`${styles.disclosure} ${activeIndex !== null ? styles.disclosureOpen : ""}`}>
           <div className={styles.disclosureClip}>
-            <article id="driver-detail" aria-labelledby="driver-detail-title" className={`${styles.detailPanel} ${styles.driverPanel}`}>
+            <article data-report-surface="neutral" id="driver-detail" aria-labelledby="driver-detail-title" className={`${styles.detailPanel} ${styles.driverPanel}`}>
               <span className={styles.presenting}>Now presenting · Driver {lastActiveIndex + 1}</span>
               <h2 id="driver-detail-title">{displayedDriver.detailTitle}</h2>
               <p>{displayedDriver.body.map(({ text, reference }, index) => <span key={index}>{text.split(/(Five Pillars of Productivity)/g).map((part, partIndex) => partIndex % 2 ? <em key={partIndex}>{part}</em> : part)}{reference && <sup className={styles.reference}><a href={`#driver-source-${reference}`} aria-label={`Source ${reference}`}>{reference}</a></sup>}</span>)}</p>
@@ -229,7 +229,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         <div aria-hidden={activeMegatrendIndex === null} inert={activeMegatrendIndex === null} className={`${styles.disclosure} ${activeMegatrendIndex !== null ? styles.disclosureOpen : ""}`}>
           <div className={styles.disclosureClip}>
-            <article id="megatrend-detail" aria-labelledby="megatrend-detail-title" className={`${styles.detailPanel} ${styles.megatrendPanel}`}>
+            <article data-report-surface="neutral" id="megatrend-detail" aria-labelledby="megatrend-detail-title" className={`${styles.detailPanel} ${styles.megatrendPanel}`}>
               <h2 id="megatrend-detail-title">{displayedMegatrend.title}</h2>
               <p>{megatrendsSummary}</p>
             </article>

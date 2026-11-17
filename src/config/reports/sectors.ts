@@ -182,10 +182,8 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
       "https://psa-directus-prod.azurewebsites.net/assets/51b5fe57-c571-427b-ae72-917b57603b4b.pdf",
     psaSectorPageUrl: "https://publicskillsaustralia.org.au",
     contactUrl: "https://publicskillsaustralia.org.au/contact",
-    landingIntroDesc:
-      "Public Skills Australia’s Workforce Insights Reports are developed using a combination of qualitative and quantitative data obtained from primary and secondary sources and supported by stakeholder consultations.",
-    landingExecDesc:
-      "This report provides an overview of each Federal and State/Territory Government public sector workforce and trends and identified the following two industry insights in the industry-sector:",
+    landingIntroDesc: DEFAULT_LANDING_INTRO_DESC,
+    landingExecDesc: DEFAULT_LANDING_EXEC_DESC,
     subsectors: ["Federal Public Service", "State & Territory Public Sector"],
     defaultChapters: [
       { key: "introduction", label: "Introduction" },

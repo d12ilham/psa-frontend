@@ -225,7 +225,7 @@ export default function IndustryOverviewView({
             </div>
 
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => router.push(`/reports/${slug}/state_territory`)}
                 className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
               >
@@ -253,7 +253,7 @@ export default function IndustryOverviewView({
             </div>
 
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => router.push(`/reports/${slug}/industry_profile`)}
                 className="bg-[#8AC900] hover:bg-[#78B300] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer"
               >

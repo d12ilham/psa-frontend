@@ -68,7 +68,7 @@ export default function CorrectionalServicesSkillsTrainingPathwaysView({ slug, r
           <h2 id="project-aims" className="px-6 text-xl font-semibold">This project aims to:</h2>
           <ol className="grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
             {aims.map((aim, index) => (
-              <li key={aim} className="flex min-h-[180px] gap-4 rounded-[14px] border border-[#E2E6F1] bg-[#E9EDF6] p-6 text-[#424996] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 70}ms` }}>
+              <li data-report-surface="neutral" key={aim} className="flex min-h-[180px] gap-4 rounded-[14px] border border-[#E2E6F1] bg-[#E9EDF6] p-6 text-[#424996] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 70}ms` }}>
                 <span aria-hidden="true" className="text-[40px] font-semibold leading-none text-[#D5D9E5]">{index + 1}</span>
                 <span className="text-sm font-semibold leading-6">{aim}</span>
               </li>
@@ -79,14 +79,14 @@ export default function CorrectionalServicesSkillsTrainingPathwaysView({ slug, r
         <section aria-label="Strategic priorities" className="grid gap-6 md:grid-cols-3">
           <p className="text-sm leading-6 md:col-span-3">This work will support several strategic priorities including:</p>
           {priorities.map((priority, index) => (
-            <article key={priority.title} className="min-h-[154px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
+            <article data-report-surface="neutral" key={priority.title} className="min-h-[154px] rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] p-6 transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md animate-card-entrance motion-reduce:animate-none motion-reduce:transition-none" style={{ animationDelay: `${index * 90}ms` }}>
               <h2 className="text-base font-semibold">{priority.title}</h2>
               <p className="mt-2 text-sm leading-6">{priority.description}</p>
             </article>
           ))}
         </section>
 
-        <section className="rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] px-6 py-6 animate-slide-up motion-reduce:animate-none">
+        <section data-report-surface="neutral" className="rounded-[14px] border-l-[10px] border-[#424996] bg-[#E8E9EF] px-6 py-6 animate-slide-up motion-reduce:animate-none">
           <h2 className="text-xl font-semibold">Project Progress Update</h2>
           <p className="mt-4 max-w-[830px] text-sm leading-6">This project is now in progress and is anticipated for delivery in December of 2026. For the next steps of this project, Public Skills Australia will deliver a report that will:</p>
           <ul className="mt-1 max-w-[1000px] list-disc space-y-1 pl-5 text-sm leading-6">

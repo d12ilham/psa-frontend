@@ -45,13 +45,13 @@ export default function ProposedStrategies2026View({
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
         <div className="flex flex-wrap items-center gap-3">
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Workforce Insights
           </button>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
             className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
           >
@@ -99,7 +99,7 @@ export default function ProposedStrategies2026View({
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 1
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy1Open(!strategy1Open)}
                 aria-expanded={strategy1Open}
                 className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
@@ -208,7 +208,7 @@ export default function ProposedStrategies2026View({
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 2
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy2Open(!strategy2Open)}
                 aria-expanded={strategy2Open}
                 className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"

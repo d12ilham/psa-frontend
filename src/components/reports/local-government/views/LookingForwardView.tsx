@@ -42,7 +42,7 @@ export default function LookingForwardView({
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Button */}
         <div className="flex items-center">
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/executive_summary`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0 cursor-pointer"
           >
@@ -196,7 +196,7 @@ export default function LookingForwardView({
 
         {/* ── ACTION BUTTONS ROW ── */}
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2">
-          <button
+          <button data-report-action="download"
             onClick={() => router.push(`/reports/${slug}/downloads`)}
             className="bg-[#046D2A] hover:bg-[#035822] text-white text-sm font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-md motion-reduce:hover:translate-y-0 cursor-pointer"
           >
@@ -204,14 +204,14 @@ export default function LookingForwardView({
             <Download className="h-4 w-4" />
           </button>
 
-          <button
+          <button data-report-action="secondary"
             onClick={() => router.push(`/reports/${slug}/executive_summary`)}
             className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-notes text-sm font-bold px-6 py-3 rounded-full cursor-pointer transition-[background-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-sm motion-reduce:hover:translate-y-0"
           >
             Revisit the Executive Summary
           </button>
 
-          <a
+          <a data-report-action="primary"
             href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
             target="_blank"
             rel="noopener noreferrer"

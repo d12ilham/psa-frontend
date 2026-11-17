@@ -92,7 +92,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
           <p className={styles.skillsIntro}>Tasks in this group, whether undertaken by volunteers or career employees, are characterised by the use of specialist equipment, intense physical effort and operating in high-stress emergency environments.<Footnote number={9} /> Common skills identified across these tasks include:</p>
           <div className={styles.skillGrid}>
             {commonSkills.map(({ lines, icon }, index) => (
-              <div key={icon} className={`${styles.skillCard} ${reveal("skills")}`} style={{ animationDelay: `${index * .08 + .12}s` }}>
+              <div data-report-surface="neutral" key={icon} className={`${styles.skillCard} ${reveal("skills")}`} style={{ animationDelay: `${index * .08 + .12}s` }}>
                 <Image src={`/images/reports/public-safety/core-skills/${icon}.svg`} width={74} height={74} alt="" unoptimized />
                 <span className={styles.skillLabel}>{lines.map((line) => <span key={line}>{line}</span>)}</span>
               </div>
@@ -100,7 +100,7 @@ export default function PublicSafetyCoreSkillAlignmentView({ slug, report }: { s
           </div>
         </section>
 
-        <section data-reveal="graph" className={`${styles.graphPanel} ${reveal("graph")}`} aria-labelledby="core-graph-heading">
+        <section data-report-surface="neutral" data-reveal="graph" className={`${styles.graphPanel} ${reveal("graph")}`} aria-labelledby="core-graph-heading">
           <h2 id="core-graph-heading">Shared Core Skills · Australian Skills Classification (JSA)</h2>
           <p className={styles.skillsClosing}>The Public Safety industry-sectors occupations further share core skills as illustrated below:<Footnote number={10} /></p>
           <div className={styles.graphRow}>

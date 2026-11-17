@@ -93,17 +93,17 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
           {initiatives.map(([, name], index) => (
             <button key={name} type="button" aria-pressed={active === index} aria-controls="defence-veterans-panel" className={layout.projectButton} onClick={() => setActive(index)}>
               <span><small>{number(index)}</small><strong>{name}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
-      <ReportSelectionPanel selection={active} label="Defence veterans program details"><article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
+      <ReportSelectionPanel selection={active} label="Defence veterans program details"><article data-report-surface="neutral" id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
         <div className={layout.panelHeader}>
           <span className={layout.badge}>{number(active)} · DEF</span>
           <div className={layout.controls}>
-            {active > 0 && <button className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < initiatives.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < initiatives.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={title} className={`${layout.details} animate-content-switch`}>

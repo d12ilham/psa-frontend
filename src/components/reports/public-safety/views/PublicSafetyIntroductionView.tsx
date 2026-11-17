@@ -54,13 +54,13 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link href={`/reports/${slug}/downloads?from=${encodeURIComponent(`/reports/${slug}/introduction`)}`} className="inline-flex items-center gap-2 rounded-full bg-lg-dark px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#046D2A]">
+              <Link data-report-action="download" href={`/reports/${slug}/downloads?from=${encodeURIComponent(`/reports/${slug}/introduction`)}`} className="inline-flex items-center gap-2 rounded-full bg-lg-dark px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#046D2A]">
                 Download 2026 PDF <Download className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
-              <a href={PREVIOUS_PUBLIC_SAFETY_REPORT_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2.5 text-xs font-bold text-notes transition-colors hover:bg-gray-50">
+              <a data-report-action="secondary" href={PREVIOUS_PUBLIC_SAFETY_REPORT_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2.5 text-xs font-bold text-notes transition-colors hover:bg-gray-50">
                 Previous Report
               </a>
-              <a href={report.psaSectorPageUrl || "https://publicskillsaustralia.org.au/workforce-plans"} target="_blank" rel="noopener noreferrer" className="rounded-full border border-gray200 bg-white px-5 py-2.5 text-xs font-bold text-[#252D02] transition-colors hover:bg-gray-50">
+              <a data-report-action="secondary" href={report.psaSectorPageUrl || "https://publicskillsaustralia.org.au/workforce-plans"} target="_blank" rel="noopener noreferrer" className="rounded-full border border-gray200 bg-white px-5 py-2.5 text-xs font-bold text-[#252D02] transition-colors hover:bg-gray-50">
                 PSA Website
               </a>
             </div>
@@ -127,7 +127,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
                   </div>
                 )}
               </div>
-              <button type="button" onClick={(event) => { event.stopPropagation(); router.push(`/reports/${slug}/${section.path}`); }} className="mt-auto flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] hover:bg-[#78AF00]">
+              <button data-report-action="primary" type="button" onClick={(event) => { event.stopPropagation(); router.push(`/reports/${slug}/${section.path}`); }} className="mt-auto flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] hover:bg-[#78AF00]">
                 Explore <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </article>
@@ -140,10 +140,10 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
           { title: "About Public Skills Australia", description: "Who we are and how we support the sector.", path: "about", icon: "/images/reports/introduction/About.svg" },
           { title: "Methodology", description: "How the insights and strategies were developed.", path: "methodology", icon: "/images/reports/introduction/Methodology.svg" },
         ].map((item) => (
-          <div key={item.path} className="flex min-h-28 items-center gap-5 rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6">
+          <div data-report-surface="neutral" key={item.path} className="flex min-h-28 items-center gap-5 rounded-2xl border border-[#E9EAEB] bg-[#F0F5DF] p-6">
             <Image src={item.icon} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
             <div><h3 className="text-base font-bold leading-7 text-[#252D02]">{item.title}</h3><p className="mt-1 text-sm leading-6 text-[#535862]">{item.description}</p></div>
-            <button type="button" onClick={() => router.push(`/reports/${slug}/${item.path}`)} className="ml-auto flex h-10 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">View <ArrowRight className="h-3.5 w-3.5" /></button>
+            <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${item.path}`)} className="ml-auto flex h-10 shrink-0 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">View <ArrowRight className="h-3.5 w-3.5" /></button>
           </div>
         ))}
       </section>
@@ -154,7 +154,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
           { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
           { label: "Looking Forward / 2027 and Beyond", path: "looking_forward" },
         ].map(({ label, path }) => (
-          <button key={path} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
+          <button data-report-action="primary" key={path} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>
         ))}
       </div>
       <p id="public-safety-note-2" data-source-caption className="text-xs font-semibold uppercase leading-6 text-[#598303]"><sup>2</sup> Public Safety Industry-Sectors refer to Defence, Fire and Emergency Services and Police.</p>

@@ -406,7 +406,7 @@ export default function FederalStateIndustryOverviewView({
           {/* 4 Stat Boxes Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
             {/* Stat 1: 102 agencies */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.15s" }}
               className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
@@ -425,7 +425,7 @@ export default function FederalStateIndustryOverviewView({
             </div>
 
             {/* Stat 2: 198,529 employees */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.27s" }}
               className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
@@ -447,7 +447,7 @@ export default function FederalStateIndustryOverviewView({
             </div>
 
             {/* Stat 3: 60.5% women */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.39s" }}
               className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
@@ -466,7 +466,7 @@ export default function FederalStateIndustryOverviewView({
             </div>
 
             {/* Stat 4: 3.4% First Nations employees */}
-            <div
+            <div data-report-surface="neutral"
               style={{ animationDelay: "0.51s" }}
               className="group animate-card-entrance bg-white border border-gray200 rounded-xl p-4 flex items-start gap-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#BAABA0] hover:bg-[#FCFBF7] hover:shadow-md"
             >
@@ -494,7 +494,7 @@ export default function FederalStateIndustryOverviewView({
         {/* Section 3: Future Workforce Growth (Collapsible Tab + Content) */}
         <div ref={growthRef} className={`space-y-4 transition-all duration-500 ${growthVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
           {/* Tab Header */}
-          <div
+          <div data-report-surface="neutral"
             className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
               growthOpen
                 ? "bg-[#EDE9DC] border border-[#694834] border-t-8 border-t-[#694834]"
@@ -521,9 +521,9 @@ export default function FederalStateIndustryOverviewView({
                   </p>
                 </div>
               </div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setGrowthOpen(!growthOpen)}
-                className="bg-[#EED4C4] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9BFB1] hover:shadow-md shrink-0"
+                className="bg-[#8AC900] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B000] hover:shadow-md shrink-0"
               >
                 {growthOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -568,7 +568,7 @@ export default function FederalStateIndustryOverviewView({
         {/* Section 4: Future Workforce Skills Needs (Collapsible Tab + Content) */}
         <div ref={skillsRef} className={`space-y-4 transition-all duration-500 ${skillsVisible ? "animate-slide-up" : "translate-y-6 opacity-0"}`}>
           {/* Tab Header */}
-          <div
+          <div data-report-surface="neutral"
             className={`rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
               skillsOpen
                 ? "bg-[#EDE9DC] border border-[#694834] border-t-8 border-t-[#694834]"
@@ -595,9 +595,9 @@ export default function FederalStateIndustryOverviewView({
                   </p>
                 </div>
               </div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setSkillsOpen(!skillsOpen)}
-                className="bg-[#EED4C4] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9BFB1] hover:shadow-md shrink-0"
+                className="bg-[#8AC900] text-black font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#79B000] hover:shadow-md shrink-0"
               >
                 {skillsOpen ? "Close ▴" : "Open ▾"}
               </button>
@@ -708,7 +708,7 @@ export default function FederalStateIndustryOverviewView({
 
               {/* Two Highlight Stat Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <article data-skills-callout aria-label="Digital and ICT skills shortage" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#EDE9DC] motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-md">
+                <article data-report-surface="neutral" data-skills-callout aria-label="Digital and ICT skills shortage" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#EDE9DC] motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-md">
                   <div className="flex flex-1 items-center gap-4 p-6">
                     <Image src="/images/reports/federal-state/industry-overview/digital-ict-document.svg" alt="" width={80} height={80} className={`h-20 w-20 shrink-0 object-contain motion-safe:transition-transform motion-safe:group-hover:scale-105 motion-reduce:animate-none ${skillsOpen ? "animate-zoom-in" : ""}`} />
                     <p className="min-w-0 text-sm sm:text-base font-bold text-[#754C2D] leading-snug">
@@ -722,7 +722,7 @@ export default function FederalStateIndustryOverviewView({
                     2024-25, 2025, Table A-36</SourceLink></p>
                 </article>
 
-                <article data-skills-callout aria-label="Cyber Security skills shortage" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#EDE9DC] motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-md">
+                <article data-report-surface="neutral" data-skills-callout aria-label="Cyber Security skills shortage" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-[#EDE9DC] motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1 hover:shadow-md">
                   <div className="flex flex-1 items-center gap-4 p-6">
                     <Image src="/images/reports/federal-state/industry-overview/cyber-security-document.svg" alt="" width={80} height={80} className={`h-20 w-20 shrink-0 object-contain motion-safe:transition-transform motion-safe:group-hover:scale-105 motion-reduce:animate-none ${skillsOpen ? "animate-zoom-in" : ""}`} />
                     <p className="min-w-0 text-sm sm:text-base font-bold text-[#754C2D] leading-snug">
