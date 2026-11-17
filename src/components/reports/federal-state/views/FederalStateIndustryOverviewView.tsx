@@ -278,7 +278,7 @@ export default function FederalStateIndustryOverviewView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Navigation Buttons */}
-        <ReportNavButtons sectorPalette
+        <ReportNavButtons
           slug={slug}
           currentPage="industry_overview"
           next={{

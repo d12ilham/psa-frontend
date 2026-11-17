@@ -44,7 +44,7 @@ export default function FederalStateDownloadsView({ slug, report }: { slug: stri
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <FederalStateReportUtilityRow>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="button" onClick={handleBack} className="flex cursor-pointer items-center gap-2 rounded-full border border-[#754C2D] bg-white px-5 py-2.5 text-xs font-semibold text-[#754C2D] transition-colors hover:bg-[#EED4C4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
+            <button type="button" onClick={handleBack} className="border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer">
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Back
             </button>
           </div>

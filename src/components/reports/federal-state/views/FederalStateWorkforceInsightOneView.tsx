@@ -32,7 +32,7 @@ export default function FederalStateWorkforceInsightOneView({ slug, report }: { 
   return <div className="fstg-insights-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons sectorPalette slug={slug} currentPage="workforce_insight_1" prev={{ label: "Theme Overview – Future of the Public Service", href: `/reports/${slug}/workforce_insights#theme-one` }} next={{ label: "Insight 2 – Workforce Gaps", href: `/reports/${slug}/workforce_insight_2` }} prevPrefix="" nextPrefix="" />
+      <ReportNavButtons slug={slug} currentPage="workforce_insight_1" prev={{ label: "Theme Overview – Future of the Public Service", href: `/reports/${slug}/workforce_insights#theme-one` }} next={{ label: "Insight 2 – Workforce Gaps", href: `/reports/${slug}/workforce_insight_2` }} prevPrefix="" nextPrefix="" />
 
       <section className="rounded-md border border-[#ECECE5] bg-white p-5 sm:p-6 animate-slide-up">
         <div className="flex gap-5 rounded-md border-l-[12px] border-[#754D32] bg-[#F8EEE8] px-5 py-6 sm:gap-7 sm:px-7">

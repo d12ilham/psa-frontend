@@ -28,7 +28,7 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
   return <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-gray800 antialiased motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none">
     <ReportHeader slug={slug} report={report} currentPage="workforce_strategies" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons sectorPalette slug={slug} currentPage="workforce_strategies" prev={{ label: "Insight 3 – Future Skills for the Public Service", href: `/reports/${slug}/workforce_insight_3` }} next={{ label: "Update on 2025 Workforce Strategies", href: `/reports/${slug}/update_2025_strategies` }} prevPrefix="" />
+      <ReportNavButtons slug={slug} currentPage="workforce_strategies" prev={{ label: "Insight 3 – Future Skills for the Public Service", href: `/reports/${slug}/workforce_insight_3` }} next={{ label: "Update on 2025 Workforce Strategies", href: `/reports/${slug}/update_2025_strategies` }} prevPrefix="" />
 
       <section data-proposed-strategy-header className="grid gap-6 rounded-md border border-[#ECECE5] bg-white px-5 py-6 animate-slide-up sm:px-6 sm:py-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-10">
         <div data-strategy-header-copy className="min-w-0 max-w-[850px]">

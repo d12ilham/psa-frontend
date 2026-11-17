@@ -39,7 +39,7 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
     <section className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-[#E9EAEB] bg-white p-6 sm:p-10 lg:flex-row lg:items-center">
       <div className="max-w-[620px]">
         <p className="text-sm font-semibold uppercase text-[#598303]">Cross-Sector Strategies</p>
-        <h1 className="mt-5 text-[32px] font-bold leading-tight text-[#252D02] xl:text-[40px] xl:leading-[52px]">Commonwealth Government Initiatives</h1>
+        <h1 className="mt-5 text-[32px] font-bold leading-tight text-[#252D02] xl:text-[40px] xl:leading-[52px]">Federal Government Initiatives</h1>
         <p className="mt-4 text-sm leading-6 text-[#252D02]">Public Skills Australia&apos;s work is informed and guided by the Commonwealth Government initiatives detailed below.</p>
       </div>
       <Image src="/images/reports/public-safety/federal-initiatives-group-87.svg" alt="" width={672} height={216} loading="eager" className="h-auto w-full max-w-[672px] self-center lg:w-1/2" />

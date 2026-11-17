@@ -75,7 +75,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
     <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
       {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
       <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-        {!embedded && <ReportNavButtons sectorPalette
+        {!embedded && <ReportNavButtons
           slug={slug}
           currentPage="industry_profile_nt"
           prev={{ label: "NSW Workforce Overview", href: `/reports/${slug}/industry_profile_nsw` }}

@@ -233,7 +233,7 @@ export default function ReportHeader({
                 }
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "federal_initiatives" || currentPage === "federal_government_initiatives" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
               >
-                {isCorrectionalServices ? "Commonwealth Government Initiatives" : "Federal Government Initiatives"}
+                Federal Government Initiatives
               </button>
             </div>
           </div>

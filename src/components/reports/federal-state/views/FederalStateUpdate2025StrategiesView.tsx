@@ -79,7 +79,7 @@ export default function FederalStateUpdate2025StrategiesView({ slug, report }: {
   return <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
     <ReportHeader slug={slug} report={report} currentPage="update_2025_strategies" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons sectorPalette slug={slug} currentPage="update_2025_strategies" prev={{ label: "2026 Proposed Federal and State/Territory Government Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
+      <ReportNavButtons slug={slug} currentPage="update_2025_strategies" prev={{ label: "2026 Proposed Federal and State/Territory Government Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
 
       <section data-strategy-updates-header className="grid items-center gap-6 rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8 lg:grid-cols-[minmax(0,1fr)_auto]"
       >

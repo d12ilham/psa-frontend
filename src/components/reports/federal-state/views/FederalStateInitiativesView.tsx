@@ -275,7 +275,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
   return <div className="fstg-initiatives-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons sectorPalette slug={slug} currentPage="federal_initiatives" prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} next={{ label: "2027 and Beyond", href: `/reports/${slug}/looking_forward` }} prevPrefix="" />
+      <ReportNavButtons slug={slug} currentPage="federal_initiatives" prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} next={{ label: "2027 and Beyond", href: `/reports/${slug}/looking_forward` }} prevPrefix="" />
       <header data-federal-initiatives-hero className="animate-slide-up grid items-center gap-6 rounded-md border border-[#ECECE5] bg-white px-5 py-6 motion-reduce:animate-none sm:px-6 sm:py-7 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="min-w-0">
         <span className="inline-flex rounded-full bg-[#754D32] px-4 py-1.5 text-[11px] font-medium text-white">Workforce Strategies</span>

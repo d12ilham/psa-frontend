@@ -81,7 +81,7 @@ export default function FederalStateExistingStrategiesFrameView({ slug, report }
   return <div className="fstg-existing-strategies-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="existing_strategies" />
     <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
-      <ReportNavButtons sectorPalette slug={slug} currentPage="existing_strategies" prev={{ label: "2025 Project Updates", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }} prevPrefix="" />
+      <ReportNavButtons slug={slug} currentPage="existing_strategies" prev={{ label: "2025 Project Updates", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }} prevPrefix="" />
 
       <header data-existing-strategies-hero className="animate-slide-up grid items-center gap-6 rounded-md border border-[#ECECE5] bg-white px-5 py-6 sm:px-6 sm:py-7 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="min-w-0">

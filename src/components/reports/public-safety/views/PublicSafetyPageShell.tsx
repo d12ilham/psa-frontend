@@ -116,7 +116,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
       matches: (page) => page === "police_proposed_strategies_summary" || page === "police_federal_initiatives",
       children: [
         { label: "Proposed Strategies Summary", path: "police_proposed_strategies_summary" },
-        { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
+        { label: "Federal Government Initiatives", path: "police_federal_initiatives" },
       ],
     },
     { label: "Looking Forward", path: "looking_forward" },

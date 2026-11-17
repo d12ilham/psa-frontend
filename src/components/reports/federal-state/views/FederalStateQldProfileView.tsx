@@ -93,7 +93,7 @@ export default function FederalStateQldProfileView({ slug, report, embedded = fa
   return <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
     {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
     <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
-      {!embedded && <ReportNavButtons sectorPalette slug={slug} currentPage="industry_profile_qld" prev={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }} next={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} prevPrefix="" />}
+      {!embedded && <ReportNavButtons slug={slug} currentPage="industry_profile_qld" prev={{ label: "NT Workforce Overview", href: `/reports/${slug}/industry_profile_nt` }} next={{ label: "SA Workforce Overview", href: `/reports/${slug}/industry_profile_sa` }} prevPrefix="" />}
       <section data-jurisdiction-profile className="grid gap-6 bg-white p-5 sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
         <div className="min-w-0 [container-type:inline-size]">
           <p className="inline-block rounded-full bg-[#EED4C4] px-3 py-1.5 text-xs font-semibold text-black">Queensland · Selected jurisdiction</p>

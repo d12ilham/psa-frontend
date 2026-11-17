@@ -367,7 +367,7 @@ export default function FederalStateIndustryProfileView({
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-3 px-4 py-5 sm:px-6 lg:px-8">
         <Reveal>
-          <ReportNavButtons sectorPalette
+          <ReportNavButtons
             slug={slug}
             currentPage={selectedState === "ACT" ? "industry_profile_act" : "industry_profile"}
             onPrevious={selectedState === "ACT" && initialState === "NATIONAL" ? () => setSelectedState("NATIONAL") : undefined}

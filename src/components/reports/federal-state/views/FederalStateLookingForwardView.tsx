@@ -86,7 +86,6 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <ReportNavButtons
-          sectorPalette
           slug={slug}
           currentPage="looking_forward"
           pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}

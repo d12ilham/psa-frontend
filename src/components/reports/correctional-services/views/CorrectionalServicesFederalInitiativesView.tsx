@@ -262,7 +262,7 @@ export default function CorrectionalServicesFederalInitiativesView({
               Workforce Strategies
             </span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px]">
-              Commonwealth Government Initiatives
+              Federal Government Initiatives
             </h1>
             <p className="mt-4 max-w-4xl text-sm leading-6">
               Public Skills Australia&apos;s work is informed and guided by the Federal Government

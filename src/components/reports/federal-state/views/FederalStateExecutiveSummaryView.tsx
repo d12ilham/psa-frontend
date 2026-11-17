@@ -81,7 +81,7 @@ export default function FederalStateExecutiveSummaryView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Navigation Buttons */}
-        <ReportNavButtons sectorPalette slug={slug} currentPage="executive_summary" />
+        <ReportNavButtons slug={slug} currentPage="executive_summary" />
 
         {/* Hero Card with Sequential Flow Graphic */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

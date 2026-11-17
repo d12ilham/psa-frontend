@@ -234,7 +234,7 @@ export default function FederalStateNswProfileView({ slug, report }: { slug: str
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8">
-        <ReportNavButtons sectorPalette
+        <ReportNavButtons
           slug={slug}
           currentPage="industry_profile_nsw"
           prev={{ label: "ACT Workforce Overview", href: `/reports/${slug}/industry_profile_act` }}
