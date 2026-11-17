@@ -117,8 +117,8 @@ export default function ReportLandingPage({
           className="pointer-events-none absolute right-0 top-[58px] z-0 w-[24vw] max-w-[470px] select-none animate-zoom-in"
         />
 
-        <header className="relative z-20 h-[58px] shrink-0 border-b border-[#E9EADC] bg-[#FAFAF0]">
-          <div className="mx-auto flex h-full max-w-[960px] items-center justify-between px-5 sm:px-8">
+        <header className="relative z-20 shrink-0 border-b border-[#E9EADC] bg-[#FAFAF0]">
+          <div className="mx-auto flex max-w-360 items-center justify-between px-6 py-4 sm:px-12">
             <button
               type="button"
               onClick={() => router.push("/reports")}
@@ -129,37 +129,37 @@ export default function ReportLandingPage({
                 <img
                   src={logoUrl}
                   alt={siteSettings?.title || "Public Skills Australia"}
-                  className="h-[34px] w-auto object-contain"
+                  className="h-9 w-auto object-contain"
                 />
               ) : (
                 <PSALogo />
               )}
             </button>
-            <span className="rounded-full bg-[#122453] px-3 py-1 text-[10px] font-bold text-white">
+            <span className="rounded-full bg-[#122453] px-3.5 py-1.5 text-xs font-bold text-white">
               Public Safety
             </span>
           </div>
         </header>
 
-        <main className="relative z-10 flex flex-1 flex-col items-center px-5 pb-5 pt-5 sm:px-8 sm:pt-6">
-          <section className="w-full max-w-[960px] text-center">
-            <p className="animate-slide-up text-[10px] font-semibold uppercase text-[#73930B]">
+        <main className="relative z-10 flex flex-1 flex-col items-center px-4 pb-12 pt-10 sm:pt-14">
+          <section className="w-full max-w-5xl text-center">
+            <p className="animate-slide-up text-xs font-semibold uppercase tracking-wider text-[#73930B]">
               {report.year?.label || "2026"} · Public Skills Australia
             </p>
-            <h1 className="animate-slide-up mt-3 text-[28px] font-extrabold leading-[1.2] text-[#252D02] sm:text-[32px]">
+            <h1 className="animate-slide-up mt-4 text-4xl font-extrabold leading-tight text-[#252D02] sm:leading-normal">
               Public Safety Workforce Insights Report
             </h1>
-            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[900px] text-[11px] font-medium leading-5 text-[#60636B] sm:text-xs">
+            <p className="animate-slide-up-delay mx-auto mt-6 max-w-[900px] text-lg font-medium leading-normal text-[#60636B]">
               Covering the Defence, Fire and Emergency Services and Police
               industry-sectors - with cross-sector analysis of the skills that
               connect them.
             </p>
-            <p className="animate-slide-up-delay mx-auto mt-3 max-w-[800px] text-[15px] font-semibold leading-5 text-black sm:text-base">
+            <p className="animate-slide-up-delay mx-auto mt-6 max-w-[800px] text-lg font-semibold leading-normal text-black">
               Choose how you explore the digital report; begin with the introduction for a comprehensive overview, or go straight to the executive summary for the key insights and strategies.
             </p>
           </section>
 
-          <section className="mt-5 grid w-full max-w-[950px] grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+          <section className="mt-8 grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-2 sm:mt-10 sm:gap-8">
             {primaryCards.map((card, index) => (
               <article
                 key={card.path}
@@ -196,11 +196,11 @@ export default function ReportLandingPage({
             ))}
           </section>
 
-          <p className="mt-5 text-[15px] font-semibold text-black sm:text-base">
+          <p className="mt-8 text-lg font-semibold text-black">
             Or go straight to a sector chapter
           </p>
 
-          <section className="mt-5 grid w-full max-w-[950px] grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
+          <section className="mt-8 grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-8">
             {sectorCards.map((card, index) => (
               <article
                 key={card.path}
@@ -227,11 +227,11 @@ export default function ReportLandingPage({
           </section>
         </main>
 
-        <footer className="relative z-20 flex h-[58px] shrink-0 items-center justify-center gap-3 border-t border-[#E9EADC] bg-white px-4">
+        <footer className="relative z-20 flex shrink-0 items-center justify-center gap-3 border-t border-[#E9EADC] bg-white p-4">
           <button data-report-action="secondary"
             type="button"
             onClick={() => router.push("/reports")}
-            className="cursor-pointer rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 py-2 text-[10px] font-semibold text-[#598303] transition-colors hover:bg-[#F1F5E5]"
+            className="cursor-pointer rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2 text-sm font-semibold text-[#598303] transition-colors hover:bg-[#F1F5E5]"
           >
             ← Back to PSA Website
           </button>
@@ -239,7 +239,7 @@ export default function ReportLandingPage({
             href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-4 py-2 text-[10px] font-semibold text-[#598303] no-underline transition-colors hover:bg-[#F1F5E5]"
+            className="rounded-full border border-[#B2DB79] bg-[#FAFAF0] px-5 py-2 text-sm font-semibold text-[#598303] no-underline transition-colors hover:bg-[#F1F5E5]"
           >
             Contact Us
           </a>
