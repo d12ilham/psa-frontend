@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { correctionalInsights, correctionalTheme } from "../data/workforceInsights";
+import { correctionalInsights } from "../data/workforceInsights";
 import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -194,7 +194,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
           <div className="px-6 pb-6">
             <div className="overflow-hidden rounded-[14px] border border-[#E9EAEB] border-t-[10px] border-t-[#424996] bg-white p-6 transition-shadow duration-300 hover:shadow-sm sm:p-8">
               <p className="text-xs font-bold uppercase leading-5 text-[#598303]">Theme 1 - 3 Insights</p>
-              <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">{correctionalTheme}</h3>
+              <h3 className="mt-3 text-xl font-bold leading-7 text-[#252D02]">Correctional Industry-Sector Themes</h3>
               <button
                 type="button"
                 onClick={() => setThemeOpen((open) => !open)}

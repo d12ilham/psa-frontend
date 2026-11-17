@@ -124,7 +124,7 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
               </span>
               <h2 id="career-industry-insight-heading" className="text-xl font-semibold text-[#252D02]">Industry Insight</h2>
             </div>
-            <p className="mt-4 text-sm leading-6">{correctionalInsights[2].lead} {correctionalInsights[2].detail}</p>
+            <p className="mt-4 text-sm leading-6">{correctionalInsights[1].lead} {correctionalInsights[1].detail}</p>
           </aside>
         </div>
 

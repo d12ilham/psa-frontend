@@ -47,7 +47,7 @@ const stats: Stat[] = [
     value: 984,
     prefix: "just under $",
     suffix: " million",
-    label: "for community corrections, 2024-25",
+    label: "net operating expenditure and capital costs for community corrections, 2024-25",
   },
   {
     icon: Building2,
