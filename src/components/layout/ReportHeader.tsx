@@ -7,6 +7,7 @@ import { Download } from "lucide-react";
 
 import { resolveSector, SITE_SETTINGS } from "@/config/reports/sectors";
 import FederalStateReportHeader from "@/components/reports/federal-state/FederalStateReportHeader";
+import ReportHomeLink from "./ReportHomeLink";
 
 interface ReportHeaderProps {
   slug: string;
@@ -46,8 +47,8 @@ export default function ReportHeader({
       className="text-white sticky top-0 z-50 transition-colors"
       style={{ backgroundColor: isCorrectionalServices ? "#252D02" : sector.theme.headerBg }}
     >
-      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3 font-bold text-base text-white">
+      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex shrink-0 items-center gap-3 font-bold text-base text-white">
           {(isLocalGovernment || isCorrectionalServices) && (
             <a
               href="https://publicskillsaustralia.org.au/"
@@ -63,9 +64,10 @@ export default function ReportHeader({
               />
             </a>
           )}
+          <ReportHomeLink />
         </div>
 
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
+        <nav className="order-last hidden w-full items-center justify-center gap-4 text-xs font-semibold md:flex lg:gap-6 2xl:order-none 2xl:w-auto">
           {/* 1. ABOUT DROPDOWN */}
           <div className="relative group py-1">
             <button className={`flex items-center gap-1 cursor-pointer ${currentPage === "about" || currentPage === "introduction" || currentPage === "methodology" ? activeNavClass : inactiveNavClass}`}>

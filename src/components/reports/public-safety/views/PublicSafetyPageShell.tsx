@@ -9,6 +9,7 @@ import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import type { NavTarget } from "@/components/layout/ReportNavButtons";
 import { SITE_SETTINGS } from "@/config/reports/sectors";
+import ReportHomeLink from "@/components/layout/ReportHomeLink";
 
 export interface PublicSafetyReport {
   contactUrl?: string;
@@ -156,9 +157,10 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
               className="h-6 w-auto max-w-[95px] object-contain min-[1400px]:h-7 min-[1400px]:max-w-[110px]"
             />
           </a>
+          <ReportHomeLink />
         </div>
 
-        <nav className="hidden h-full items-center gap-2 text-[10px] font-semibold min-[1400px]:gap-3 min-[1400px]:text-xs xl:flex" aria-label="Public Safety report navigation">
+        <nav className="hidden h-full items-center gap-2 text-[10px] font-semibold min-[1400px]:gap-3 min-[1400px]:text-xs 2xl:flex" aria-label="Public Safety report navigation">
           {items.map((item) => (
             <div key={item.label} className="group relative flex h-full items-center">
               <button
@@ -198,7 +200,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/20 text-white xl:hidden"
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/20 text-white 2xl:hidden"
             aria-label="Toggle report menu"
             aria-expanded={mobileOpen}
           >
@@ -208,7 +210,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
       </div>
 
       {mobileOpen ? (
-        <nav className="max-h-[calc(100vh-60px)] overflow-y-auto border-t border-white/10 bg-[#1B2304] px-4 py-3 xl:hidden" aria-label="Mobile Public Safety report navigation">
+        <nav className="max-h-[calc(100vh-60px)] overflow-y-auto border-t border-white/10 bg-[#1B2304] px-4 py-3 2xl:hidden" aria-label="Mobile Public Safety report navigation">
           {items.map((item) => (
             <div key={item.label} className="border-b border-white/10 last:border-0">
               <button type="button" onClick={() => navigate(item.path)} className={`flex w-full cursor-pointer items-center gap-2 py-3 text-left text-xs font-semibold ${isActive(item) ? "text-[#8AC900]" : "text-white"}`}>
