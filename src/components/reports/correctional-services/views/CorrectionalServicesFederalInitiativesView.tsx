@@ -276,14 +276,14 @@ export default function CorrectionalServicesFederalInitiativesView({
         </section>
 
         <div className="sticky top-[60px] z-30 flex h-24 flex-col justify-center gap-2 rounded-[14px] border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
-          <label htmlFor="commonwealth-initiative" className="text-sm font-semibold text-[#598303]">Selected Commonwealth initiative</label>
-          <select id="commonwealth-initiative" aria-label="Select Commonwealth initiative" value={activeIndex} onChange={(event) => showInitiative(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#598303] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#598303]">
+          <label htmlFor="federal-initiative" className="text-sm font-semibold text-[#598303]">Selected Federal initiative</label>
+          <select id="federal-initiative" aria-label="Select Federal initiative" value={activeIndex} onChange={(event) => showInitiative(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#598303] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#598303]">
             {initiatives.map((item, index) => <option key={item.number} value={index}>{item.number} - {item.title}</option>)}
           </select>
         </div>
 
         <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Commonwealth Government initiatives" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+          <nav aria-label="Federal Government initiatives" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
             <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#598303]">Selected initiative {initiative.number}</p>
             <div ref={initiativeListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
               {initiatives.map((item, index) => {

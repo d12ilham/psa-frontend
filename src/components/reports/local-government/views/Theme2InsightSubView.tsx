@@ -59,12 +59,12 @@ export default function Theme2InsightSubView({
               <button data-report-action="primary"
                 onClick={() =>
                   router.push(
-                    `/reports/${slug}/workforce_insights?insight=contextualisation`,
+                    `/reports/${slug}/workforce_strategies`,
                   )
                 }
                 className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
-                <span>Next: Contextualisation of Qualifications</span>
+                <span>Next: Workforce Strategies</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             )}

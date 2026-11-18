@@ -44,11 +44,11 @@ const occupationGrowth = [
 ];
 
 const occupations = [
-  ["Policy and Planning Managers"],
-  ["Inspectors and Regulatory Officers"],
-  ["Human Resource Professionals"],
-  ["Intelligence and Policy Analysts"],
-  ["General Clerks", "Organisation Professionals"],
+  { label: "Policy and Planning Managers", percentage: "12.4%" },
+  { label: "Intelligence and Policy Analysts", percentage: "14.6%" },
+  { label: "Contract, Program and Project Administrators", percentage: "8.6%" },
+  { label: "General Clerks", percentage: "11.2%" },
+  { label: "other Information and Organisation Professionals", percentage: "10.5%" },
 ];
 
 const sources = [
@@ -113,9 +113,9 @@ export default function FederalStateVicProfileView({ slug, report, embedded = fa
       <div className="mt-6"><p className="max-w-4xl text-xs leading-6 text-[#42463B]"><sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">71</sup> While the projected 10-year growth rate for Public Administration and Safety is 1.3 per cent,<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">72</sup> this growth rate is slightly higher for the following Public Administration Industry occupations:</p>
         <div role="region" aria-label="Victoria occupation growth points" tabIndex={0} className="mt-4 min-w-0 overflow-x-auto pb-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
           <ol data-vic-occupations aria-label="Public Administration occupations with higher projected growth" role="list" className="grid min-w-[1020px] list-none grid-cols-5 gap-3">
-            {occupations.map((group, index) => <li data-report-surface="neutral" key={group[0]} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
+            {occupations.map((occupation, index) => <li data-report-surface="neutral" key={occupation.label} className="min-w-0 rounded-md bg-[#F8EEE8] p-4 text-sm leading-6 text-[#42463B]">
               <span aria-hidden="true" className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#754D32] text-base font-bold text-white">{index + 1}</span>
-              {group.map((occupation) => <span key={occupation} data-vic-occupation-copy className="block">{occupation}</span>)}
+              <span data-vic-occupation-copy className="block">{occupation.label} <span className="whitespace-nowrap font-semibold">{occupation.percentage}</span></span>
             </li>)}
           </ol>
         </div>

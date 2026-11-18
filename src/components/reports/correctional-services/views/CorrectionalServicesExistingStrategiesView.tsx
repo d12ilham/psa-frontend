@@ -271,7 +271,7 @@ export default function CorrectionalServicesExistingStrategiesView({
             slug={slug}
             currentPage="existing_strategies"
             prev={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
-            next={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+            next={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
             prevPrefix=""
           />
         </CorrectionalServicesReportUtilityRow>

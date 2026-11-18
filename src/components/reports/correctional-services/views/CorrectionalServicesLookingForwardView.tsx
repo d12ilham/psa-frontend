@@ -48,7 +48,7 @@ export default function CorrectionalServicesLookingForwardView({ slug, report }:
             slug={slug}
             currentPage="looking_forward"
             pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
-            prev={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+            prev={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
           />
         </CorrectionalServicesReportUtilityRow>
 

@@ -8,7 +8,6 @@ import styles from "./sector-cards.module.css";
 import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
 import {
   Download,
-  Play,
   FileText,
   ChevronRight,
   X,
@@ -57,7 +56,6 @@ export default function ReportsArchivePage() {
   const reports = STATIC_REPORTS;
   const siteSettings = SITE_SETTINGS;
 
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -252,31 +250,23 @@ export default function ReportsArchivePage() {
               </div>
             </div>
 
-            {/* Right Video Card Placeholder (Non-interactive) */}
+            {/* Reports launch video with Auslan interpretation */}
             <div className="lg:col-span-5 animate-zoom-in">
               <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
-                {/* Video Thumbnail Box */}
-                <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-white"></div>
-
-                  <div className="relative z-10 flex flex-col items-center gap-3">
-                    <div className="w-20 h-20 rounded-full bg-[#F0F5DF] text-lg-light flex items-center justify-center pl-1">
-                      <Play className="w-9 h-9 fill-lg-light" />
-                    </div>
-                  </div>
+                <div className="aspect-video overflow-hidden rounded-xl bg-black">
+                  <iframe
+                    src="https://player.vimeo.com/video/1216878313?h=6a18af4b61&autopause=1"
+                    title="2026 Workforce Reports Launch (Auslan)"
+                    className="h-full w-full border-0"
+                    loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
                 </div>
-
-                {/* Video Subtitle */}
-                <div className="flex items-center justify-between px-1 gap-5">
-                  <p className="text-xs text-gray600 font-medium leading-relaxed">
-                    A short introduction to the 2026 reports from Public Skills
-                    Australia.
-                  </p>
-                  <div className="bg-lg-light text-[#1C250E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1.5 shrink-0 select-none">
-                    <Play className="w-4 h-4" />
-                    <span>Watch 2 Mins.</span>
-                  </div>
-                </div>
+                <p className="px-1 text-xs text-gray600 font-medium leading-relaxed">
+                  2026 Workforce Reports Launch, with Auslan interpretation.
+                </p>
               </div>
             </div>
           </div>
@@ -471,43 +461,6 @@ export default function ReportsArchivePage() {
 
       {/* ── 7. FOOTER ── */}
       <ReportFooter reportName="Workforce Insights Reports" />
-
-      {/* ── 8. VIDEO INTRO MODAL ── */}
-      {isVideoModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden space-y-0 relative border border-[#E2DFD4]">
-            <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
-              <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
-                <Play className="w-4 h-4 fill-[#85CC00] text-[#85CC00]" />
-                <span>2026 Workforce Insights Reports Introduction</span>
-              </h3>
-              <button
-                onClick={() => setIsVideoModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="aspect-video w-full bg-black relative flex items-center justify-center">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                title="Public Skills Australia Video Introduction"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="p-4 bg-[#F4F3EA] flex justify-end">
-              <button
-                onClick={() => setIsVideoModalOpen(false)}
-                className="bg-[#1B240E] text-white font-extrabold text-xs px-5 py-2 rounded-full hover:bg-[#2A3716] transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── 9. ALL SECTOR REPORTS (PDFs) MODAL ── */}
       {isPdfModalOpen && (

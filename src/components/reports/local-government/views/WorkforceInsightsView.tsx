@@ -9,7 +9,6 @@ import ReportNavButtons from "@/components/layout/ReportNavButtons";
 import { ArrowRight } from "lucide-react";
 import Theme1InsightSubView from "./Theme1InsightSubView";
 import Theme2InsightSubView from "./Theme2InsightSubView";
-import ContextualisationSubView from "./ContextualisationSubView";
 
 interface Report {
   id: string;
@@ -42,16 +41,24 @@ export default function WorkforceInsightsView({
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   useEffect(() => {
-    setIsHeroMounted(true);
+    const frame = requestAnimationFrame(() => setIsHeroMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Determine selected theme and insight from query parameter or pageType
   const queryInsight = searchParams.get("insight");
-  const isContextualisation =
+  const isRemovedInsight =
     queryInsight === "contextualisation" ||
     queryInsight === "contextualisation_of_qualifications" ||
     pageType === "contextualisation_of_qualifications" ||
     pageType === "contextualisation";
+
+  useEffect(() => {
+    if (isRemovedInsight) {
+      router.replace(`/reports/${slug}/workforce_insights`);
+    }
+  }, [isRemovedInsight, router, slug]);
+
   let activeTheme: 1 | 2 | null = null;
   let activeInsightId: number | null = null;
 
@@ -116,12 +123,7 @@ export default function WorkforceInsightsView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
-        {isContextualisation ? (
-          <ContextualisationSubView
-            slug={slug}
-            onBackToOverview={handleBackToOverview}
-          />
-        ) : activeTheme === 1 && activeInsightId ? (
+        {activeTheme === 1 && activeInsightId ? (
           /* ── SUB VIEW: THEME 1 INSIGHT DETAIL ── */
           <Theme1InsightSubView
             slug={slug}
