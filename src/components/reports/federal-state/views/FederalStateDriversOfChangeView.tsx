@@ -256,7 +256,7 @@ export default function FederalStateDriversOfChangeView({
 
               return (
                 <React.Fragment key={driver.id}>
-                  <div data-report-surface="neutral"
+                  <div data-report-surface={isActive ? undefined : "neutral"}
                     style={
                       isDriversVisible
                         ? { animationDelay: `${index * 0.12}s` }
@@ -307,7 +307,7 @@ export default function FederalStateDriversOfChangeView({
                   >
                     <div className="overflow-hidden min-h-0">
                       {isActive && (
-                        <div data-report-surface="neutral"
+                        <div
                           key={`mobile-driver-${driver.id}`}
                           className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-5 space-y-4"
                         >
@@ -339,7 +339,7 @@ export default function FederalStateDriversOfChangeView({
           >
             <div className="overflow-hidden min-h-0">
               {activeDriver && (
-                <div data-report-surface="neutral"
+                <div
                   key={`desktop-driver-${activeDriverId}`}
                   className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-6"
                 >
@@ -372,7 +372,7 @@ export default function FederalStateDriversOfChangeView({
             {MEGATRENDS.map((item, index) => {
               const isActive = activeMegatrendId === item.id;
               return (
-                <button data-report-surface="neutral"
+                <button data-report-surface={isActive ? undefined : "neutral"}
                   key={item.id}
                   id={`megatrend-${item.id}`}
                   type="button"
@@ -396,7 +396,7 @@ export default function FederalStateDriversOfChangeView({
           >
             <div className="overflow-hidden min-h-0">
               {activeMegatrend && (
-                <div data-report-surface="neutral" key={activeMegatrend.id} className="animate-content-switch bg-[#EBF1E4] border border-[#728C28] border-l-4 rounded-xl p-5 sm:p-6 space-y-2">
+                <div key={activeMegatrend.id} className="animate-content-switch bg-[#EBF1E4] border border-[#728C28] border-l-4 rounded-xl p-5 sm:p-6 space-y-2">
                   <h3 className="text-base sm:text-lg font-bold text-gray800">{activeMegatrend.title}</h3>
                   <p className="text-sm text-gray600 leading-relaxed">{activeMegatrend.desc}</p>
                 </div>

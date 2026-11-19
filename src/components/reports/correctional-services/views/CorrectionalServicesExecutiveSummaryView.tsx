@@ -222,7 +222,7 @@ export default function CorrectionalServicesExecutiveSummaryView({
                 {insights.map((insight, index) => {
                   const expanded = expandedInsight === index;
                   return (
-                    <div data-report-surface="neutral" key={insight.title} style={{ animationDelay: `${index * 0.12 + 0.2}s` }} className={`overflow-hidden rounded-[14px] border border-[#424996] border-l-[8px] bg-[#424996]/10 transition-[background-color,box-shadow] duration-300 hover:bg-[#424996]/15 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${visibleSections.includes("insights") ? "animate-card-entrance" : "translate-y-4 opacity-0"}`}>
+                    <div key={insight.title} style={{ animationDelay: `${index * 0.12 + 0.2}s` }} className={`overflow-hidden rounded-[14px] border border-[#424996] border-l-[8px] bg-[#424996]/10 transition-[background-color,box-shadow] duration-300 hover:bg-[#424996]/15 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${visibleSections.includes("insights") ? "animate-card-entrance" : "translate-y-4 opacity-0"}`}>
                       <button
                         type="button"
                         onClick={() => setExpandedInsight(expanded ? null : index)}

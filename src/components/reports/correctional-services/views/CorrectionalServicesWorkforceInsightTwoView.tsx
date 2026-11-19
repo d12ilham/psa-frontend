@@ -2,7 +2,7 @@
 
 import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import CorrectionalServicesInsightArtwork from "./CorrectionalServicesInsightArtwork";
 import { correctionalInsights } from "../data/workforceInsights";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -130,14 +130,7 @@ export default function CorrectionalServicesWorkforceInsightTwoView({ slug, repo
                 <p className="mt-5 text-sm leading-6">{correctionalInsights[1].detail}</p>
               </div>
             </div>
-            <Image
-              src="/images/reports/correctional-workforce-insight-two-frame-8.svg"
-              width={220}
-              height={220}
-              alt=""
-              aria-hidden="true"
-              className="size-[180px] shrink-0 self-center animate-zoom-in motion-reduce:animate-none xl:size-[220px]"
-            />
+            <CorrectionalServicesInsightArtwork insight={2} />
           </div>
         </section>
 

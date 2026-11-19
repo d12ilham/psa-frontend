@@ -1,7 +1,7 @@
 "use client";
 
 import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
-import Image from "next/image";
+import CorrectionalServicesInsightArtwork from "./CorrectionalServicesInsightArtwork";
 import { BriefcaseBusiness, MessageSquareText, UserRound } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -54,11 +54,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
                 <h1 className="mt-5 text-2xl font-semibold leading-8">Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community</h1>
               </div>
             </div>
-            <div className="grid size-[180px] shrink-0 place-items-center self-center rounded-full bg-white xl:size-[220px]" aria-hidden="true">
-              <span className="relative block size-full overflow-hidden rounded-full">
-                <Image src="/images/reports/correctional-workforce-insights-frame-436.svg" width={480} height={140} alt="" style={{ width: "342.857%", height: "100%", filter: "contrast(1.08) brightness(1.04)" }} className="absolute left-0 top-0 max-w-none animate-zoom-in motion-reduce:animate-none" />
-              </span>
-            </div>
+            <CorrectionalServicesInsightArtwork insight={1} />
           </div>
         </section>
 

@@ -415,7 +415,7 @@ export default function Theme1InsightSubView({
           </div>
 
           {/* Right Column (Jurisdictional Shortage List Container) */}
-          <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-2xl border border-gray200 p-6 space-y-5">
+          <div className="bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-[#9CAA54] p-6 space-y-5">
             <div className="space-y-2">
               <h3 className="text-xl font-bold text-gray800">
                 The jurisdictional Local Government-specific shortage list

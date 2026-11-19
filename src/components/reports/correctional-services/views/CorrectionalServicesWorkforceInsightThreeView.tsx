@@ -2,7 +2,7 @@
 
 import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import CorrectionalServicesInsightArtwork from "./CorrectionalServicesInsightArtwork";
 import { MessageSquareText, UserRound } from "lucide-react";
 import { correctionalInsights } from "../data/workforceInsights";
 import Link from "next/link";
@@ -91,9 +91,7 @@ export default function CorrectionalServicesWorkforceInsightThreeView({ slug, re
                 <p className="mt-5 text-sm leading-6">{correctionalInsights[2].detail}</p>
               </div>
             </div>
-            <div className="shrink-0 self-center animate-zoom-in motion-reduce:animate-none">
-              <Image src="/images/reports/correctional-workforce-insight-three-frame-8.svg" width={220} height={220} alt="" aria-hidden="true" className="size-[180px] transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none xl:size-[220px]" />
-            </div>
+            <CorrectionalServicesInsightArtwork insight={3} />
           </div>
         </section>
 
