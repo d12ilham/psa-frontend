@@ -1,5 +1,7 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
 import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -260,21 +262,12 @@ export default function FederalGovernmentInitiativesView({
   const [selectedId, setSelectedId] = useState<number | null>(INITIATIVES_DATA[0].id);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
   const detailPanelRef = useRef<HTMLDivElement>(null);
-  const previousSelectionRef = useRef(selectedId);
+  useReportReader(detailPanelRef, selectedId, false);
 
   useEffect(() => {
     setIsHeroMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (
-      previousSelectionRef.current !== selectedId &&
-      window.matchMedia("(min-width: 1024px)").matches
-    ) {
-      detailPanelRef.current?.scrollIntoView({ block: "start" });
-    }
-    previousSelectionRef.current = selectedId;
-  }, [selectedId]);
 
   const selectedItem =
     INITIATIVES_DATA.find((s) => s.id === selectedId) || INITIATIVES_DATA[0];
@@ -348,14 +341,14 @@ export default function FederalGovernmentInitiativesView({
         </div>
 
         {/* ── MASTER-DETAIL 2-COLUMN GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div data-report-reader="standard" className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* LEFT COLUMN: INITIATIVES */}
-          <div className="lg:col-span-1 space-y-3 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-12rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
+          <div data-reader-list role="region" aria-label="Available selections" tabIndex={0} className="lg:col-span-1 space-y-3 p-1">
             {INITIATIVES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
               return (
                 <React.Fragment key={item.id}>
-                  <div data-report-surface="neutral"
+                  <button type="button" aria-pressed={isSelected} data-report-surface="neutral"
                     style={{ animationDelay: `${0.06 + idx * 0.04}s` }}
                     onClick={() =>
                       setSelectedId(
@@ -367,22 +360,22 @@ export default function FederalGovernmentInitiativesView({
                           : item.id,
                       )
                     }
-                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex items-center justify-between gap-4 ${
+                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex w-full text-left items-center justify-between gap-4 ${
                       isSelected
                         ? "bg-[#8AC900]/15 border-2 border-[#8AC900] shadow-xs"
                         : "bg-white border-gray200 hover:border-[#8AC900] hover:bg-[#FAFAF0] hover:shadow-xs"
                     }`}
                   >
-                    <div className="space-y-4 flex-1">
+                    <span className="space-y-4 flex-1">
                       <span className="text-xs font-semibold text-notes block">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="font-bold text-gray800 leading-normal">
+                      <span className="font-bold text-gray800 leading-normal">
                         {item.title}
-                      </h3>
-                    </div>
+                      </span>
+                    </span>
 
-                    <div
+                    <span
                       className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isSelected
                           ? "bg-white text-gray800 border border-[#8AC900] rotate-90 lg:rotate-0"
@@ -390,8 +383,8 @@ export default function FederalGovernmentInitiativesView({
                       }`}
                     >
                       <ArrowRight className="h-4 w-4 text-gray800" />
-                    </div>
-                  </div>
+                    </span>
+                  </button>
 
                   {/* Mobile Detail Panel (Displayed right below the clicked item) */}
                   {isSelected && (
@@ -439,10 +432,9 @@ export default function FederalGovernmentInitiativesView({
           </div>
 
           {/* RIGHT COLUMN: SELECTED INITIATIVE DETAIL PANEL (Desktop only) */}
-          {/* Keep long details in page flow so every paragraph remains accessible. */}
-          <div ref={detailPanelRef} role="region" aria-label="Selected government initiative" tabIndex={0} className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 scroll-mt-20">
+          <div ref={detailPanelRef} data-reader-detail role="region" aria-label="Selected government initiative" tabIndex={0} className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 scroll-mt-20">
             {/* Top Bar inside Detail Panel */}
-            <div className="sticky top-20 z-10 bg-[#E5E8DA] flex items-center justify-between gap-4">
+            <div className="sticky top-0 z-10 bg-[#E5E8DA] flex items-center justify-between gap-4">
               <span className="bg-lg-dark text-white text-xs font-semibold px-5 py-2.5 rounded-full uppercase">
                 {String(selectedIndex + 1).padStart(2, "0")}
               </span>

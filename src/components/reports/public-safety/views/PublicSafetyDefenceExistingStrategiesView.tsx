@@ -134,10 +134,10 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
       <Image className={existing.artwork} src="/images/reports/public-safety/defence-existing-strategies-group-85.svg" alt="" width={487} height={104} unoptimized priority />
     </section>
 
-    <section className={styles.projects} aria-labelledby="defence-existing-list">
+    <section data-report-reader="wide" className={styles.projects} aria-labelledby="defence-existing-list">
       <div>
         <h2 id="defence-existing-list">Strategies · 8 · Select to open</h2>
-        <div className={styles.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available strategies" className={styles.projectList}>
           {strategies.map((item, index) => (
             <button key={item.number} type="button" className={styles.projectButton} aria-pressed={active === index} aria-controls="defence-existing-panel" onClick={() => setActive(index)}>
               <span><small>{item.number} · {item.owner}</small><strong>{item.title}</strong></span>

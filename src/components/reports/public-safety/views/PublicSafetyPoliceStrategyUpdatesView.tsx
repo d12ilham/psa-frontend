@@ -82,10 +82,10 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
       </div>
     </section>
 
-    <section className={`${layout.projects} ${chapter.enter}`}>
+    <section data-report-reader="wide" className={`${layout.projects} ${chapter.enter}`}>
       <div>
         <h2>Strategies · {projects.length} · Select to open</h2>
-        <div className={layout.projectList} role="group" aria-label="2025 Police strategy projects">
+        <div data-reader-list tabIndex={0} className={layout.projectList} role="group" aria-label="2025 Police strategy projects">
           {projects.map((item, index) => (
             <button key={item.title} type="button" className={`${layout.projectButton} ${styles.projectButton}`} onClick={() => setActive(index)} aria-pressed={active === index}>
               <span><small>0{index + 1} · Completion: {item.completion}</small><strong>{item.title}</strong></span>

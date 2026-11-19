@@ -344,8 +344,8 @@ export default function PublicSafetyDefenceProfileView({ slug, report }: { slug:
     </section>
     <section ref={libraryRef} className={`${styles.library} ${libraryVisible ? styles.enter : styles.pending}`} aria-labelledby="defence-chart-library-title">
       <h2 id="defence-chart-library-title">Chart Library · 6 · Select a chart to open</h2>
-      <div className={styles.libraryGrid}>
-        <div className={styles.chartList} aria-label="Defence profile charts">
+      <div data-report-reader="wide" className={styles.libraryGrid}>
+        <div data-reader-list tabIndex={0} role="region" className={styles.chartList} aria-label="Defence profile charts">
           {charts.map((label, i) => <button id={`defence-profile-chart-${i}`} key={label} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls="defence-profile-presentation" style={libraryVisible ? { animationDelay: `${i * .08 + .08}s` } : undefined} className={`${styles.chartButton} ${active === i ? styles.selected : ""} ${libraryVisible ? styles.enter : styles.pending}`}>
             <span><small>0{i + 1} · DEF · Presentation View</small><strong>{chartCardLabels[i]}</strong></span>
             <span className={styles.chartArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.5} /></span>

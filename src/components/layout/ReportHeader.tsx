@@ -48,7 +48,7 @@ export default function ReportHeader({
       style={{ backgroundColor: isCorrectionalServices ? "#252D02" : sector.theme.headerBg }}
     >
       <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex shrink-0 items-center gap-3 font-bold text-base text-white">
+        <div className="flex min-w-0 items-center gap-2 font-bold text-base text-white sm:gap-3">
           {(isLocalGovernment || isCorrectionalServices) && (
             <a
               href="https://publicskillsaustralia.org.au/"
@@ -60,7 +60,7 @@ export default function ReportHeader({
                 alt="Public Skills Australia"
                 width={180}
                 height={48}
-                className="h-9 w-auto max-w-[150px] object-contain"
+                className="h-7 w-auto max-w-[112px] object-contain sm:h-9 sm:max-w-[150px]"
               />
             </a>
           )}
@@ -241,14 +241,14 @@ export default function ReportHeader({
         </nav>
 
         {/* 8. DOWNLOAD CTA */}
-        <div>
+        <div className="shrink-0">
           <button
             onClick={() => router.push(`/reports/${slug}/downloads`)}
             className="text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
             style={{ backgroundColor: isCorrectionalServices ? "#046D2A" : sector.theme.primaryColor }}
           >
-            <span>Download {report?.year?.label || sector.defaultYear} PDF</span>
-            <Download className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only">Download {report?.year?.label || sector.defaultYear} PDF</span>
+            <Download className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
         </div>
       </div>

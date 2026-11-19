@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
@@ -18,6 +19,7 @@ interface Report {
 const projectData = [
   {
     title: "Auslan, Interpreting and Translating Qualification Review",
+    illustration: "/images/reports/federal-state/sector-palette/frame-teacher.svg",
     intro: "In response to the 2023 Disability Royal Commission Final Report, Public Skills Australia has commenced a multiphase project to address the recommendation to improve access to Auslan language services. The aim of this project is to increase the number of Auslan interpreters and translators available to Federal and State/Territory Governments. This work supported the following strategic priorities:",
     sections: [
       { heading: "Ministerial Priority 2026", text: "The project will contribute to continuing to progress actions to consider and address barriers to participation in Auslan, interpreting and translating qualifications to support an increase in the number of qualified Auslan interpreters as identified in the final report from the Royal Commission into Violence, Abuse, Neglect and Exploitation of People with Disability." },
@@ -29,6 +31,7 @@ const projectData = [
   },
   {
     title: "Review of Government Investigations Qualifications",
+    illustration: "/images/reports/federal-state/strategy-updates/consultation.svg",
     intro: "To ensure alignment with the Australian Government Investigation Standards (AGIS) 2022 and current operational practices, this project is reviewing three qualifications and a Skill Set in the Government Investigations stream of the PSP Public Sector Training Package.",
     sections: [
       { heading: "", text: "Public Skills Australia has engaged with stakeholders, published a Skills Review and completed training product reviews. The training products are due to be consulted with stakeholders in early 2026. As a result of extensive industry engagement, a series of recommendations have been determined for this project. The outcome is to ensure that the Government Investigations Qualification stream is updated to remain compliant with legislative requirements and support the capability needs of the public sector. This project is due for completion in December of 2026. Consultation for this project has been undertaken with the following stakeholders:" },
@@ -37,6 +40,7 @@ const projectData = [
   },
   {
     title: "Review of Procurement and Contracting Qualifications",
+    illustration: "/images/reports/federal-state/strategy-updates/contract.svg",
     intro: "The Procurement and Contracting stream of the PSP Public Sector Training Package has not been updated since 2016 and no longer meets the requirements of contemporary procurement and contracting roles. This project aims to address the gaps between good practice, current legislative requirements and existing qualifications. As part of this project, several additional qualifications in the PSP Public Sector Training Package will be updated to incorporate modern procurement practices, emerging skills needs and address implementation challenges.",
     sections: [
       { heading: "", text: "Public Skills Australia has published a Skills Review and has engaged with stakeholders to develop training products that the industry-sector requires. It has been identified that there are gaps in knowledge and skills requirements, and duplication of content across units of competency which will be consulted with stakeholders in early 2026. The intended outcome of this review is a contemporary qualification that can meet emerging capability requirements of the public sector. This project is due for completion in December of 2026. Consultation for this project has been undertaken with the following stakeholders:" },
@@ -45,15 +49,23 @@ const projectData = [
   },
 ];
 
-function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: number; title: string; intro: string }) {
+function ProjectUpdateHeader({ projectNumber, title, intro, illustration }: {
+  projectNumber: number;
+  title: string;
+  intro: string;
+  illustration: string;
+}) {
   return (
-    <section data-project-update-header className="rounded-2xl border border-gray200 bg-white p-6 animate-slide-up sm:p-8">
-      <div className="max-w-[1050px]">
-        <span data-project-strategy-badge className="inline-flex rounded-full bg-[#754C2D] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Project {projectNumber}</span>
+    <section data-project-update-header className={`${styles.hero} rounded-2xl p-6 animate-slide-up motion-reduce:animate-none sm:p-8`}>
+      <div className="min-w-0">
+        <span data-project-strategy-badge className={`${styles.badge} inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide`}>Project {projectNumber}</span>
         <h1 className={`mt-5 text-[30px] font-bold leading-tight text-gray800 sm:text-[38px] ${projectNumber === 1 ? "max-w-none text-pretty" : "max-w-[960px]"}`}>
           {projectNumber === 1 ? <>{title.slice(0, -"Qualification Review".length)}<span className="sm:whitespace-nowrap">Qualification Review</span></> : title}
         </h1>
-        <p className="mt-5 max-w-[96ch] text-xs leading-6 text-gray600">{intro}</p>
+        <p className="mt-5 text-sm leading-6 text-gray600">{intro}</p>
+      </div>
+      <div className={styles.illustration} aria-hidden="true">
+        <Image src={illustration} alt="" width={76} height={76} />
       </div>
     </section>
   );
@@ -62,25 +74,34 @@ function ProjectUpdateHeader({ projectNumber, title, intro }: { projectNumber: n
 export default function FederalState2025ProjectView({ slug, report, pageType }: { slug: string; report: Report; pageType?: string }) {
   const projectNumber = Number(pageType?.match(/_(\d+)$/)?.[1] || 1);
   const project = projectData[projectNumber - 1] || projectData[0];
+  const priorities = project.sections.filter(({ heading }) => heading);
+  const updates = project.sections.filter(({ heading }) => !heading);
 
   return (
     <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
       <ReportHeader slug={slug} report={report} currentPage="update_2025_strategies" />
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <ReportNavButtons slug={slug} currentPage={pageType} prev={{ label: "BACK TO update on 2025 strategies", href: `/reports/${slug}/update_2025_strategies` }} next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }} prevPrefix="" />
-        <ProjectUpdateHeader projectNumber={projectNumber} title={project.title} intro={project.intro} />
-        <div data-project-update-body className="rounded-2xl border border-gray200 bg-white p-6 text-xs leading-6 animate-slide-up-delay sm:p-8">
-          <div className="max-w-[1050px] space-y-5">
-            {project.sections.map(({ heading, text }, index) => (
-              <section key={index} className="max-w-[96ch]">
-                {heading && <h2 className="mb-2 text-sm font-bold text-gray800">{heading}</h2>}
-                <p className="text-gray600">{text}</p>
-              </section>
-            ))}
-            {projectNumber === 1 && <h2 className="text-sm font-bold text-gray800">Consultation for this project has been undertaken with the following stakeholders:</h2>}
+        <ProjectUpdateHeader projectNumber={projectNumber} title={project.title} intro={project.intro} illustration={project.illustration} />
+        <div data-project-update-body className="space-y-6 rounded-2xl border border-gray200 bg-white p-6 text-sm leading-6 animate-slide-up-delay motion-reduce:animate-none sm:p-8">
+          {priorities.length > 0 && (
+            <div className="grid gap-3 lg:grid-cols-3">
+              {priorities.map(({ heading, text }) => (
+                <section key={heading} className={`${styles.priority} rounded-xl p-4 sm:p-5`}>
+                  <h2 className="mb-2 font-bold text-gray800">{heading}</h2>
+                  <p className="text-gray600">{text}</p>
+                </section>
+              ))}
+            </div>
+          )}
+          <div className={`${styles.update} space-y-4 rounded-xl p-4 sm:p-5`}>
+            {updates.map(({ text }) => <p key={text} className="text-gray600">{text}</p>)}
+          </div>
+          <div className="space-y-3">
+            {projectNumber === 1 && <h2 className="font-bold text-gray800">Consultation for this project has been undertaken with the following stakeholders:</h2>}
             <ul data-project-stakeholders className="grid auto-rows-fr gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {project.stakeholders.map((name) => (
-                <li data-report-surface="neutral" key={name} className="flex min-h-[72px] min-w-0 items-center rounded-md bg-[#EED4C4] px-4 py-3 text-[11px] font-medium leading-5 text-[#754C2D]">{name}</li>
+                <li key={name} className={`${styles.stakeholder} flex min-h-[72px] min-w-0 items-center rounded-xl px-4 py-3 text-xs font-medium leading-5`}>{name}</li>
               ))}
             </ul>
           </div>

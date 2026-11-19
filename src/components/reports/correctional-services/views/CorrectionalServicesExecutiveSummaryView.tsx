@@ -230,14 +230,14 @@ export default function CorrectionalServicesExecutiveSummaryView({
                         className="flex min-h-[104px] w-full items-center gap-3 px-4 py-5 text-left sm:gap-6 sm:px-6 sm:pl-12"
                       >
                         <span className="w-6 shrink-0 text-3xl font-light leading-none text-[#424996]/20 sm:w-8 sm:text-5xl">{index + 1}</span>
-                        <span className="min-w-0 max-w-[72ch]">
+                        <span data-report-copy className="min-w-0">
                           <span className="block text-xs font-semibold leading-5 text-[#424996]">Theme One, Insight {index === 0 ? "One" : index === 1 ? "Two" : "Three"}</span>
                           <span className="mt-1 block text-sm font-medium leading-6 text-[#535862]">{insight.title}</span>
                         </span>
                       </button>
                       <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                         <div className="overflow-hidden">
-                          <p className="border-t border-[#424996]/20 px-6 py-4 text-sm leading-6 text-[#535862] sm:pl-20"><span className="block max-w-[72ch]">{insight.detail}</span></p>
+                          <div className="border-t border-[#424996]/20 px-6 py-4 sm:pl-20"><p className="text-sm leading-6 text-[#535862]">{insight.detail}</p></div>
                         </div>
                       </div>
                     </div>

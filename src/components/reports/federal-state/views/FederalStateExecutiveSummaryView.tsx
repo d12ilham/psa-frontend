@@ -257,18 +257,18 @@ export default function FederalStateExecutiveSummaryView({
                   Theme Overview <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isThemeOverviewOpen ? "rotate-180" : ""}`} />
                 </button>
               <div id="summary-theme-overview" role="region" aria-label="Theme Overview" hidden={!isThemeOverviewOpen}>
-          <p className="max-w-[80ch] text-xs leading-6 text-gray600">
+          <p className="text-xs leading-6 text-gray600">
             ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-85" aria-label="Source 85" className="underline">85</a></sup> According to Jobs and Skills Australia&apos;s employment projections, employment in the Public Administration industry group is projected to steadily grow over the next 10 years from the current baseline of 505,200 in May 2025 to 574,900 in May 2035.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-86" aria-label="Source 86" className="underline">86</a></sup> These projections encompass government activities at the federal, state and territory levels only.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-87" aria-label="Source 87" className="underline">87</a></sup> The future public service workforce will continue to have effects on national economic growth and productivity.
           </p>
               </div>
             </div>
           <ol className="space-y-3" aria-label="Executive Summary insights">
             {workforceInsightSummaries.map((insight, index) => (
-              <li data-report-surface="neutral" key={insight.title}
+              <li key={insight.title}
                 style={isThemesVisible ? { animationDelay: `${0.10 + index * 0.12}s` } : undefined}
                 className={`summary-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#F8EEE8] p-4 motion-safe:transition-shadow motion-safe:hover:shadow-sm ${isThemesVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0 motion-safe:translate-y-4"}`}>
                 <span aria-hidden="true" className="w-9 shrink-0 select-none text-[50px] font-bold leading-none text-[#754C2D]/10">{index + 1}</span>
-                <div className="min-w-0 max-w-[80ch] text-xs">
+                <div data-report-copy className="min-w-0 flex-1 text-xs">
                   <h4 className="font-semibold leading-5 text-[#754C2D]">{insight.title}</h4>
                   <p className="mt-2 leading-6 text-gray600">{insight.summary}</p>
                 </div>

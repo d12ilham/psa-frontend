@@ -6,14 +6,22 @@
   --report-action-hover: #046d2a;
   --report-ink: #252b37;
   --report-surface: #fff;
-  --report-copy-measure: 72ch;
+  --report-copy-measure: 44rem;
 }
 
-/* Keep prose readable on wide displays without narrowing the surrounding
-   cards, grids or data visualisations. Smaller columns remain fluid. */
+/* Use one reading width across font sizes. Smaller columns remain fluid. */
 .report main :is(p, li, blockquote, dd):not(
   li[data-report-surface],
   li[class*="rounded"],
+  [data-report-sources] *,
+  [data-report-sources],
+  [data-citation-copy],
+  [data-citation-copy] *,
+  [data-source-caption],
+  [data-source-caption] *,
+  [aria-label="Sources"] *,
+  [aria-label="Footnotes"] *,
+  [aria-labelledby$="sources-heading"] *,
   figure *,
   svg *,
   table *,
@@ -22,8 +30,13 @@
   [data-report-action] *,
   [role="img"] *,
   [role="tab"] *
-) {
+),
+.report main [data-report-copy] {
   max-inline-size: min(100%, var(--report-copy-measure)) !important;
+  overflow-wrap: anywhere;
+}
+
+.report :is([data-report-sources], [data-citation-copy], [data-source-caption]) {
   overflow-wrap: anywhere;
 }
 
@@ -85,4 +98,45 @@
   background-color: #f5f5f5 !important;
   border-color: #e9eaeb !important;
   color: #717680 !important;
+}
+
+.report [data-report-reader] {
+  --reader-top: 76px;
+  scroll-margin-top: var(--reader-top);
+}
+
+.report [data-reader-detail] {
+  min-width: 0;
+  scroll-margin-top: var(--reader-mobile-offset, var(--reader-top));
+}
+
+.report :is([data-reader-list], [data-reader-detail]):focus-visible {
+  outline: 2px solid #598303;
+  outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+  .report [data-report-reader="standard"] {
+    --reader-desktop: 1;
+  }
+
+  .report [data-report-reader="standard"] :is([data-reader-list], [data-reader-detail]) {
+    max-height: var(--reader-height, calc(100dvh - var(--reader-top) - 24px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+}
+
+@media (min-width: 1280px) {
+  .report [data-report-reader="wide"] {
+    --reader-desktop: 1;
+  }
+
+  .report [data-report-reader="wide"] :is([data-reader-list], [data-reader-detail]) {
+    max-height: var(--reader-height, calc(100dvh - var(--reader-top) - 24px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
 }

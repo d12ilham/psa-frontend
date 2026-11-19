@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportHomeLink from "@/components/layout/ReportHomeLink";
 import styles from "./sector-cards.module.css";
 import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
 import {
@@ -70,17 +71,15 @@ export default function ReportsArchivePage() {
     <div className="min-h-screen bg-[#FAFAF0] text-[#1B240E] font-sans flex flex-col antialiased selection:bg-[#85CC00]/40">
       {/* ── 1. TOP NAVIGATION BAR ── */}
       <header className="bg-[#252D02] w-full text-white border-b border-[#2A3716] sticky top-0 z-50">
-        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
           {/* Left Brand Logo & Title */}
-          <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={() => router.push("/")}
-          >
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <Link href="/reports" aria-label="Public Skills Australia reports home" className="group shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
             {siteSettings?.logoLightUrl ? (
               <img
                 src={siteSettings.logoLightUrl}
                 alt={siteSettings?.title || "Public Skills Australia"}
-                className="h-8 w-auto object-contain"
+                className="h-7 w-auto max-w-[112px] object-contain sm:h-8 sm:max-w-[150px]"
               />
             ) : (
               <div className="w-8 h-8 rounded bg-[#85CC00] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -104,12 +103,8 @@ export default function ReportsArchivePage() {
               </div>
             )}
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="hidden sm:inline-block h-6 w-px bg-white/20"></span>
-              <span className="hidden sm:inline-block font-normal text-xs sm:text-sm text-[#85CC00]">
-                Workforce Insights Reports
-              </span>
-            </div>
+            </Link>
+            <ReportHomeLink />
           </div>
 
           {/* Right Navigation Links (Desktop) */}
@@ -142,7 +137,7 @@ export default function ReportsArchivePage() {
           </nav>
 
           {/* Mobile Hamburger Toggle Button */}
-          <div className="flex md:hidden items-center">
+          <div className="flex shrink-0 md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"

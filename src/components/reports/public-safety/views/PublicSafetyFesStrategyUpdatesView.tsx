@@ -141,10 +141,10 @@ export default function PublicSafetyFesStrategyUpdatesView({ slug, report }: { s
       </div>
     </section>
 
-    <section className={layout.projects} aria-labelledby="fes-update-projects-title">
+    <section data-report-reader="wide" className={layout.projects} aria-labelledby="fes-update-projects-title">
       <div>
         <h2 id="fes-update-projects-title">Projects · 5 · Select to open</h2>
-        <div className={layout.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available projects" className={layout.projectList}>
           {projects.map((project, index) => (
             <button key={project.title} type="button" aria-pressed={expanded || index === active} aria-controls="fes-update-projects" onClick={() => selectProject(index)} className={`${layout.projectButton} ${styles.projectButton}`}>
               <span><small>0{index + 1} · Completion: {project.completion}</small><strong>{project.title}</strong></span>

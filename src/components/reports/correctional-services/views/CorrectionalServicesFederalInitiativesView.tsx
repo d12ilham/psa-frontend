@@ -1,5 +1,7 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
 import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
@@ -225,23 +227,12 @@ export default function CorrectionalServicesFederalInitiativesView({
   report: CorrectionalServicesReport;
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const detailRef = React.useRef<HTMLElement>(null);
-  const initiativeListRef = React.useRef<HTMLDivElement>(null);
   const initiative = initiatives[activeIndex];
+  const detailRef = React.useRef<HTMLElement>(null);
+  useReportReader(detailRef, activeIndex);
 
-  React.useEffect(() => {
-    const list = initiativeListRef.current;
-    const selected = list?.querySelector<HTMLElement>('[aria-current="true"]');
-    if (!list || !selected) return;
-    const bounds = list.getBoundingClientRect();
-    const item = selected.getBoundingClientRect();
-    if (item.top < bounds.top || item.bottom > bounds.bottom) {
-      list.scrollTop += item.top - bounds.top;
-    }
-  }, [activeIndex]);
   const showInitiative = (index: number) => {
     setActiveIndex((index + initiatives.length) % initiatives.length);
-    window.requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
 
   return (
@@ -282,10 +273,10 @@ export default function CorrectionalServicesFederalInitiativesView({
           </select>
         </div>
 
-        <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Federal Government initiatives" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+        <section data-report-reader="standard" className="grid items-start gap-6 [--reader-mobile-offset:172px] lg:[--reader-mobile-offset:var(--reader-top)] lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
+          <nav aria-label="Federal Government initiatives" className="hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
             <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#598303]">Selected initiative {initiative.number}</p>
-            <div ref={initiativeListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
+            <div data-reader-list role="region" aria-label="Initiative list" tabIndex={0} className="space-y-2 p-1">
               {initiatives.map((item, index) => {
                 const isActive = index === activeIndex;
                 return (
@@ -317,8 +308,8 @@ export default function CorrectionalServicesFederalInitiativesView({
             </div>
           </nav>
 
-          <article data-report-surface="neutral" ref={detailRef} key={activeIndex} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
-            <div data-report-surface="neutral" data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-[76px]">
+          <article data-report-surface="neutral" ref={detailRef} data-reader-detail tabIndex={0} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
+            <div data-report-surface="neutral" data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-0">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex max-w-full rounded-full bg-[#598303] px-5 py-3 text-sm font-semibold text-white">
                 {initiative.number} · {initiative.owner}{!["04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"].includes(initiative.number) && ` ${initiative.period}`}

@@ -181,10 +181,10 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
       <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-existing-strategies-group-85.png" width={487} height={104} alt="" unoptimized priority />
     </section>
 
-    <section className={layout.projects} aria-labelledby="fes-existing-strategies-title">
+    <section data-report-reader="wide" className={layout.projects} aria-labelledby="fes-existing-strategies-title">
       <div>
         <h2 id="fes-existing-strategies-title">Strategies · 5 · Select to open</h2>
-        <div className={layout.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available strategies" className={layout.projectList}>
           {strategies.map((item, index) => (
             <button key={item.title} type="button" aria-pressed={active === index} aria-controls="fes-existing-panel" onClick={() => setActive(index)} className={`${layout.projectButton} ${styles.projectButton} animate-card-entrance`} style={{ animationDelay: `${100 + index * 80}ms` }}>
               <span><small>0{index + 1} · {item.owner}</small><strong>{item.title}</strong></span>

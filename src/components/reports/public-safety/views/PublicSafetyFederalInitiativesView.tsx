@@ -45,10 +45,10 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
       <Image src="/images/reports/public-safety/federal-initiatives-group-87.svg" alt="" width={672} height={216} loading="eager" className="h-auto w-full max-w-[672px] self-center lg:w-1/2" />
     </section>
 
-    <section className="grid items-start gap-6 lg:grid-cols-[minmax(260px,400px)_minmax(0,1fr)]">
+    <section data-report-reader="standard" className="grid items-start gap-6 lg:grid-cols-[minmax(260px,400px)_minmax(0,1fr)]">
       <div>
         <h2 className="mb-2 text-xl font-semibold uppercase text-[#252D02]">Strategies · {initiatives.length} · Select to open</h2>
-        <div className="space-y-2">
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available initiatives" className="space-y-2">
           {initiatives.map((item, index) => (
             <button data-report-surface="neutral" key={item.title} type="button" aria-pressed={active === index} onClick={() => setActive(index)} className={`flex w-full items-center justify-between gap-2 rounded-2xl border p-6 text-left transition-colors ${active === index ? "border-[#598303] bg-[#E3EFDE] ring-1 ring-inset ring-[#598303]" : "border-[#E9EAEB] bg-white hover:border-[#598303]"}`}>
               <span>

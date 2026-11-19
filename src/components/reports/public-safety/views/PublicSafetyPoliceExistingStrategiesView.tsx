@@ -59,10 +59,10 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
       <img className="h-auto w-full max-w-[487px] animate-zoom-in motion-reduce:animate-none! motion-safe:transition-transform motion-safe:hover:scale-[1.03] lg:w-[35%]" src="/images/reports/public-safety/police-existing-strategies-group-85.png" width={487} height={104} alt="" />
     </section>
 
-    <section className="grid items-start gap-6 lg:grid-cols-[minmax(260px,400px)_minmax(0,1fr)]">
+    <section data-report-reader="standard" className="grid items-start gap-6 lg:grid-cols-[minmax(260px,400px)_minmax(0,1fr)]">
       <div>
         <h2 className="mb-2 text-xl font-semibold uppercase text-black">Strategies · 12 · Select to open</h2>
-        <div className="space-y-2">
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available strategies" className="space-y-2">
           {strategies.map((item, index) => (
             <button data-report-surface="neutral"
               key={item.title}

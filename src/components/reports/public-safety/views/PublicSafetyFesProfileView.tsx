@@ -145,8 +145,8 @@ export default function PublicSafetyFesProfileView({ slug, report }: { slug: str
 
     <section aria-labelledby="fes-chart-library">
       <h2 id="fes-chart-library" className={styles.libraryTitle}>Chart Library · Select a chart to open</h2>
-      <div className={styles.library}>
-        <div className={layout.projectList}>
+      <div data-report-reader="wide" className={styles.library}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available charts" className={layout.projectList}>
           {([0, 1, 2, 3, 4] as const).map(index => (
             <button key={index} type="button" aria-pressed={active === index} aria-controls="fes-profile-presentation" className={`${layout.projectButton} ${styles.selection} ${layout.enter}`} style={{ animationDelay: `${100 + index * 80}ms` }} onClick={() => setActive(index)}>
               <span><small>0{index + 1} · Chart · FES</small><strong>{charts[index]}</strong></span>

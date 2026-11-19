@@ -172,7 +172,7 @@ export default function FederalStateReportHeader({
   return (
     <header ref={headerRef} className={`sticky top-0 z-50 text-white ${sectorPalette ? "bg-[#754C2D]" : "bg-[#252D02]"}`}>
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3.5 sm:px-6 2xl:flex-nowrap 2xl:px-8">
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a
             href="https://publicskillsaustralia.org.au/"
             aria-label="Visit the Public Skills Australia website"
@@ -183,7 +183,7 @@ export default function FederalStateReportHeader({
               alt="Public Skills Australia"
               width={180}
               height={48}
-              className="h-8 w-auto max-w-[130px] object-contain"
+              className="h-7 w-auto max-w-[104px] object-contain sm:h-8 sm:max-w-[130px]"
             />
           </a>
           <ReportHomeLink />

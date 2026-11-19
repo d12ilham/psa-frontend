@@ -278,7 +278,9 @@ export default function CorrectionalServicesExistingStrategiesView({
 
         <section className="flex min-h-[184px] flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">Workforce Strategies</span>
+            <span className="inline-block max-w-full rounded-full bg-[#EDEDF5] px-3 py-1.5 text-sm font-semibold leading-5 text-[#252B37]">
+              Workforce Strategies
+            </span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px]">Existing Industry-Sector Strategies</h1>
             <p className="mt-4 text-sm leading-6">Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
           </div>

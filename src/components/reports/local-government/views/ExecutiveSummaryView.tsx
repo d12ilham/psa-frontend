@@ -847,7 +847,7 @@ export default function ExecutiveSummaryView({
             State and Territory Workforce Profile
           </button>
         </div>
-        <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-4">
+        <div data-report-sources className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-4">
           <h3 className="font-bold text-xl text-gray800">Footnotes</h3>
           <div className="space-y-3 text-xs text-gray600 leading-relaxed">
             <div className="flex items-start gap-2.5">

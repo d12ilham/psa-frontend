@@ -143,7 +143,7 @@ function PublicSafetyHeader({ slug, report, currentPage }: { slug: string; repor
   return (
     <header className="sticky top-0 z-50 bg-[#252D02] text-white shadow-[0_1px_0_rgba(255,255,255,0.06)]">
       <div className="mx-auto flex h-[60px] w-full max-w-[1488px] items-center justify-between gap-2 px-4 sm:px-6">
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a
             href="https://publicskillsaustralia.org.au/"
             aria-label="Visit the Public Skills Australia website"

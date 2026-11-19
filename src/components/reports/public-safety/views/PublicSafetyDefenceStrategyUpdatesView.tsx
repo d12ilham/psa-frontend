@@ -74,10 +74,10 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
       </picture>
     </section>
 
-    <section className={styles.projects} aria-labelledby="defence-projects-title">
+    <section data-report-reader="wide" className={styles.projects} aria-labelledby="defence-projects-title">
       <div>
         <h2 id="defence-projects-title">Projects · 5 · Select to open</h2>
-        <div className={styles.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available projects" className={styles.projectList}>
           {projects.map((item, index) => <button key={item.number} type="button" aria-pressed={active === index} aria-controls="defence-project-panel" onClick={() => setActive(index)} className={styles.projectButton}>
             <span><small>{item.number} · Completion: {item.completion}</small><strong>{item.title}</strong></span>
             <span data-report-action="primary" className={styles.arrow} aria-hidden="true"><ArrowRight size={16} /></span>

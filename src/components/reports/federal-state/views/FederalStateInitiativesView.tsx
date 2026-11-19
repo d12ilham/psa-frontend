@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useReportReader } from "../../useReportReader";
+
+import { useId, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -243,34 +245,9 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
   const paletteId = useId();
   const initiative = initiatives[selected];
   const workspaceRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLElement>(null);
-  const panelRef = useRef<HTMLElement>(null);
-  const detailRef = useRef<HTMLElement>(null);
-  const hasSelected = useRef(false);
+  useReportReader(workspaceRef, selected);
 
-  const revealSelection = useCallback(() => {
-    const list = listRef.current;
-    const active = list?.querySelector<HTMLButtonElement>(`[data-initiative-index="${selected}"]`);
-    if (list && active) {
-      const listBounds = list.getBoundingClientRect();
-      const activeBounds = active.getBoundingClientRect();
-      if (activeBounds.top < listBounds.top) list.scrollTop += activeBounds.top - listBounds.top;
-      else if (activeBounds.bottom > listBounds.bottom) list.scrollTop += activeBounds.bottom - listBounds.bottom;
-    }
-    detailRef.current?.scrollTo({ top: 0, behavior: "instant" });
-    const target = window.matchMedia("(min-width: 1024px)").matches ? workspaceRef.current : panelRef.current;
-    target?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-  }, [selected]);
-
-  useEffect(() => {
-    if (hasSelected.current) revealSelection();
-  }, [revealSelection]);
-
-  const selectInitiative = (index: number) => {
-    hasSelected.current = true;
-    if (index === selected) revealSelection();
-    else setSelected(index);
-  };
+  const selectInitiative = setSelected;
 
   return <div className="fstg-initiatives-page flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased">
     <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
@@ -293,8 +270,8 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
         <Image data-federal-initiatives-graphic src="/images/hero-graphic-federal.png" alt="" aria-hidden="true" width={672} height={216} className="h-auto w-full max-w-[340px] justify-self-center object-contain lg:justify-self-end" style={{ filter: `url(#${paletteId})` }} />
       </header>
 
-      <div ref={workspaceRef} data-initiatives-workspace className={`${styles.workspace} grid items-start gap-6 lg:grid-cols-[minmax(240px,0.28fr)_minmax(0,0.72fr)]`}>
-        <nav ref={listRef} aria-label="Federal Government initiatives" className={`${styles.list} space-y-2`}>
+      <div ref={workspaceRef} data-report-reader="standard" data-initiatives-workspace className={`${styles.workspace} grid items-start gap-6 lg:grid-cols-[minmax(240px,0.28fr)_minmax(0,0.72fr)]`}>
+        <nav data-reader-list tabIndex={0} aria-label="Federal Government initiatives" className={`${styles.list} space-y-2`}>
           {initiatives.map((item, index) => <button data-report-surface="neutral" key={item.title} type="button" id={`federal-initiative-${index}`} data-initiative-index={index} aria-controls="federal-initiative-panel" onClick={() => selectInitiative(index)} aria-current={selected === index ? "page" : undefined} style={{ animationDelay: `${0.08 + index * 0.055}s` }} className={`animate-card-entrance group flex min-h-[114px] w-full items-center justify-between gap-4 rounded-md border px-5 py-4 text-left transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:animate-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] ${selected === index ? "border-[#754C2D] bg-[#F8EEE8] ring-1 ring-[#754C2D] hover:bg-[#D9BFB1] hover:shadow-sm" : "border-[#ECECE5] bg-white hover:border-[#754C2D] hover:bg-[#F8EEE8] hover:shadow-sm"}`}>
             <span className="min-w-0">
               <span className="block text-xs leading-5 text-[#754C2D]">{String(index + 1).padStart(2, "0")} · {item.source}</span>
@@ -304,7 +281,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
           </button>)}
         </nav>
 
-        <section ref={panelRef} id="federal-initiative-panel" aria-labelledby="federal-initiative-title" aria-live="polite" className={`${styles.panel} animate-card-entrance rounded-md bg-[#E5E8DC] p-4 motion-reduce:animate-none sm:p-6`} style={{ animationDelay: "0.18s" }}>
+        <section data-reader-detail tabIndex={0} id="federal-initiative-panel" aria-labelledby="federal-initiative-title" aria-live="polite" className={`${styles.panel} animate-card-entrance rounded-md bg-[#E5E8DC] p-4 motion-reduce:animate-none sm:p-6`} style={{ animationDelay: "0.18s" }}>
           <div data-initiative-context className={styles.context}>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="inline-flex max-w-full rounded-full bg-[#754C2D] px-5 py-2 text-xs font-medium text-white">{String(selected + 1).padStart(2, "0")} · {initiative.source}{selected < 3 && initiative.period ? ` ${initiative.period}` : ""}</span>
@@ -319,11 +296,7 @@ export default function FederalStateInitiativesView({ slug, report }: { slug: st
               {initiative.period && <span className="shrink-0 rounded-full bg-[#E5E8DC] px-5 py-1.5 text-xs text-[#696969]">{initiative.period}</span>}
             </div>
           </div>
-          <article ref={detailRef} key={selected} role="region" aria-label="Selected initiative details" tabIndex={0} onFocus={(event) => {
-            if (event.target === event.currentTarget && window.matchMedia("(min-width: 1024px)").matches) {
-              requestAnimationFrame(() => workspaceRef.current?.scrollIntoView({ block: "start", behavior: "instant" }));
-            }
-          }} className={`${styles.detail} animate-content-switch mt-5 rounded-md bg-[#FAFAF0] p-6 ring-1 ring-transparent transition-[box-shadow] hover:shadow-sm hover:ring-[#754C2D] motion-reduce:animate-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] sm:p-8`}>
+          <article key={selected} className={`${styles.detail} animate-content-switch mt-5 rounded-md bg-[#FAFAF0] p-6 ring-1 ring-transparent transition-[box-shadow] hover:shadow-sm hover:ring-[#754C2D] motion-reduce:animate-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754D32] sm:p-8`}>
             <h3 className="text-lg font-medium text-[#754C2D]">SUMMARY</h3>
             <div className="mt-3 space-y-4 text-sm leading-6 text-[#696969]">{initiative.paragraphs.map((paragraph, index) => <div key={paragraph} className="animate-content-switch motion-reduce:animate-none" style={{ animationDelay: `${0.08 + index * 0.1}s` }}>
               <p>{paragraph}</p>

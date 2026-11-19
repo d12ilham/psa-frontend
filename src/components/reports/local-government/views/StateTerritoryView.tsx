@@ -1070,14 +1070,9 @@ export default function StateTerritoryView({
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
-          <div className="space-y-6">
-            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
-              State and Territory Workforce Profile
-            </h1>
-            <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
-              The Local Government workforce is multidisciplinary, employing over an estimated 400 different occupations. Their workforces are managed individually at the local council level but are brought together and commonly represented through state and territory associations and the Australian Local Government Association (ALGA). It is estimated that the Local Government workforce is made up of approximately 218,000 employees. While employment projections have estimated significant growth in the Local Government workforce over the next ten years, successive Workforce Plans and Parliamentary Commissions of Inquiry have noted extensive challenges with recruitment and retention, and a significant expansion of roles and responsibilities for the Local Government industry-sector.
-            </p>
-          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
+            State and Territory Workforce Profile
+          </h1>
 
           {/* Mode Switcher Pill Segmented Control */}
           <div className="pt-2">

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import chapter from "./PublicSafetyDefenceView.module.css";
 import police from "./PublicSafetyPoliceView.module.css";
@@ -110,8 +111,8 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
     </section>
     <section className={`${library.library} ${chapter.enter}`}>
       <h2 className={styles.heading}>Profile Items · {profileItems.length} · Select a title to present</h2>
-      <div className={library.libraryGrid}>
-        <div className={library.chartChoices} role="group" aria-label="Profile items">
+      <div data-report-reader="standard" className={library.libraryGrid}>
+        <div data-reader-list tabIndex={0} className={library.chartChoices} role="group" aria-label="Profile items">
           {profileItems.map((profile, index) => (
             <button key={profile.code} type="button" className={index === 1 ? styles.femaleChoice : undefined} onClick={() => select(index)} aria-pressed={active === index}>
               <span><small className={library.chartCode}>{profile.code}</small><strong className={library.choiceTitle}>{profile.title}</strong></span>
@@ -119,6 +120,7 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
             </button>
           ))}
         </div>
+        <ReportSelectionPanel selection={active} label="Police profile presentation">
         <figure className={`${library.presentation} ${styles.presentation} ${active === 1 ? styles.female : ""} ${active === 2 ? styles.mapPresentation : ""}`}>
           {active !== 2 && <div className={library.presentationHeader}>
             <div aria-live="polite"><p className={library.presenting}>Presenting · {active + 1} of {profileItems.length} · Selected from the list</p><h4 className={styles.profileTitle}>{item.title}</h4></div>
@@ -136,6 +138,7 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
             <button data-report-action="primary" type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
           </div>}
         </figure>
+        </ReportSelectionPanel>
       </div>
     </section>
   </PublicSafetyPageShell>;

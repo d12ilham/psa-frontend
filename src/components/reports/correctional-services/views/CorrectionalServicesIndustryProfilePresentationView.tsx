@@ -1,5 +1,7 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
 import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import PrisonCapacityChart from "./PrisonCapacityChart";
@@ -417,51 +419,9 @@ function ChartContent({ active }: { active: number }) {
 export default function CorrectionalServicesIndustryProfilePresentationView({ slug, report }: { slug: string; report: Report }) {
   const [active, setActive] = React.useState(0);
   const chartRef = React.useRef<HTMLDivElement>(null);
-  const selectorRef = React.useRef<HTMLDivElement>(null);
-  const workspaceRef = React.useRef<HTMLElement>(null);
+  useReportReader(chartRef, active);
 
-  React.useEffect(() => {
-    let frame = 0;
-    const updateHeight = () => {
-      frame = 0;
-      const workspace = workspaceRef.current;
-      if (!workspace || window.innerWidth < 1024) return;
-      const top = Math.max(80, workspace.getBoundingClientRect().top);
-      workspace.style.setProperty("--profile-pane-height", `${Math.max(200, window.innerHeight - top - 24)}px`);
-    };
-    const scheduleUpdate = () => {
-      if (!frame) frame = requestAnimationFrame(updateHeight);
-    };
-    scheduleUpdate();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-    };
-  }, []);
-
-  const selectChart = (index: number) => {
-    setActive(index);
-    requestAnimationFrame(() => {
-      const chart = chartRef.current;
-      chart?.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      const selector = selectorRef.current;
-      const selected = selector?.querySelector<HTMLButtonElement>(`#profile-tab-${index}`);
-      if (selector && selected) {
-        const top = selected.getBoundingClientRect().top - selector.getBoundingClientRect().top + selector.scrollTop;
-        if (top < selector.scrollTop) selector.scrollTop = top;
-        else if (top + selected.offsetHeight > selector.scrollTop + selector.clientHeight) {
-          selector.scrollTop = top + selected.offsetHeight - selector.clientHeight;
-        }
-      }
-      chart?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start",
-      });
-    });
-  };
+  const selectChart = setActive;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
@@ -475,14 +435,14 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
           <h1 className="mt-4 text-[32px] font-bold leading-tight text-[#252D02] sm:text-[40px]">Industry Profile</h1>
           <p className="mt-2 text-sm text-[#535862]">Select a chart to open it in a large presentation view.</p>
         </section>
-        <section ref={workspaceRef} className={`flex flex-col gap-6 lg:grid lg:items-start lg:grid-cols-[400px_minmax(0,1fr)] ${active === 7 ? "lg:min-h-[calc(100dvh-104px)]" : ""}`} aria-label="Industry Profile charts">
+        <section data-report-reader="standard" className="flex flex-col gap-6 [--reader-mobile-offset:160px] lg:grid lg:items-start lg:grid-cols-[400px_minmax(0,1fr)]" aria-label="Industry Profile charts">
           <div className="sticky top-[60px] z-30 min-w-0 rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
             <label htmlFor="profile-chart-select" className="block text-xs font-semibold text-[#424996]">Choose a chart · {active + 1} of {chartTitles.length}</label>
             <select id="profile-chart-select" value={active} onChange={(event) => selectChart(Number(event.target.value))} aria-controls="profile-chart" className="mt-2 block h-11 w-full min-w-0 rounded-md border border-[#424996] bg-white px-3 text-sm text-[#252D02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]">
               {chartTitles.map((title, index) => <option key={title} value={index}>{String(index + 1).padStart(2, "0")} · {title}</option>)}
             </select>
           </div>
-          <div ref={selectorRef} className="hidden space-y-2 lg:sticky lg:top-20 lg:block lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:overflow-y-auto lg:overscroll-contain lg:pr-1" role="tablist" aria-label="Industry Profile charts" aria-orientation="vertical">
+          <div data-reader-list className="hidden space-y-2 lg:block lg:pr-1" role="tablist" aria-label="Industry Profile charts" aria-orientation="vertical">
             {chartTitles.map((title, index) => (
               <button key={title} id={`profile-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls="profile-chart" onClick={() => selectChart(index)} className={`grid min-h-[122px] w-full grid-cols-[1fr_38px] items-center gap-4 rounded-lg border px-5 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ${active === index ? "border-[#424996] bg-[#F0F1F9] shadow-sm" : "border-[#E9EAEB] bg-white hover:border-[#9DA8D0] hover:bg-[#F8F8FC]"}`}>
                 <span><small className="mb-3 block text-[10px] font-semibold uppercase text-[#424996]">{String(index + 1).padStart(2, "0")} · CS · Presentation View</small><strong className="block text-sm leading-5 text-[#252D02]">{title}</strong>{index === 7 && <strong className="mt-2 block text-sm">$6.38 billion</strong>}</span>
@@ -490,7 +450,7 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
               </button>
             ))}
           </div>
-          <div ref={chartRef} id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} className={`min-w-0 scroll-mt-40 rounded-lg border border-[#E9EAEB] px-5 pb-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] sm:px-7 lg:sticky lg:top-20 lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:scroll-mt-20 lg:overflow-y-auto lg:overscroll-contain ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
+          <div ref={chartRef} data-reader-detail id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} className={`min-w-0 scroll-mt-40 rounded-lg border border-[#E9EAEB] px-5 pb-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] sm:px-7 ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
             <div className={active === 2 ? "mt-6 rounded-lg border border-[#E9EAEB] bg-white px-5 pb-5 sm:px-6 sm:pb-6" : undefined}>
               <h2 className={`sticky top-[154px] z-10 pb-3 text-lg font-semibold leading-7 text-[#252D02] lg:top-0 ${active === 2 ? "pt-5 sm:pt-6" : "pt-6"} ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>{chartTitles[active]}{active === 2 && <sup><a href="#correctional-profile-footnote-18" aria-label="Footnote 18" className="ml-0.5 text-xs text-[#424996] hover:underline">18</a></sup>}</h2>
               <ChartContent key={active} active={active} />

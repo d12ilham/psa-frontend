@@ -151,7 +151,7 @@ export default function PublicSafetyIntroductionView({ slug, report }: { slug: s
       <div className="flex flex-wrap gap-6">
         {[
           { label: "2026 Proposed Strategies Summary", path: "police_proposed_strategies_summary" },
-          { label: "Commonwealth Government Initiatives", path: "police_federal_initiatives" },
+          { label: "Federal Government Initiatives", path: "police_federal_initiatives" },
           { label: "Looking Forward / 2027 and Beyond", path: "looking_forward" },
         ].map(({ label, path }) => (
           <button data-report-action="primary" key={path} type="button" onClick={() => router.push(`/reports/${slug}/${path}`)} className="flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">{label} <ArrowRight className="h-3.5 w-3.5" /></button>

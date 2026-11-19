@@ -86,10 +86,10 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       </svg>
     </section>
 
-    <section className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
+    <section data-report-reader="wide" className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
       <div className="animate-slide-up-delay">
         <h2 id="defence-veterans-list">Strategies · {initiatives.length} · Select to open</h2>
-        <div className={layout.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available initiatives" className={layout.projectList}>
           {initiatives.map(([, name], index) => (
             <button key={name} type="button" aria-pressed={active === index} aria-controls="defence-veterans-panel" className={layout.projectButton} onClick={() => setActive(index)}>
               <span><small>{number(index)}</small><strong>{name}</strong></span>

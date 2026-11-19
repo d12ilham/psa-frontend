@@ -49,7 +49,7 @@ export default function CorrectionalServicesWorkforceInsightsIntroductionView({ 
             slug={slug}
             currentPage="workforce_insights"
             prev={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-            next={{ label: "2026 Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+            next={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
           />
         </CorrectionalServicesReportUtilityRow>
 

@@ -1,7 +1,9 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
 import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -362,6 +364,8 @@ export default function ExistingIndustryStrategiesView({
 }) {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(1);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+  useReportReader(detailPanelRef, selectedId, false);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   useEffect(() => {
@@ -444,14 +448,14 @@ export default function ExistingIndustryStrategiesView({
         </div>
 
         {/* ── MASTER-DETAIL 2-COLUMN GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div data-report-reader="standard" className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* LEFT COLUMN: LIST OF 12 STRATEGIES */}
-          <div className="lg:col-span-1 space-y-3">
+          <div data-reader-list role="region" aria-label="Available selections" tabIndex={0} className="lg:col-span-1 space-y-3 p-1">
             {STRATEGIES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
               return (
                 <React.Fragment key={item.id}>
-                  <div data-report-surface="neutral"
+                  <button type="button" aria-pressed={isSelected} data-report-surface="neutral"
                     style={{ animationDelay: `${0.06 + idx * 0.04}s` }}
                     onClick={() =>
                       setSelectedId(
@@ -463,22 +467,22 @@ export default function ExistingIndustryStrategiesView({
                           : item.id,
                       )
                     }
-                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex items-center justify-between gap-4 ${
+                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex w-full text-left items-center justify-between gap-4 ${
                       isSelected
                         ? "bg-[#046D2A]/10 border-2 border-lg-dark shadow-xs"
                         : "bg-white border-gray200 hover:border-[#9CAA54] hover:bg-[#FAFAF0] hover:shadow-xs"
                     }`}
                   >
-                    <div className="space-y-4 flex-1">
+                    <span className="space-y-4 flex-1">
                       <span className="text-xs font-semibold text-lg-dark uppercase block">
                         {item.code}
                       </span>
-                      <h3 className="font-bold text-gray800 leading-normal">
+                      <span className="font-bold text-gray800 leading-normal">
                         {item.title}
-                      </h3>
-                    </div>
+                      </span>
+                    </span>
 
-                    <div
+                    <span
                       className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isSelected
                           ? "bg-white text-gray800 border border-[#9CAA54] rotate-90 lg:rotate-0"
@@ -486,8 +490,8 @@ export default function ExistingIndustryStrategiesView({
                       }`}
                     >
                       <ArrowRight className="h-4 w-4 text-gray800" />
-                    </div>
-                  </div>
+                    </span>
+                  </button>
 
                   {/* Mobile Detail Panel (Displayed right below the clicked item) */}
                   {isSelected && (
@@ -554,9 +558,9 @@ export default function ExistingIndustryStrategiesView({
           </div>
 
           {/* RIGHT COLUMN: SELECTED STRATEGY DETAIL PANEL (Desktop only) */}
-          <div className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 lg:sticky lg:top-20">
+          <div ref={detailPanelRef} data-reader-detail role="region" aria-label="Selected strategy details" tabIndex={0} className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5">
             {/* Top Bar inside Detail Panel */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-[#E5E8DA] pb-2">
               <span className="bg-lg-dark text-white text-xs font-semibold px-5 py-2.5 rounded-full uppercase">
                 {selectedStrategy.code}
               </span>

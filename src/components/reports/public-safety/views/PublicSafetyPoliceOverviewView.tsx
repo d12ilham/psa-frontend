@@ -105,8 +105,8 @@ function JurisdictionChartLibrary() {
   return (
     <div className={styles.library}>
       <h3>Chart Library · {count} · Select a chart to open</h3>
-      <div className={styles.libraryGrid}>
-        <div className={styles.chartChoices} role="group" aria-label="Jurisdiction charts">
+      <div data-report-reader="standard" className={styles.libraryGrid}>
+        <div data-reader-list tabIndex={0} className={styles.chartChoices} role="group" aria-label="Jurisdiction charts">
           {jurisdictionCharts.map((item, index) => (
             <button key={item.name} type="button" aria-pressed={selected === index} onClick={() => selectChart(index)}>
               <span>

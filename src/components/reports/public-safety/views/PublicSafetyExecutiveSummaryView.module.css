@@ -56,10 +56,6 @@
 .numberedDetail { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; }
 .detailRow, .detailBody { min-width: 0; }
 .detailNumber, .detailText { margin: 0; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
-.detailLink { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; margin-top: 16px; padding: 10px 20px; border-radius: 999px; background: #8ac900; color: #252d02; font-size: 14px; font-weight: 700; line-height: 20px; text-decoration: none; transition: background-color .25s, transform .25s; }
-.detailLink svg { width: 16px; height: 16px; }
-.detailLink:hover { background: #78af00; transform: translateX(2px); }
-.detailLink:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
 .supporting { display: flex; min-height: 40px; flex-wrap: wrap; align-items: center; gap: 12px; }
 .supporting h2 { margin-right: 4px; color: #252d02; font-size: 24px; font-weight: 500; line-height: 32px; }
 .supporting button { height: 40px; border: 1px solid #b2db79; border-radius: 999px; padding: 0 20px; color: #598303; background: #fafaf0; font-size: 12px; font-weight: 600; cursor: pointer; transition: background-color .25s, transform .25s; }
