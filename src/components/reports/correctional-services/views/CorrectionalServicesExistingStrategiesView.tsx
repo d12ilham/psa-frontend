@@ -326,7 +326,7 @@ export default function CorrectionalServicesExistingStrategiesView({
               const strategy = strategies[index];
               return <article data-report-surface="neutral" key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
             <div data-report-surface="neutral" data-strategy-heading className="sticky top-[156px] z-20 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-0">
-              <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
+              <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-[#fff]">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
                 <Link data-report-action="primary" href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
                   Next <ArrowRight size={17} />
