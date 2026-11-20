@@ -337,7 +337,7 @@ export default function FederalStateIndustryOverviewView({
         <div id="industry-overview-scope" ref={scopeRef} className={`bg-white border border-gray200 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:border-[#BAABA0] hover:shadow-lg ${scopeVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
           <div id="industry-overview-scope-content">
             <div className="overflow-hidden min-h-0">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-black leading-relaxed font-normal">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-black leading-relaxed font-normal">
                 <div className={scopeVisible ? "animate-content-switch" : ""}>
                   <p>
                     As there are a breadth of roles across the public sector,
@@ -381,11 +381,10 @@ export default function FederalStateIndustryOverviewView({
           </div>
         </div>
 
-        <div role="region" aria-labelledby="federal-government-overview-title" className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
-          <h2 id="federal-government-overview-title" className="text-lg sm:text-xl font-bold text-black">Federal Government Overview</h2>
-          {/* Federal Government narrative precedes its statistics. */}
-          <div className="pt-2">
-            <p className="text-xs text-black leading-relaxed font-normal">
+        <div role="region" aria-labelledby="federal-government-overview-title" className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
+          <div className="min-w-0 space-y-4">
+            <h2 id="federal-government-overview-title" className="text-lg sm:text-xl font-bold text-black">Federal Government Overview</h2>
+            <p className="text-sm text-black leading-relaxed font-normal">
               The Federal Government is made up of 102 agencies and 198,529
               Australian Public Service (APS) employees (Federal Government
               workforce, as of 30 June 2025).<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">7</sup> While a large
@@ -403,8 +402,7 @@ export default function FederalStateIndustryOverviewView({
             </p>
           </div>
 
-          {/* 4 Stat Boxes Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
             {/* Stat 1: 102 agencies */}
             <div data-report-surface="neutral"
               style={{ animationDelay: "0.15s" }}
@@ -420,7 +418,7 @@ export default function FederalStateIndustryOverviewView({
                 <span className="text-2xl font-bold text-black block leading-none">
                   <AnimatedCounter target={102} />
                 </span>
-                <p className="text-xs text-black leading-normal">agencies</p>
+                <p className="text-sm text-black leading-normal">agencies</p>
               </div>
             </div>
 
@@ -439,7 +437,7 @@ export default function FederalStateIndustryOverviewView({
                 <span className="text-2xl font-bold text-black block leading-none">
                   <AnimatedCounter target={198529} formatNumber={true} />
                 </span>
-                <p className="text-xs text-black leading-normal">
+                <p className="text-sm text-black leading-normal">
                   Australian Public Service (APS) employees (Federal Government
                   workforce, as of 30 June 2025)
                 </p>
@@ -461,7 +459,7 @@ export default function FederalStateIndustryOverviewView({
                 <span className="text-2xl font-bold text-black block leading-none">
                   <AnimatedCounter target={60.5} decimals={1} suffix="%" />
                 </span>
-                <p className="text-xs text-black leading-normal">women</p>
+                <p className="text-sm text-black leading-normal">women</p>
               </div>
             </div>
 
@@ -480,7 +478,7 @@ export default function FederalStateIndustryOverviewView({
                 <span className="text-2xl font-bold text-black block leading-none">
                   <AnimatedCounter target={3.4} decimals={1} suffix="%" />
                 </span>
-                <p className="text-xs text-black leading-normal">
+                <p className="text-sm text-black leading-normal">
                   First Nations employees - committed to increasing First
                   Nations employment to 5 per cent of the APS by 2030
                 </p>
