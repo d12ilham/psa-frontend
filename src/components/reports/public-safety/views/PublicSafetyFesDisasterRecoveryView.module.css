@@ -46,6 +46,7 @@
   .insightNumber { top: 20px; left: 16px; font-size: 36px; line-height: 40px; }
   .house { flex: none; align-self: center; }
   .summary img { width: 48px; height: 48px; }
+  .summary .insightOneIcon { width: 88px; height: 88px; }
   .detail, .chart { padding: 16px; }
 }
 

@@ -74,7 +74,7 @@ export default function PublicSafetyFesDisasterRecoveryView({ slug, report }: { 
         <p id="fes-recovery-insight-one" className={styles.insightLabel}>Theme One, Insight One</p>
         <p>Specialist disaster recovery functions are operationally focused, a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted.</p>
       </div>
-      <Image src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
+      <Image className={styles.insightOneIcon} src="/images/reports/public-safety/fes-recovery-insight.png" width={120} height={120} alt="" unoptimized />
     </section>
 
     <section className={`${styles.detail} ${styles.insightOneDetail} animate-slide-up-delay`}>
