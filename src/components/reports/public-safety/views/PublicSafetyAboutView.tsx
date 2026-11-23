@@ -54,7 +54,7 @@ export default function PublicSafetyAboutView({ slug, report }: { slug: string; 
 
       <section ref={undertakesRef} className="space-y-6">
         <div className="border-b border-gray200 pb-3">
-          <h2 className={`text-xl sm:text-2xl font-bold text-gray800 ${isUndertakesVisible ? "animate-slide-up" : "opacity-0"}`}>Public Skills Australia Undertakes:</h2>
+          <h2 className={`text-xl sm:text-2xl font-bold text-gray800 ${isUndertakesVisible ? "animate-slide-up" : "opacity-0"}`}>Public Skills Australia:</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {PUBLIC_SAFETY_FUNCTIONS.map((item, index) => (

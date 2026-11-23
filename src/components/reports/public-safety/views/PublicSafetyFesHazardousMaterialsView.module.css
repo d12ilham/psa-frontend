@@ -5,7 +5,7 @@
 .copy sup { position: relative; top: -.5em; vertical-align: baseline; font-size: .75em; line-height: 0; }
 .units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
 .unit { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 176px; padding: 16px; background: #20331d; color: white; text-align: center; font-size: 14px; font-weight: 400; line-height: 20px; }
-.unit h3 { font-size: 16px; font-weight: 700; line-height: 24px; }
+.units .unit h3 { color: inherit !important; font-size: 16px; font-weight: 700; line-height: 24px; }
 .unit:not(:last-child)::after { content: ""; position: absolute; top: calc(50% - 12px); right: -22px; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 12px solid #20331d; }
 .chart { display: grid; gap: 10px; min-width: 0; min-height: 600px; padding: 24px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
 .chartTitle { font-size: 13px; font-weight: 800; line-height: 18px; }

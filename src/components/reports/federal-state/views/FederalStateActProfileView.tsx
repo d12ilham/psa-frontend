@@ -40,7 +40,8 @@ export function JurisdictionMap({ slug, selected, showLinks = true }: { slug: st
                 key={code}
                 href={code === "ACT" ? `/reports/${slug}/industry_profile_act` : code === "NSW" ? `/reports/${slug}/industry_profile_nsw` : code === "NT" ? `/reports/${slug}/industry_profile_nt` : code === "QLD" ? `/reports/${slug}/industry_profile_qld` : code === "SA" ? `/reports/${slug}/industry_profile_sa` : code === "TAS" ? `/reports/${slug}/industry_profile_tas` : code === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
                 aria-current={code === selected ? "page" : undefined}
-                className={`min-w-10 rounded-full border px-3 py-2 text-center text-sm font-semibold transition-colors hover:border-[#754C2D] ${code === selected ? "border-[#754C2D] bg-[#EED4C4] text-black" : "border-[#E7E3DC] bg-white text-black"}`}
+                data-report-action={code === selected ? "primary" : "secondary"}
+                className="min-w-10 rounded-full border px-3 py-2 text-center text-sm font-semibold transition-colors"
               >
                 {code}
               </Link>

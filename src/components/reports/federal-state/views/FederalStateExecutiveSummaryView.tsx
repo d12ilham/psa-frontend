@@ -108,11 +108,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "0.10s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-1-workforce.png"
-                    alt="Workforce"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    src="/images/reports/federal-state/sector-palette/drivers-of-change-icon.svg"
+                    alt="Drivers of Change"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -131,11 +131,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "0.60s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-2-insights.png"
-                    alt="Insights"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    src="/images/reports/federal-state/sector-palette/work-force.svg"
+                    alt="Workforce Insights"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -154,11 +154,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "1.10s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-3-strategies.png"
+                    src="/images/reports/federal-state/sector-palette/stratergies.svg"
                     alt="Strategies"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -177,11 +177,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "1.60s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-4-forward.png"
+                    src="/images/reports/federal-state/sector-palette/2027-and-beyond.svg"
                     alt="Looking Forward"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>

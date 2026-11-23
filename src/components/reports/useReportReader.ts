@@ -76,12 +76,16 @@ export function useReportReader(
         }
       }
 
-      if (!desktop && !revealOnMobile) return;
-      const target = desktop ? workspace : detail;
-      const top = target.getBoundingClientRect().top;
       const inset = parseFloat(window.getComputedStyle(workspace).getPropertyValue("--reader-top")) || 76;
-      if (top < inset - 4 || top >= window.innerHeight - 80) {
-        target.scrollIntoView({ block: "start", behavior });
+      if (desktop) {
+        if (Math.abs(workspace.getBoundingClientRect().top - inset) > 4) {
+          workspace.scrollIntoView({ block: "start", behavior });
+        }
+      } else if (revealOnMobile) {
+        const top = detail.getBoundingClientRect().top;
+        if (top < inset - 4 || top >= window.innerHeight - 80) {
+          detail.scrollIntoView({ block: "start", behavior });
+        }
       }
     });
     return () => window.cancelAnimationFrame(frame);

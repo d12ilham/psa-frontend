@@ -84,7 +84,7 @@ export default function PublicSafetyPoliceExistingStrategiesView({ slug, report 
       </div>
 
       <ReportSelectionPanel selection={active} label="Police strategy details"><article data-report-surface="neutral" id="police-existing-strategy-panel" className="min-w-0 rounded-2xl bg-[#E2ECE8] p-4 animate-slide-up-delay motion-reduce:animate-none! sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div data-reader-toolbar className="flex flex-wrap items-center justify-between gap-3">
           <span className="max-w-full rounded-full bg-[#0D71A3] px-5 py-2.5 text-sm font-semibold text-white">{String(active + 1).padStart(2, "0")} · {active === 7 ? strategy.publisher : strategy.owner}</span>
           <div className="ml-auto flex flex-wrap gap-2">
             {active > 0 && <button data-report-action="secondary" type="button" aria-label="Previous strategy" onClick={() => move(-1)} className="group inline-flex h-10 items-center gap-2 rounded-full border border-[#C5D997] bg-[#FAFAF0] px-5 text-sm font-semibold text-[#496900] hover:border-[#9DB762] hover:bg-white motion-safe:transition-colors"><ArrowLeft size={16} className="motion-safe:transition-transform motion-safe:group-hover:-translate-x-0.5" /> Previous</button>}

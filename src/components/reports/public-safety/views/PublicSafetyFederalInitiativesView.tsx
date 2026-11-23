@@ -62,7 +62,7 @@ export default function PublicSafetyFederalInitiativesView({ slug, report }: { s
       </div>
 
       <ReportSelectionPanel selection={active} label="Commonwealth initiative details"><article className="min-w-0 rounded-2xl bg-[#E5E8DA] p-4 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div data-reader-toolbar className="flex flex-wrap items-center justify-between gap-3">
           <span className="rounded-full bg-[#598303] px-5 py-2.5 text-xs font-semibold uppercase leading-5 text-white">{String(active + 1).padStart(2, "0")} · {initiative.owner}</span>
           <div className="ml-auto flex flex-wrap gap-2">
             {active > 0 && <button data-report-action="secondary" type="button" aria-label="Previous initiative" onClick={() => move(-1)} className="inline-flex h-10 items-center gap-2 rounded-full border border-[#C5D997] bg-[#FAFAF0] px-5 text-sm font-semibold text-[#496900]"><ArrowLeft size={16} /> Previous</button>}

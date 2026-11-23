@@ -96,7 +96,7 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
       </div>
 
       <ReportSelectionPanel selection={active} label="Police project details"><article data-report-surface="neutral" className={`${layout.panel} ${styles.panel}`}>
-        <div className={layout.panelHeader}>
+        <div data-reader-toolbar className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · Completion: {project.completion}</span>
           <div className={layout.controls}>
             {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}

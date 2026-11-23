@@ -99,7 +99,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
         </div>
       </div>
       <ReportSelectionPanel selection={active} label="Defence veterans program details"><article data-report-surface="neutral" id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
-        <div className={layout.panelHeader}>
+        <div data-reader-toolbar className={layout.panelHeader}>
           <span className={layout.badge}>{number(active)} · DEF</span>
           <div className={layout.controls}>
             {active > 0 && <button data-report-action="primary" className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}

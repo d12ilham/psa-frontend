@@ -76,7 +76,7 @@ function ProjectPanel({ index, onSelect }: { index: number; onSelect?: (index: n
   const headingId = `fes-update-heading-${index}`;
 
   return <article data-report-surface="neutral" className={`${layout.panel} ${styles.panel}`} aria-labelledby={headingId}>
-    <div className={layout.panelHeader}>
+    <div data-reader-toolbar={onSelect ? "" : undefined} className={layout.panelHeader}>
       <span className={`${layout.badge} ${styles.badge}`}>0{index + 1} · Completion: {project.completion}</span>
       {onSelect && <div className={`${layout.controls} ${styles.controls}`}>
         {index > 0 && <button data-report-action="primary" type="button" className={layout.previous} onClick={() => onSelect(index - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}

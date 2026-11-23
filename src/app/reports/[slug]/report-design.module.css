@@ -116,6 +116,14 @@
 }
 
 @media (min-width: 1024px) {
+  .report [data-report-reader="standard"] [data-reader-toolbar] {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.75rem;
+    background-color: inherit;
+  }
+
   .report [data-report-reader="standard"] {
     --reader-desktop: 1;
   }
@@ -138,5 +146,13 @@
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scrollbar-gutter: stable;
+  }
+
+  .report [data-report-reader="wide"] [data-reader-toolbar] {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.75rem;
+    background-color: inherit;
   }
 }

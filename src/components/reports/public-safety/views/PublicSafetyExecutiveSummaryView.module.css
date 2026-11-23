@@ -30,7 +30,7 @@
   .insightActions { flex-shrink: 0; }
   .insightActions .action { white-space: nowrap; }
 }
-.action:focus-visible, .toggle:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
+.action:focus-visible { outline: 2px solid #598303; outline-offset: 3px; }
 .collectionHeader { position: relative; padding-bottom: 24px; }
 .collectionHeader::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: #e9eaeb; }
 .columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 24px; margin-top: 24px; }
@@ -40,22 +40,9 @@
 .sectorTitle { font-size: 20px; font-weight: 700; line-height: 28px; color: #252d02; }
 .tiles { display: grid; gap: 8px; margin-top: 24px; }
 .tile { position: relative; min-height: 124px; padding: 24px 24px 24px 60px; background: var(--sector-tint); transition: box-shadow .25s, outline-color .25s; }
-.tileOpen { padding-left: 64px; }
-.tileOpen .detail { margin-left: -40px; }
 .tile:hover { outline-color: #b8c9a0; box-shadow: 0 3px 8px #252d0210; }
 .number { position: absolute; left: 16px; top: 24px; width: 28px; font-size: 52px; font-weight: 700; line-height: 50px; text-align: right; color: var(--sector-color); opacity: .15; }
 .tileTitle { font-size: 20px; font-weight: 700; line-height: 28px; color: #252d02; }
-.toggle { display: inline-flex; align-items: center; gap: 8px; height: 40px; margin-top: 8px; padding: 10px 20px; border-radius: 999px; background: #8ac900; color: #252d02; font-size: 14px; font-weight: 700; line-height: 20px; cursor: pointer; transition: background-color .25s; }
-.toggle:hover { background: #78af00; }
-.toggle svg { width: 16px; height: 16px; transition: transform .3s; }
-.expandedChevron { transform: rotate(180deg); }
-.detail { display: grid; grid-template-rows: 0fr; margin-left: -36px; opacity: 0; transition: grid-template-rows .5s, opacity .5s, margin .5s; }
-.detailOpen { grid-template-rows: 1fr; margin-top: 24px; opacity: 1; }
-.detailClip { overflow: hidden; }
-.detailContent { display: grid; gap: 24px; padding: 12px; border: 1px solid #e9eaeb; border-radius: 12px; background: white; }
-.numberedDetail { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; }
-.detailRow, .detailBody { min-width: 0; }
-.detailNumber, .detailText { margin: 0; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
 .supporting { display: flex; min-height: 40px; flex-wrap: wrap; align-items: center; gap: 12px; }
 .supporting h2 { margin-right: 4px; color: #252d02; font-size: 24px; font-weight: 500; line-height: 32px; }
 .supporting button { height: 40px; border: 1px solid #b2db79; border-radius: 999px; padding: 0 20px; color: #598303; background: #fafaf0; font-size: 12px; font-weight: 600; cursor: pointer; transition: background-color .25s, transform .25s; }

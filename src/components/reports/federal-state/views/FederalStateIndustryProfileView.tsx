@@ -414,27 +414,20 @@ export default function FederalStateIndustryProfileView({
               <span className="mr-2 text-xs font-semibold uppercase text-black">
                 Industry Profile
               </span>
-              {["NATIONAL", ...selectableStates].map((tab, index) => {
+              {(["NATIONAL", ...selectableStates] as const).map((tab, index) => {
                 const active = tab === selectedState;
-                const available = tab === "NATIONAL" || selectableStates.some((code) => code === tab);
-                const className = `rounded-full border px-3 py-2 text-xs font-semibold ${
-                  active
-                    ? "border-[#754C2D] text-black"
-                    : "border-[#E9E5DE] bg-white text-black"
-                }`;
-                return available ? (
+                return (
                   <button
                     key={tab}
                     type="button"
+                    data-report-action={active ? "primary" : "secondary"}
                     aria-pressed={active}
-                    onClick={() => setSelectedState(tab as ProfileState)}
-                    className={`${className} animate-card-entrance transition-colors hover:border-[#754C2D] motion-reduce:animate-none`}
-                    style={{ animationDelay: `${0.18 + index * 0.045}s`, ...(active ? { backgroundColor: "#EED4C4" } : {}) }}
+                    onClick={() => setSelectedState(tab)}
+                    className="animate-card-entrance rounded-full border px-3 py-2 text-xs font-semibold transition-colors motion-reduce:animate-none"
+                    style={{ animationDelay: `${0.18 + index * 0.045}s` }}
                   >
                     {tab}
                   </button>
-                ) : (
-                  <span key={tab} className={className}>{tab}</span>
                 );
               })}
             </div>

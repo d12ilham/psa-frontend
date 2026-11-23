@@ -85,7 +85,7 @@ export default function PublicSafetyDefenceStrategyUpdatesView({ slug, report }:
         </div>
       </div>
       <ReportSelectionPanel selection={active} label="Defence project details"><article data-report-surface="neutral" id="defence-project-panel" className={styles.panel} aria-labelledby="defence-project-heading">
-        <div className={styles.panelHeader}>
+        <div data-reader-toolbar className={styles.panelHeader}>
           <span className={styles.badge}>{project.number} · Completion: {project.completion}</span>
           <div className={styles.controls}>
             {active > 0 && <button data-report-action="primary" type="button" className={styles.previous} onClick={() => move(-1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}

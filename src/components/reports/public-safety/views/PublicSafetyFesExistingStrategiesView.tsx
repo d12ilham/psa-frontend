@@ -195,7 +195,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
       </div>
 
       <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article data-report-surface="neutral" id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
-        <div className={layout.panelHeader}>
+        <div data-reader-toolbar className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · {strategy.owner}</span>
           <div className={`${layout.controls} ${styles.controls}`}>
             {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}

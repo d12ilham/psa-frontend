@@ -3,11 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { executiveSummaryInsights as insights, executiveSummaryStrategies as strategies, type ExecutiveSummarySector } from "../data/executiveSummary";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { executiveSummaryInsights as insights, type ExecutiveSummarySector } from "../data/executiveSummary";
+import { ArrowRight } from "lucide-react";
 import styles from "./PublicSafetyExecutiveSummaryView.module.css";
 import { useRouter } from "next/navigation";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import PublicSafetyProposedStrategyCards from "./PublicSafetyProposedStrategyCards";
 
 const icons = {
   Drivers: "/images/reports/introduction/Drivers.svg",
@@ -35,20 +36,20 @@ function ActionButton({ children, onClick }: { children: React.ReactNode; onClic
   return <button data-report-action="primary" type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
 }
 
-function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description: string; children: React.ReactNode }) {
+function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description?: string; children: React.ReactNode }) {
   return (
     <div className={styles.heading}>
       <Image src={icons[icon]} alt="" width={64} height={64} className={styles.sectionIcon} />
       <div className={styles.headingCopy}>
         <h2>{title}</h2>
-        <p><SummaryText text={description} /></p>
+        {description && <p><SummaryText text={description} /></p>}
       </div>
       {children}
     </div>
   );
 }
 
-function SectorColumn({ sector, expandedId, onToggle, visible, delay }: { sector: ExecutiveSummarySector; expandedId: string | null; onToggle: (id: string) => void; visible: boolean; delay: number }) {
+function SectorColumn({ sector, visible, delay }: { sector: ExecutiveSummarySector; visible: boolean; delay: number }) {
   const sectorStyle = {
     "--sector-color": sector.color,
     "--sector-tint": `${sector.color}1A`,
@@ -60,32 +61,12 @@ function SectorColumn({ sector, expandedId, onToggle, visible, delay }: { sector
       <div className={styles.accent} aria-hidden="true" />
       <h3 className={styles.sectorTitle}>{sector.title}</h3>
       <div className={styles.tiles}>
-        {sector.items.map(({ id, title, number, details }) => {
-          const expanded = expandedId === id;
-          return (
-            <div data-report-surface="neutral" key={id} className={`${styles.tile} ${expanded ? styles.tileOpen : ""}`}>
-              <span className={styles.number} aria-hidden="true">{number}</span>
-              <p className={styles.tileTitle}><SummaryText text={title} /></p>
-              <button data-report-action="primary" type="button" aria-label={`${expanded ? "Close" : "Open"} ${title}`} aria-expanded={expanded} aria-controls={`${id}-detail`} onClick={() => onToggle(id)} className={styles.toggle}>
-                {expanded ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={expanded ? styles.expandedChevron : undefined} />
-              </button>
-              <div id={`${id}-detail`} aria-hidden={!expanded} inert={!expanded} className={`${styles.detail} ${expanded ? styles.detailOpen : ""}`}>
-                <div className={styles.detailClip}>
-                  <div className={styles.detailContent}>
-                    {details.map((detail) => (
-                      <div key={detail.page} className={detail.number ? styles.numberedDetail : styles.detailRow}>
-                        {detail.number && <span className={styles.detailNumber}>{detail.number}</span>}
-                        <div className={styles.detailBody}>
-                          <p className={styles.detailText}><SummaryText text={detail.text} /></p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {sector.items.map(({ id, title, number }) => (
+          <div data-report-surface="neutral" key={id} className={styles.tile}>
+            <span className={styles.number} aria-hidden="true">{number}</span>
+            <p className={styles.tileTitle}><SummaryText text={title} /></p>
+          </div>
+        ))}
       </div>
     </article>
   );
@@ -97,8 +78,6 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
   const strategiesRef = React.useRef<HTMLElement>(null);
   const [isInsightsVisible, setIsInsightsVisible] = React.useState(false);
   const [isStrategiesVisible, setIsStrategiesVisible] = React.useState(false);
-  const [expandedId, setExpandedId] = React.useState<string | null>(null);
-  const toggleDropdown = (id: string) => setExpandedId((current) => current === id ? null : id);
   const navigate = (page: string) => router.push(`/reports/${slug}/${page}`);
 
   React.useEffect(() => {
@@ -143,17 +122,17 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
+        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights"><div className={styles.insightActions}>
           <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
           <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
         </div></SectionHeading></div>
-        <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} expandedId={expandedId} onToggle={toggleDropdown} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
+        <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>
 
       <section ref={strategiesRef} className={`${styles.panel} ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
         <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support and address challenges identified through the above industry insights"><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
-        <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} />)}</div>
+        <PublicSafetyProposedStrategyCards embedded />
       </section>
 
       <section className={styles.panel}>

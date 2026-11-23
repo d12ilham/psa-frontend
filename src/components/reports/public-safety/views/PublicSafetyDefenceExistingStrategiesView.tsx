@@ -147,7 +147,7 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
         </div>
       </div>
       <ReportSelectionPanel selection={active} label="Defence strategy details"><article data-report-surface="neutral" id="defence-existing-panel" className={styles.panel} aria-labelledby="defence-existing-heading">
-        <div className={styles.panelHeader}>
+        <div data-reader-toolbar className={styles.panelHeader}>
           <span className={styles.badge}>{strategy.number} · {active === 0 ? strategy.period : strategy.owner}</span>
           <div className={`${styles.controls} ${active > 0 ? existing.controls : ""}`}>
             {active > 0 && <button data-report-action="primary" className={styles.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
