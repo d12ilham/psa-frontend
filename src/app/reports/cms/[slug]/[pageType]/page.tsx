@@ -86,11 +86,19 @@ function CmsReportChapterContent({
 }) {
   const searchParams = useSearchParams();
   const isPreview = searchParams.get("preview") === "1";
+  const insightParam = searchParams.get("insight") || "";
+  const insightMatch =
+    pageType === "workforce_insights"
+      ? /^theme([12])-insight([1-4])$/i.exec(insightParam.trim())
+      : null;
+  const effectivePageType = insightMatch
+    ? `theme${insightMatch[1]}_insight_${insightMatch[2]}`
+    : pageType;
 
   return (
     <CmsReportChapterLoader
       slug={slug}
-      pageType={pageType}
+      pageType={effectivePageType}
       isPreview={isPreview}
       isCmsRoute={true}
     />

@@ -45,6 +45,10 @@ import PublicSafetyPageShell from "@/components/reports/public-safety/views/Publ
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 import {
+  LG_CUSTOM_UTILITY_PAGES,
+  LocalGovernmentCmsPageView,
+} from "@/components/cms/LocalGovernmentCmsViews";
+import {
   DEFAULT_LANDING_EXEC_DESC,
   DEFAULT_LANDING_INTRO_DESC,
   SITE_SETTINGS,
@@ -1276,7 +1280,9 @@ export function CmsReportLandingView({
             </div>
             <div>
               <button
-                data-report-action="primary"
+                data-report-action={
+                  sector.code === "local-government" ? undefined : "primary"
+                }
                 onClick={() =>
                   router.push(`${basePath}/executive_summary${previewSuffix}`)
                 }
@@ -1357,15 +1363,31 @@ export default function CmsReportRenderer({
     industry: { id: sector.id, name: sector.name, slug: sector.code },
   };
 
+  const isLgStaticTemplate =
+    sector.code === "local-government" &&
+    str(content.renderMode) === "lg_static_template";
+
   const navPagesOrder = navigation
-    .filter((n) => n.pageType !== "workforce_insights_detail")
+    .filter(
+      (n) =>
+        n.pageType !== "workforce_insights_detail" &&
+        !n.pageType.startsWith("theme1_insight_") &&
+        !n.pageType.startsWith("theme2_insight_")
+    )
     .map((n) => ({ key: n.pageType, label: n.title }));
 
   const onNavigate = (targetPageType: string) => {
     router.push(`${basePath}/${targetPageType}${previewSuffix}`);
   };
 
-  const chapterBody = (
+  const chapterBody = isLgStaticTemplate ? (
+    <LocalGovernmentCmsPageView
+      data={data}
+      content={content}
+      shellSlug={shellSlug}
+      onNavigate={onNavigate}
+    />
+  ) : (
     <>
       <TemplateBody
         data={data}
@@ -1467,16 +1489,20 @@ export default function CmsReportRenderer({
       />
 
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
-        {tokens.isLocalGovernment && (
-          <LocalGovernmentReportUtilityRow>
-            <ReportNavButtons
-              slug={shellSlug}
-              industrySlug={sector.code}
-              currentPage={page.pageType}
-              pagesOrder={navPagesOrder}
-            />
-          </LocalGovernmentReportUtilityRow>
-        )}
+        {tokens.isLocalGovernment &&
+          !(
+            isLgStaticTemplate &&
+            LG_CUSTOM_UTILITY_PAGES.has(page.pageType.toLowerCase())
+          ) && (
+            <LocalGovernmentReportUtilityRow>
+              <ReportNavButtons
+                slug={shellSlug}
+                industrySlug={sector.code}
+                currentPage={page.pageType}
+                pagesOrder={navPagesOrder}
+              />
+            </LocalGovernmentReportUtilityRow>
+          )}
 
         {tokens.isCorrectionalServices && (
           <CorrectionalServicesReportUtilityRow>
@@ -1507,6 +1533,12 @@ export default function CmsReportRenderer({
         contactUrl={report.contactUrl}
         reportName={`${sector.name} Workforce Insights Report`}
         year={String(report.year)}
+        variant={
+          tokens.isLocalGovernment &&
+          page.pageType.toLowerCase() === "industry_overview"
+            ? "pill"
+            : undefined
+        }
       />
 
       {backToTopAndModal}

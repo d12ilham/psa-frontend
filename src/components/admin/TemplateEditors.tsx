@@ -554,6 +554,16 @@ export default function TemplateEditor({
     return <RichPageBlocksEditor content={content} onChange={onChange} />;
   }
 
+  if (str(content.renderMode) === "lg_static_template") {
+    return (
+      <LgStaticTemplateEditor
+        pageType={pageType}
+        content={content}
+        onChange={onChange}
+      />
+    );
+  }
+
   // Shared-capable pages
   if (
     pageType === "about" ||
@@ -2698,6 +2708,2824 @@ function RichPageBlocksEditor({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+/* ── Shared Helpers for Local Government 2026 Static-Parity Editor ── */
+
+function LgCtaPairEditor({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: JsonObj;
+  onChange: (next: JsonObj) => void;
+}) {
+  return (
+    <div className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+      <FieldLabel>{label}</FieldLabel>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <Input
+          value={str(value.label)}
+          onChange={(v) => onChange({ ...value, label: v })}
+          placeholder="Button Label"
+        />
+        <Input
+          value={str(value.pageType)}
+          onChange={(v) => onChange({ ...value, pageType: v })}
+          placeholder="Target Page Type (e.g. executive_summary)"
+        />
+      </div>
+    </div>
+  );
+}
+
+function LgStrategiesArrayEditor({
+  strategies,
+  onChange,
+}: {
+  strategies: JsonObj[];
+  onChange: (next: JsonObj[]) => void;
+}) {
+  const update = (idx: number, nextItem: JsonObj) => {
+    const copy = [...strategies];
+    copy[idx] = nextItem;
+    onChange(copy);
+  };
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <FieldLabel>2026 Proposed Strategies ({strategies.length})</FieldLabel>
+        <button
+          type="button"
+          onClick={() =>
+            onChange([
+              ...strategies,
+              {
+                badge: `STRATEGY ${strategies.length + 1}`,
+                borderColor: strategies.length % 2 === 0 ? "#9CAA54" : "#046D2A",
+                title: "New Workforce Strategy",
+                objective: "",
+                workforceInsight: "",
+                jscFunction: "",
+                approach: "",
+                deliverable: "",
+                anticipatedTiming: "",
+                keyStakeholders: [],
+              },
+            ])
+          }
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#8AC900] text-[#252D02] text-xs font-bold cursor-pointer"
+        >
+          <Plus className="w-3.5 h-3.5" /> Add Strategy
+        </button>
+      </div>
+      {strategies.map((st, si) => (
+        <div
+          key={si}
+          className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2.5"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="grid grid-cols-2 gap-2 flex-1 min-w-[240px]">
+              <Input
+                value={str(st.badge)}
+                onChange={(v) => update(si, { ...st, badge: v })}
+                placeholder="Badge (STRATEGY 1)"
+              />
+              <Input
+                value={str(st.borderColor)}
+                onChange={(v) => update(si, { ...st, borderColor: v })}
+                placeholder="#9CAA54 or #046D2A"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => onChange(strategies.filter((_, i) => i !== si))}
+              className="p-1.5 text-red-600 cursor-pointer"
+              title="Remove strategy"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+          <Input
+            value={str(st.title)}
+            onChange={(v) => update(si, { ...st, title: v })}
+            placeholder="Strategy Title"
+          />
+          <Textarea
+            rows={2}
+            value={str(st.objective)}
+            onChange={(v) => update(si, { ...st, objective: v })}
+            placeholder="Objective"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <Input
+              value={str(st.workforceInsight)}
+              onChange={(v) => update(si, { ...st, workforceInsight: v })}
+              placeholder="Workforce Insight Pill"
+            />
+            <Input
+              value={str(st.jscFunction)}
+              onChange={(v) => update(si, { ...st, jscFunction: v })}
+              placeholder="JSC Function"
+            />
+          </div>
+          {st.approachPartA !== undefined || st.approachPartB !== undefined ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <Textarea
+                rows={3}
+                value={str(st.approachPartA)}
+                onChange={(v) => update(si, { ...st, approachPartA: v })}
+                placeholder="Approach – Part A"
+              />
+              <Textarea
+                rows={3}
+                value={str(st.approachPartB)}
+                onChange={(v) => update(si, { ...st, approachPartB: v })}
+                placeholder="Approach – Part B"
+              />
+            </div>
+          ) : (
+            <Textarea
+              rows={3}
+              value={str(st.approach)}
+              onChange={(v) => update(si, { ...st, approach: v })}
+              placeholder="Approach"
+            />
+          )}
+          {st.deliverablePartA !== undefined ||
+          st.deliverablePartB !== undefined ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <Textarea
+                rows={2}
+                value={str(st.deliverablePartA)}
+                onChange={(v) => update(si, { ...st, deliverablePartA: v })}
+                placeholder="Deliverable – Part A"
+              />
+              <Textarea
+                rows={2}
+                value={str(st.deliverablePartB)}
+                onChange={(v) => update(si, { ...st, deliverablePartB: v })}
+                placeholder="Deliverable – Part B"
+              />
+            </div>
+          ) : (
+            <Textarea
+              rows={2}
+              value={str(st.deliverable)}
+              onChange={(v) => update(si, { ...st, deliverable: v })}
+              placeholder="Deliverable"
+            />
+          )}
+          {st.anticipatedTimingPartA !== undefined ||
+          st.anticipatedTimingPartB !== undefined ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <Input
+                value={str(st.anticipatedTimingPartA)}
+                onChange={(v) =>
+                  update(si, { ...st, anticipatedTimingPartA: v })
+                }
+                placeholder="Timing – Part A"
+              />
+              <Input
+                value={str(st.anticipatedTimingPartB)}
+                onChange={(v) =>
+                  update(si, { ...st, anticipatedTimingPartB: v })
+                }
+                placeholder="Timing – Part B"
+              />
+            </div>
+          ) : (
+            <Input
+              value={str(st.anticipatedTiming)}
+              onChange={(v) => update(si, { ...st, anticipatedTiming: v })}
+              placeholder="Anticipated Timing"
+            />
+          )}
+          <StringListEditor
+            label="Key Stakeholders"
+            items={arr<string>(st.keyStakeholders)}
+            onChange={(nextK) => update(si, { ...st, keyStakeholders: nextK })}
+            addLabel="Add Stakeholder"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function LgThemesArrayEditor({
+  themes,
+  onChange,
+}: {
+  themes: JsonObj[];
+  onChange: (next: JsonObj[]) => void;
+}) {
+  const updateTheme = (idx: number, nextT: JsonObj) => {
+    const copy = [...themes];
+    copy[idx] = nextT;
+    onChange(copy);
+  };
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <FieldLabel>Workforce Themes ({themes.length})</FieldLabel>
+        <button
+          type="button"
+          onClick={() =>
+            onChange([
+              ...themes,
+              {
+                eyebrow: `THEME ${themes.length + 1}`,
+                title: "New Theme",
+                borderColor: themes.length % 2 === 0 ? "#9CAA54" : "#046D2A",
+                overviewParagraphs: [""],
+                insights: [],
+              },
+            ])
+          }
+          className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#8AC900] text-[#252D02] text-xs font-bold cursor-pointer"
+        >
+          <Plus className="w-3.5 h-3.5" /> Add Theme
+        </button>
+      </div>
+      {themes.map((th, ti) => {
+        const insList = arr<JsonObj>(th.insights);
+        return (
+          <div
+            key={ti}
+            className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-3"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <Input
+                value={str(th.eyebrow)}
+                onChange={(v) => updateTheme(ti, { ...th, eyebrow: v })}
+                placeholder="THEME 1 · 3 INSIGHTS"
+              />
+              <Input
+                value={str(th.title)}
+                onChange={(v) => updateTheme(ti, { ...th, title: v })}
+                placeholder="Theme Title"
+              />
+              <div className="flex gap-2">
+                <Input
+                  value={str(th.borderColor)}
+                  onChange={(v) => updateTheme(ti, { ...th, borderColor: v })}
+                  placeholder="#9CAA54"
+                />
+                <button
+                  type="button"
+                  onClick={() => onChange(themes.filter((_, i) => i !== ti))}
+                  className="p-2 text-red-600 cursor-pointer"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            <StringListEditor
+              label="Overview Paragraphs"
+              items={arr<string>(th.overviewParagraphs)}
+              onChange={(nextP) =>
+                updateTheme(ti, { ...th, overviewParagraphs: nextP })
+              }
+              addLabel="Add Overview Paragraph"
+            />
+            <div className="space-y-2 pt-2 border-t border-[#E5E8DA]">
+              <div className="flex items-center justify-between">
+                <FieldLabel>Insight Cards ({insList.length})</FieldLabel>
+                <button
+                  type="button"
+                  onClick={() =>
+                    updateTheme(ti, {
+                      ...th,
+                      insights: [
+                        ...insList,
+                        {
+                          number: String(insList.length + 1),
+                          eyebrow: `Theme ${ti + 1}, Insight ${insList.length + 1}`,
+                          text: "",
+                          targetPageType: `theme${ti + 1}_insight_${insList.length + 1}`,
+                        },
+                      ],
+                    })
+                  }
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-[#B2DB79] text-[#416102] text-xs font-bold cursor-pointer"
+                >
+                  <Plus className="w-3 h-3" /> Add Insight Card
+                </button>
+              </div>
+              {insList.map((ins, ii) => (
+                <div
+                  key={ii}
+                  className="p-3 rounded-lg bg-white border border-[#E5E8DA] space-y-2"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                    <Input
+                      value={str(ins.number)}
+                      onChange={(v) => {
+                        const n = [...insList];
+                        n[ii] = { ...ins, number: v };
+                        updateTheme(ti, { ...th, insights: n });
+                      }}
+                      placeholder="#"
+                    />
+                    <Input
+                      value={str(ins.eyebrow)}
+                      onChange={(v) => {
+                        const n = [...insList];
+                        n[ii] = { ...ins, eyebrow: v };
+                        updateTheme(ti, { ...th, insights: n });
+                      }}
+                      placeholder="Eyebrow"
+                    />
+                    <Input
+                      value={str(ins.targetPageType)}
+                      onChange={(v) => {
+                        const n = [...insList];
+                        n[ii] = { ...ins, targetPageType: v };
+                        updateTheme(ti, { ...th, insights: n });
+                      }}
+                      placeholder="targetPageType"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateTheme(ti, {
+                          ...th,
+                          insights: insList.filter((_, x) => x !== ii),
+                        })
+                      }
+                      className="text-red-600 text-xs font-bold cursor-pointer"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <Textarea
+                    rows={2}
+                    value={str(ins.text)}
+                    onChange={(v) => {
+                      const n = [...insList];
+                      n[ii] = { ...ins, text: v };
+                      updateTheme(ti, { ...th, insights: n });
+                    }}
+                    placeholder="Insight summary text (supports [[N]] footnotes)"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function LgChartEditor({
+  label,
+  chart,
+  onChange,
+}: {
+  label: string;
+  chart: JsonObj;
+  onChange: (next: JsonObj) => void;
+}) {
+  const series = arr<JsonObj>(chart.series);
+  return (
+    <div className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-3">
+      <FieldLabel>{label}</FieldLabel>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="md:col-span-2">
+          <Input
+            value={str(chart.title)}
+            onChange={(v) => onChange({ ...chart, title: v })}
+            placeholder="Chart Title"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Input
+            value={String(num(chart.min))}
+            onChange={(v) =>
+              onChange({ ...chart, min: Number(v) || 0 })
+            }
+            placeholder="Y Min"
+          />
+          <Input
+            value={String(num(chart.max))}
+            onChange={(v) =>
+              onChange({ ...chart, max: Number(v) || 0 })
+            }
+            placeholder="Y Max"
+          />
+        </div>
+      </div>
+      <div>
+        <FieldLabel>Years / X-Axis Labels (comma separated)</FieldLabel>
+        <Input
+          value={arr<string>(chart.years).join(", ")}
+          onChange={(v) =>
+            onChange({
+              ...chart,
+              years: v.split(",").map((s) => s.trim()),
+            })
+          }
+        />
+      </div>
+      {series.map((s, si) => (
+        <div
+          key={si}
+          className="p-3 rounded-lg bg-white border border-[#E5E8DA] grid grid-cols-1 md:grid-cols-3 gap-2"
+        >
+          <Input
+            value={str(s.name)}
+            onChange={(v) => {
+              const n = [...series];
+              n[si] = { ...s, name: v };
+              onChange({ ...chart, series: n });
+            }}
+            placeholder="Series Name"
+          />
+          <Input
+            value={str(s.color)}
+            onChange={(v) => {
+              const n = [...series];
+              n[si] = { ...s, color: v };
+              onChange({ ...chart, series: n });
+            }}
+            placeholder="Bar Color (#598303)"
+          />
+          <Input
+            value={arr<number>(s.values).join(", ")}
+            onChange={(v) => {
+              const n = [...series];
+              n[si] = {
+                ...s,
+                values: v.split(",").map((x) => Number(x.trim()) || 0),
+              };
+              onChange({ ...chart, series: n });
+            }}
+            placeholder="Numeric values (comma separated)"
+          />
+        </div>
+      ))}
+      <div>
+        <FieldLabel>Source Line (Markdown links supported)</FieldLabel>
+        <Input
+          value={str(chart.sourceMarkdown)}
+          onChange={(v) => onChange({ ...chart, sourceMarkdown: v })}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ── Main Local Government 2026 Static-Parity Admin Editor ── */
+function LgStaticTemplateEditor({
+  pageType,
+  content,
+  onChange,
+}: {
+  pageType: string;
+  content: JsonObj;
+  onChange: (next: JsonObj) => void;
+}) {
+  const tpl = str(content.lgTemplate, pageType);
+  const patch = (p: JsonObj) => onChange({ ...content, ...p });
+  const [rawJsonMode, setRawJsonMode] = React.useState(false);
+  const [rawText, setRawText] = React.useState(() =>
+    JSON.stringify(content, null, 2)
+  );
+  const [rawError, setRawError] = React.useState<string | null>(null);
+  const [activeStateCode, setActiveStateCode] = React.useState("NSW");
+
+  React.useEffect(() => {
+    if (!rawJsonMode) {
+      setRawText(JSON.stringify(content, null, 2));
+      setRawError(null);
+    }
+  }, [content, rawJsonMode]);
+
+  const headerBar = (
+    <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E5E8DA]">
+      <div className="flex items-center gap-2">
+        <span className="px-2.5 py-1 rounded-full bg-[#046D2A] text-white text-[11px] font-bold uppercase tracking-wider">
+          LG Static-Parity Template
+        </span>
+        <span className="text-xs font-semibold text-[#5C6629]">{tpl}</span>
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          if (!rawJsonMode) {
+            setRawText(JSON.stringify(content, null, 2));
+            setRawError(null);
+          }
+          setRawJsonMode((m) => !m);
+        }}
+        className="px-3 py-1 rounded-full border border-[#B2DB79] bg-[#FAFAF0] text-[#416102] text-xs font-bold cursor-pointer"
+      >
+        {rawJsonMode ? "Switch to Visual Editor" : "Switch to Raw JSON"}
+      </button>
+    </div>
+  );
+
+  if (rawJsonMode) {
+    return (
+      <div className="space-y-4">
+        {headerBar}
+        <p className="text-xs text-[#6B7250]">
+          Edit complete template JSON payload (including deep state tables,
+          assets, and datasets). Supports{" "}
+          <code>*italic*</code>, <code>**highlight**</code>,{" "}
+          <code>[[N]]</code> citations, and{" "}
+          <code>[Title](https://...)</code> links.
+        </p>
+        <Textarea
+          rows={22}
+          value={rawText}
+          onChange={(v) => {
+            setRawText(v);
+            try {
+              const parsed = JSON.parse(v) as JsonObj;
+              if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                setRawError(null);
+                onChange(parsed);
+              } else {
+                setRawError("Root JSON value must be an object.");
+              }
+            } catch (err) {
+              setRawError(err instanceof Error ? err.message : "Invalid JSON");
+            }
+          }}
+        />
+        {rawError && (
+          <p className="text-xs font-semibold text-red-600">{rawError}</p>
+        )}
+      </div>
+    );
+  }
+
+  let body: React.ReactNode = null;
+
+  if (tpl === "introduction") {
+    const cells = arr<JsonObj>(content.glanceCells);
+    const structureCards = arr<JsonObj>(content.structureCards);
+    const banners = arr<JsonObj>(content.featureBanners);
+    body = (
+      <div className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Eyebrow</FieldLabel>
+            <Input
+              value={str(content.eyebrow)}
+              onChange={(v) => patch({ eyebrow: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Title Line 1</FieldLabel>
+            <Input
+              value={str(content.titleLine1)}
+              onChange={(v) => patch({ titleLine1: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Title Line 2</FieldLabel>
+            <Input
+              value={str(content.titleLine2)}
+              onChange={(v) => patch({ titleLine2: v })}
+            />
+          </div>
+        </div>
+        <StringListEditor
+          label="Hero Paragraphs"
+          items={arr<string>(content.paragraphs)}
+          onChange={(nextP) => patch({ paragraphs: nextP })}
+          addLabel="Add Paragraph"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Previous Report Link Path</FieldLabel>
+            <Input
+              value={str(content.previousReportHref)}
+              onChange={(v) => patch({ previousReportHref: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>At-A-Glance Box Title</FieldLabel>
+            <Input
+              value={str(content.glanceTitle)}
+              onChange={(v) => patch({ glanceTitle: v })}
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>This Report At A Glance Cells ({cells.length})</FieldLabel>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {cells.map((cell, ci) => {
+              const pair = arr<JsonObj>(cell.pair);
+              const updateCell = (nextC: JsonObj) => {
+                const n = [...cells];
+                n[ci] = nextC;
+                patch({ glanceCells: n });
+              };
+              if (pair.length > 0) {
+                return (
+                  <div
+                    key={ci}
+                    className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+                  >
+                    <span className="text-[11px] font-bold text-[#728C28] uppercase">
+                      Paired Stat Cell #{ci + 1}
+                    </span>
+                    {pair.map((sub, si) => (
+                      <div key={si} className="grid grid-cols-2 gap-2">
+                        <Input
+                          value={String(num(sub.value))}
+                          onChange={(v) => {
+                            const np = [...pair];
+                            np[si] = { ...sub, value: Number(v) || 0 };
+                            updateCell({ ...cell, pair: np });
+                          }}
+                          placeholder="Value"
+                        />
+                        <Input
+                          value={str(sub.label).replace(/\n/g, " / ")}
+                          onChange={(v) => {
+                            const np = [...pair];
+                            np[si] = {
+                              ...sub,
+                              label: v.replace(/\s*\/\s*/g, "\n"),
+                            };
+                            updateCell({ ...cell, pair: np });
+                          }}
+                          placeholder="Label (use / for line break)"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
+              }
+              return (
+                <div
+                  key={ci}
+                  className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+                >
+                  <span className="text-[11px] font-bold text-[#728C28] uppercase">
+                    Single Stat Cell #{ci + 1}
+                  </span>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Input
+                      value={String(num(cell.value))}
+                      onChange={(v) =>
+                        updateCell({ ...cell, value: Number(v) || 0 })
+                      }
+                      placeholder="Value"
+                    />
+                    <Input
+                      value={str(cell.label).replace(/\n/g, " / ")}
+                      onChange={(v) =>
+                        updateCell({
+                          ...cell,
+                          label: v.replace(/\s*\/\s*/g, "\n"),
+                        })
+                      }
+                      placeholder="Label"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Report Structure Section Heading</FieldLabel>
+          <Input
+            value={str(content.structureHeading)}
+            onChange={(v) => patch({ structureHeading: v })}
+          />
+        </div>
+        <div className="space-y-3">
+          <FieldLabel>Structure Cards ({structureCards.length})</FieldLabel>
+          {structureCards.map((card, ci) => {
+            const updateCard = (nextCard: JsonObj) => {
+              const n = [...structureCards];
+              n[ci] = nextCard;
+              patch({ structureCards: n });
+            };
+            return (
+              <div
+                key={ci}
+                className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <Input
+                    value={str(card.title)}
+                    onChange={(v) => updateCard({ ...card, title: v })}
+                    placeholder="Card Title"
+                  />
+                  <Input
+                    value={str(card.icon)}
+                    onChange={(v) => updateCard({ ...card, icon: v })}
+                    placeholder="Icon Path"
+                  />
+                  <Input
+                    value={str(card.pageType)}
+                    onChange={(v) => updateCard({ ...card, pageType: v })}
+                    placeholder="Target PageType"
+                  />
+                </div>
+                <Textarea
+                  rows={2}
+                  value={str(card.description)}
+                  onChange={(v) => updateCard({ ...card, description: v })}
+                  placeholder="Card Description"
+                />
+                <Input
+                  value={arr<string>(card.tags).join(", ")}
+                  onChange={(v) =>
+                    updateCard({
+                      ...card,
+                      tags: v
+                        .split(",")
+                        .map((s) => s.trim())
+                        .filter(Boolean),
+                    })
+                  }
+                  placeholder="Tags (comma separated)"
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>Bottom Utility Banners ({banners.length})</FieldLabel>
+          {banners.map((b, bi) => (
+            <div
+              key={bi}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] grid grid-cols-1 sm:grid-cols-4 gap-2"
+            >
+              <Input
+                value={str(b.title)}
+                onChange={(v) => {
+                  const n = [...banners];
+                  n[bi] = { ...b, title: v };
+                  patch({ featureBanners: n });
+                }}
+                placeholder="Title"
+              />
+              <Input
+                value={str(b.description)}
+                onChange={(v) => {
+                  const n = [...banners];
+                  n[bi] = { ...b, description: v };
+                  patch({ featureBanners: n });
+                }}
+                placeholder="Description"
+              />
+              <Input
+                value={str(b.icon)}
+                onChange={(v) => {
+                  const n = [...banners];
+                  n[bi] = { ...b, icon: v };
+                  patch({ featureBanners: n });
+                }}
+                placeholder="Icon Path"
+              />
+              <Input
+                value={str(b.pageType)}
+                onChange={(v) => {
+                  const n = [...banners];
+                  n[bi] = { ...b, pageType: v };
+                  patch({ featureBanners: n });
+                }}
+                placeholder="pageType"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (tpl === "about") {
+    const partnership = (content.partnership || {}) as JsonObj;
+    const cards = arr<JsonObj>(content.cards);
+    const commitment = (content.commitment || {}) as JsonObj;
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Wave Graphic Path</FieldLabel>
+            <Input
+              value={str(content.waveImage)}
+              onChange={(v) => patch({ waveImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={3}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Working in Partnership Callout</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              value={str(partnership.title)}
+              onChange={(v) =>
+                patch({ partnership: { ...partnership, title: v } })
+              }
+              placeholder="Title"
+            />
+            <Input
+              value={str(partnership.icon)}
+              onChange={(v) =>
+                patch({ partnership: { ...partnership, icon: v } })
+              }
+              placeholder="Icon Path"
+            />
+          </div>
+          <Textarea
+            rows={2}
+            value={str(partnership.text)}
+            onChange={(v) =>
+              patch({ partnership: { ...partnership, text: v } })
+            }
+          />
+        </div>
+        <div>
+          <FieldLabel>Four Functions Section Heading</FieldLabel>
+          <Input
+            value={str(content.sectionHeading)}
+            onChange={(v) => patch({ sectionHeading: v })}
+          />
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>Four Role Cards ({cards.length})</FieldLabel>
+          {cards.map((c, ci) => (
+            <div
+              key={ci}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <Input
+                  value={str(c.title)}
+                  onChange={(v) => {
+                    const n = [...cards];
+                    n[ci] = { ...c, title: v };
+                    patch({ cards: n });
+                  }}
+                  placeholder="Card Title"
+                />
+                <Input
+                  value={str(c.icon)}
+                  onChange={(v) => {
+                    const n = [...cards];
+                    n[ci] = { ...c, icon: v };
+                    patch({ cards: n });
+                  }}
+                  placeholder="Icon Path"
+                />
+              </div>
+              <Textarea
+                rows={2}
+                value={str(c.text)}
+                onChange={(v) => {
+                  const n = [...cards];
+                  n[ci] = { ...c, text: v };
+                  patch({ cards: n });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Our Commitment Box (supports [[1]] footnote)</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              value={str(commitment.title)}
+              onChange={(v) =>
+                patch({ commitment: { ...commitment, title: v } })
+              }
+            />
+            <Input
+              value={str(commitment.icon)}
+              onChange={(v) =>
+                patch({ commitment: { ...commitment, icon: v } })
+              }
+            />
+          </div>
+          <Textarea
+            rows={2}
+            value={str(commitment.text)}
+            onChange={(v) =>
+              patch({ commitment: { ...commitment, text: v } })
+            }
+          />
+        </div>
+      </div>
+    );
+  } else if (tpl === "methodology") {
+    const steps = arr<JsonObj>(content.steps);
+    const reps = (content.representativesCard || {}) as JsonObj;
+    const research = (content.researchSection || {}) as JsonObj;
+    const gov = (content.governanceSection || {}) as JsonObj;
+    const bottomCards = arr<JsonObj>(content.bottomCards);
+    body = (
+      <div className="space-y-5">
+        <div>
+          <FieldLabel>Page Title</FieldLabel>
+          <Input
+            value={str(content.title)}
+            onChange={(v) => patch({ title: v })}
+          />
+        </div>
+        <StringListEditor
+          label="Intro Paragraphs"
+          items={arr<string>(content.introParagraphs)}
+          onChange={(nextP) => patch({ introParagraphs: nextP })}
+          addLabel="Add Intro Paragraph"
+        />
+        <div className="space-y-2">
+          <FieldLabel>5 Methodology Steps</FieldLabel>
+          {steps.map((s, si) => (
+            <div
+              key={si}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] grid grid-cols-1 sm:grid-cols-5 gap-2"
+            >
+              <Input
+                value={str(s.stepLabel)}
+                onChange={(v) => {
+                  const n = [...steps];
+                  n[si] = { ...s, stepLabel: v };
+                  patch({ steps: n });
+                }}
+                placeholder="STEP 1"
+              />
+              <Input
+                value={str(s.title)}
+                onChange={(v) => {
+                  const n = [...steps];
+                  n[si] = { ...s, title: v };
+                  patch({ steps: n });
+                }}
+                placeholder="Title"
+              />
+              <Input
+                value={
+                  s.count !== undefined ? String(num(s.count)) : str(s.subtitle)
+                }
+                onChange={(v) => {
+                  const n = [...steps];
+                  if (s.count !== undefined) {
+                    n[si] = { ...s, count: Number(v) || 0 };
+                  } else {
+                    n[si] = { ...s, subtitle: v };
+                  }
+                  patch({ steps: n });
+                }}
+                placeholder="Count or Subtitle"
+              />
+              <Input
+                value={str(s.suffixText)}
+                onChange={(v) => {
+                  const n = [...steps];
+                  n[si] = { ...s, suffixText: v };
+                  patch({ steps: n });
+                }}
+                placeholder="Suffix text"
+              />
+              <Input
+                value={str(s.icon)}
+                onChange={(v) => {
+                  const n = [...steps];
+                  n[si] = { ...s, icon: v };
+                  patch({ steps: n });
+                }}
+                placeholder="Icon SVG"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Industry-Sector Representatives Card</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              value={str(reps.title)}
+              onChange={(v) =>
+                patch({ representativesCard: { ...reps, title: v } })
+              }
+            />
+            <Input
+              value={str(reps.icon)}
+              onChange={(v) =>
+                patch({ representativesCard: { ...reps, icon: v } })
+              }
+            />
+          </div>
+          <Textarea
+            rows={2}
+            value={str(reps.intro)}
+            onChange={(v) =>
+              patch({ representativesCard: { ...reps, intro: v } })
+            }
+          />
+          <StringListEditor
+            label="Representative Organisations"
+            items={arr<string>(reps.items)}
+            onChange={(nextI) =>
+              patch({ representativesCard: { ...reps, items: nextI } })
+            }
+            multiline={false}
+            addLabel="Add Representative"
+          />
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Secondary Research & Council Stats Section</FieldLabel>
+          <Textarea
+            rows={3}
+            value={str(research.paragraph)}
+            onChange={(v) =>
+              patch({ researchSection: { ...research, paragraph: v } })
+            }
+          />
+          {arr<JsonObj>(research.stats).map((st, si) => (
+            <div key={si} className="grid grid-cols-3 gap-2">
+              <Input
+                value={String(num(st.value))}
+                onChange={(v) => {
+                  const ns = [...arr<JsonObj>(research.stats)];
+                  ns[si] = { ...st, value: Number(v) || 0 };
+                  patch({ researchSection: { ...research, stats: ns } });
+                }}
+                placeholder="Count"
+              />
+              <div className="col-span-2">
+                <Input
+                  value={str(st.label)}
+                  onChange={(v) => {
+                    const ns = [...arr<JsonObj>(research.stats)];
+                    ns[si] = { ...st, label: v };
+                    patch({ researchSection: { ...research, stats: ns } });
+                  }}
+                  placeholder="Label"
+                />
+              </div>
+            </div>
+          ))}
+          <Input
+            value={str(research.appendixText)}
+            onChange={(v) =>
+              patch({ researchSection: { ...research, appendixText: v } })
+            }
+            placeholder="Appendix Note"
+          />
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Governance Stages Heading & Stages</FieldLabel>
+          <Input
+            value={str(gov.heading)}
+            onChange={(v) => patch({ governanceSection: { ...gov, heading: v } })}
+          />
+          {arr<JsonObj>(gov.stages).map((st, si) => (
+            <div key={si} className="p-2.5 rounded-lg bg-white border border-[#E5E8DA] space-y-2">
+              <Input
+                value={str(st.title)}
+                onChange={(v) => {
+                  const ns = [...arr<JsonObj>(gov.stages)];
+                  ns[si] = { ...st, title: v };
+                  patch({ governanceSection: { ...gov, stages: ns } });
+                }}
+              />
+              <Textarea
+                rows={2}
+                value={arr<string>(st.paragraphs).join("\n")}
+                onChange={(v) => {
+                  const ns = [...arr<JsonObj>(gov.stages)];
+                  ns[si] = { ...st, paragraphs: v.split("\n") };
+                  patch({ governanceSection: { ...gov, stages: ns } });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>Bottom Info Cards ({bottomCards.length})</FieldLabel>
+          {bottomCards.map((bc, bi) => (
+            <div
+              key={bi}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <Input
+                  value={str(bc.title)}
+                  onChange={(v) => {
+                    const n = [...bottomCards];
+                    n[bi] = { ...bc, title: v };
+                    patch({ bottomCards: n });
+                  }}
+                />
+                <Input
+                  value={str(bc.icon)}
+                  onChange={(v) => {
+                    const n = [...bottomCards];
+                    n[bi] = { ...bc, icon: v };
+                    patch({ bottomCards: n });
+                  }}
+                />
+              </div>
+              <Textarea
+                rows={3}
+                value={str(bc.text)}
+                onChange={(v) => {
+                  const n = [...bottomCards];
+                  n[bi] = { ...bc, text: v };
+                  patch({ bottomCards: n });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (tpl === "executive_summary") {
+    const driversBanner = (content.driversBanner || {}) as JsonObj;
+    const themesHeader = (content.themesHeader || {}) as JsonObj;
+    const strategiesHeader = (content.strategiesHeader || {}) as JsonObj;
+    const lfBanner = (content.lookingForwardBanner || {}) as JsonObj;
+    const supportingLinks = arr<JsonObj>(content.supportingLinks);
+    body = (
+      <div className="space-y-5">
+        <div>
+          <FieldLabel>Page Title</FieldLabel>
+          <Input
+            value={str(content.title)}
+            onChange={(v) => patch({ title: v })}
+          />
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={3}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        {[
+          ["Drivers Banner", "driversBanner", driversBanner],
+          ["Themes Banner", "themesHeader", themesHeader],
+          ["Strategies Banner", "strategiesHeader", strategiesHeader],
+          ["Looking Forward Banner", "lookingForwardBanner", lfBanner],
+        ].map(([lbl, key, obj]) => {
+          const b = obj as JsonObj;
+          const k = key as string;
+          return (
+            <div
+              key={k}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+            >
+              <FieldLabel>{lbl as string}</FieldLabel>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <Input
+                  value={str(b.title)}
+                  onChange={(v) => patch({ [k]: { ...b, title: v } })}
+                  placeholder="Title"
+                />
+                <Input
+                  value={str(b.buttonLabel)}
+                  onChange={(v) => patch({ [k]: { ...b, buttonLabel: v } })}
+                  placeholder="Button Label"
+                />
+                <Input
+                  value={str(b.targetPageType)}
+                  onChange={(v) =>
+                    patch({ [k]: { ...b, targetPageType: v } })
+                  }
+                  placeholder="targetPageType"
+                />
+              </div>
+              <Textarea
+                rows={2}
+                value={str(b.description)}
+                onChange={(v) => patch({ [k]: { ...b, description: v } })}
+              />
+            </div>
+          );
+        })}
+        <LgThemesArrayEditor
+          themes={arr<JsonObj>(content.themes)}
+          onChange={(nextT) => patch({ themes: nextT })}
+        />
+        <div>
+          <FieldLabel>Terminology Callout Note</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.terminologyNote)}
+            onChange={(v) => patch({ terminologyNote: v })}
+          />
+        </div>
+        <LgStrategiesArrayEditor
+          strategies={arr<JsonObj>(content.strategies)}
+          onChange={(nextS) => patch({ strategies: nextS })}
+        />
+        <div className="space-y-2">
+          <FieldLabel>Supporting Links ({supportingLinks.length})</FieldLabel>
+          {supportingLinks.map((lnk, li) => (
+            <div key={li} className="grid grid-cols-2 gap-2">
+              <Input
+                value={str(lnk.label)}
+                onChange={(v) => {
+                  const n = [...supportingLinks];
+                  n[li] = { ...lnk, label: v };
+                  patch({ supportingLinks: n });
+                }}
+              />
+              <Input
+                value={str(lnk.pageType)}
+                onChange={(v) => {
+                  const n = [...supportingLinks];
+                  n[li] = { ...lnk, pageType: v };
+                  patch({ supportingLinks: n });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (tpl === "drivers_of_change") {
+    const drivers = arr<JsonObj>(content.drivers);
+    const megatrends = arr<JsonObj>(content.megatrends);
+    body = (
+      <div className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Diagram Image</FieldLabel>
+            <Input
+              value={str(content.diagramImage)}
+              onChange={(v) => patch({ diagramImage: v })}
+            />
+          </div>
+        </div>
+        <StringListEditor
+          label="Intro Paragraphs"
+          items={arr<string>(content.introParagraphs)}
+          onChange={(nextP) => patch({ introParagraphs: nextP })}
+          addLabel="Add Paragraph"
+        />
+        <div className="space-y-2">
+          <FieldLabel>4 Drivers of Change ({drivers.length})</FieldLabel>
+          {drivers.map((d, di) => {
+            const updateD = (nd: JsonObj) => {
+              const n = [...drivers];
+              n[di] = nd;
+              patch({ drivers: n });
+            };
+            return (
+              <div
+                key={di}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <Input
+                    value={str(d.number)}
+                    onChange={(v) => updateD({ ...d, number: v })}
+                    placeholder="DRIVER 1"
+                  />
+                  <Input
+                    value={str(d.shortTitle)}
+                    onChange={(v) => updateD({ ...d, shortTitle: v })}
+                    placeholder="Short Title"
+                  />
+                  <Input
+                    value={str(d.fullTitle)}
+                    onChange={(v) => updateD({ ...d, fullTitle: v })}
+                    placeholder="Full Title"
+                  />
+                </div>
+                <Input
+                  value={str(d.shortDesc)}
+                  onChange={(v) => updateD({ ...d, shortDesc: v })}
+                  placeholder="Card Preview Snippet"
+                />
+                <Textarea
+                  rows={3}
+                  value={str(d.fullDesc)}
+                  onChange={(v) => updateD({ ...d, fullDesc: v })}
+                  placeholder="Full Description (supports [[N]] citations)"
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>9 Megatrends ({megatrends.length})</FieldLabel>
+          {megatrends.map((m, mi) => {
+            const updateM = (nm: JsonObj) => {
+              const n = [...megatrends];
+              n[mi] = nm;
+              patch({ megatrends: n });
+            };
+            return (
+              <div
+                key={mi}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <Input
+                    value={str(m.title)}
+                    onChange={(v) => updateM({ ...m, title: v })}
+                    placeholder="Megatrend Title"
+                  />
+                  <Input
+                    value={str(m.icon)}
+                    onChange={(v) => updateM({ ...m, icon: v })}
+                    placeholder="Icon SVG"
+                  />
+                </div>
+                <Textarea
+                  rows={2}
+                  value={str(m.desc)}
+                  onChange={(v) => updateM({ ...m, desc: v })}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <FieldLabel>Closing Paragraph</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.closingParagraph)}
+            onChange={(v) => patch({ closingParagraph: v })}
+          />
+        </div>
+      </div>
+    );
+  } else if (tpl === "industry_overview") {
+    const stats = arr<JsonObj>(content.stats);
+    const wf = (content.workforceSection || {}) as JsonObj;
+    const callouts = arr<JsonObj>(content.callouts);
+    body = (
+      <div className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero SVG Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Intro Narrative (supports [[N]] citations)</FieldLabel>
+          <Textarea
+            rows={4}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>4 Stat Cards ({stats.length})</FieldLabel>
+          {stats.map((st, si) => {
+            const updateSt = (nst: JsonObj) => {
+              const n = [...stats];
+              n[si] = nst;
+              patch({ stats: n });
+            };
+            return (
+              <div
+                key={si}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <Input
+                    value={str(st.icon)}
+                    onChange={(v) => updateSt({ ...st, icon: v })}
+                    placeholder="Icon Path"
+                  />
+                  <Input
+                    value={str(st.type)}
+                    onChange={(v) => updateSt({ ...st, type: v })}
+                    placeholder="single or split"
+                  />
+                  <Input
+                    value={str(st.suffix)}
+                    onChange={(v) => updateSt({ ...st, suffix: v })}
+                    placeholder="Suffix (+ or %)"
+                  />
+                </div>
+                {str(st.type) === "split" ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                    <Input
+                      value={String(num(st.targetA))}
+                      onChange={(v) =>
+                        updateSt({ ...st, targetA: Number(v) || 0 })
+                      }
+                      placeholder="Target A"
+                    />
+                    <Input
+                      value={String(num(st.targetB))}
+                      onChange={(v) =>
+                        updateSt({ ...st, targetB: Number(v) || 0 })
+                      }
+                      placeholder="Target B"
+                    />
+                    <Input
+                      value={str(st.line1)}
+                      onChange={(v) => updateSt({ ...st, line1: v })}
+                      placeholder="Line 1"
+                    />
+                    <Input
+                      value={str(st.line2)}
+                      onChange={(v) => updateSt({ ...st, line2: v })}
+                      placeholder="Line 2"
+                    />
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <Input
+                      value={String(num(st.target))}
+                      onChange={(v) =>
+                        updateSt({ ...st, target: Number(v) || 0 })
+                      }
+                      placeholder="Target Number"
+                    />
+                    <div className="sm:col-span-2">
+                      <Input
+                        value={str(st.description)}
+                        onChange={(v) => updateSt({ ...st, description: v })}
+                        placeholder="Description"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Multidisciplinary Workforce Section</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              value={str(wf.title)}
+              onChange={(v) =>
+                patch({ workforceSection: { ...wf, title: v } })
+              }
+            />
+            <Input
+              value={str(wf.icon)}
+              onChange={(v) =>
+                patch({ workforceSection: { ...wf, icon: v } })
+              }
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <Textarea
+              rows={3}
+              value={str(wf.leftParagraph)}
+              onChange={(v) =>
+                patch({ workforceSection: { ...wf, leftParagraph: v } })
+              }
+            />
+            <Textarea
+              rows={3}
+              value={str(wf.rightParagraph)}
+              onChange={(v) =>
+                patch({ workforceSection: { ...wf, rightParagraph: v } })
+              }
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Datapoints Lead Line</FieldLabel>
+          <Input
+            value={str(content.datapointsLead)}
+            onChange={(v) => patch({ datapointsLead: v })}
+          />
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>Bottom Profile Callouts ({callouts.length})</FieldLabel>
+          {callouts.map((co, ci) => (
+            <div
+              key={ci}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <Input
+                  value={str(co.title)}
+                  onChange={(v) => {
+                    const n = [...callouts];
+                    n[ci] = { ...co, title: v };
+                    patch({ callouts: n });
+                  }}
+                />
+                <Input
+                  value={str(co.buttonLabel)}
+                  onChange={(v) => {
+                    const n = [...callouts];
+                    n[ci] = { ...co, buttonLabel: v };
+                    patch({ callouts: n });
+                  }}
+                />
+                <Input
+                  value={str(co.targetPageType)}
+                  onChange={(v) => {
+                    const n = [...callouts];
+                    n[ci] = { ...co, targetPageType: v };
+                    patch({ callouts: n });
+                  }}
+                />
+              </div>
+              <Textarea
+                rows={2}
+                value={str(co.description)}
+                onChange={(v) => {
+                  const n = [...callouts];
+                  n[ci] = { ...co, description: v };
+                  patch({ callouts: n });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (tpl === "state_territory") {
+    const statesMap = (content.statesData || {}) as Record<string, JsonObj>;
+    const stateCodes = Object.keys(statesMap);
+    const activeCode = statesMap[activeStateCode]
+      ? activeStateCode
+      : stateCodes[0] || "NSW";
+    const activeState = (statesMap[activeCode] || {}) as JsonObj;
+    const updateActiveState = (nextS: JsonObj) => {
+      patch({
+        statesData: {
+          ...statesMap,
+          [activeCode]: nextS,
+        },
+      });
+    };
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>ABS Source URL</FieldLabel>
+            <Input
+              value={str(content.absSourceUrl)}
+              onChange={(v) => patch({ absSourceUrl: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>ALGA Survey URL</FieldLabel>
+            <Input
+              value={str(content.algaSurveyUrl)}
+              onChange={(v) => patch({ algaSurveyUrl: v })}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {stateCodes.map((code) => (
+            <button
+              key={code}
+              type="button"
+              onClick={() => setActiveStateCode(code)}
+              className={`px-3 py-1 rounded-full text-xs font-bold cursor-pointer border ${
+                activeCode === code
+                  ? "bg-[#8AC900] text-[#252D02] border-[#8AC900]"
+                  : "bg-white text-[#416102] border-[#E5E8DA]"
+              }`}
+            >
+              {code}
+            </button>
+          ))}
+        </div>
+
+        {activeCode && (
+          <div className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-3">
+            <FieldLabel>Jurisdiction Profile: {activeCode}</FieldLabel>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <Input
+                value={str(activeState.name)}
+                onChange={(v) =>
+                  updateActiveState({ ...activeState, name: v })
+                }
+                placeholder="State Name"
+              />
+              <Input
+                value={String(activeState.employees ?? "")}
+                onChange={(v) =>
+                  updateActiveState({ ...activeState, employees: v })
+                }
+                placeholder="Employees (e.g. 58,900)"
+              />
+              <Input
+                value={String(activeState.councils ?? "")}
+                onChange={(v) =>
+                  updateActiveState({
+                    ...activeState,
+                    councils: Number(v) || 0,
+                  })
+                }
+                placeholder="Council Count"
+              />
+            </div>
+            <StringListEditor
+              label="Top 5 Occupational Shortages"
+              items={arr<string>(activeState.topShortages)}
+              onChange={(nextList) =>
+                updateActiveState({ ...activeState, topShortages: nextList })
+              }
+              multiline={false}
+              addLabel="Add Shortage"
+            />
+            <StringListEditor
+              label="Local Government Specific Occupational Shortages"
+              items={arr<string>(activeState.lgSpecificShortages)}
+              onChange={(nextList) =>
+                updateActiveState({
+                  ...activeState,
+                  lgSpecificShortages: nextList,
+                })
+              }
+              multiline={false}
+              addLabel="Add Specific Shortage"
+            />
+            <p className="text-[11px] text-[#6B7250]">
+              To edit full OSL shortage comparison matrices (
+              <code>oslTable</code>, <code>nationalOccupations</code>,{" "}
+              <code>compareOccupations</code>), click{" "}
+              <strong>Switch to Raw JSON</strong> above.
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  } else if (tpl === "industry_profile") {
+    const assetSec = (content.assetSection || {}) as JsonObj;
+    const assetCards = arr<JsonObj>(assetSec.cards);
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Graphic Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <LgChartEditor
+          label="Employment Growth Chart"
+          chart={(content.growthChart || {}) as JsonObj}
+          onChange={(nextC) => patch({ growthChart: nextC })}
+        />
+        <LgChartEditor
+          label="VET Enrolments & Completions Chart"
+          chart={(content.trainingChart || {}) as JsonObj}
+          onChange={(nextC) => patch({ trainingChart: nextC })}
+        />
+        <div className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-3">
+          <FieldLabel>Asset Management Section</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              value={str(assetSec.heading)}
+              onChange={(v) =>
+                patch({ assetSection: { ...assetSec, heading: v } })
+              }
+            />
+            <Input
+              value={str(assetSec.sourceMarkdown)}
+              onChange={(v) =>
+                patch({ assetSection: { ...assetSec, sourceMarkdown: v } })
+              }
+            />
+          </div>
+          {assetCards.map((ac, ai) => {
+            const updateAc = (nac: JsonObj) => {
+              const n = [...assetCards];
+              n[ai] = nac;
+              patch({ assetSection: { ...assetSec, cards: n } });
+            };
+            return (
+              <div
+                key={ai}
+                className="p-3 rounded-lg bg-white border border-[#E5E8DA] grid grid-cols-1 sm:grid-cols-5 gap-2"
+              >
+                <Input
+                  value={str(ac.topLabel)}
+                  onChange={(v) => updateAc({ ...ac, topLabel: v })}
+                  placeholder="Top Label"
+                />
+                <Input
+                  value={str(ac.prefix)}
+                  onChange={(v) => updateAc({ ...ac, prefix: v })}
+                  placeholder="Prefix ($)"
+                />
+                <Input
+                  value={String(num(ac.target))}
+                  onChange={(v) =>
+                    updateAc({ ...ac, target: Number(v) || 0 })
+                  }
+                  placeholder="Value"
+                />
+                <Input
+                  value={str(ac.suffix)}
+                  onChange={(v) => updateAc({ ...ac, suffix: v })}
+                  placeholder="Suffix (%)"
+                />
+                <Input
+                  value={str(ac.bottomLabel)}
+                  onChange={(v) => updateAc({ ...ac, bottomLabel: v })}
+                  placeholder="Bottom Label"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (tpl === "workforce_insights") {
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Image Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <LgThemesArrayEditor
+          themes={arr<JsonObj>(content.themes)}
+          onChange={(nextT) => patch({ themes: nextT })}
+        />
+      </div>
+    );
+  } else if (tpl === "insight_detail") {
+    const leftCard = content.leftCard as JsonObj | undefined;
+    const topLeftCard = content.topLeftCard as JsonObj | undefined;
+    const rightInsightCard = content.rightInsightCard as JsonObj | undefined;
+    const topRightInsightCard = content.topRightInsightCard as
+      | JsonObj
+      | undefined;
+    const leftCards = arr<JsonObj>(content.leftCards);
+    const rightInsightCards = arr<JsonObj>(content.rightInsightCards);
+    const bottomCards = arr<JsonObj>(content.bottomCards);
+    const shortagePanel = content.shortagePanel as JsonObj | undefined;
+    const rightSection = content.rightSection as JsonObj | undefined;
+
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Eyebrow</FieldLabel>
+            <Input
+              value={str(content.eyebrow)}
+              onChange={(v) => patch({ eyebrow: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Theme Title</FieldLabel>
+            <Input
+              value={str(content.themeTitle)}
+              onChange={(v) => patch({ themeTitle: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Accent Border Colour</FieldLabel>
+            <Input
+              value={str(content.accentBorderColor)}
+              onChange={(v) => patch({ accentBorderColor: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Headline</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.headline)}
+            onChange={(v) => patch({ headline: v })}
+          />
+        </div>
+
+        {leftCard && (
+          <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+            <FieldLabel>Left Card</FieldLabel>
+            <Input
+              value={str(leftCard.title)}
+              onChange={(v) =>
+                patch({ leftCard: { ...leftCard, title: v } })
+              }
+            />
+            <Textarea
+              rows={4}
+              value={str(leftCard.paragraph)}
+              onChange={(v) =>
+                patch({ leftCard: { ...leftCard, paragraph: v } })
+              }
+            />
+          </div>
+        )}
+
+        {topLeftCard && (
+          <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+            <FieldLabel>Top Left Card</FieldLabel>
+            <Input
+              value={str(topLeftCard.title)}
+              onChange={(v) =>
+                patch({ topLeftCard: { ...topLeftCard, title: v } })
+              }
+            />
+            <Textarea
+              rows={3}
+              value={str(topLeftCard.paragraph)}
+              onChange={(v) =>
+                patch({ topLeftCard: { ...topLeftCard, paragraph: v } })
+              }
+            />
+          </div>
+        )}
+
+        {leftCards.length > 0 && (
+          <div className="space-y-2">
+            <FieldLabel>Left Cards ({leftCards.length})</FieldLabel>
+            {leftCards.map((lc, li) => (
+              <div
+                key={li}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <Input
+                  value={str(lc.title)}
+                  onChange={(v) => {
+                    const n = [...leftCards];
+                    n[li] = { ...lc, title: v };
+                    patch({ leftCards: n });
+                  }}
+                />
+                <Textarea
+                  rows={4}
+                  value={str(lc.paragraph)}
+                  onChange={(v) => {
+                    const n = [...leftCards];
+                    n[li] = { ...lc, paragraph: v };
+                    patch({ leftCards: n });
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {bottomCards.length > 0 && (
+          <div className="space-y-2">
+            <FieldLabel>Bottom Detail Cards ({bottomCards.length})</FieldLabel>
+            {bottomCards.map((bc, bi) => (
+              <div
+                key={bi}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <Input
+                  value={str(bc.title)}
+                  onChange={(v) => {
+                    const n = [...bottomCards];
+                    n[bi] = { ...bc, title: v };
+                    patch({ bottomCards: n });
+                  }}
+                />
+                <Textarea
+                  rows={3}
+                  value={str(bc.paragraph)}
+                  onChange={(v) => {
+                    const n = [...bottomCards];
+                    n[bi] = { ...bc, paragraph: v };
+                    patch({ bottomCards: n });
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {(rightInsightCard || topRightInsightCard) && (
+          <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+            <FieldLabel>
+              {rightInsightCard
+                ? "Right Industry Insight Card"
+                : "Top Right Industry Insight Card"}
+            </FieldLabel>
+            {(() => {
+              const targetKey = rightInsightCard
+                ? "rightInsightCard"
+                : "topRightInsightCard";
+              const targetObj = (rightInsightCard ||
+                topRightInsightCard) as JsonObj;
+              return (
+                <>
+                  <Input
+                    value={str(targetObj.title)}
+                    onChange={(v) =>
+                      patch({ [targetKey]: { ...targetObj, title: v } })
+                    }
+                  />
+                  <Textarea
+                    rows={3}
+                    value={str(targetObj.paragraph)}
+                    onChange={(v) =>
+                      patch({ [targetKey]: { ...targetObj, paragraph: v } })
+                    }
+                  />
+                  {Array.isArray(targetObj.bullets) && (
+                    <StringListEditor
+                      label="Service Bullets"
+                      items={arr<string>(targetObj.bullets)}
+                      onChange={(nb) =>
+                        patch({ [targetKey]: { ...targetObj, bullets: nb } })
+                      }
+                      multiline={false}
+                      addLabel="Add Bullet"
+                    />
+                  )}
+                </>
+              );
+            })()}
+          </div>
+        )}
+
+        {rightInsightCards.length > 0 && (
+          <div className="space-y-2">
+            <FieldLabel>
+              Right Industry Insight Cards ({rightInsightCards.length})
+            </FieldLabel>
+            {rightInsightCards.map((rc, ri) => (
+              <div
+                key={ri}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <Input
+                  value={str(rc.title)}
+                  onChange={(v) => {
+                    const n = [...rightInsightCards];
+                    n[ri] = { ...rc, title: v };
+                    patch({ rightInsightCards: n });
+                  }}
+                />
+                <Textarea
+                  rows={3}
+                  value={str(rc.paragraph)}
+                  onChange={(v) => {
+                    const n = [...rightInsightCards];
+                    n[ri] = { ...rc, paragraph: v };
+                    patch({ rightInsightCards: n });
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {shortagePanel && (
+          <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+            <FieldLabel>Jurisdictional Shortage Panel</FieldLabel>
+            <Input
+              value={str(shortagePanel.title)}
+              onChange={(v) =>
+                patch({ shortagePanel: { ...shortagePanel, title: v } })
+              }
+            />
+            <Textarea
+              rows={2}
+              value={str(shortagePanel.intro)}
+              onChange={(v) =>
+                patch({ shortagePanel: { ...shortagePanel, intro: v } })
+              }
+            />
+            {arr<JsonObj>(shortagePanel.states).map((st, si) => (
+              <div
+                key={si}
+                className="p-2.5 rounded-lg bg-white border border-[#E5E8DA] grid grid-cols-1 sm:grid-cols-3 gap-2"
+              >
+                <Input
+                  value={str(st.name)}
+                  onChange={(v) => {
+                    const ns = [...arr<JsonObj>(shortagePanel.states)];
+                    ns[si] = { ...st, name: v };
+                    patch({ shortagePanel: { ...shortagePanel, states: ns } });
+                  }}
+                />
+                <div className="sm:col-span-2">
+                  <Input
+                    value={arr<string>(st.items).join(", ")}
+                    onChange={(v) => {
+                      const ns = [...arr<JsonObj>(shortagePanel.states)];
+                      ns[si] = {
+                        ...st,
+                        items: v
+                          .split(",")
+                          .map((x) => x.trim())
+                          .filter(Boolean),
+                      };
+                      patch({
+                        shortagePanel: { ...shortagePanel, states: ns },
+                      });
+                    }}
+                    placeholder="Comma separated shortages"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {rightSection && (
+          <div className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+            <FieldLabel>Contextualisation Right Section</FieldLabel>
+            <Input
+              value={str(rightSection.heading)}
+              onChange={(v) =>
+                patch({ rightSection: { ...rightSection, heading: v } })
+              }
+            />
+            <Textarea
+              rows={2}
+              value={str(rightSection.listIntro)}
+              onChange={(v) =>
+                patch({ rightSection: { ...rightSection, listIntro: v } })
+              }
+            />
+            <StringListEditor
+              label="Preference Bullets"
+              items={arr<string>(rightSection.bullets)}
+              onChange={(nb) =>
+                patch({ rightSection: { ...rightSection, bullets: nb } })
+              }
+              addLabel="Add Bullet"
+            />
+            <Textarea
+              rows={3}
+              value={str(rightSection.closingParagraph)}
+              onChange={(v) =>
+                patch({
+                  rightSection: { ...rightSection, closingParagraph: v },
+                })
+              }
+              placeholder="Closing Paragraph"
+            />
+          </div>
+        )}
+      </div>
+    );
+  } else if (tpl === "workforce_strategies") {
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Eyebrow</FieldLabel>
+            <Input
+              value={str(content.eyebrow)}
+              onChange={(v) => patch({ eyebrow: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Title Line 1</FieldLabel>
+            <Input
+              value={str(content.titleLine1)}
+              onChange={(v) => patch({ titleLine1: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Title Line 2</FieldLabel>
+            <Input
+              value={str(content.titleLine2)}
+              onChange={(v) => patch({ titleLine2: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <LgCtaPairEditor
+            label="Previous Button"
+            value={(content.prevCta || {}) as JsonObj}
+            onChange={(v) => patch({ prevCta: v })}
+          />
+          <LgCtaPairEditor
+            label="Next Button"
+            value={(content.nextCta || {}) as JsonObj}
+            onChange={(v) => patch({ nextCta: v })}
+          />
+        </div>
+        <LgStrategiesArrayEditor
+          strategies={arr<JsonObj>(content.strategies)}
+          onChange={(nextS) => patch({ strategies: nextS })}
+        />
+      </div>
+    );
+  } else if (tpl === "update_2025_strategies") {
+    const challengeCards = arr<JsonObj>(content.challengeCards);
+    const projects = arr<JsonObj>(content.projects);
+    body = (
+      <div className="space-y-4">
+        <div>
+          <FieldLabel>Page Title</FieldLabel>
+          <Input
+            value={str(content.title)}
+            onChange={(v) => patch({ title: v })}
+          />
+        </div>
+        <div>
+          <FieldLabel>Intro</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <LgCtaPairEditor
+            label="Previous Button"
+            value={(content.prevCta || {}) as JsonObj}
+            onChange={(v) => patch({ prevCta: v })}
+          />
+          <LgCtaPairEditor
+            label="Next Button"
+            value={(content.nextCta || {}) as JsonObj}
+            onChange={(v) => patch({ nextCta: v })}
+          />
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>3 Challenge Cards ({challengeCards.length})</FieldLabel>
+          {challengeCards.map((c, ci) => (
+            <div
+              key={ci}
+              className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+            >
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  value={str(c.title)}
+                  onChange={(v) => {
+                    const n = [...challengeCards];
+                    n[ci] = { ...c, title: v };
+                    patch({ challengeCards: n });
+                  }}
+                />
+                <Input
+                  value={str(c.icon)}
+                  onChange={(v) => {
+                    const n = [...challengeCards];
+                    n[ci] = { ...c, icon: v };
+                    patch({ challengeCards: n });
+                  }}
+                />
+              </div>
+              <Textarea
+                rows={2}
+                value={str(c.text)}
+                onChange={(v) => {
+                  const n = [...challengeCards];
+                  n[ci] = { ...c, text: v };
+                  patch({ challengeCards: n });
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div>
+          <FieldLabel>Closing Transition Text</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.closingIntro)}
+            onChange={(v) => patch({ closingIntro: v })}
+          />
+        </div>
+        <div className="space-y-3">
+          <FieldLabel>2025 Projects ({projects.length})</FieldLabel>
+          {projects.map((p, pi) => {
+            const updateP = (np: JsonObj) => {
+              const n = [...projects];
+              n[pi] = np;
+              patch({ projects: n });
+            };
+            return (
+              <div
+                key={pi}
+                className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2.5"
+              >
+                <div className="grid grid-cols-2 gap-2">
+                  <Input
+                    value={str(p.badge)}
+                    onChange={(v) => updateP({ ...p, badge: v })}
+                  />
+                  <Input
+                    value={str(p.borderColor)}
+                    onChange={(v) => updateP({ ...p, borderColor: v })}
+                  />
+                </div>
+                <Input
+                  value={str(p.title)}
+                  onChange={(v) => updateP({ ...p, title: v })}
+                />
+                <StringListEditor
+                  label="Project Intro Paragraphs"
+                  items={arr<string>(p.introParagraphs)}
+                  onChange={(nextI) =>
+                    updateP({ ...p, introParagraphs: nextI })
+                  }
+                  addLabel="Add Paragraph"
+                />
+                <Textarea
+                  rows={2}
+                  value={str(p.ministerialPriority)}
+                  onChange={(v) =>
+                    updateP({ ...p, ministerialPriority: v })
+                  }
+                  placeholder="Ministerial Priority"
+                />
+                <Textarea
+                  rows={2}
+                  value={str(p.strategicPlan)}
+                  onChange={(v) => updateP({ ...p, strategicPlan: v })}
+                  placeholder="Strategic Plan"
+                />
+                <Input
+                  value={str(p.driversIntro)}
+                  onChange={(v) => updateP({ ...p, driversIntro: v })}
+                  placeholder="Drivers Intro"
+                />
+                <StringListEditor
+                  label="Drivers Bullets"
+                  items={arr<string>(p.driversBullets)}
+                  onChange={(nb) => updateP({ ...p, driversBullets: nb })}
+                  multiline={false}
+                  addLabel="Add Driver"
+                />
+                <Textarea
+                  rows={3}
+                  value={str(p.nextSteps)}
+                  onChange={(v) => updateP({ ...p, nextSteps: v })}
+                  placeholder="Next Steps"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (tpl === "existing_strategies") {
+    const items = arr<JsonObj>(content.strategies);
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Graphic Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <LgCtaPairEditor
+            label="Previous Button"
+            value={(content.prevCta || {}) as JsonObj}
+            onChange={(v) => patch({ prevCta: v })}
+          />
+          <LgCtaPairEditor
+            label="Next Button"
+            value={(content.nextCta || {}) as JsonObj}
+            onChange={(v) => patch({ nextCta: v })}
+          />
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <FieldLabel>
+              Existing Industry-Sector Strategies ({items.length})
+            </FieldLabel>
+            <button
+              type="button"
+              onClick={() =>
+                patch({
+                  strategies: [
+                    ...items,
+                    {
+                      id: Date.now(),
+                      code: `${String(items.length + 1).padStart(2, "0")}-NATIONAL`,
+                      title: "New Existing Strategy",
+                      subtitle: "",
+                      description: "",
+                      impactItems: [
+                        { title: "Consultation and engagement", description: "" },
+                        { title: "2025 Workforce Strategies", description: "" },
+                        { title: "2026 Workforce Strategies", description: "" },
+                      ],
+                    },
+                  ],
+                })
+              }
+              className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#8AC900] text-[#252D02] text-xs font-bold cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" /> Add Strategy
+            </button>
+          </div>
+          {items.map((st, si) => {
+            const updateSt = (nst: JsonObj) => {
+              const n = [...items];
+              n[si] = nst;
+              patch({ strategies: n });
+            };
+            return (
+              <div
+                key={si}
+                className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={str(st.code)}
+                    onChange={(v) => updateSt({ ...st, code: v })}
+                    placeholder="01-NATIONAL SURVEY"
+                  />
+                  <Input
+                    value={str(st.subtitle)}
+                    onChange={(v) => updateSt({ ...st, subtitle: v })}
+                    placeholder="Organisation · Year"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      patch({
+                        strategies: items.filter((_, i) => i !== si),
+                      })
+                    }
+                    className="p-1.5 text-red-600 cursor-pointer"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+                <Input
+                  value={str(st.title)}
+                  onChange={(v) => updateSt({ ...st, title: v })}
+                  placeholder="Title"
+                />
+                <Textarea
+                  rows={3}
+                  value={str(st.description)}
+                  onChange={(v) => updateSt({ ...st, description: v })}
+                  placeholder="Description (supports *italic*)"
+                />
+                {arr<JsonObj>(st.impactItems).map((imp, ii) => (
+                  <div key={ii} className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <Input
+                      value={str(imp.title)}
+                      onChange={(v) => {
+                        const ni = [...arr<JsonObj>(st.impactItems)];
+                        ni[ii] = { ...imp, title: v };
+                        updateSt({ ...st, impactItems: ni });
+                      }}
+                    />
+                    <div className="sm:col-span-2">
+                      <Textarea
+                        rows={2}
+                        value={str(imp.description)}
+                        onChange={(v) => {
+                          const ni = [...arr<JsonObj>(st.impactItems)];
+                          ni[ii] = { ...imp, description: v };
+                          updateSt({ ...st, impactItems: ni });
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (tpl === "federal_initiatives") {
+    const items = arr<JsonObj>(content.initiatives);
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Graphic Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <div>
+          <FieldLabel>Introduction</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.intro)}
+            onChange={(v) => patch({ intro: v })}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <LgCtaPairEditor
+            label="Previous Button"
+            value={(content.prevCta || {}) as JsonObj}
+            onChange={(v) => patch({ prevCta: v })}
+          />
+          <LgCtaPairEditor
+            label="Next Button"
+            value={(content.nextCta || {}) as JsonObj}
+            onChange={(v) => patch({ nextCta: v })}
+          />
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <FieldLabel>
+              Federal Government Initiatives ({items.length})
+            </FieldLabel>
+            <button
+              type="button"
+              onClick={() =>
+                patch({
+                  initiatives: [
+                    ...items,
+                    {
+                      id: Date.now(),
+                      number: String(items.length + 1).padStart(2, "0"),
+                      title: "New Federal Initiative",
+                      subtitle: "",
+                      description: "",
+                      impactDescription: "",
+                    },
+                  ],
+                })
+              }
+              className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#8AC900] text-[#252D02] text-xs font-bold cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" /> Add Initiative
+            </button>
+          </div>
+          {items.map((it, ii) => {
+            const updateIt = (nit: JsonObj) => {
+              const n = [...items];
+              n[ii] = nit;
+              patch({ initiatives: n });
+            };
+            return (
+              <div
+                key={ii}
+                className="p-3.5 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                  <Input
+                    value={str(it.number)}
+                    onChange={(v) => updateIt({ ...it, number: v })}
+                    placeholder="01"
+                  />
+                  <Input
+                    value={str(it.title)}
+                    onChange={(v) => updateIt({ ...it, title: v })}
+                    placeholder="Title"
+                  />
+                  <Input
+                    value={str(it.subtitle)}
+                    onChange={(v) => updateIt({ ...it, subtitle: v })}
+                    placeholder="Agency / Year"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      patch({
+                        initiatives: items.filter((_, i) => i !== ii),
+                      })
+                    }
+                    className="text-red-600 text-xs font-bold cursor-pointer"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <Textarea
+                  rows={3}
+                  value={str(it.description)}
+                  onChange={(v) => updateIt({ ...it, description: v })}
+                  placeholder="Overview Description"
+                />
+                <Textarea
+                  rows={2}
+                  value={str(it.impactDescription)}
+                  onChange={(v) => updateIt({ ...it, impactDescription: v })}
+                  placeholder="How This Informs PSA's Work"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (tpl === "looking_forward") {
+    const cards = arr<JsonObj>(content.cards);
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Eyebrow</FieldLabel>
+            <Input
+              value={str(content.eyebrow)}
+              onChange={(v) => patch({ eyebrow: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Graphic Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <LgCtaPairEditor
+          label="Previous Button"
+          value={(content.prevCta || {}) as JsonObj}
+          onChange={(v) => patch({ prevCta: v })}
+        />
+        <StringListEditor
+          label="Intro Paragraphs"
+          items={arr<string>(content.introParagraphs)}
+          onChange={(np) => patch({ introParagraphs: np })}
+          addLabel="Add Paragraph"
+        />
+        <div className="space-y-2">
+          <FieldLabel>Line of Inquiry Cards ({cards.length})</FieldLabel>
+          {cards.map((c, ci) => {
+            const updateC = (nc: JsonObj) => {
+              const n = [...cards];
+              n[ci] = nc;
+              patch({ cards: n });
+            };
+            return (
+              <div
+                key={ci}
+                className="p-3 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <Input
+                    value={str(c.eyebrow)}
+                    onChange={(v) => updateC({ ...c, eyebrow: v })}
+                    placeholder="LINE OF INQUIRY 1"
+                  />
+                  <Input
+                    value={str(c.icon)}
+                    onChange={(v) => updateC({ ...c, icon: v })}
+                    placeholder="Icon Path"
+                  />
+                  <Input
+                    value={str(c.borderColor)}
+                    onChange={(v) => updateC({ ...c, borderColor: v })}
+                    placeholder="#9CAA54 or #046D2A"
+                  />
+                </div>
+                <Input
+                  value={str(c.title)}
+                  onChange={(v) => updateC({ ...c, title: v })}
+                  placeholder="Card Title"
+                />
+                {c.description !== undefined && (
+                  <Textarea
+                    rows={2}
+                    value={str(c.description)}
+                    onChange={(v) => updateC({ ...c, description: v })}
+                    placeholder="Description"
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <FieldLabel>Summary Callout Box Text</FieldLabel>
+          <Textarea
+            rows={2}
+            value={str(content.summaryBoxText)}
+            onChange={(v) => patch({ summaryBoxText: v })}
+          />
+        </div>
+      </div>
+    );
+  } else if (tpl === "downloads") {
+    const full = (content.fullReport || {}) as JsonObj;
+    const prev = arr<JsonObj>(content.previousReports);
+    body = (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <FieldLabel>Eyebrow</FieldLabel>
+            <Input
+              value={str(content.eyebrow)}
+              onChange={(v) => patch({ eyebrow: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Page Title</FieldLabel>
+            <Input
+              value={str(content.title)}
+              onChange={(v) => patch({ title: v })}
+            />
+          </div>
+          <div>
+            <FieldLabel>Hero Graphic Path</FieldLabel>
+            <Input
+              value={str(content.heroImage)}
+              onChange={(v) => patch({ heroImage: v })}
+            />
+          </div>
+        </div>
+        <LgCtaPairEditor
+          label="Back Button"
+          value={(content.prevCta || {}) as JsonObj}
+          onChange={(v) => patch({ prevCta: v })}
+        />
+        <div className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-2">
+          <FieldLabel>Full Report Dark-Green Card</FieldLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <Input
+              value={str(full.badge)}
+              onChange={(v) => patch({ fullReport: { ...full, badge: v } })}
+              placeholder="FULL REPORT"
+            />
+            <Input
+              value={str(full.title)}
+              onChange={(v) => patch({ fullReport: { ...full, title: v } })}
+              placeholder="Report Title"
+            />
+            <Input
+              value={str(full.buttonLabel)}
+              onChange={(v) =>
+                patch({ fullReport: { ...full, buttonLabel: v } })
+              }
+              placeholder="Button Label"
+            />
+          </div>
+          <Textarea
+            rows={2}
+            value={str(full.description)}
+            onChange={(v) =>
+              patch({ fullReport: { ...full, description: v } })
+            }
+          />
+          <Input
+            value={str(full.url)}
+            onChange={(v) => patch({ fullReport: { ...full, url: v } })}
+            placeholder="PDF URL"
+          />
+        </div>
+        <div>
+          <FieldLabel>Previous Reports Card Heading</FieldLabel>
+          <Input
+            value={str(content.previousHeading)}
+            onChange={(v) => patch({ previousHeading: v })}
+          />
+        </div>
+        <div className="space-y-2">
+          <FieldLabel>Previous Report Links ({prev.length})</FieldLabel>
+          {prev.map((pr, pi) => (
+            <div key={pi} className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <Input
+                value={str(pr.year)}
+                onChange={(v) => {
+                  const n = [...prev];
+                  n[pi] = { ...pr, year: v };
+                  patch({ previousReports: n });
+                }}
+                placeholder="Year"
+              />
+              <Input
+                value={str(pr.title)}
+                onChange={(v) => {
+                  const n = [...prev];
+                  n[pi] = { ...pr, title: v };
+                  patch({ previousReports: n });
+                }}
+                placeholder="Title"
+              />
+              <Input
+                value={str(pr.url)}
+                onChange={(v) => {
+                  const n = [...prev];
+                  n[pi] = { ...pr, url: v };
+                  patch({ previousReports: n });
+                }}
+                placeholder="PDF URL"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else {
+    body = (
+      <p className="text-xs text-[#6B7250]">
+        Unknown LG template <code>{tpl}</code>. Use{" "}
+        <strong>Switch to Raw JSON</strong> above to inspect or edit.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {headerBar}
+      {body}
     </div>
   );
 }
