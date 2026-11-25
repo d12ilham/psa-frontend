@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -130,10 +131,12 @@ export default function IntroductionView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-5 flex-1">
-        <ReportNavButtons slug={slug} currentPage="introduction" />
+        <LocalGovernmentReportUtilityRow>
+            <ReportNavButtons slug={slug} currentPage="introduction" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* Top Hero Section */}
-        <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-[100px]">
+        <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-start gap-8 lg:gap-8 xl:gap-[100px]">
           <div className="flex-1 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="animate-slide-up space-y-2">
@@ -141,7 +144,8 @@ export default function IntroductionView({
                   INTRODUCTION
                 </span>
                 <h1 className="text-3xl font-bold leading-tight text-gray800 sm:text-4xl">
-                  2026 Local Government Workforce Insights Report
+                  <span className="lg:block">2026 Local Government</span>{" "}
+                  <span className="lg:block lg:whitespace-nowrap">Workforce Insights Report</span>
                 </h1>
               </div>
               <div className="space-y-3 animate-slide-up-delay">
@@ -158,21 +162,21 @@ export default function IntroductionView({
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <button
+              <button data-report-action="download"
                 onClick={() => router.push(`/reports/${slug}/downloads`)}
                 className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>Download {report?.year?.label || "2026"} PDF</span>
                 <Download className="h-3.5 w-3.5" />
               </button>
-              <Link
+              <Link data-report-action="secondary"
                 href="/reports/local-government-workforce-insights-report-2025/downloads"
                 className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray-50 text-notes font-bold text-xs px-5 py-2.5 rounded-full transition-colors cursor-pointer"
               >
                 Previous Report
               </Link>
               {report.psaSectorPageUrl ? (
-                <a
+                <a data-report-action="secondary"
                   href={report.psaSectorPageUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -181,7 +185,7 @@ export default function IntroductionView({
                   PSA Website
                 </a>
               ) : (
-                <button
+                <button data-report-action="secondary"
                   type="button"
                   disabled
                   className="border border-gray200 bg-white text-[#252D02] font-bold text-xs px-5 py-2.5 rounded-full"
@@ -193,7 +197,7 @@ export default function IntroductionView({
           </div>
 
           {/* Right Panel: "THIS REPORT AT A GLANCE" */}
-          <div className="w-full lg:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
+          <div className="w-full lg:w-[360px] xl:w-[444px] lg:shrink-0 bg-[#F5F5F5] border border-gray200/80 rounded-2xl p-5 space-y-4 self-start animate-zoom-in">
             <div>
               <span className="text-xs font-semibold text-notes uppercase mb-4 block">
                 THIS REPORT AT A GLANCE
@@ -328,7 +332,7 @@ export default function IntroductionView({
 
                   {/* Bottom: Explore Button */}
                   <div>
-                    <button
+                    <button data-report-action="primary"
                       onClick={(e) => {
                         e.stopPropagation();
                         router.push(`/reports/${slug}/${section.path}`);
@@ -346,7 +350,7 @@ export default function IntroductionView({
 
         {/* ── TWO FEATURE BANNERS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
                 src="/images/reports/introduction/About.svg"
@@ -362,7 +366,7 @@ export default function IntroductionView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() => router.push(`/reports/${slug}/about`)}
               className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >
@@ -370,7 +374,7 @@ export default function IntroductionView({
             </button>
           </div>
 
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <img
                 src="/images/reports/introduction/Methodology.svg"
@@ -384,7 +388,7 @@ export default function IntroductionView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() => router.push(`/reports/${slug}/methodology`)}
               className="bg-[#8AC900] hover:bg-[#77A60D] text-[#252D02] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 transition-colors cursor-pointer shrink-0"
             >

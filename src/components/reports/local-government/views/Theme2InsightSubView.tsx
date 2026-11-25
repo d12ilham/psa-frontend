@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -43,58 +44,62 @@ export default function Theme2InsightSubView({
   return (
     <div className="space-y-8">
       {/* ── SUB-HEADER NAVIGATION BAR ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={onBackToOverview}
-            className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Back to Workforce Insights</span>
-          </button>
-
-          {insightId === 4 && (
-            <button
-              onClick={() =>
-                router.push(`/reports/${slug}/workforce_strategies`)
-              }
-              className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <span>Next: Contextualisation of Qualifications</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </div>
-
-        <div className="flex items-center gap-4 self-end sm:self-auto">
-          <span className="text-xs font-semibold text-notes">
-            Insight {insightId} of 4 · Theme 2
-          </span>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => {
-                if (insightId > 1) onNavigateInsight(insightId - 1);
-              }}
-              disabled={insightId <= 1}
-              className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${insightId <= 1 ? "opacity-40 cursor-not-allowed text-gray600 border-gray200" : "hover:bg-gray200 text-[#252D02] cursor-pointer"}`}
+      <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center justify-end gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={onBackToOverview}
+              className="border border-gray200 bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Previous</span>
+              <span>Back to Workforce Insights</span>
             </button>
 
-            <button
-              onClick={() => {
-                if (insightId < 4) onNavigateInsight(insightId + 1);
-              }}
-              disabled={insightId >= 4}
-              className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${insightId >= 4 ? "opacity-40 cursor-not-allowed text-gray600 border-gray200" : "hover:bg-gray200 text-[#252D02] cursor-pointer"}`}
-            >
-              <span>Next</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            {insightId === 4 && (
+              <button data-report-action="primary"
+                onClick={() =>
+                  router.push(
+                    `/reports/${slug}/workforce_strategies`,
+                  )
+                }
+                className="bg-[#85B810] hover:bg-[#77A60D] text-[#1B240E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>Next: Workforce Strategies</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-4 self-end sm:self-auto">
+            <span className="text-xs font-semibold text-notes">
+              Insight {insightId} of 4 · Theme 2
+            </span>
+            <div className="flex items-center gap-2">
+              <button data-report-action="primary"
+                onClick={() => {
+                  if (insightId > 1) onNavigateInsight(insightId - 1);
+                }}
+                disabled={insightId <= 1}
+                className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${insightId <= 1 ? "opacity-40 cursor-not-allowed text-gray600 border-gray200" : "hover:bg-gray200 text-[#252D02] cursor-pointer"}`}
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>Previous</span>
+              </button>
+
+              <button data-report-action="primary"
+                onClick={() => {
+                  if (insightId < 4) onNavigateInsight(insightId + 1);
+                }}
+                disabled={insightId >= 4}
+                className={`border border-gray200 text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1 transition-colors ${insightId >= 4 ? "opacity-40 cursor-not-allowed text-gray600 border-gray200" : "hover:bg-gray200 text-[#252D02] cursor-pointer"}`}
+              >
+                <span>Next</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </LocalGovernmentReportUtilityRow>
 
       {/* ── HERO BANNER CONTAINER (WHITE BG WRAPPER) ── */}
       {insightId === 1 && (
@@ -110,8 +115,8 @@ export default function Theme2InsightSubView({
               <p className="text-sm sm:text-base font-bold text-gray800">
                 Access to VET Qualifications and Training Delivery Partners
               </p>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full xl:w-2/3 animate-slide-up">
-                Access to TAFE or RTOs in regional, rural and remote locations
+              <h1 className="text-xl sm:text-2xl font-bold text-gray800 w-full animate-slide-up">
+                Access to TAFE or RTO in regional, rural and remote locations
                 is limited.
               </h1>
             </div>
@@ -192,7 +197,7 @@ export default function Theme2InsightSubView({
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <TrainingDeliveryCard title="Access to VET Training" body={consultationText} />
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -209,7 +214,7 @@ export default function Theme2InsightSubView({
               </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to find solutions to
+                decision makers, TAFEs, RTOs and councils to consider solutions to
                 challenges such as access to training, delivery options and
                 costs may support local councils to build the technical
                 capability they need for the future.
@@ -240,7 +245,7 @@ export default function Theme2InsightSubView({
               materials and interpreters.
             </p>
           </div>
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -263,9 +268,6 @@ export default function Theme2InsightSubView({
                 capability they need for the future.
               </p>
             </div>
-            <p className="pt-4 border-t border-gray200 text-[11px] text-notes">
-              HEARD IN CONSULTATION · LOCAL GOVERNMENT SKILLS AUDIT AND TRAINING PACKAGE PROJECT
-            </p>
           </div>
         </div>
       )}
@@ -289,7 +291,7 @@ export default function Theme2InsightSubView({
               $40,000 for water operator training for six participants.
             </p>
           </div>
-          <div
+          <div data-report-surface="neutral"
             style={{ animationDelay: "0.22s" }}
             className="animate-card-entrance bg-[#F0F5DF] rounded-2xl border border-gray200 border-l-12 border-l-lg-dark p-6 flex flex-col justify-between gap-5"
           >
@@ -306,7 +308,7 @@ export default function Theme2InsightSubView({
               </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders noted that closer engagement with government
-                decision makers, TAFEs, RTOs and councils to find solutions to
+                decision makers, TAFEs, RTOs and councils to consider solutions to
                 challenges such as access to training, delivery options and
                 costs may support local councils to build the technical
                 capability they need for the future.
@@ -365,21 +367,18 @@ export default function Theme2InsightSubView({
                 <li>Accurately reflects the realities of local council work and aligned with operational priorities</li>
                 <li>Reflects jurisdiction-specific requirements, particularly for modules covering regulations and local laws, which may differ across LGAs</li>
               </ul>
-              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                While some stakeholders expressed interest in an expansion of the LGA
-                Local Government Training Package to host contextualised qualifications,
-                challenges with qualification duplication could emerge. Bringing
-                together state and territory decision makers, State and Territory
-                Training Authorities/Senior Responsible Officers (STTA/SRO), Local
-                Government partner TAFEs and RTOs to discuss solutions to training
-                access, delivery styles, financial implications and contextualisation
-                of learning materials, may support more sustainable and targeted
-                training outcomes for Local Government industry-sector occupational
-                shortages.
-              </p>
             </div>
-            <div className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
-              <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+            <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-2xl border-l-12 border-l-lg-dark p-6 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/frame-7.svg"
+                    alt=""
+                    className="w-8 h-8 object-contain animate-zoom-in"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-gray800">Industry Insight</h3>
+              </div>
               <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                 Stakeholders from New South Wales noted challenges with delivery of
                 some civil qualifications which were deemed not sufficiently flexible
@@ -390,6 +389,18 @@ export default function Theme2InsightSubView({
                 regions.
               </p>
             </div>
+            <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+              While some stakeholders expressed interest in an expansion of the LGA
+              Local Government Training Package to host contextualised qualifications,
+              challenges with qualification duplication could emerge. Bringing
+              together state and territory decision makers, State and Territory
+              Training Authorities/Senior Responsible Officers (STTA/SRO), Local
+              Government partner TAFEs and RTOs to discuss solutions to training
+              access, delivery styles, financial implications and contextualisation
+              of learning materials, may support more sustainable and targeted
+              training outcomes for Local Government industry-sector occupational
+              shortages.
+            </p>
           </section>
         </div>
       )}

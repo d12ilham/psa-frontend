@@ -1,0 +1,158 @@
+/* Digital reports share neutral surfaces and PSA actions. Sector identity stays
+   in small badges, icons, accent rules and the original chart/map series. */
+.report {
+  display: contents;
+  --report-action: #8ac900;
+  --report-action-hover: #046d2a;
+  --report-ink: #252b37;
+  --report-surface: #fff;
+  --report-copy-measure: 44rem;
+}
+
+/* Use one reading width across font sizes. Smaller columns remain fluid. */
+.report main :is(p, li, blockquote, dd):not(
+  li[data-report-surface],
+  li[class*="rounded"],
+  [data-report-sources] *,
+  [data-report-sources],
+  [data-citation-copy],
+  [data-citation-copy] *,
+  [data-source-caption],
+  [data-source-caption] *,
+  [aria-label="Sources"] *,
+  [aria-label="Footnotes"] *,
+  [aria-labelledby$="sources-heading"] *,
+  figure *,
+  svg *,
+  table *,
+  nav *,
+  button *,
+  [data-report-action] *,
+  [role="img"] *,
+  [role="tab"] *
+),
+.report main [data-report-copy] {
+  max-inline-size: min(100%, var(--report-copy-measure)) !important;
+  overflow-wrap: anywhere;
+}
+
+.report :is([data-report-sources], [data-citation-copy], [data-source-caption]) {
+  overflow-wrap: anywhere;
+}
+
+/* Preserve the centred presentation of landing-page introductions. */
+.report main [class~="text-center"] p,
+.report main p[class~="text-center"] {
+  margin-inline: auto;
+}
+
+.report [data-report-surface="neutral"] {
+  background-color: var(--report-surface) !important;
+  color: var(--report-ink) !important;
+}
+
+.report main :is(h1, h2, h3, h4, h5) {
+  color: var(--report-ink) !important;
+}
+
+/* Dark PDF-style panels previously inherited white copy. */
+.report [data-report-surface="neutral"] :is(h1, h2, h3, h4, h5, p, li),
+.report [data-report-surface="neutral"] > [class~="text-white"] {
+  color: var(--report-ink) !important;
+}
+
+.report [data-report-action] {
+  background-color: var(--report-action) !important;
+  border-color: var(--report-action) !important;
+  color: var(--report-ink) !important;
+}
+
+.report [data-report-action="secondary"] {
+  background-color: #fafaf0 !important;
+  border-color: #b2db79 !important;
+  color: #598303 !important;
+}
+
+.report [data-report-action="download"] {
+  background-color: var(--report-action-hover) !important;
+  border-color: var(--report-action-hover) !important;
+  color: #fff !important;
+}
+
+.report [data-report-action]:not(:disabled):not([aria-disabled="true"]):hover {
+  background-color: var(--report-action-hover) !important;
+  border-color: var(--report-action-hover) !important;
+  color: #fff !important;
+}
+
+.report [data-report-action]:not(:disabled):hover :is(span, svg) {
+  color: #fff !important;
+}
+
+.report [data-report-action]:focus-visible {
+  outline: 2px solid #598303 !important;
+  outline-offset: 3px;
+}
+
+.report [data-report-action]:is(:disabled, [aria-disabled="true"]) {
+  background-color: #f5f5f5 !important;
+  border-color: #e9eaeb !important;
+  color: #717680 !important;
+}
+
+.report [data-report-reader] {
+  --reader-top: 76px;
+  scroll-margin-top: var(--reader-top);
+}
+
+.report [data-reader-detail] {
+  min-width: 0;
+  scroll-margin-top: var(--reader-mobile-offset, var(--reader-top));
+}
+
+.report :is([data-reader-list], [data-reader-detail]):focus-visible {
+  outline: 2px solid #598303;
+  outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+  .report [data-report-reader="standard"] [data-reader-toolbar] {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.75rem;
+    background-color: inherit;
+  }
+
+  .report [data-report-reader="standard"] {
+    --reader-desktop: 1;
+  }
+
+  .report [data-report-reader="standard"] :is([data-reader-list], [data-reader-detail]) {
+    max-height: var(--reader-height, calc(100dvh - var(--reader-top) - 24px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+}
+
+@media (min-width: 1280px) {
+  .report [data-report-reader="wide"] {
+    --reader-desktop: 1;
+  }
+
+  .report [data-report-reader="wide"] :is([data-reader-list], [data-reader-detail]) {
+    max-height: var(--reader-height, calc(100dvh - var(--reader-top) - 24px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .report [data-report-reader="wide"] [data-reader-toolbar] {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.75rem;
+    background-color: inherit;
+  }
+}

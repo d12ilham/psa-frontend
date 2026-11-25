@@ -1,5 +1,8 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -224,23 +227,12 @@ export default function CorrectionalServicesFederalInitiativesView({
   report: CorrectionalServicesReport;
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const detailRef = React.useRef<HTMLElement>(null);
-  const initiativeListRef = React.useRef<HTMLDivElement>(null);
   const initiative = initiatives[activeIndex];
+  const detailRef = React.useRef<HTMLElement>(null);
+  useReportReader(detailRef, activeIndex);
 
-  React.useEffect(() => {
-    const list = initiativeListRef.current;
-    const selected = list?.querySelector<HTMLElement>('[aria-current="true"]');
-    if (!list || !selected) return;
-    const bounds = list.getBoundingClientRect();
-    const item = selected.getBoundingClientRect();
-    if (item.top < bounds.top || item.bottom > bounds.bottom) {
-      list.scrollTop += item.top - bounds.top;
-    }
-  }, [activeIndex]);
   const showInitiative = (index: number) => {
     setActiveIndex((index + initiatives.length) % initiatives.length);
-    window.requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
 
   return (
@@ -248,13 +240,15 @@ export default function CorrectionalServicesFederalInitiativesView({
       <ReportHeader slug={slug} report={report} currentPage="federal_initiatives" />
 
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="federal_initiatives"
-          prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
-          next={{ label: "Looking Forward", href: `/reports/${slug}/looking_forward` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="federal_initiatives"
+            prev={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
+            next={{ label: "Looking Forward", href: `/reports/${slug}/looking_forward` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[298px] flex-col justify-between gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:flex-row lg:items-center">
           <div className="min-w-0">
@@ -262,7 +256,7 @@ export default function CorrectionalServicesFederalInitiativesView({
               Workforce Strategies
             </span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px]">
-              Commonwealth Government Initiatives
+              Federal Government Initiatives
             </h1>
             <p className="mt-4 max-w-4xl text-sm leading-6">
               Public Skills Australia&apos;s work is informed and guided by the Federal Government
@@ -273,20 +267,20 @@ export default function CorrectionalServicesFederalInitiativesView({
         </section>
 
         <div className="sticky top-[60px] z-30 flex h-24 flex-col justify-center gap-2 rounded-[14px] border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
-          <label htmlFor="commonwealth-initiative" className="text-sm font-semibold text-[#598303]">Selected Commonwealth initiative</label>
-          <select id="commonwealth-initiative" aria-label="Select Commonwealth initiative" value={activeIndex} onChange={(event) => showInitiative(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#598303] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#598303]">
+          <label htmlFor="federal-initiative" className="text-sm font-semibold text-[#598303]">Selected Federal initiative</label>
+          <select id="federal-initiative" aria-label="Select Federal initiative" value={activeIndex} onChange={(event) => showInitiative(Number(event.target.value))} className="w-full min-w-0 rounded-lg border border-[#598303] bg-white p-2 text-sm focus-visible:outline-2 focus-visible:outline-[#598303]">
             {initiatives.map((item, index) => <option key={item.number} value={index}>{item.number} - {item.title}</option>)}
           </select>
         </div>
 
-        <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Commonwealth Government initiatives" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+        <section data-report-reader="standard" className="grid items-start gap-6 [--reader-mobile-offset:172px] lg:[--reader-mobile-offset:var(--reader-top)] lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
+          <nav aria-label="Federal Government initiatives" className="hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
             <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#598303]">Selected initiative {initiative.number}</p>
-            <div ref={initiativeListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
+            <div data-reader-list role="region" aria-label="Initiative list" tabIndex={0} className="space-y-2 p-1">
               {initiatives.map((item, index) => {
                 const isActive = index === activeIndex;
                 return (
-                  <button
+                  <button data-report-surface="neutral"
                     key={item.number}
                     type="button"
                     onClick={() => showInitiative(index)}
@@ -314,18 +308,18 @@ export default function CorrectionalServicesFederalInitiativesView({
             </div>
           </nav>
 
-          <article ref={detailRef} key={activeIndex} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
-            <div data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-[76px]">
+          <article data-report-surface="neutral" ref={detailRef} data-reader-detail tabIndex={0} className="min-w-0 scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E6E9DF] p-6 animate-content-switch motion-reduce:animate-none" aria-live="polite">
+            <div data-report-surface="neutral" data-initiative-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E6E9DF] pb-4 pt-2 lg:top-0">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="inline-flex max-w-full rounded-full bg-[#598303] px-5 py-3 text-sm font-semibold text-white">
                 {initiative.number} · {initiative.owner}{!["04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"].includes(initiative.number) && ` ${initiative.period}`}
               </span>
-                {activeIndex === initiatives.length - 1 ? <Link
+                {activeIndex === initiatives.length - 1 ? <Link data-report-action="primary"
                   href={`/reports/${slug}/looking_forward`}
                   className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] motion-reduce:transition-none"
                 >
                   Next <ArrowRight size={17} />
-                </Link> : <button
+                </Link> : <button data-report-action="primary"
                   type="button"
                   onClick={() => showInitiative(activeIndex + 1)}
                   className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] motion-reduce:transition-none"

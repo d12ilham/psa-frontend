@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -22,7 +23,7 @@ const DRIVER_SOURCES: DriverSource[] = [
     citations: [{
       author: "Australian Government Department of Home Affairs",
       title: "Organisational Resilience: Good Practice Guide",
-      href: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf?utm_source=copilot.com",
+      href: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf",
       details: "Australian Government Department of Home Affairs, 2024, accessed 25 February 2026",
     }],
   },
@@ -50,13 +51,13 @@ const DRIVER_SOURCES: DriverSource[] = [
       {
         author: "Australian Government Department of Finance",
         title: "National framework for the assurance of artificial intelligence in government",
-        href: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government?utm_source=copilot.com",
+        href: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government",
         details: "Australian Government Department of Finance, 2024, accessed 25 February 2026",
       },
       {
         author: "Australian Government Digital Transformation Agency",
         title: "Policy for the responsible use of AI in government",
-        href: "https://www.digital.gov.au/ai/ai-in-government-policy?utm_source=copilot.com",
+        href: "https://www.digital.gov.au/ai/ai-in-government-policy",
         details: "Australian Government Digital Transformation Agency, 2025, accessed 25 February 2026",
       },
     ],
@@ -108,8 +109,12 @@ const DRIVERS = [
     shortTitle: "Challenges to workforce productivity",
     shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
-    fullDesc:
-      "In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations. These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.",
+    fullDesc: (
+      <>
+        In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup>5</sup>{" "}
+        These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup>6</sup>
+      </>
+    ),
   },
   {
     id: 3,
@@ -119,8 +124,12 @@ const DRIVERS = [
     shortDesc: "Capability uplift — and a growing security risk...",
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
-    fullDesc:
-      "AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies. These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.",
+    fullDesc: (
+      <>
+        AI, automation and accelerated digital transformation are powerful drivers of organisational and system-level change in the short term. This is reinforced by a push from the Federal Government for greater adoption of AI and digital initiatives across federal agencies.<sup>7</sup>{" "}
+        These initiatives signal a shift toward embedding AI into core service delivery, regulatory functions and operational decision making. AI, automation and digital transformation represent an opportunity for significant capability uplift through AI-enabled analytics, automation of high-volume processes and advanced digital platforms that enhance situational awareness, threat detection and emergency response coordination. Conversely, they represent a growing security risk as they are also being leveraged by threat actors to disrupt government services, facilitate foreign interference, enable disinformation, promote false narratives through deepfakes and erode trust in government institutions.<sup>8</sup>
+      </>
+    ),
   },
   {
     id: 4,
@@ -269,7 +278,9 @@ export default function DriversOfChangeView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="drivers_of_change" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* Hero Card */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -335,7 +346,7 @@ export default function DriversOfChangeView({
 
               return (
                 <React.Fragment key={driver.id}>
-                  <div
+                  <div data-report-surface={isActive ? undefined : "neutral"}
                     style={
                       isDriversVisible
                         ? { animationDelay: `${index * 0.12}s` }
@@ -367,7 +378,7 @@ export default function DriversOfChangeView({
                     </div>
 
                     <div className="pt-2">
-                      <button
+                      <button data-report-action="primary"
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveDriverId(isActive ? null : driver.id);
@@ -401,6 +412,7 @@ export default function DriversOfChangeView({
                           </h3>
                           <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                             {driver.fullDesc}
+                            {driver.id === 1 && <sup>4</sup>}
                           </p>
                         </div>
                       )}
@@ -434,6 +446,7 @@ export default function DriversOfChangeView({
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed w-full xl:w-2/3">
                       {activeDriver.fullDesc}
+                      {activeDriver.id === 1 && <sup>4</sup>}
                     </p>
                   </div>
                 </div>
@@ -450,13 +463,13 @@ export default function DriversOfChangeView({
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-2 items-stretch">
             {MEGATRENDS.map((item, index) => {
               const isActive = activeMegatrendId === item.id;
 
               return (
                 <React.Fragment key={item.id}>
-                  <div
+                  <div data-report-surface={isActive ? undefined : "neutral"}
                     style={
                       isMegatrendsVisible
                         ? { animationDelay: `${index * 0.06}s` }
@@ -465,7 +478,7 @@ export default function DriversOfChangeView({
                     onClick={() =>
                       setActiveMegatrendId(isActive ? null : item.id)
                     }
-                    className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
+                    className={`h-full rounded-2xl border px-2 py-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-all duration-200 ${
                       isMegatrendsVisible
                         ? "animate-card-entrance"
                         : "opacity-0 translate-y-6"
@@ -485,11 +498,11 @@ export default function DriversOfChangeView({
                       className="w-17 h-17 shrink-0 object-contain"
                     />
                     <p
-                      className={`text-xs font-semibold leading-normal ${
+                      className={`w-full min-h-9 text-balance break-normal hyphens-none text-xs font-semibold leading-normal ${
                         isActive ? "text-active" : "text-gray600"
                       }`}
                     >
-                      {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
+                      {item.title}
                     </p>
                   </div>
 

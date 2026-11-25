@@ -20,7 +20,7 @@ export const executiveSummaryInsights: ExecutiveSummarySector[] = [
           },
           {
             "number": "1.2",
-            "text": "Provisioning targeted training faster through short courses (often referred to as microcredentials). Leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.",
+            "text": "Provisioning targeted training faster through short courses (often referred to as micro-credentials). Leveraging Vocational Education and Training Units of Competency could be effective in responding to emerging technologies.",
             "page": "defence_emerging_technology_2"
           }
         ]
@@ -126,93 +126,6 @@ export const executiveSummaryInsights: ExecutiveSummarySector[] = [
             "number": "2.1",
             "text": "Police officers being required to take on more leadership responsibilities earlier in their careers, particularly in regional, rural and remote areas, where workforce shortages are more pronounced. This may require more support in accelerating leadership skills development.",
             "page": "police_regional_remote_leadership"
-          }
-        ]
-      }
-    ]
-  }
-];
-
-export const executiveSummaryStrategies: ExecutiveSummarySector[] = [
-  {
-    "title": "Defence",
-    "color": "#D3992C",
-    "items": [
-      {
-        "id": "strategy-1",
-        "title": "Support Defence skill and capability requirements to operationalise drones",
-        "number": "1",
-        "details": [
-          {
-            "text": "Map current Defence micro-credentials on drones and unmanned aerial systems (UAS) to existing units of competency from current VET qualifications.",
-            "page": "defence_workforce_strategies#strategy-1"
-          }
-        ]
-      },
-      {
-        "id": "strategy-2",
-        "title": "Support transition of Defence Veterans to civilian workforce",
-        "number": "2",
-        "details": [
-          {
-            "text": "Support Recommendation 83(c) of the Royal Commission into Defence and Veteran Suicide by supporting up-to-date information facilitated by state and territory initiatives that assist transitioning veterans.",
-            "page": "defence_workforce_strategies#strategy-2"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Fire and Emergency Services",
-    "color": "#C9481A",
-    "items": [
-      {
-        "id": "strategy-3",
-        "title": "Support uptake of disaster recovery training products",
-        "number": "3",
-        "details": [
-          {
-            "text": "Strengthen capabilities of disaster recovery for Fire and Emergency Services and Government personnel by promoting the uptake of disaster recovery training products.",
-            "page": "fes_workforce_strategies#strategy-1"
-          }
-        ]
-      },
-      {
-        "id": "strategy-4",
-        "title": "Review first aid units of competency for Surf Life Saving in the Certificate II in Public Safety (Aquatic Rescue)",
-        "number": "4",
-        "details": [
-          {
-            "text": "Ensure the Certificate II in Public Safety (Aquatic Rescue) reflects the first aid requirements of Surf Life Saving.",
-            "page": "fes_workforce_strategies#strategy-2"
-          }
-        ]
-      },
-      {
-        "id": "strategy-5",
-        "title": "Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident",
-        "number": "5",
-        "details": [
-          {
-            "text": "Support increased access to hazardous materials training by reviewing a key unit of competency for the Fire and Emergency Services industry.",
-            "page": "fes_workforce_strategies#strategy-3"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Access to VET Qualifications and Training Delivery Partners",
-    "color": "#0D71A3",
-    "items": [
-      {
-        "id": "strategy-6",
-        "title": "Develop Training Products for Digital Forensics",
-        "number": "6",
-        "details": [
-          {
-            "text": "Develop a digital forensics qualification to be included in the POL Police Training Package.",
-            "page": "police_workforce_strategies"
           }
         ]
       }

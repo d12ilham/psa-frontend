@@ -13,9 +13,9 @@ const packages = [
 
 const sharedSkills = [
   { number: "1", title: "Planning and preparation", body: "Relating to planning for searches, selecting/deploying search equipment and preparing for deployment." },
-  { number: "2", title: "Search techniques and procedures", body: "Relating to the application of search techniques and/or procedures relevant to the types of searches." },
+  { number: "2", title: "Communication and coordination", body: "Emphasising inter-organisation coordination and team communication." },
   { number: "3", title: "Information management and recording", body: "Requiring a level of record keeping and information handling." },
-  { number: "4", title: "Communication and coordination", body: "Emphasising inter-organisation coordination and team communication." },
+  { number: "4", title: "Search techniques and procedures", body: "Relating to the application of search techniques and/or procedures relevant to the types of searches." },
 ];
 
 const comparisonRows = [
@@ -26,10 +26,10 @@ const comparisonRows = [
     police: ["Assess environmental factors to determine impact on SAR operation", "Assess resources required to undertake SAR operations based on information about environmental factors", "Develop rescue plan to assist in managing SAR operation."],
   },
   {
-    skill: "Search techniques and procedures",
-    defence: ["Carry out search drills/procedures applicable to the type of search", "Protect potential evidence and/or other items or material of interest from contamination, improper handling or removal."],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people", "Initial search procedures are implemented, in accordance with search and rescue organisational policies."],
-    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation."],
+    skill: "Communication and coordination",
+    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people."],
+    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities."],
   },
   {
     skill: "Information management and recording",
@@ -38,10 +38,10 @@ const comparisonRows = [
     police: ["Maintain critical decision records for accountability purposes."],
   },
   {
-    skill: "Communication and coordination",
-    defence: ["Coordinate the preparation of the search site and the conduct of searches with other organisations."],
-    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people."],
-    police: ["Liaise with stakeholders to ensure effective coordination of resources", "Coordinate assets through delegation of roles and responsibilities."],
+    skill: "Search techniques and procedures",
+    defence: ["Carry out search drills/procedures applicable to the type of search", "Protect potential evidence and/or other items or material of interest from contamination, improper handling or removal."],
+    emergency: ["Search and rescue procedures and policies are communicated to personnel, groups and other organisations, in accordance with the needs of those people", "Initial search procedures are implemented, in accordance with search and rescue organisational policies."],
+    police: ["Determine search patterns in accordance with environmental conditions/factors", "Apply search techniques to support SAR operation."],
   },
 ];
 
@@ -52,15 +52,15 @@ function DesignLines({ lines }: { lines: string[] }) {
 
 const skillTitleLines = [
   ["Planning and preparation"],
-  ["Search techniques and", "procedures"],
-  ["Information management", "and recording"],
   ["Communication and", "coordination"],
+  ["Information management", "and recording"],
+  ["Search techniques and", "procedures"],
 ];
 const skillBodyLines = [
   ["Relating to planning for", "searches, selecting/deploying", "search equipment and preparing", "for deployment."],
-  ["Relating to the application of", "search techniques and/or", "procedures relevant to the types", "of searches."],
-  ["Requiring a level of record", "keeping and information", "handling."],
   ["Emphasising inter-organisation", "coordination and team", "communication."],
+  ["Requiring a level of record", "keeping and information", "handling."],
+  ["Relating to the application of", "search techniques and/or", "procedures relevant to the types", "of searches."],
 ];
 
 export default function PublicSafetySpecialistSkillAlignmentView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
@@ -97,15 +97,15 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Cross-Sector Analysis · 02</p>
             <h1>Specialist Skill Alignment</h1>
-            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between, for example:"]} /></p>
+            <p className={styles.heroDescription}><DesignLines lines={["Alongside core skill alignment, some roles in the Public Safety industry-sectors share similar", "specialist skills alignment. While each industry-sector holds distinct operational and legislative", "contexts, there are specialist roles and skills alignment between industry-sectors.", "See the specialist skills alignment diagram to the right."]} /></p>
           </div>
           <div className={styles.diagram}>
-            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Skills alignment connects Investigations, Incident Command, Intelligence, and Search and Rescue with crossed lines. Search and Rescue is the worked example below." />
+            <Image src="/images/reports/public-safety/specialist-alignment-diagram.svg" width={702} height={268} loading="eager" unoptimized alt="Specialist skills alignment: Investigations connects to Intelligence; Incident Command connects to Search and Rescue; Intelligence connects to Search and Rescue." />
           </div>
         </section>
 
         <section data-reveal="example" className={`${styles.example} ${reveal("example")}`}>
-          <h2 className={styles.sectionTitle}>Example</h2>
+          <h2 className={styles.sectionTitle}>Cross Industry-Sector Specialist Skills Alignment Example</h2>
           <p className={styles.exampleIntro}><DesignLines lines={["All three industry-sectors hold search and rescue related training products. The comparison illustrated below demonstrates", "from a Vocational Education and Training (VET) Training Package perspective, that units of competency are similar across", "the search and rescue skills landscape. The following units are used for this demonstration:"]} /></p>
           <div className={styles.packageGrid}>
             {packages.map((item, index) => (
@@ -113,14 +113,14 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
                 <span className={styles.accent} style={{ backgroundColor: item.color }} />
                 <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
                 <h3>{item.code}</h3>
-                <p>{item.code === "POLSAR012" ? "Coordinate police search and rescue operations" : item.title}</p>
+                <p><em>{item.title}</em></p>
               </article>
             ))}
           </div>
-          <p className={styles.sharedIntro}>These three units contain shared skills relating to:</p>
+          <p className={styles.sharedIntro}>These three units of competency contain shared skills relating to:</p>
           <div className={styles.sharedGrid}>
             {sharedSkills.map((item, index) => (
-              <article key={item.number} className={`${styles.sharedCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .35}s` }}>
+              <article data-report-surface="neutral" key={item.number} className={`${styles.sharedCard} ${reveal("example")}`} style={{ animationDelay: `${index * .1 + .35}s` }}>
                 <span className={styles.number} aria-hidden="true">{item.number}</span>
                 <h3><DesignLines lines={skillTitleLines[index]} /></h3>
                 <p><DesignLines lines={skillBodyLines[index]} /></p>
@@ -129,27 +129,45 @@ export default function PublicSafetySpecialistSkillAlignmentView({ slug, report 
           </div>
         </section>
 
-        <aside data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007 and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
+        <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Comparison Table</h2>
+
+        <aside data-report-surface="neutral" data-reveal="note" className={`${styles.note} ${reveal("note")}`}><p><DesignLines lines={["Where these units of competency differ is in the application in operational contexts and the complexity of learning, with", "DEFMIL024 focused more on tactical tasks associated with conducting searches, whereas the PUAAMS007and POLSAR012", "units of competency are broader in their application of planning and coordinating search and rescue operations."]} /></p></aside>
 
         <section data-reveal="table" className={reveal("table")}>
-          <h2 id="specialist-comparison-heading" className={styles.sectionTitle}>Cross Industry-Sector Units of Competency Insights</h2>
           <div className={styles.tableScroll} role="region" aria-labelledby="specialist-comparison-heading" tabIndex={0}>
             <table className={styles.table}>
               <caption className={styles.srOnly}>Comparison of approved performance criteria for Defence, Public Safety and Police search and rescue training products.</caption>
               <colgroup><col className={styles.skillColumn} /><col /><col /><col /></colgroup>
               <thead><tr>
                 <th scope="col">Relevant Performance Criteria</th>
-                {packages.map((item) => <th key={item.code} scope="col"><span>{item.code}</span><span>{item.title}</span></th>)}
+                {packages.map((item) => (
+                  <th key={item.code} scope="col" className={styles.matchedPackageHeader}>
+                    <div className={styles.packageCard}>
+                      <span className={styles.accent} style={{ backgroundColor: item.color }} />
+                      <span className={styles.packageTag} style={{ backgroundColor: item.color }}>{item.tag}</span>
+                      <h3>{item.code}</h3>
+                      <p><em>{item.title}</em></p>
+                    </div>
+                  </th>
+                ))}
               </tr></thead>
-              <tbody>{comparisonRows.map((row) => (
+              <tbody>{comparisonRows.map((row) => {
+                const summary = sharedSkills.find((item) => item.title === row.skill)!;
+                return (
                 <tr key={row.skill}>
-                  <th scope="row">{row.skill}</th>
-                  {[row.defence, row.emergency, row.police].map((points, columnIndex) => {
-                    const plain = (row.skill === "Communication and coordination" && columnIndex === 1) || (row.skill === "Information management and recording" && columnIndex === 0);
-                    return <td key={columnIndex}>{plain ? <p>{points[0]}</p> : <ul>{points.map((point) => <li key={point}>{point}</li>)}</ul>}</td>;
-                  })}
+                  <th scope="row" className={styles.matchedSkillHeader}>
+                    <div data-report-surface="neutral" className={styles.sharedCard}>
+                      <span className={styles.number} aria-hidden="true">{summary.number}</span>
+                      <h3>{summary.title}</h3>
+                      <p>{summary.body}</p>
+                    </div>
+                  </th>
+                  {[row.defence, row.emergency, row.police].map((points, columnIndex) => (
+                    <td key={columnIndex}><ul>{points.map((point) => <li key={point}>{point}</li>)}</ul></td>
+                  ))}
                 </tr>
-              ))}</tbody>
+                );
+              })}</tbody>
             </table>
           </div>
         </section>

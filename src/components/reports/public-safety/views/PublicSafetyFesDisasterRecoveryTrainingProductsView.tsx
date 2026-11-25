@@ -21,7 +21,7 @@ const units = [
 
 function ProductList({ items }: { items: string[] }) {
   return <ul className="ml-5 mt-4 list-disc text-sm leading-6 text-[#535862] marker:text-[10px]">
-    {items.map((item) => <li key={item}>{item}</li>)}
+    {items.map((item) => <li key={item}><em>{item}</em></li>)}
   </ul>;
 }
 

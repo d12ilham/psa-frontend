@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -47,32 +48,34 @@ export default function ExistingStrategiesView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 Proposed
-            Workforce Strategies
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
-            className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            Next Section: Existing Industry-Sector Strategies{" "}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={() => router.push(`/reports/${slug}/workforce_strategies`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to 2026 Proposed
+              Workforce Strategies
+            </button>
+            <button data-report-action="primary"
+              onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              Next Section: Existing Industry-Sector Strategies{" "}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 space-y-6">
           <div className="space-y-3">
             <h1 className="text-2xl sm:text-3xl font-bold text-[#046D2A] animate-slide-up">
-              Update on 2025 Workforce Strategies
+              Workforce Insights: Update on 2025 Strategies
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
               Public Skills Australia's 2025 Local Government Workforce Insights
-              Report identified three challenges currently impacting Local
+              Report identified three challenges that are currently impacting Local
               Government workforces:
             </p>
           </div>
@@ -175,9 +178,10 @@ export default function ExistingStrategiesView({
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 PROJECT 1 - 2025
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setProject1Open(!project1Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={project1Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {project1Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -265,15 +269,15 @@ export default function ExistingStrategiesView({
                     Resilience of local councils to respond to strategic shocks
                     and drivers of change, particularly:
                   </p>
-                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
+                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
                     <li>expansion of core duties</li>
-                    <li>Recruitment and retention</li>
-                    <li>Competition for labour</li>
+                    <li>recruitment and retention</li>
+                    <li>competition for labour</li>
                   </ul>
                 </div>
 
                 {/* NEXT STEPS Box */}
-                <div className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#9CAA54] rounded-2xl p-5 space-y-2">
+                <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#9CAA54] rounded-2xl p-5 space-y-2">
                   <span className="text-xs font-bold text-lg-dark uppercase block">
                     NEXT STEPS
                   </span>
@@ -296,7 +300,7 @@ export default function ExistingStrategiesView({
 
                 {/* Buttons */}
                 <div className="flex flex-col items-stretch sm:items-start gap-3 pt-2">
-                  <button
+                  <button data-report-action="primary"
                     onClick={() =>
                       router.push(`/reports/${slug}/industry_overview`)
                     }
@@ -319,9 +323,10 @@ export default function ExistingStrategiesView({
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 PROJECT 2 - 2025
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy2Open(!strategy2Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy2Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy2Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -363,7 +368,7 @@ export default function ExistingStrategiesView({
             {/* EXPANDED CONTENT */}
             {strategy2Open && (
               <div className="animate-expand-down pt-4 border-t border-gray200 space-y-5">
-                <span className="bg-[#E5E8DA] text-[#046D2A] text-xs font-bold px-2.5 py-1 rounded-md inline-block">
+                <span className="bg-[#046D2A] text-white text-xs font-bold px-2.5 py-1 rounded-full inline-block">
                   Update
                 </span>
 
@@ -400,18 +405,18 @@ export default function ExistingStrategiesView({
                     Resilience of local councils to respond to strategic shocks
                     and drivers of change, particularly:
                   </p>
-                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
-                    <li>Expansion of core duties</li>
-                    <li>Recruitment and retention</li>
-                    <li>Competition for labour</li>
-                    <li>Technological development</li>
-                    <li>Climate change</li>
+                  <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-5 list-disc leading-relaxed">
+                    <li>expansion of core duties</li>
+                    <li>recruitment and retention</li>
+                    <li>competition for labour</li>
+                    <li>technological development</li>
+                    <li>climate change</li>
                   </ul>
                 </div>
 
                 {/* NEXT STEPS Box */}
-                <div className="bg-[#F0F5DF] border border-gray200 border-l-8 border-l-[#8AC900] rounded-2xl p-5 space-y-2">
-                  <span className="text-xs font-bold text-notes uppercase block">
+                <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 border-l-12 border-l-[#046D2A] rounded-2xl p-5 space-y-2">
+                  <span className="text-xs font-bold text-lg-dark uppercase block">
                     NEXT STEPS
                   </span>
                   <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -428,7 +433,7 @@ export default function ExistingStrategiesView({
 
                 {/* Button */}
                 <div className="pt-2">
-                  <button
+                  <button data-report-action="primary"
                     onClick={() =>
                       router.push(`/reports/${slug}/industry_overview`)
                     }

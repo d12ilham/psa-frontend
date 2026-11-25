@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -47,7 +48,7 @@ const stats: Stat[] = [
     value: 984,
     prefix: "just under $",
     suffix: " million",
-    label: "for community corrections, 2024-25",
+    label: "net operating expenditure and capital costs for community corrections, 2024-25",
   },
   {
     icon: Building2,
@@ -119,20 +120,22 @@ export default function CorrectionalServicesIndustryOverviewView({
       <ReportHeader slug={slug} report={report} currentPage="industry_overview" />
 
       <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_overview"
-          next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="industry_overview"
+            next={{ label: "Industry-Sector Profile", href: `/reports/${slug}/industry_profile_presentation` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <div className="flex flex-col gap-6 lg:min-h-[220px] lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-[860px]">
-              <h1 className="animate-slide-up text-[32px] font-bold leading-[1.25] text-[#424996] sm:text-[40px] sm:leading-[54px]">
+            <div className="min-w-0 flex-1">
+              <h1 className="animate-slide-up text-[32px] font-bold leading-[1.25] text-[#424996] sm:text-[40px] sm:leading-[54px] lg:whitespace-nowrap lg:text-[clamp(1.5rem,calc(3.5vw_-_8px),2.5rem)]">
                 Correctional Services Industry-Sector Overview
               </h1>
-              <p className="animate-slide-up-delay mt-4 text-sm leading-6 text-[#535862]">
-                The Correctional Services industry-sector plays a critical role in managing offenders. The workforce spans a broad range of occupations, including COs, who deliver custodial services in correctional facilities, and CCOs, who supervise offenders serving non-custodial sentences or parole in the community. The workforce also includes public servants working inside and outside correctional environments across functions such as administration, education, health, policy and intelligence.
+              <p className="animate-slide-up-delay mt-4 max-w-[860px] text-sm leading-6 text-[#535862]">
+                The Correctional Services industry-sector plays a critical role in managing offenders. The workforce spans a broad range of occupations, including COs, who deliver custodial services in corrections facilities, and CCOs, who supervise offenders serving non-custodial sentences or parole in the community. The workforce also includes public servants working inside and outside correctional environments across functions such as administration, education, health, policy and intelligence.
               </p>
             </div>
             <Image
@@ -192,7 +195,7 @@ export default function CorrectionalServicesIndustryOverviewView({
                     <span key={metric} className="rounded bg-[#F0F0F7] px-3 py-1 text-xs font-semibold leading-[18px] text-[#424996]">{metric}</span>
                   ))}
                 </div>
-                <button
+                <button data-report-action="primary"
                   type="button"
                   onClick={() => router.push(`/reports/${slug}/${story.href}`)}
                   className="mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02] transition-colors hover:bg-[#78AF00]"

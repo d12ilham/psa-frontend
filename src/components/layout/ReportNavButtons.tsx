@@ -25,6 +25,7 @@ export interface ReportNavButtonsProps {
   nextPrefix?: string;
   onPrevious?: () => void;
   sectorPalette?: boolean;
+  nextButtonPalette?: "psa";
 }
 
 export const REPORT_PAGES_ORDER = [
@@ -58,6 +59,7 @@ export default function ReportNavButtons({
   nextPrefix = "Next Section:",
   onPrevious,
   sectorPalette = false,
+  nextButtonPalette,
 }: ReportNavButtonsProps) {
   const router = useRouter();
 
@@ -95,27 +97,30 @@ export default function ReportNavButtons({
   const isFederalState = (slug || industrySlug) && resolveSector(industrySlug, slug).id === "federal-state";
   if (!prevTarget && !nextTarget && !back && !backSecondary && !isFederalState) return null;
 
-  const secondaryClass = sectorPalette
+  const secondaryClass = sectorPalette && !isFederalState
     ? "border border-[#754C2D] bg-[#EED4C4] text-[#754C2D] font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]"
     : "border border-[#B2DB79] bg-[#FAFAF0] text-notes font-semibold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer";
-  const primaryClass = sectorPalette
+  const primaryClass = isFederalState || nextButtonPalette === "psa"
+    ? "border border-[#8AC900] bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-colors hover:border-[#79B000] hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
+    : sectorPalette
     ? "border border-[#754C2D] bg-[#754C2D] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer transition-colors hover:bg-[#EED4C4] hover:text-[#754C2D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]"
     : "bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer";
 
   const controls = (
     <div className="flex flex-wrap items-center gap-3">
       {back && (
-        <button onClick={() => router.push(back.href)} className={secondaryClass}>
+        <button data-report-action="secondary" onClick={() => router.push(back.href)} className={secondaryClass}>
           <ArrowLeft className="h-3.5 w-3.5" /> Back to {back.label}
         </button>
       )}
       {backSecondary && (
-        <button onClick={() => router.push(backSecondary.href)} className={secondaryClass}>
+        <button data-report-action="secondary" onClick={() => router.push(backSecondary.href)} className={secondaryClass}>
           <ArrowLeft className="h-3.5 w-3.5" /> Back to {backSecondary.label}
         </button>
       )}
       {prevTarget && (
         <button
+          data-report-action="secondary"
           onClick={onPrevious ?? (() => router.push(prevTarget.href))}
           className={secondaryClass}
         >
@@ -124,6 +129,7 @@ export default function ReportNavButtons({
       )}
       {nextTarget && (
         <button
+          data-report-action="primary"
           onClick={() => router.push(nextTarget.href)}
           className={primaryClass}
         >

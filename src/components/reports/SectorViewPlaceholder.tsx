@@ -77,7 +77,7 @@ export default function SectorViewPlaceholder({
           </div>
 
           <div className="pt-2 flex justify-center gap-3">
-            <button
+            <button data-report-action="secondary"
               onClick={() => router.push(`/reports/${slug}`)}
               className="inline-flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-50 px-5 py-2 rounded-full text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
             >

@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -202,9 +203,31 @@ export default function CorrectionalServicesExistingStrategiesView({
   const [activeIndex, setActiveIndex] = React.useState(0);
   const activeGroup = jurisdictionGroups.find((group) => group.indices.includes(activeIndex))!;
   const visibleIndices = [activeIndex];
+  const workspaceRef = React.useRef<HTMLElement>(null);
   const detailStartRef = React.useRef<HTMLDivElement>(null);
-  const strategyPanelRefs = React.useRef<(HTMLElement | null)[]>([]);
   const strategyListRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    let frame = 0;
+    const updateHeight = () => {
+      frame = 0;
+      const workspace = workspaceRef.current;
+      if (!workspace || window.innerWidth < 1024) return;
+      const top = Math.max(76, workspace.getBoundingClientRect().top);
+      workspace.style.setProperty("--strategy-pane-height", `${Math.max(200, window.innerHeight - top - 24)}px`);
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateHeight);
+    };
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
 
   React.useEffect(() => {
     const list = strategyListRef.current;
@@ -213,7 +236,10 @@ export default function CorrectionalServicesExistingStrategiesView({
     const bounds = list.getBoundingClientRect();
     const item = selected.getBoundingClientRect();
     if (item.top < bounds.top || item.bottom > bounds.bottom) {
-      list.scrollTop += item.top - bounds.top;
+      list.scrollTo({
+        top: list.scrollTop + (item.top < bounds.top ? item.top - bounds.top : item.bottom - bounds.bottom),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
     }
   }, [activeIndex]);
 
@@ -221,8 +247,17 @@ export default function CorrectionalServicesExistingStrategiesView({
     const nextIndex = (index + strategies.length) % strategies.length;
     setActiveIndex(nextIndex);
     window.requestAnimationFrame(() => {
-      const nextPanel = visibleIndices.includes(nextIndex) ? strategyPanelRefs.current[nextIndex] : detailStartRef.current;
-      nextPanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const detail = detailStartRef.current;
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      if (window.innerWidth >= 1024) {
+        detail?.scrollTo({ top: 0, behavior: "auto" });
+        const workspace = workspaceRef.current;
+        if (workspace && Math.abs(workspace.getBoundingClientRect().top - 76) > 4) {
+          workspace.scrollIntoView({ behavior, block: "start" });
+        }
+      } else {
+        detail?.scrollIntoView({ behavior, block: "start" });
+      }
     });
   };
 
@@ -231,17 +266,21 @@ export default function CorrectionalServicesExistingStrategiesView({
       <ReportHeader slug={slug} report={report} currentPage="existing_strategies" />
 
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="existing_strategies"
-          prev={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
-          next={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="existing_strategies"
+            prev={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
+            next={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[184px] flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-xs font-semibold text-white">Workforce Strategies</span>
+            <span className="inline-block max-w-full rounded-full bg-[#EDEDF5] px-3 py-1.5 text-sm font-semibold leading-5 text-[#252B37]">
+              Workforce Strategies
+            </span>
             <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-[40px]">Existing Industry-Sector Strategies</h1>
             <p className="mt-4 text-sm leading-6">Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
           </div>
@@ -255,14 +294,14 @@ export default function CorrectionalServicesExistingStrategiesView({
           </select>
         </div>
 
-        <section className="grid items-start gap-6 lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
-          <nav aria-label="Jurisdiction strategies" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:block">
+        <section ref={workspaceRef} className="grid scroll-mt-[76px] items-start gap-6 lg:sticky lg:top-[76px] lg:grid-cols-[minmax(280px,400px)_minmax(0,1fr)]">
+          <nav aria-label="Jurisdiction strategies" className="sticky top-[76px] hidden min-w-0 rounded-[14px] bg-[#FAFAF0] lg:flex lg:h-[var(--strategy-pane-height,calc(100dvh-100px))] lg:flex-col">
             <p className="border-b border-[#E9EAEB] px-3 py-3 text-sm font-semibold text-[#424996]">Selected: {activeGroup.jurisdiction}</p>
-            <div ref={strategyListRef} className="max-h-[calc(100dvh-144px)] space-y-2 overflow-y-auto overscroll-contain p-1">
+            <div ref={strategyListRef} tabIndex={0} role="region" aria-label="Strategy list" className="min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain p-1 focus-visible:outline-2 focus-visible:outline-[#424996]">
             {strategyEntries.map((group) => {
               const isActive = group.index === activeIndex;
               return (
-                <button
+                <button data-report-surface="neutral"
                   key={group.index}
                   type="button"
                   aria-current={isActive ? "true" : undefined}
@@ -282,19 +321,18 @@ export default function CorrectionalServicesExistingStrategiesView({
             </div>
           </nav>
 
-          <div ref={detailStartRef} className="min-w-0 space-y-6 scroll-mt-[172px] lg:scroll-mt-[76px]" aria-live="polite">
+          <div ref={detailStartRef} tabIndex={0} role="region" aria-label="Selected strategy details" className="min-w-0 space-y-6 rounded-[14px] scroll-mt-[172px] focus-visible:outline-2 focus-visible:outline-[#424996] lg:sticky lg:top-[76px] lg:h-[var(--strategy-pane-height,calc(100dvh-100px))] lg:overflow-y-auto lg:overscroll-contain lg:scroll-mt-[76px]" aria-live="polite">
             {visibleIndices.map((index) => {
               const strategy = strategies[index];
-              return <article key={strategy.number} ref={(element) => { strategyPanelRefs.current[index] = element; }} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
-            <div data-strategy-heading className="sticky top-[156px] z-20 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-[76px]">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-white">{activeGroup.number} · {activeGroup.jurisdiction}</span>
+              return <article data-report-surface="neutral" key={strategy.number} className="scroll-mt-[172px] lg:scroll-mt-[76px] rounded-[14px] bg-[#E8E8E8] p-6 animate-content-switch motion-reduce:animate-none">
+            <div data-report-surface="neutral" data-strategy-heading className="sticky top-[156px] z-20 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-[#E8E8E8] pb-4 pt-2 lg:top-0">
+              <span className="inline-flex rounded-full bg-[#424996] px-5 py-3 text-sm font-semibold text-[#fff]">{activeGroup.number} · {activeGroup.jurisdiction}</span>
               {index === strategies.length - 1 ? (
-                <Link href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
+                <Link data-report-action="primary" href={`/reports/${slug}/federal_initiatives`} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
                   Next <ArrowRight size={17} />
                 </Link>
               ) : (
-                <button type="button" onClick={() => showStrategy(index + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
+                <button data-report-action="primary" type="button" onClick={() => showStrategy(index + 1)} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#8AC900] px-5 text-sm font-semibold transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">
                   Next <ArrowRight size={17} />
                 </button>
               )}
@@ -303,7 +341,6 @@ export default function CorrectionalServicesExistingStrategiesView({
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <h2 className="max-w-[720px] text-xl font-semibold leading-8">{strategy.title}</h2>
               <span className="rounded-full bg-[#E6E9DF] px-5 py-2 text-sm text-[#535862]">{strategy.period}</span>
-            </div>
             </div>
 
             <div className="mt-6 rounded-[14px] bg-[#FAFAF0] p-6 sm:p-8">
@@ -391,7 +428,7 @@ export default function CorrectionalServicesExistingStrategiesView({
                     ["2025 Workforce Strategies", strategy.update2025],
                     ["2026 Workforce Strategies", strategy.update2026],
                   ].filter(([, body]) => body && body !== "Not applicable.").map(([title, body], sectionIndex) => (
-                    <div
+                    <div data-report-surface="neutral"
                       key={title}
                       style={{ animationDelay: `${sectionIndex * 0.08}s` }}
                       className="rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-7 py-6 animate-card-entrance transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md motion-reduce:animate-none motion-reduce:transition-none"
@@ -409,6 +446,7 @@ export default function CorrectionalServicesExistingStrategiesView({
             })}
           </div>
         </section>
+        <div aria-hidden="true" className="hidden h-[100px] lg:block" />
       </main>
 
       <ReportFooter contactUrl={report.contactUrl} reportName="Correctional Services Workforce Insights Report" />

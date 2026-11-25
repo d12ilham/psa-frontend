@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -24,15 +26,15 @@ function TreatmentsPlot({ animate = false }: { animate?: boolean }) {
   const points = values.map((value, index) => ({ x: 90 + index * 278, y: 416 - (value - 15000) / 25000 * 380 }));
 
   return <svg viewBox="0 0 690 455" role="img" aria-label="First aid treatments: 21,828 in 2022–2023, 25,262 in 2023–2024, and 34,394 in 2024–2025">
-    {[15000, 21250, 27500, 33750, 40000].map((value, index) => {
-      const y = 416 - index * 95;
+    {[15000, 20000, 25000, 30000, 35000, 40000].map((value) => {
+      const y = 416 - (value - 15000) / 25000 * 380;
       return <g key={value}><line x1="86" x2="654" y1={y} y2={y} stroke="#e5d9d0" /><text x="80" y={y + 4} textAnchor="end">{value.toLocaleString("en-AU")}</text></g>;
     })}
     <polyline points={points.map(({ x, y }) => `${x},${y}`).join(" ")} fill="none" stroke="#ad271b" strokeWidth="3.5" pathLength={40} strokeDasharray={animate ? 40 : undefined} className={animate ? "animate-industry-projection-line" : undefined} />
     {points.map(({ x, y }, index) => (
       <g key={years[index]} className={styles.point}>
         <circle cx={x} cy={y} r="5.5" fill="#ad271b" className={animate ? "animate-industry-chart-point" : undefined} style={animate ? { animationDelay: `${index * 260}ms` } : undefined} />
-        <text x={x} y={y - 16} textAnchor={index === 2 ? "end" : "start"} className={styles.value}>{values[index].toLocaleString("en-AU")}</text>
+        <text x={x} y={y - 24} textAnchor="middle" className={styles.value}>{values[index].toLocaleString("en-AU")}</text>
         <text x={x} y="440" textAnchor={index === 2 ? "end" : index === 0 ? "start" : "middle"}>{years[index]}</text>
       </g>
     ))}
@@ -45,17 +47,17 @@ function TreatmentsChart() {
 
   return <figure className={`${styles.chart} ${recovery.animatedSection}`}>
     <div className={styles.chartHeader}>
-      <h3>First Aid Treatments Administered by Surf Lifesavers <sup>63</sup></h3>
+      <h3>First Aid Treatments Administered by Surf Lifesavers</h3>
       <div className={styles.controls}>
-        <button type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
-        <button type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
+        <button data-report-action="primary" type="button" onClick={() => setReplay(count => count + 1)}>▸ Replay</button>
+        <button data-report-action="primary" type="button" onClick={() => dialog.current?.showModal()}>Open Large</button>
       </div>
     </div>
     <TreatmentsPlot key={replay} animate />
     <dialog ref={dialog} className={styles.dialog} aria-labelledby="fes-treatments-dialog">
       <div className={styles.chartHeader}>
         <h2 id="fes-treatments-dialog">First Aid Treatments Administered by Surf Lifesavers</h2>
-        <form method="dialog"><button type="submit" className={styles.close}>Close</button></form>
+        <form method="dialog"><button data-report-action="primary" type="submit" className={styles.close}>Close</button></form>
       </div>
       <TreatmentsPlot />
     </dialog>
@@ -74,25 +76,30 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     prevPrefix: "Previous Section:",
     nextPrefix: "Next Section:",
   }}>
-    <section className={`${layout.hero} ${recovery.hero}`}>
+    <section className={`${layout.hero} ${recovery.hero} ${recovery.insightOneHero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
-        <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
-        <h1>2. Surf Life Saving First Aid. Insight</h1>
-        <div className={recovery.summary}>
-          <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers.</p>
-        </div>
+        <span className={`${layout.badge} ${recovery.badge}`}>Theme 2. Surf Life Saving First Aid. Insight One</span>
+        <h1>2. Surf Life Saving First Aid</h1>
       </div>
       <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-first-aid-hero.png" width={180} height={180} alt="" unoptimized priority />
+    </section>
+
+    <section data-report-surface="neutral" className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-first-aid-insight">
+      <span className={recovery.insightNumber} aria-hidden="true">1</span>
+      <div className={`${recovery.summaryCopy} ${recovery.wideSummaryCopy}`}>
+        <p id="fes-first-aid-insight" className={recovery.insightLabel}>Theme Two, Insight One</p>
+        <p>The HLTAID010 unit of competency is an entry-level first aid training product that is no longer meeting the operational needs for volunteer surf lifesavers.</p>
+      </div>
+      <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <h2 className={`${styles.sectionTitle} animate-slide-up-delay`}>First aid treatments by volunteer surf lifesavers</h2>
     <section className={`${recovery.detail} animate-slide-up-delay`}>
       <div className={styles.columns}>
         <div className={styles.copy}>
-          <p>In 2024–25, volunteer surf lifesavers administered six times more first aid treatments compared to rescue operations. The number of yearly first aid treatments administered has also been increasing year-on-year since 2022–23.<sup>63</sup> This highlights a distinct operational capability requirement for volunteers. Skilling of volunteer surf lifesavers is provided through the PUA20119 Certificate II in Public Safety (Aquatic Rescue).</p>
-          <p>The importance of this qualification is strongly supported by its high utilisation with more than 1,500 completions per year since 2020.<sup>64</sup> The principal first aid unit of competency in this qualification is HLTAID010 Provide Basic Emergency Life Support. Recent consultation with industry stakeholders identified that this unit of competency is not meeting the increasing first aid requirements of Surf Life Saving.</p>
-          <p>Stakeholders identified that the HLTAID011 Provide First Aid unit of competency is considered a more complete resource for providing the increasing first aid skills demands for volunteer surf lifesavers. The differences between the training products are the range of medical conditions and injuries trained to be treated.</p>
+          <p>In 2024–25, volunteer surf lifesavers administered six times more first aid treatments compared to rescue operations. The number of yearly first aid treatments administered has also been increasing year-on-year since 2022–23.<sup><PublicSafetyFootnoteLink number={63} /></sup> This highlights a distinct operational capability requirement for volunteers. Skilling of volunteer surf lifesavers is provided through the <em>PUA20119 Certificate II in Public Safety (Aquatic Rescue)</em>.</p>
+          <p>The importance of this qualification is strongly supported by its high utilisation with more than 1,500 completions per year since 2020.<sup><PublicSafetyFootnoteLink number={64} /></sup> The principal first aid unit of competency in this qualification is <em>HLTAID010 Provide Basic Emergency Life Support</em>. Recent consultation with industry stakeholders identified that this unit of competency is not meeting the increasing first aid requirements of Surf Life Saving.</p>
+          <p>Stakeholders identified that the <em>HLTAID011 Provide First Aid</em> unit of competency is considered a more complete resource for providing the increasing first aid skills demands for volunteer surf lifesavers. The differences between the training products are the range of medical conditions and injuries trained to be treated.</p>
         </div>
         <TreatmentsChart />
       </div>
@@ -117,7 +124,7 @@ export default function PublicSafetyFesSurfLifeSavingFirstAidView({ slug, report
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={63}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span>{source}</span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{63 + index}</span><span className={styles.sourceTitles}><PublicSafetySourceText number={63 + index} text={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

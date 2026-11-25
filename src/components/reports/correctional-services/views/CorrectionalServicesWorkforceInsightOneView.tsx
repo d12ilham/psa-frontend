@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
+import CorrectionalServicesInsightArtwork from "./CorrectionalServicesInsightArtwork";
 import { BriefcaseBusiness, MessageSquareText, UserRound } from "lucide-react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -15,7 +16,7 @@ type Report = {
 
 function IndustryInsight({ children }: { children: React.ReactNode }) {
   return (
-    <aside className="rounded-[14px] border-l-[12px] border-[#9DA8D0] bg-[#E8E9EF] p-6 text-[#535862]">
+    <aside data-report-surface="neutral" className="rounded-[14px] border-l-[12px] border-[#9DA8D0] bg-[#E8E9EF] p-6 text-[#535862]">
       <div className="flex items-center gap-4">
         <span className="relative grid size-[70px] shrink-0 place-items-center rounded-full bg-white text-[#424996]">
           <UserRound size={27} strokeWidth={1.5} aria-hidden="true" />
@@ -33,17 +34,19 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
-          next={{ label: "Theme 1 – Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
-          prevPrefix=""
-          nextPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights_2026` }}
+            next={{ label: "Theme 1 – Insight 2", href: `/reports/${slug}/workforce_insights_specialisations` }}
+            prevPrefix=""
+            nextPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">
-          <div className="flex min-h-[270px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <div data-report-surface="neutral" className="flex min-h-[270px] flex-col gap-6 rounded-[14px] border-l-[12px] border-[#424996] bg-[#E8E9EF] px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex min-w-0 gap-5">
               <span className="shrink-0 text-5xl font-light leading-none text-[#C8CCDF]">1</span>
               <div className="max-w-[850px] animate-slide-up motion-reduce:animate-none">
@@ -51,15 +54,11 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
                 <h1 className="mt-5 text-2xl font-semibold leading-8">Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community</h1>
               </div>
             </div>
-            <div className="grid size-[180px] shrink-0 place-items-center self-center rounded-full bg-white xl:size-[220px]" aria-hidden="true">
-              <span className="relative block size-full overflow-hidden rounded-full">
-                <Image src="/images/reports/correctional-workforce-insights-frame-436.svg" width={480} height={140} alt="" style={{ width: "342.857%", height: "100%", filter: "contrast(1.08) brightness(1.04)" }} className="absolute left-0 top-0 max-w-none animate-zoom-in motion-reduce:animate-none" />
-              </span>
-            </div>
+            <CorrectionalServicesInsightArtwork insight={1} />
           </div>
         </section>
 
-        <section className="grid items-center gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 lg:grid-cols-[minmax(0,1fr)_72px]">
+        <section className="grid items-center gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 lg:grid-cols-[minmax(0,1fr)_212px] xl:grid-cols-[minmax(0,1fr)_252px]">
           <div>
             <h2 className="text-2xl font-semibold">The Role of a Community Corrections Officer (CCO)</h2>
             <div className="mt-5 max-w-[850px] space-y-5 text-sm leading-6">
@@ -67,7 +66,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
               <p>Through research and consultation, Public Skills Australia identified several distinct challenges that have implications for the workforce and training specific to CCOs across jurisdictions within the Correctional Services industry-sector.</p>
             </div>
           </div>
-          <span className="order-first grid size-[72px] place-items-center rounded-full bg-[#EDEDF5] text-[#424996] lg:order-last"><BriefcaseBusiness size={38} strokeWidth={1.5} aria-hidden="true" /></span>
+          <span className="order-first grid size-[180px] place-items-center justify-self-center rounded-full bg-[#EDEDF5] text-[#424996] lg:order-last lg:mr-8 lg:justify-self-end xl:size-[220px]"><BriefcaseBusiness size={96} className="size-20 xl:size-24" strokeWidth={1.5} aria-hidden="true" /></span>
         </section>
 
         <div className="grid gap-6 lg:grid-cols-2">
@@ -94,7 +93,7 @@ export default function CorrectionalServicesWorkforceInsightOneView({ slug, repo
               <p>COs who move into community corrections bring valuable experience in managing offenders within the custodial environment, and this background is viewed as a strong foundation for case management roles. However, this potential pipeline from CO to CCO roles is often constrained by the recruitment requirement for higher education qualifications, which may impact the eligibility for COs to apply.</p>
             </div>
           </section>
-          <IndustryInsight>Consultations with the Correctional Services industry-sector indicated anecdotal examples of employees transitioning from CO roles to CCO roles, often after injury and as part of support for employee return-to-work plans. However, this pipeline into CCO roles is often limited by the recruitment requirement for higher education qualifications, which may impact the eligibility of COs to apply.</IndustryInsight>
+          <IndustryInsight>The CCO role is comparatively complex, often requiring an understanding of advanced concepts such as behavioural change, acceptance and commitment theory, trauma-informed response, alcohol and other drug treatments and training for dealing with sex offenders. As such, it is seen as more specialised than what the current Certificate III in Correctional Practice offers. Several jurisdictions reported that they only offered Certificate IV level training for CCO roles.</IndustryInsight>
         </div>
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6">

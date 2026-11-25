@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportNavButtons from "@/components/layout/ReportNavButtons";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { themeOverviewSources, workforceInsightsTheme, workforceInsightSummaries } from "../workforceInsightsContent";
 
 interface Report {
@@ -32,9 +32,11 @@ export default function FederalStateExecutiveSummaryView({
   const router = useRouter();
   const themesRef = useRef<HTMLDivElement>(null);
   const [isThemesVisible, setIsThemesVisible] = useState(false);
+  const [isThemeOverviewOpen, setIsThemeOverviewOpen] = useState(true);
 
   const strategiesRef = useRef<HTMLDivElement>(null);
   const [isStrategiesVisible, setIsStrategiesVisible] = useState(false);
+  const [isStrategyOpen, setIsStrategyOpen] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
@@ -68,7 +70,7 @@ export default function FederalStateExecutiveSummaryView({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#EED4C4]/30 antialiased motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader
         slug={slug}
@@ -106,11 +108,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "0.10s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-1-workforce.png"
-                    alt="Workforce"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    src="/images/reports/federal-state/sector-palette/drivers-of-change-icon.svg"
+                    alt="Drivers of Change"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -120,8 +122,8 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
                 style={{ animationDelay: "0.35s" }}
               >
-                <div className="h-[2px] w-full bg-[#8AC900]" />
-                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
               </div>
 
               {/* 2. Insights */}
@@ -129,11 +131,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "0.60s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-2-insights.png"
-                    alt="Insights"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    src="/images/reports/federal-state/sector-palette/work-force.svg"
+                    alt="Workforce Insights"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -143,8 +145,8 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
                 style={{ animationDelay: "0.85s" }}
               >
-                <div className="h-[2px] w-full bg-[#8AC900]" />
-                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
               </div>
 
               {/* 3. Strategies */}
@@ -152,11 +154,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "1.10s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-3-strategies.png"
+                    src="/images/reports/federal-state/sector-palette/stratergies.svg"
                     alt="Strategies"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -166,8 +168,8 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-separator flex flex-col justify-center gap-1 w-5 sm:w-7 md:w-8 lg:w-6 xl:w-8 -mx-[1px] relative z-0 shrink-0"
                 style={{ animationDelay: "1.35s" }}
               >
-                <div className="h-[2px] w-full bg-[#8AC900]" />
-                <div className="h-[2px] w-full bg-[#8AC900]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
+                <div className="h-[2px] w-full bg-[#EED4C4]" />
               </div>
 
               {/* 4. Looking Forward */}
@@ -175,11 +177,11 @@ export default function FederalStateExecutiveSummaryView({
                 className="animate-flow-item relative z-10 shrink-0"
                 style={{ animationDelay: "1.60s" }}
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 rounded-full select-none">
+                <div className="flex w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-18 lg:h-18 xl:w-22 xl:h-22 items-center justify-center rounded-full bg-[#E5E8DA] select-none">
                   <img
-                    src="/images/reports/executive-summary/flow-4-forward.png"
+                    src="/images/reports/federal-state/sector-palette/2027-and-beyond.svg"
                     alt="Looking Forward"
-                    className="w-full h-full object-contain select-none pointer-events-none"
+                    className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 object-contain select-none pointer-events-none"
                   />
                 </div>
               </div>
@@ -192,7 +194,7 @@ export default function FederalStateExecutiveSummaryView({
           <div className="flex gap-4">
             <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
               <img
-                src="/images/drivers-of-change-icon.svg"
+                src="/images/reports/federal-state/sector-palette/drivers-of-change-icon.svg"
                 alt="Drivers of Change"
                 className="h-7 object-contain"
               />
@@ -202,65 +204,78 @@ export default function FederalStateExecutiveSummaryView({
                 Drivers of Change
               </h3>
               <p className="text-xs text-gray600 leading-relaxed max-w-2xl">
-                Four drivers of change impacting workforce planning in the short
-                to medium term, aligned with the nine megatrends detailed in
-                previous Workforce Insights Reports.
+                While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the 2026 Workforce Insights Reports have built on these and analysed four key drivers of change that cut across most megatrends.
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/drivers_of_change`)}
-            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B700] transition-colors"
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
           >
             Present Drivers of Change <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        {/* Section 2: one theme, with non-interactive insight summaries */}
+        {/* Section 2: section header followed by one grouped theme card. */}
         <div
           ref={themesRef}
           aria-labelledby="summary-insights-title"
-          className="bg-white rounded-md border border-gray200 border-t-[6px] border-t-[#EED4C4] p-6 space-y-6"
+          className="bg-white rounded-2xl border border-gray200 p-6 space-y-6"
         >
-          {/* Header row inside card */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray200">
-            <div className="flex gap-4">
+            <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
                 <img
-                  src="/images/work-force.svg"
+                  src="/images/reports/federal-state/sector-palette/work-force.svg"
                   alt="Workforce Insights"
                   className="h-7 object-contain"
                 />
               </div>
-              <div>
-                <h2 id="summary-insights-title" className="font-bold text-base text-gray800 pb-2">One Theme, Three Insights</h2>
-                <h3 className="text-base font-bold text-[#754C2D]">{workforceInsightsTheme}</h3>
-              </div>
+              <h2 id="summary-insights-title" className="font-bold text-base text-gray800">One Theme, Three Workforce Insights</h2>
             </div>
+            <button data-report-action="primary"
+              type="button"
+              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#8AC900] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
+            >
+              Present Workforce Insights <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
           </div>
 
-          <p className="max-w-[80ch] text-xs leading-6 text-gray600">
+          <section id="summary-theme-card" aria-labelledby="summary-theme-title" className="rounded-2xl border border-gray200 border-t-12 border-t-[#754C2D] bg-white p-4 space-y-6 sm:p-6">
+            <div className="space-y-3">
+              <p className="text-xs font-bold uppercase text-[#754C2D]">Theme 1 · 3 Insights</p>
+              <h3 id="summary-theme-title" className="text-xl font-bold text-gray800">{workforceInsightsTheme}</h3>
+                <button data-report-action="primary"
+                  type="button"
+                  aria-expanded={isThemeOverviewOpen}
+                  aria-controls="summary-theme-overview"
+                  aria-label={isThemeOverviewOpen ? "Close Theme Overview" : "Open Theme Overview"}
+                  onClick={() => setIsThemeOverviewOpen((open) => !open)}
+                  className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#8AC900] px-4 py-2 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
+                >
+                  Theme Overview <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isThemeOverviewOpen ? "rotate-180" : ""}`} />
+                </button>
+              <div id="summary-theme-overview" role="region" aria-label="Theme Overview" hidden={!isThemeOverviewOpen}>
+          <p className="text-xs leading-6 text-gray600">
             ABS data indicates that the Federal and State/Territory Government public sector has increased between 2024-25 by 3.3 per cent.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-85" aria-label="Source 85" className="underline">85</a></sup> According to Jobs and Skills Australia&apos;s employment projections, employment in the Public Administration industry group is projected to steadily grow over the next 10 years from the current baseline of 505,200 in May 2025 to 574,900 in May 2035.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-86" aria-label="Source 86" className="underline">86</a></sup> These projections encompass government activities at the federal, state and territory levels only.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black"><a href="#summary-source-87" aria-label="Source 87" className="underline">87</a></sup> The future public service workforce will continue to have effects on national economic growth and productivity.
           </p>
+              </div>
+            </div>
           <ol className="space-y-3" aria-label="Executive Summary insights">
             {workforceInsightSummaries.map((insight, index) => (
               <li key={insight.title}
                 style={isThemesVisible ? { animationDelay: `${0.10 + index * 0.12}s` } : undefined}
-                className={`summary-insight-item flex items-start gap-4 rounded-md border border-[#BDA28E] border-l-[5px] border-l-[#754C2D] bg-[#F8EEE8] p-4 sm:p-5 motion-safe:transition-shadow motion-safe:hover:shadow-sm ${isThemesVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0 motion-safe:translate-y-4"}`}>
-                <span aria-hidden="true" className="w-8 shrink-0 select-none text-[34px] font-light leading-none text-[#754C2D]">{index + 1}</span>
-                <div className="min-w-0 max-w-[80ch] text-xs">
+                className={`summary-insight-item flex items-start gap-4 rounded-xl border border-gray200 bg-[#F8EEE8] p-4 motion-safe:transition-shadow motion-safe:hover:shadow-sm ${isThemesVisible ? "animate-card-entrance motion-reduce:animate-none" : "motion-safe:opacity-0 motion-safe:translate-y-4"}`}>
+                <span aria-hidden="true" className="w-9 shrink-0 select-none text-[50px] font-bold leading-none text-[#754C2D]/10">{index + 1}</span>
+                <div data-report-copy className="min-w-0 flex-1 text-xs">
                   <h4 className="font-semibold leading-5 text-[#754C2D]">{insight.title}</h4>
                   <p className="mt-2 leading-6 text-gray600">{insight.summary}</p>
                 </div>
               </li>
             ))}
           </ol>
-          <div className="border-t border-gray200 pt-4">
-            <h3 className="text-xs font-bold text-gray800">Sources</h3>
-            <ol className="mt-3 max-w-[80ch] space-y-3 text-xs leading-5 text-gray600">
-              {themeOverviewSources.map(({ number, text }) => <li data-citation-copy key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3 text-sm leading-6 text-black"><span className="font-semibold text-[#754C2D]">{number}</span><span><NumberedSource number={number} text={text} /></span></li>)}
-            </ol>
-          </div>
+          </section>
         </div>
 
         {/* Section 3: 2026 Proposed Strategy */}
@@ -273,7 +288,7 @@ export default function FederalStateExecutiveSummaryView({
             <div className="flex gap-4">
               <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
                 <img
-                  src="/images/stratergies.svg"
+                  src="/images/reports/federal-state/sector-palette/stratergies.svg"
                   alt="2026 Proposed Strategy"
                   className="h-6 object-contain"
                 />
@@ -289,11 +304,11 @@ export default function FederalStateExecutiveSummaryView({
                 </p>
               </div>
             </div>
-            <button
+            <button data-report-action="primary"
               onClick={() =>
                 router.push(`/reports/${slug}/workforce_strategies`)
               }
-              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B700] transition-colors"
+              className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
             >
               Present 2026 Strategies <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -310,23 +325,34 @@ export default function FederalStateExecutiveSummaryView({
                 : "motion-safe:opacity-0 motion-safe:translate-y-6"
             }`}
           >
-            <div>
+            <div className="flex items-center justify-between gap-4">
               <span className="bg-[#694834] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 STRATEGY 1
               </span>
+              <button data-report-action="primary"
+                type="button"
+                aria-expanded={isStrategyOpen}
+                aria-controls="summary-strategy-additional-details"
+                aria-label={isStrategyOpen ? "Close additional strategy details" : "Open additional strategy details"}
+                onClick={() => setIsStrategyOpen((open) => !open)}
+                className="flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-[#8AC900] px-5 py-2.5 text-xs font-bold text-gray800 transition-colors hover:bg-[#79B000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8AC900]"
+              >
+                {isStrategyOpen ? "Close" : "Open"}
+                <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${isStrategyOpen ? "rotate-180" : ""}`} />
+              </button>
             </div>
 
-            <h4 className="font-bold text-base sm:text-lg text-gray800 leading-snug">
+            <h4 id="summary-strategy-title" className="font-bold text-base sm:text-lg text-gray800 leading-snug">
               Identify future skills needs for Federal and State/Territory
               Government
             </h4>
-            <p className="max-w-[80ch] text-xs leading-relaxed text-gray600">
-              Public Skills Australia will use a strategic-foresight approach to convene jurisdictional workshops to identify where nationally accredited Vocational Education and Training (VET) training can support capability development.
-            </p>
-
-            <div className="border-t border-gray-200 my-4" />
-
-            <div data-summary-strategy-details className="max-w-[72ch] space-y-3.5 pt-1 text-xs">
+            <div
+              id="summary-strategy-details"
+              role="region"
+              aria-labelledby="summary-strategy-title"
+              data-summary-strategy-details
+              className="max-w-[72ch] space-y-3.5 border-t border-gray-200 pt-4 text-xs"
+            >
               <div>
                 <h5 className="text-xs font-bold text-gray800">
                   Workforce Insight:
@@ -351,6 +377,14 @@ export default function FederalStateExecutiveSummaryView({
                 </p>
               </div>
 
+            </div>
+            <div
+              id="summary-strategy-additional-details"
+              role="region"
+              aria-labelledby="summary-strategy-title"
+              hidden={!isStrategyOpen}
+              className="max-w-[72ch] space-y-3.5 border-t border-gray-200 pt-4 text-xs"
+            >
               <div>
                 <h5 className="text-xs font-bold text-gray800">Approach:</h5>
                 <p className="text-xs text-gray600 leading-relaxed">
@@ -364,7 +398,7 @@ export default function FederalStateExecutiveSummaryView({
 
               <div>
                 <h5 className="text-xs font-bold text-gray800">
-                  Deliverable :
+                  Proposed Deliverable:
                 </h5>
                 <p className="text-xs text-gray600">Findings report</p>
               </div>
@@ -402,7 +436,7 @@ export default function FederalStateExecutiveSummaryView({
           <div className="flex gap-4">
             <div className="w-12 h-12 rounded-full bg-[#E5E8DA] flex items-center justify-center shrink-0">
               <img
-                src="/images/2027-and-beyond.svg"
+                src="/images/reports/federal-state/sector-palette/2027-and-beyond.svg"
                 alt="2027 and Beyond"
                 className="h-6 object-contain"
               />
@@ -421,17 +455,23 @@ export default function FederalStateExecutiveSummaryView({
               </p>
             </div>
           </div>
-          <button
+          <button data-report-action="primary"
             onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B700] transition-colors"
+            className="bg-[#8AC900] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full hidden md:flex items-center gap-1.5 cursor-pointer shrink-0 hover:bg-[#79B000] transition-colors"
           >
             View 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
+        <section aria-labelledby="summary-sources-title" className="rounded-2xl border border-gray200 bg-white p-6">
+          <h2 id="summary-sources-title" className="text-xs font-bold text-gray800">Sources</h2>
+          <ol className="mt-3 max-w-[80ch] space-y-3 text-xs leading-5 text-gray600">
+            {themeOverviewSources.map(({ number, text }) => <li data-citation-copy key={number} id={`summary-source-${number}`} className="flex scroll-mt-24 gap-3 text-sm leading-6 text-black"><span className="min-w-[2ch] shrink-0 whitespace-nowrap font-semibold text-[#754C2D]">{number}</span><span className="min-w-0"><NumberedSource number={number} text={text.replace(/1 December 2025/g, "1\u00a0December\u00a02025")} /></span></li>)}
+          </ol>
+        </section>
       </main>
 
       {/* ── FOOTER ── */}
-      <ReportFooter
+      <ReportFooter sectorPalette
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||

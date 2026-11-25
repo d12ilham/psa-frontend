@@ -12,7 +12,6 @@ const DRIVERS = [
     id: 1,
     number: "DRIVER 1",
     shortTitle: "Resilience of organisations to respond to strategic shocks",
-    shortDesc: "Compounding crises have exposed structural vulnerabilities...",
     fullTitle:
       "Driver 1 — Resilience of organisations to respond to strategic shocks",
     fullDesc: <>
@@ -25,7 +24,6 @@ const DRIVERS = [
     id: 2,
     number: "DRIVER 2",
     shortTitle: "Challenges to workforce productivity",
-    shortDesc: "Australia's slowest productivity growth in 60 years...",
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc: <>
       In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">3</sup> These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<sup className="text-[0.8em] font-semibold text-black [&_a]:text-black">4</sup>
@@ -38,7 +36,6 @@ const DRIVERS = [
     number: "DRIVER 3",
     shortTitle:
       "Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
-    shortDesc: "Capability uplift — and a growing security risk...",
     fullTitle:
       "Driver 3 — Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation",
     fullDesc: <>
@@ -51,7 +48,6 @@ const DRIVERS = [
     id: 4,
     number: "DRIVER 4",
     shortTitle: "Workforce inclusivity",
-    shortDesc: "Recruiting and retaining diverse cohorts...",
     fullTitle: "Driver 4 — Workforce inclusivity",
     fullDesc:
       "Workforce inclusivity has been a key focus across the labour market. In the Public Safety and Government industry-sectors this is likely to translate into a continued focus on recruiting, retaining and developing employees from diverse cultural, linguistic, gender, disability and neurodivergent backgrounds. As organisations seek to increase workforce participation from these cohorts, they will be required to adapt and change legacy systems and processes to respond to the needs of the modern workforce.",
@@ -64,46 +60,55 @@ const MEGATRENDS = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
-  },
-  {
-    id: "labour",
-    icon: "/images/reports/drivers-of-change/Competition.svg",
-    title: "Competition for labour",
+    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
   },
   {
     id: "climate",
     icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
+    desc: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
-    id: "demographics",
-    icon: "/images/reports/drivers-of-change/Demographic.svg",
-    title: "Demographic shifts",
-  },
-  {
-    id: "diversity",
-    icon: "/images/reports/drivers-of-change/Diversity.svg",
-    title: "Diversity and inclusion",
+    id: "labour",
+    icon: "/images/reports/drivers-of-change/Competition.svg",
+    title: "Competition for labour",
+    desc: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
     id: "duties",
     icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
+    desc: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
   },
   {
-    id: "trust",
-    icon: "/images/reports/drivers-of-change/Public.svg",
-    title: "Public trust and perceptions",
+    id: "diversity",
+    icon: "/images/reports/drivers-of-change/Diversity.svg",
+    title: "Diversity and inclusion",
+    desc: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
   },
   {
-    id: "recruitment",
-    icon: "/images/reports/drivers-of-change/Recruitment.svg",
-    title: "Recruitment and retention",
+    id: "demographics",
+    icon: "/images/reports/drivers-of-change/Demographic.svg",
+    title: "Demographic shifts",
+    desc: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
     id: "tech",
     icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
+    desc: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
+  },
+  {
+    id: "recruitment",
+    icon: "/images/reports/drivers-of-change/Recruitment.svg",
+    title: "Recruitment and retention",
+    desc: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
+  },
+  {
+    id: "trust",
+    icon: "/images/reports/drivers-of-change/Public.svg",
+    title: "Public trust and perceptions",
+    desc: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
   },
 ];
 
@@ -117,6 +122,8 @@ export default function FederalStateDriversOfChangeView({
   const router = useRouter();
 
   const [activeDriverId, setActiveDriverId] = useState<number | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = useState<string | null>("pathways");
+  const activeMegatrend = MEGATRENDS.find((item) => item.id === activeMegatrendId);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
 
   React.useEffect(() => {
@@ -171,7 +178,7 @@ export default function FederalStateDriversOfChangeView({
   const activeDriver = DRIVERS.find((d) => d.id === activeDriverId);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col justify-between selection:bg-accent/30 antialiased">
+    <div className="min-h-screen bg-background text-gray800 font-sans flex flex-col justify-between selection:bg-[#8AC900]/30 antialiased">
       {/* ── TOP HEADER NAVBAR ── */}
       <ReportHeader
         slug={slug}
@@ -249,7 +256,7 @@ export default function FederalStateDriversOfChangeView({
 
               return (
                 <React.Fragment key={driver.id}>
-                  <div
+                  <div data-report-surface={isActive ? undefined : "neutral"}
                     style={
                       isDriversVisible
                         ? { animationDelay: `${index * 0.12}s` }
@@ -264,24 +271,21 @@ export default function FederalStateDriversOfChangeView({
                         : "opacity-0 translate-y-6"
                     } ${
                       isActive
-                        ? "bg-[#EBF1E4] border-active border-2 border-t-8"
+                        ? "bg-[#EBF1E4] border-[#728C28] border-2 border-t-8"
                         : "bg-white border-gray200 border-t-8 border-t-[#8AC900] hover:border-2 hover:border-[#728C28]"
                     }`}
                   >
                     <div className="space-y-3">
-                      <span className="text-xs font-bold text-notes uppercase block">
+                      <span className="text-xs font-bold text-[#728C28] uppercase block">
                         {driver.number}
                       </span>
                       <h3 className="font-bold text-base text-gray800 leading-snug">
                         {driver.shortTitle}
                       </h3>
-                      <p className="text-xs text-gray600 leading-relaxed">
-                        {driver.shortDesc}
-                      </p>
                     </div>
 
                     <div className="pt-2">
-                      <button
+                      <button data-report-action="primary"
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveDriverId(isActive ? null : driver.id);
@@ -305,9 +309,9 @@ export default function FederalStateDriversOfChangeView({
                       {isActive && (
                         <div
                           key={`mobile-driver-${driver.id}`}
-                          className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-5 space-y-4"
+                          className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-5 space-y-4"
                         >
-                          <span className="bg-active text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
+                          <span className="bg-[#046D2A] text-white font-bold text-xs px-4 py-1.5 rounded-full uppercase inline-block">
                             NOW PRESENTING - {driver.number}
                           </span>
                           <h3 className="text-base sm:text-lg font-bold text-gray800">
@@ -337,10 +341,10 @@ export default function FederalStateDriversOfChangeView({
               {activeDriver && (
                 <div
                   key={`desktop-driver-${activeDriverId}`}
-                  className="animate-content-switch bg-[#EBF1E4] border-2 border-active border-l-8 rounded-2xl p-6"
+                  className="animate-content-switch bg-[#EBF1E4] border-2 border-[#728C28] border-l-8 rounded-2xl p-6"
                 >
                   <div className="space-y-4">
-                    <span className="bg-active text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
+                    <span className="bg-[#046D2A] text-white font-bold text-xs px-5 py-1.5 rounded-full uppercase inline-block">
                       NOW PRESENTING - {activeDriver.number}
                     </span>
                     <h3 className="text-lg sm:text-xl font-bold text-gray800 w-2/3">
@@ -365,26 +369,42 @@ export default function FederalStateDriversOfChangeView({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-2 items-stretch">
-            {MEGATRENDS.map((item, index) => (
-              <div
-                key={item.id}
-                style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
-                className={`h-full rounded-2xl border border-gray200 bg-white p-4 flex flex-col items-center justify-between text-center space-y-3 transition-colors duration-200 hover:border-[#728C28] ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
-              >
-                <img src={item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
-                <p className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</p>
-              </div>
-            ))}
+            {MEGATRENDS.map((item, index) => {
+              const isActive = activeMegatrendId === item.id;
+              return (
+                <button data-report-surface={isActive ? undefined : "neutral"}
+                  key={item.id}
+                  id={`megatrend-${item.id}`}
+                  type="button"
+                  aria-expanded={isActive}
+                  aria-controls="megatrend-detail"
+                  onClick={() => setActiveMegatrendId(isActive ? null : item.id)}
+                  style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
+                  className={`h-full rounded-2xl border p-4 flex flex-col items-center justify-between text-center space-y-3 cursor-pointer transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#728C28] ${isActive ? "bg-[#EBF1E4] border-[#728C28]" : "bg-white border-gray200 hover:border-[#728C28]"} ${isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"}`}
+                >
+                  <img src={isActive ? item.icon.replace(".svg", "-active.svg") : item.icon} alt="" className="w-17 h-17 shrink-0 object-contain" />
+                  <span className="text-xs font-semibold leading-normal text-gray600">{item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}</span>
+                </button>
+              );
+            })}
           </div>
-
-          <p className="text-sm text-gray800 leading-relaxed pt-2 w-full xl:w-2/3">
-            These megatrends were identified in previous{" "}
-            <span className="font-semibold text-lg-dark">
-              Workforce Insights Reports
-            </span>{" "}
-            and will continue to have longer term implications for workforce
-            planning and development across the Public Safety and Government
-            industry-sectors.
+          <div
+            id="megatrend-detail"
+            role="region"
+            aria-labelledby={activeMegatrend ? `megatrend-${activeMegatrend.id}` : undefined}
+            className={`grid transition-all duration-500 ease-in-out motion-reduce:transition-none ${activeMegatrend ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+          >
+            <div className="overflow-hidden min-h-0">
+              {activeMegatrend && (
+                <div key={activeMegatrend.id} className="animate-content-switch bg-[#EBF1E4] border border-[#728C28] border-l-4 rounded-xl p-5 sm:p-6 space-y-2">
+                  <h3 className="text-base sm:text-lg font-bold text-gray800">{activeMegatrend.title}</h3>
+                  <p className="text-sm text-gray600 leading-relaxed">{activeMegatrend.desc}</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <p className="text-sm text-gray800 leading-relaxed w-full xl:w-2/3">
+            These megatrends were identified in previous Workforce Insights Reports and will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors.
           </p>
         </div>
 
@@ -394,7 +414,7 @@ export default function FederalStateDriversOfChangeView({
 
           <div className="space-y-3 text-xs text-gray600 leading-relaxed w-full xl:w-2/3">
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 2
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={5}>Australian Government Department of Home Affairs, Organisational
@@ -403,7 +423,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 3
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={6}>Productivity Commission, Five pillars of productivity inquiries
@@ -412,7 +432,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 4
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={7}>Productivity Commission, Five pillars of productivity inquiries
@@ -420,7 +440,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 5
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={8}>Australian Government Department of Finance, National framework
@@ -433,7 +453,7 @@ export default function FederalStateDriversOfChangeView({
             </div>
 
             <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-notes text-white flex items-center justify-center text-sm font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-[#046D2A] text-white flex items-center justify-center text-sm font-bold shrink-0">
                 6
               </span>
               <p data-citation-copy className="text-sm leading-6 text-black"><SourceLink row={10}>Australian Security Intelligence Organisation (ASIO),

@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -9,15 +11,12 @@ import styles from "./PublicSafetyDefenceOverviewView.module.css";
 const groups = [
   {
     title: "Current Workforce",
-    points: ["The permanent Australian Defence Force workforce comprised approximately 59,000 personnel in 2024-25.", "The Defence workforce also includes reservists and Australian Public Service employees who support capability, operations and policy.", "Workforce demand remains distributed across Navy, Army and Air Force roles and a broad range of civilian occupations."],
   },
   {
     title: "Future Workforce",
-    points: ["The Defence workforce is expected to grow substantially to meet emerging strategic and capability requirements.", "The Defence Workforce Plan identifies a target permanent ADF workforce of 69,000 by the early 2030s.", "The overall permanent ADF and APS workforce is planned to reach around 100,000 by 2040."],
   },
   {
     title: "Veterans",
-    points: ["Veterans bring highly transferable technical, leadership and operational skills to the Australian workforce.", "Supporting career transition and recognising prior learning can improve employment pathways after service.", "Industry collaboration remains important for translating Defence experience into civilian qualifications and occupations."],
   },
 ];
 
@@ -78,16 +77,16 @@ function AnimatedNumber({ value, delay = 0, svg = false }: { value: string; dela
 
 function CurrentWorkforceCharts() {
   const stats = [
-    ["6,228", "The ADF enlisted 6,228 members entering into the Permanent workforce in 2024-25"],
-    ["1,296", "had prior military service in the Reserves"],
-    ["4,932", "had no prior military experience. This inflow is an increase on 2023-24"],
-    ["20.6%", "Women represented 20.6% of enlistments, and Indigenous people represented 5.8% of enlistments"],
+    ["6,228", "The ADF enlisted 6,228 members entering into the Permanent workforce in 2024-25", "star"],
+    ["1,296", "had prior military service in the Reserves", "aircraft"],
+    ["4,932", "had no prior military experience. This inflow is an increase on 2023-24", "shield"],
+    ["20.6%", "Women represented 20.6% of enlistments, and Indigenous people represented 5.8% of enlistments", "laurel"],
   ];
   // Keep Frame 32's display geometry separate from the approved headcounts.
   const bars = [
     { value: 20545, label: <>Australian Public<br />Service Employees</>, name: "Australian Public Service Employees", designHeight: 154.08, left: 71.6667 },
-    { value: 33269, label: <>Reserves<br />(Navy, Army, Air)</>, name: "Reserves (Navy, Army, Air)", designHeight: 249.52, left: 295 },
-    { value: 58909, label: <>Permanent Force<br />(Navy, Army, Air)</>, name: "Permanent Force (Navy, Army, Air)", designHeight: 394, left: 518.3333 },
+    { value: 33269, label: <>Reserves<br />(Navy, Army, Air Force)</>, name: "Reserves (Navy, Army, Air Force)", designHeight: 249.52, left: 295 },
+    { value: 58909, label: <>Permanent Force<br />(Navy, Army, Air Force)</>, name: "Permanent Force (Navy, Army, Air Force)", designHeight: 394, left: 518.3333 },
   ];
 
   return <div className={styles.currentContent}>
@@ -110,15 +109,19 @@ function CurrentWorkforceCharts() {
             <div className={styles.currentLabels} aria-hidden="true">{bars.map((bar) => <span key={bar.value} style={{ left: `${bar.left / 782 * 100}%` }}>{bar.label}</span>)}</div>
           </div>
         </div>
-        <p data-source-caption className={styles.currentChartSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentChartSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </section>
       <aside className={styles.currentStats} aria-label="Defence enlistment statistics">
+        <h3 className={styles.currentStatsTitle}>Australian Defence Force Key Enlistment Demographics 2024-25</h3>
         <div className={styles.currentStatsGrid}>
-          {stats.map(([value, label], index) => <div key={value} className={styles.currentStat} style={{ animationDelay: `${index * .1 + .15}s` }}>
-            <strong><AnimatedNumber value={value} delay={index * 100 + 150} /></strong><p>{label}</p>
+          {stats.map(([value, label, graphic], index) => <div key={value} className={styles.currentStat} style={{ animationDelay: `${index * .1 + .15}s` }}>
+            <div className={styles.currentStatHeading}>
+              <strong><AnimatedNumber value={value} delay={index * 100 + 150} /></strong>
+              <Image className={styles.currentStatGraphic} src={`/images/reports/public-safety/defence-enlistment/${graphic}.png`} alt="" width={56} height={56} />
+            </div><p>{label}</p>
           </div>)}
         </div>
-        <p data-source-caption className={styles.currentStatsSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.currentStatsSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </aside>
     </div>
   </div>;
@@ -131,14 +134,14 @@ function FutureWorkforceCharts() {
   const forecastTicks = [85000, 80000, 75000, 70000, 65000, 60000, 55000, 50000];
 
   return <div className={styles.futureContent}>
-    <p className={styles.futureSummary}>To meet targets set in the Defence Workforce Plan 2024, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654 and 6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year between 2026 and 2040. Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
+    <p className={styles.futureSummary}>To meet targets set in the <em>Defence Workforce Plan 2024</em>, the ADF will be required to recruit on average between 6,885 and 7,139 personnel each year, while maintaining an average separation rate of 7.9 per cent (between 4,654-6,217 ADF personnel separating per year). This will aggregate to an average headcount increase of 1,419 per year (between 2026-2040). Should the ADF maintain its current recruitment rate and meet its budgeted workforce requirements over the next two years, it will be well positioned to meet these targets.</p>
     <div className={styles.futureCharts}>
       <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF separation rate chart; scroll horizontally on smaller screens">
         <svg className={styles.futureChart} width={1440} height={584.727} viewBox="0 0 1440 584.727" role="img" aria-labelledby="defence-separation-title defence-separation-description">
           <title id="defence-separation-title">Australian Defence Force Separation Rate, June 2019 – June 2025</title>
           <desc id="defence-separation-description">{years.map((year, index) => `${year}: ${separation[index].toFixed(1)}%`).join("; ")}</desc>
           <text x={52} y={70} className={styles.futureChartTitle}>Australian Defence Force Separation Rate, June 2019 – June 2025</text>
-          <text x={52} y={105} className={styles.futureChartSubtitle}>Annual separation rate percentage (%)</text>
+          <text x={52} y={105} className={styles.futureChartSubtitle}>Percentage</text>
           {[12, 9, 6, 3, 0].map((tick, index) => {
             const y = 162.97 + index * 70.665;
             return <g key={tick} aria-hidden="true"><line x1={122} x2={1374} y1={y} y2={y} className={tick === 0 ? styles.futureBaseline : styles.futureGridline} /><text x={105} y={y + 8} textAnchor="end" className={styles.futureAxisText}>{tick.toFixed(1)}%</text></g>;
@@ -153,7 +156,7 @@ function FutureWorkforceCharts() {
               <text x={center} y={484} textAnchor="middle" className={styles.futureAxisText}>{years[index]}</text>
             </g>;
           })}
-          <text data-source-caption x={52} y={551} className={styles.futureChartSource}>SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25</text>
+          <text data-source-caption x={52} y={551} className={styles.futureChartSource}><PublicSafetySourceText text={"SOURCE: DEFENCE ANNUAL REPORTS 2019–20 – 2024–25"} /></text>
         </svg>
       </div>
       <div className={styles.futureChartViewport} tabIndex={0} role="region" aria-label="ADF permanent workforce forecast chart; scroll horizontally on smaller screens">
@@ -184,7 +187,7 @@ function FutureWorkforceCharts() {
             <path d="M 227.9291 653.1254 L 531.2361 559.5824" strokeDasharray="6.022 4.022" />
           </g>
           {forecastYearPositions.map((x, index) => <text key={x} x={x} y={750} textAnchor="middle" fontSize={7.5}>{2023 + index}</text>)}
-          <text data-source-caption x={546} y={776} textAnchor="end" fontSize={7.5}>Sources: Defence Annual Report 2024–25, 2025 &amp; Defence Workforce Plan 2024, 2024</text>
+          <text data-source-caption x={546} y={776} textAnchor="end" fontSize={7.5}><PublicSafetySourceText text={"Sources: Defence Annual Report 2024–25, 2025 & Defence Workforce Plan 2024, 2024"} /></text>
         </svg>
       </div>
     </div>
@@ -199,13 +202,13 @@ function VeteransCharts() {
     </div>
     <div className={styles.veteransSupport}>
       <p>To support serving members and transitioned veterans the ADF Transition and Civil Recognition Cell completed the following in 2024-25:</p>
-      <div className={styles.veteransStats}>
+      <div data-report-surface="neutral" className={styles.veteransStats}>
         <div className={styles.veteransGrid}>
           {stats.map(([value, label], index) => <article key={value} className={styles.veteransStat} style={{ animationDelay: `${index * .12 + .15}s` }}>
             <strong><AnimatedNumber value={value} delay={index * 120 + 150} /></strong><p>{label}</p>
           </article>)}
         </div>
-        <p data-source-caption className={styles.veteransSource}>SOURCE: Defence Annual Report 2024-25, 2025</p>
+        <p data-source-caption className={styles.veteransSource}><PublicSafetySourceText text={"SOURCE: Defence Annual Report 2024-25, 2025"} /></p>
       </div>
     </div>
   </div>;
@@ -265,7 +268,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
       </section>
 
       <section ref={introRef} className={`${styles.intro} ${introVisible ? styles.enter : styles.pending}`}>
-        <p>The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the Defence Workforce Plan 2024. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.<sup className={styles.footnote}><a href="#defence-overview-source-12" aria-label="Source 12">12</a></sup></p>
+        <p>The Defence workforce operates in a secure, structured and regulated environment and undertakes its own long-term workforce planning, including growth and future workforce requirements as outlined in the <em>Defence Workforce Plan 2024</em>. The Defence industry-sector has identified workforce growth targets for ADF permanent workforce of 69,000 by the early 2030s, with an overall permanent ADF and APS workforce of around 100,000 by 2040.<sup className={styles.footnote}><a href="#defence-overview-source-12" aria-label="Source 12">12</a></sup></p>
         <h2><span>The following datapoints were identified through this industry-sector overview for the Defence workforce:</span></h2>
       </section>
 
@@ -274,7 +277,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
           const open = openGroup === index;
           return (
             <article key={group.title} style={groupsVisible ? { animationDelay: `${index * 0.12 + 0.1}s` } : undefined} className={`${styles.group} ${open ? styles.openGroup : styles.closedGroup} ${open && index === 0 ? styles.currentGroup : ""} ${open && index === 1 ? styles.futureGroup : ""} ${open && index === 2 ? styles.veteransGroup : ""} ${groupsVisible ? styles.enter : styles.pending}`}>
-              <button id={`defence-overview-toggle-${index}`} type="button" aria-expanded={open} aria-controls={`defence-overview-panel-${index}`} onClick={() => setOpenGroup(open ? null : index)} className={`${styles.toggle} ${open ? styles.openToggle : ""} ${open && index === 0 ? styles.currentToggle : ""} ${open && index === 1 ? styles.futureToggle : ""} ${open && index === 2 ? styles.veteransToggle : ""}`}>
+              <button data-report-surface="neutral" id={`defence-overview-toggle-${index}`} type="button" aria-expanded={open} aria-controls={`defence-overview-panel-${index}`} onClick={() => setOpenGroup(open ? null : index)} className={`${styles.toggle} ${open ? styles.openToggle : ""} ${open && index === 0 ? styles.currentToggle : ""} ${open && index === 1 ? styles.futureToggle : ""} ${open && index === 2 ? styles.veteransToggle : ""}`}>
                 <span className={`${styles.groupTitle} ${open ? styles.openTitle : ""}`}>{group.title}</span>
                 <span className={`${styles.control} ${open && index === 2 ? styles.veteransClose : ""}`}>{open ? "Close" : "Open"}{open ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}</span>
               </button>
@@ -287,7 +290,7 @@ export default function PublicSafetyDefenceOverviewView({ slug, report }: { slug
       <section data-report-sources ref={sourcesRef} className={`${styles.sources} ${sourcesVisible ? styles.enter : styles.pending}`}>
         <h2>Sources</h2>
         <ol start={12}>
-          {sources.map((source, index) => <li id={`defence-overview-source-${index + 12}`} value={index + 12} key={index} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.1}s` } : undefined} className={sourcesVisible ? styles.enter : styles.pending}><span className={styles.sourceNumber} aria-hidden="true">{index + 12}</span><p>{source}</p></li>)}
+          {sources.map((source, index) => <li id={`defence-overview-source-${index + 12}`} value={index + 12} key={index} style={sourcesVisible ? { animationDelay: `${index * 0.08 + 0.1}s` } : undefined} className={sourcesVisible ? styles.enter : styles.pending}><span className={styles.sourceNumber} aria-hidden="true">{index + 12}</span><p><PublicSafetySourceText number={index + 12} text={source} /></p></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

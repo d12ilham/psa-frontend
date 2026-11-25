@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -34,13 +35,15 @@ export default function CorrectionalServicesWorkforceStrategiesView({ slug, repo
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_strategies" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_strategies"
-          prev={{ label: "Theme 1 – PSA Insight 3", href: `/reports/${slug}/workforce_insights_career_pathways` }}
-          next={{ label: "Update on 2024 Workforce Strategies", href: `/reports/${slug}/update_2024_strategies` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_strategies"
+            prev={{ label: "Theme 1 – PSA Insight 3", href: `/reports/${slug}/workforce_insights_career_pathways` }}
+            next={{ label: "Update on 2024 Workforce Strategies", href: `/reports/${slug}/update_2024_strategies` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white px-6 py-6 animate-slide-up motion-reduce:animate-none lg:min-h-[236px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[850px]">

@@ -1,6 +1,11 @@
 "use client";
 
+import { useReportReader } from "../../useReportReader";
+
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
+import PrisonCapacityChart from "./PrisonCapacityChart";
+import StateImprisonmentRateChart from "./StateImprisonmentRateChart";
 import { ArrowRight } from "lucide-react";
 import mapData from "@/data/australia_map_data.json";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -74,22 +79,6 @@ const imprisonmentRates = [
   { label: "Sep 2024", value: 207.8 }, { label: "Dec 2024", value: 206.8 },
   { label: "Mar 2025", value: 214.3 }, { label: "Jun 2025", value: 217.3 },
   { label: "Sep 2025", value: 216.1 }, { label: "Dec 2025", value: 217.4 },
-];
-
-const capacityJurisdictions = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
-const capacitySeries = [
-  { year: "2022–23", color: "#424996" },
-  { year: "2023–24", color: "#E0E4F1" },
-  { year: "2024–25", color: "#AFB8DC" },
-];
-
-const stateRateJurisdictions = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
-const stateRateSeries = [
-  { quarter: "December 2024", color: "#424996" },
-  { quarter: "March 2025", color: "#AEB6D7" },
-  { quarter: "June 2025", color: "#33439D" },
-  { quarter: "September 2025", color: "#D6DBEC" },
-  { quarter: "December 2025", color: "#8797C9" },
 ];
 
 const expenditure = [
@@ -187,14 +176,14 @@ function FacilitiesMap() {
       <p className="mt-2 text-xs font-medium text-[#598303]">Choose a State or Territory to see the numbers</p>
       <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Choose a jurisdiction">
         {jurisdictions.map(({ code, name }) => (
-          <button key={code} type="button" onClick={() => setSelected(code)} aria-pressed={selected === code}
+          <button data-report-action="primary" key={code} type="button" onClick={() => setSelected(code)} aria-pressed={selected === code}
             className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] ${selected === code ? "bg-[#8AC900] text-[#252D02]" : "bg-white text-[#252D02] hover:bg-[#DBE8B5]"}`}>
             {name}
           </button>
         ))}
-        <button type="button" onClick={() => setSelected("ALL")} aria-pressed={selected === "ALL"}
+        <button data-report-action="primary" type="button" onClick={() => setSelected("ALL")} aria-pressed={selected === "ALL"}
           className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] ${selected === "ALL" ? "bg-[#8AC900] text-[#252D02]" : "bg-white text-[#252D02] hover:bg-[#DBE8B5]"}`}>
-          Compare All
+          Show All
         </button>
       </div>
       <div ref={mapRef} className="relative mt-4 min-h-[300px] sm:min-h-[440px]">
@@ -209,20 +198,21 @@ function FacilitiesMap() {
           ))}
           {jurisdictions.filter(({ code }) => code !== "ACT").map(({ code, employees }, index) => {
             const [x, y] = mapLabels[code] ?? [0, 0];
+            const badgeOffset = code === "VIC" || code === "TAS" ? 0 : 12;
             return (
               <g key={code} className={`pointer-events-none motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: `${0.35 + index * 0.08}s` } : undefined}>
                 {(code === "VIC" || code === "TAS") && <>
                   <circle cx={mapData.states[code].center[0]} cy={mapData.states[code].center[1]} r="3" fill="#424996" />
                   <path d={`M${mapData.states[code].center.join(" ")}L${x - 60} ${y - 7.5}H${x - 22}`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </>}
-                <rect x={x - 22} y={y - 20} width="44" height="25" rx="12.5" fill="#424996" />
-                <text x={x} y={y - 3} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{code}</text>
+                <rect x={x - 22} y={y - 20 - badgeOffset} width="44" height="25" rx="12.5" fill="#424996" />
+                <text x={x} y={y - 3 - badgeOffset} textAnchor="middle" fill="white" fontSize="11" fontWeight="700">{code}</text>
                 <text x={x} y={y + (code === "VIC" || code === "TAS" ? 26 : 20)} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>{employees.toLocaleString()}</text>
               </g>
             );
           })}
           <g className={`motion-reduce:opacity-100 motion-reduce:animate-none ${mapVisible ? "animate-profile-operation-text" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.91s" } : undefined}>
-            <path d={`M${mapData.states.ACT.center.join(" ")}L670 455H728`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
+            <path d={`M${mapData.states.ACT.center.join(" ")}L670 443H728`} fill="none" stroke="#424996" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" pointerEvents="none" />
             <circle
               cx={mapData.states.ACT.center[0]}
               cy={mapData.states.ACT.center[1]}
@@ -245,12 +235,12 @@ function FacilitiesMap() {
             >
               <title>Select Australian Capital Territory</title>
             </circle>
-            <rect x="728" y="443" width="45" height="24" rx="12" fill="#424996" />
-            <text x="750" y="460" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ACT</text>
+            <rect x="728" y="431" width="45" height="24" rx="12" fill="#424996" />
+            <text x="750" y="448" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ACT</text>
             <text x="750" y="481" textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600"><tspan fontSize="9">Employees: </tspan>568</text>
           </g>
         </svg>
-        <div key={selected} className={`relative mx-auto mt-2 w-full max-w-[250px] rounded-md bg-[#424996] p-3 motion-reduce:opacity-100 motion-reduce:animate-none sm:absolute sm:right-0 sm:top-[14%] sm:mt-0 sm:w-[28%] ${mapVisible ? "animate-card-entrance" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.35s" } : undefined} aria-live="polite">
+        <div data-report-surface="neutral" key={selected} className={`relative mx-auto mt-2 w-full max-w-[250px] rounded-md bg-[#424996] p-3 motion-reduce:opacity-100 motion-reduce:animate-none sm:absolute sm:right-0 sm:top-[14%] sm:mt-0 sm:w-[28%] ${mapVisible ? "animate-card-entrance" : "opacity-0"}`} style={mapVisible ? { animationDelay: "0.35s" } : undefined} aria-live="polite">
           <h3 className="mb-2 text-xs font-semibold leading-4 text-white">{detail.name}</h3>
           <div className="space-y-1.5">
             {counts.filter(([label, value]) => value > 0 || label === "Total").map(([label, value]) => (
@@ -262,7 +252,7 @@ function FacilitiesMap() {
           </div>
         </div>
       </div>
-      <p className="mt-3 text-[10px] leading-4 text-[#598303]">Source: Productivity Commission 2026, Report on Government Services, Corrective Services Table 8A.3. Employment: approved Correctional Services jurisdiction reference (2025).</p>
+      <p className="mt-3 text-[10px] leading-4 text-[#598303]">Source: Productivity Commission Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.3</p>
     </>
   );
 }
@@ -270,7 +260,7 @@ function FacilitiesMap() {
 function ExpenditureMap({ visible }: { visible: boolean }) {
   return (
     <div className="mt-6">
-      <div className="flex min-h-20 items-center justify-between gap-4 rounded-md bg-[#424996] px-5 py-4 text-white">
+      <div data-report-surface="neutral" className="flex min-h-20 items-center justify-between gap-4 rounded-md bg-[#424996] px-5 py-4 text-white">
         <span className="text-xs font-medium uppercase">Australia</span>
         <strong className="text-right text-2xl font-semibold tabular-nums sm:text-3xl">$6.38 billion</strong>
       </div>
@@ -295,10 +285,6 @@ function ExpenditureMap({ visible }: { visible: boolean }) {
               <text x={x} y={y + 24} textAnchor="middle" fill="#252D02" fontSize="22" fontWeight="600">{display}</text>
             </g>;
           })}
-          <g className="transition-opacity duration-500 motion-reduce:transition-none" style={{ opacity: visible ? 1 : 0, transitionDelay: "680ms" }}>
-            <text x="45" y="535" fill="#727DB1" fontSize="18">AUSTRALIA</text>
-            <text x="45" y="559" fill="#252D02" fontSize="22" fontWeight="600">$6.38 billion</text>
-          </g>
         </svg>
       </div>
       <p className="mt-2 text-[11px] leading-5 text-[#68723E]">Source: Productivity Commission 2026, Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.2.</p>
@@ -421,51 +407,9 @@ function ChartContent({ active }: { active: number }) {
     </>
   );
 
-  if (active === 5) return (
-    <>
-      <p className="mt-2 text-[11px] text-[#667085]">Y-axis: Percentage, 0–100% · 2022–23 to 2024–25</p>
-      <div className="relative mt-5 overflow-x-auto">
-        <svg viewBox="0 0 900 490" className="min-w-[620px] w-full" role="img" aria-label="Prison capacity utilisation chart awaiting the approved source values for 2022–23, 2023–24 and 2024–25">
-          <text x="20" y="240" transform="rotate(-90 20 240)" textAnchor="middle" fill="#252D02" fontSize="13">Percentage</text>
-          {Array.from({ length: 11 }, (_, index) => 100 - index * 10).map((tick) => {
-            const y = 42 + ((100 - tick) / 100) * 390;
-            return <g key={tick}><line x1="82" x2="882" y1={y} y2={y} stroke="#E5E7EB" strokeWidth="1" /><text x="72" y={y + 5} textAnchor="end" fill="#252D02" fontSize="15">{tick}%</text></g>;
-          })}
-          {capacityJurisdictions.map((code, index) => <text key={code} x={130 + index * 100} y="463" textAnchor="middle" fill="#252D02" fontSize="14">{code}</text>)}
-        </svg>
-        <p className="absolute left-1/2 top-[46%] w-[min(80%,360px)] -translate-x-1/2 -translate-y-1/2 bg-white/95 px-5 py-4 text-center text-xs leading-5 text-[#535862]">
-          Approved source values are needed to plot these bars. The printed report does not label the individual values.
-        </p>
-      </div>
-      <div className="mt-1 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#535862]">
-        {capacitySeries.map(({ year, color }) => <span key={year} className="inline-flex items-center gap-2"><i className="size-3" style={{ backgroundColor: color }} />{year}</span>)}
-      </div>
-      <p className="mt-3 max-w-[580px] text-[11px] leading-5 text-[#68723E]">Source: Productivity Commission 2026, Report on Government Services, Justice Part C – 8 Corrective Services, Table 8A.15.</p>
-    </>
-  );
+  if (active === 5) return <PrisonCapacityChart visible={visible} />;
 
-  if (active === 6) return (
-    <>
-      <p className="mt-2 text-[11px] text-[#667085]">Y-axis: Imprisonment rate (per 100,000 adult population) · five quarters</p>
-      <div className="relative mt-5 overflow-x-auto">
-        <svg viewBox="0 0 900 490" className="min-w-[620px] w-full" role="img" aria-label="State and territory imprisonment rate chart awaiting approved source values from December 2024 to December 2025">
-          <text x="20" y="235" transform="rotate(-90 20 235)" textAnchor="middle" fill="#252D02" fontSize="12">Imprisonment rate (per 100,000 adult population)</text>
-          {Array.from({ length: 8 }, (_, index) => 1400 - index * 200).map((tick) => {
-            const y = 42 + ((1400 - tick) / 1400) * 390;
-            return <g key={tick}><line x1="82" x2="882" y1={y} y2={y} stroke="#E5E7EB" strokeWidth="1" /><text x="72" y={y + 5} textAnchor="end" fill="#252D02" fontSize="15">{tick.toLocaleString()}</text></g>;
-          })}
-          {stateRateJurisdictions.map((code, index) => <text key={code} x={130 + index * 100} y="463" textAnchor="middle" fill="#252D02" fontSize="14">{code}</text>)}
-        </svg>
-        <p className="absolute left-1/2 top-[46%] w-[min(80%,360px)] -translate-x-1/2 -translate-y-1/2 bg-white/95 px-5 py-4 text-center text-xs leading-5 text-[#535862]">
-          Approved source values are needed to plot these bars. The printed report does not label the individual values.
-        </p>
-      </div>
-      <div className="mt-1 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#535862]">
-        {stateRateSeries.map(({ quarter, color }) => <span key={quarter} className="inline-flex items-center gap-2"><i className="size-3" style={{ backgroundColor: color }} />{quarter}</span>)}
-      </div>
-      <p className="mt-3 max-w-[580px] text-[11px] leading-5 text-[#68723E]">Source: Australian Bureau of Statistics, Corrective Services, Australia – December quarter 2025, Table 3.</p>
-    </>
-  );
+  if (active === 6) return <StateImprisonmentRateChart visible={visible} />;
 
   return (
     <ExpenditureMap visible={visible} />
@@ -475,70 +419,30 @@ function ChartContent({ active }: { active: number }) {
 export default function CorrectionalServicesIndustryProfilePresentationView({ slug, report }: { slug: string; report: Report }) {
   const [active, setActive] = React.useState(0);
   const chartRef = React.useRef<HTMLDivElement>(null);
-  const selectorRef = React.useRef<HTMLDivElement>(null);
-  const workspaceRef = React.useRef<HTMLElement>(null);
+  useReportReader(chartRef, active);
 
-  React.useEffect(() => {
-    let frame = 0;
-    const updateHeight = () => {
-      frame = 0;
-      const workspace = workspaceRef.current;
-      if (!workspace || window.innerWidth < 1024) return;
-      const top = Math.max(80, workspace.getBoundingClientRect().top);
-      workspace.style.setProperty("--profile-pane-height", `${Math.max(200, window.innerHeight - top - 24)}px`);
-    };
-    const scheduleUpdate = () => {
-      if (!frame) frame = requestAnimationFrame(updateHeight);
-    };
-    scheduleUpdate();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-    };
-  }, []);
-
-  const selectChart = (index: number) => {
-    setActive(index);
-    requestAnimationFrame(() => {
-      const chart = chartRef.current;
-      chart?.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      const selector = selectorRef.current;
-      const selected = selector?.querySelector<HTMLButtonElement>(`#profile-tab-${index}`);
-      if (selector && selected) {
-        const top = selected.getBoundingClientRect().top - selector.getBoundingClientRect().top + selector.scrollTop;
-        if (top < selector.scrollTop) selector.scrollTop = top;
-        else if (top + selected.offsetHeight > selector.scrollTop + selector.clientHeight) {
-          selector.scrollTop = top + selected.offsetHeight - selector.clientHeight;
-        }
-      }
-      chart?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start",
-      });
-    });
-  };
+  const selectChart = setActive;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="industry_profile" prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }} next={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights` }} prevPrefix="Previous Section:" />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="industry_profile" prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }} next={{ label: "Workforce Insights", href: `/reports/${slug}/workforce_insights` }} prevPrefix="Previous Section:" />
+        </CorrectionalServicesReportUtilityRow>
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <span className="inline-flex rounded-full bg-[#424996] px-3 py-1 text-[10px] font-bold text-white">Correctional Services · Industry Overview</span>
           <h1 className="mt-4 text-[32px] font-bold leading-tight text-[#252D02] sm:text-[40px]">Industry Profile</h1>
           <p className="mt-2 text-sm text-[#535862]">Select a chart to open it in a large presentation view.</p>
         </section>
-        <section ref={workspaceRef} className={`flex flex-col gap-6 lg:grid lg:items-start lg:grid-cols-[400px_minmax(0,1fr)] ${active === 7 ? "lg:min-h-[calc(100dvh-104px)]" : ""}`} aria-label="Industry Profile charts">
+        <section data-report-reader="standard" className="flex flex-col gap-6 [--reader-mobile-offset:160px] lg:grid lg:items-start lg:grid-cols-[400px_minmax(0,1fr)]" aria-label="Industry Profile charts">
           <div className="sticky top-[60px] z-30 min-w-0 rounded-lg border border-[#E9EAEB] bg-[#FAFAF0] p-3 lg:hidden">
             <label htmlFor="profile-chart-select" className="block text-xs font-semibold text-[#424996]">Choose a chart · {active + 1} of {chartTitles.length}</label>
             <select id="profile-chart-select" value={active} onChange={(event) => selectChart(Number(event.target.value))} aria-controls="profile-chart" className="mt-2 block h-11 w-full min-w-0 rounded-md border border-[#424996] bg-white px-3 text-sm text-[#252D02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996]">
               {chartTitles.map((title, index) => <option key={title} value={index}>{String(index + 1).padStart(2, "0")} · {title}</option>)}
             </select>
           </div>
-          <div ref={selectorRef} className="hidden space-y-2 lg:sticky lg:top-20 lg:block lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:overflow-y-auto lg:overscroll-contain lg:pr-1" role="tablist" aria-label="Industry Profile charts" aria-orientation="vertical">
+          <div data-reader-list className="hidden space-y-2 lg:block lg:pr-1" role="tablist" aria-label="Industry Profile charts" aria-orientation="vertical">
             {chartTitles.map((title, index) => (
               <button key={title} id={`profile-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls="profile-chart" onClick={() => selectChart(index)} className={`grid min-h-[122px] w-full grid-cols-[1fr_38px] items-center gap-4 rounded-lg border px-5 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ${active === index ? "border-[#424996] bg-[#F0F1F9] shadow-sm" : "border-[#E9EAEB] bg-white hover:border-[#9DA8D0] hover:bg-[#F8F8FC]"}`}>
                 <span><small className="mb-3 block text-[10px] font-semibold uppercase text-[#424996]">{String(index + 1).padStart(2, "0")} · CS · Presentation View</small><strong className="block text-sm leading-5 text-[#252D02]">{title}</strong>{index === 7 && <strong className="mt-2 block text-sm">$6.38 billion</strong>}</span>
@@ -546,7 +450,7 @@ export default function CorrectionalServicesIndustryProfilePresentationView({ sl
               </button>
             ))}
           </div>
-          <div ref={chartRef} id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} className={`min-w-0 scroll-mt-40 rounded-lg border border-[#E9EAEB] px-5 pb-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] sm:px-7 lg:sticky lg:top-20 lg:max-h-[var(--profile-pane-height,calc(100dvh-104px))] lg:scroll-mt-20 lg:overflow-y-auto lg:overscroll-contain ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
+          <div ref={chartRef} data-reader-detail id="profile-chart" role="tabpanel" aria-labelledby={`profile-tab-${active}`} tabIndex={0} className={`min-w-0 scroll-mt-40 rounded-lg border border-[#E9EAEB] px-5 pb-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] sm:px-7 ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>
             <div className={active === 2 ? "mt-6 rounded-lg border border-[#E9EAEB] bg-white px-5 pb-5 sm:px-6 sm:pb-6" : undefined}>
               <h2 className={`sticky top-[154px] z-10 pb-3 text-lg font-semibold leading-7 text-[#252D02] lg:top-0 ${active === 2 ? "pt-5 sm:pt-6" : "pt-6"} ${active === 1 ? "bg-[#E9ECEE]" : "bg-white"}`}>{chartTitles[active]}{active === 2 && <sup><a href="#correctional-profile-footnote-18" aria-label="Footnote 18" className="ml-0.5 text-xs text-[#424996] hover:underline">18</a></sup>}</h2>
               <ChartContent key={active} active={active} />

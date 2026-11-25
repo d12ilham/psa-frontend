@@ -1,6 +1,8 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import { useEffect, useRef, useState } from "react";
+import { correctionalInsights, correctionalTheme } from "../data/workforceInsights";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -15,20 +17,7 @@ type Report = {
   industry?: { slug?: string; name?: string };
 };
 
-const insights = [
-  {
-    title: "Skills and Capabilities",
-    summary: "Community corrections roles require dynamic skills and are focused on rehabilitation and reintegration back into a community.",
-  },
-  {
-    title: "Use of Specialisations",
-    summary: "CCO roles require more specialised capability provided in Certificate IV in Correctional Practice.",
-  },
-  {
-    title: "Career Pathways",
-    summary: "Higher Education requirements may constrain the CO-to-CCO pathway.",
-  },
-];
+const insights = correctionalInsights.map((insight) => ({ title: insight.label, summary: `${insight.lead} ${insight.detail}` }));
 
 export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug, report }: { slug: string; report: Report }) {
   const router = useRouter();
@@ -65,17 +54,19 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="workforce_insights_2026" />
       <main ref={mainRef} className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="workforce_insights"
-          prev={{ label: "Workforce Insights Introduction", href: `/reports/${slug}/workforce_insights` }}
-          next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="workforce_insights"
+            prev={{ label: "Workforce Insights Introduction", href: `/reports/${slug}/workforce_insights` }}
+            next={{ label: "2026 Proposed Strategies", href: `/reports/${slug}/workforce_strategies` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid items-center gap-8 rounded-lg border border-[#E9EAEB] bg-white px-6 py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:px-8">
           <div className="max-w-[850px] text-pretty animate-slide-up">
             <h1 className="text-[32px] font-semibold leading-tight text-[#424996] sm:text-[40px]">Workforce Insights</h1>
-            <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail page.</p>
+            <p className="mt-4 text-sm leading-6">This Report identifies the following theme and three insights relating to Correctional Services. Select any insight to open its detail&nbsp;page.</p>
           </div>
           <div className="mx-auto w-full max-w-[480px] animate-zoom-in motion-reduce:animate-none">
             <Image
@@ -92,16 +83,8 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
 
         <section data-workforce-reveal="theme" aria-labelledby="training-package-heading" className={`rounded-lg border border-[#E9EAEB] border-t-[8px] border-t-[#9DA8D0] bg-white px-5 py-6 motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 sm:px-7 ${revealClass("theme")}`}>
           <p className="text-xs font-medium uppercase text-[#424996]">Theme 1 · 3 insights</p>
-          <h2 id="training-package-heading" className="mt-5 text-xl font-semibold">CSC Correctional Services Training Package</h2>
-          <span className="mt-3 inline-flex rounded-full bg-[#8AC900] px-4 py-2 text-xs font-semibold">Theme Overview</span>
-          <div className="mt-6 max-w-[1040px] text-pretty text-sm leading-6">
-            <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
-              <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation).<sup><a href="#correctional-workforce-footnote-23" className="ml-0.5 text-[#424996] hover:underline">23</a></sup> As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
-              <li>Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</li>
-            </ul>
-          </div>
+          <h2 id="training-package-heading" className="mt-5 text-xl font-semibold">{correctionalTheme}</h2>
+          <p className="mt-5 max-w-[1040px] text-sm leading-6">This Report also outlines two key challenges impacting the Correctional Services workforce that were identified in the 2025 Correctional Services Workforce Insights Report and the 2024 Correctional Services Workforce Plan – namely, the Correctional Services recruitment pipeline and the implementation of vocational education and training (VET) – as well as the strategies devised to support efforts to address them. These challenges and their related projects focused on Correctional Officer (CO) occupations in custodial settings rather than Community Corrections Officer (CCO) occupations in community settings. Accordingly, the community corrections workforce became the primary focus for this Report.</p>
 
           <div className="mt-6 space-y-2">
             {insights.map((insight, index) => (
@@ -115,12 +98,23 @@ export default function CorrectionalServicesWorkforceInsightsOverviewView({ slug
                 <span className="text-4xl font-light leading-none text-[#D4D8E9] sm:text-5xl">{index + 1}</span>
                 <span className="min-w-0">
                   <span className="block text-xs text-[#424996]">Theme One, Insight {index === 0 ? "One" : index === 1 ? "Two" : "Three"}</span>
-                  <strong className="mt-1 block text-base font-semibold">{insight.title}</strong>
                   <span className="mt-1 block text-xs leading-5 text-[#535862]">{insight.summary}</span>
                 </span>
                 <span className="grid size-9 place-items-center rounded-full bg-[#8AC900] transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"><ArrowRight size={16} aria-hidden="true" /></span>
               </button>
             ))}
+          </div>
+        </section>
+
+        <section data-workforce-reveal="challenges" aria-labelledby="workforce-training-challenges" className={`rounded-lg border border-[#E9EAEB] bg-white px-6 py-5 motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${revealClass("challenges")}`}>
+          <h2 id="workforce-training-challenges" className="text-xl font-semibold">CSC Correctional Services Training Package — challenges</h2>
+          <div className="mt-4 max-w-[1040px] text-sm leading-6">
+            <p>Stakeholders generally supported all specialisations in both the Certificate III and IV in Correctional Practice; however, the following challenges were identified:</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>The Certificate III in Correctional Practice does not fully reflect the complexity of community corrections roles.</li>
+              <li>Certificates III and IV in Correctional Practice do not include emerging capability requirements such as trauma-informed practice, domestic and family violence, sex offenders in the community and mental health (including suicidal ideation).<sup><a href="#correctional-workforce-footnote-23" className="ml-0.5 text-[#424996] hover:underline">23</a></sup> As a result, some jurisdictions are utilising non-accredited training to bolster the VET qualifications.</li>
+              <li>Delivery of Certificates III and IV in Correctional Practice was identified by RTOs as challenging to contextualise for community corrections settings.</li>
+            </ul>
           </div>
         </section>
 

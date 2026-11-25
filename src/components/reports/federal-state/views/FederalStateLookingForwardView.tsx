@@ -20,12 +20,12 @@ interface Report {
 
 const enquiries = [
   {
-    label: "LINE OF ENQUIRY 1",
+    label: "LINE OF INQUIRY 1",
     title: "Inclusion and participation of First Nations people, women and other genders in the Public Safety and Government workforces.",
     Icon: Globe2,
   },
   {
-    label: "LINE OF ENQUIRY 2",
+    label: "LINE OF INQUIRY 2",
     title: "The use of AI and digital transformation and the impact of these technologies on the Public Safety and Government Workforces.",
     Icon: Cpu,
   },
@@ -82,11 +82,10 @@ function LookingForwardArtwork() {
 export default function FederalStateLookingForwardView({ slug, report }: { slug: string; report: Report }) {
   return (
     <div className={`${styles.page} flex min-h-screen flex-col bg-gray-50 font-sans text-gray800 antialiased`}>
-      <ReportHeader sectorPalette slug={slug} report={report} currentPage="looking_forward" />
+      <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-5 sm:px-6 lg:px-8">
         <ReportNavButtons
-          sectorPalette
           slug={slug}
           currentPage="looking_forward"
           pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
@@ -105,14 +104,16 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
           <LookingForwardArtwork />
         </section>
 
-        <section aria-label="2027 lines of enquiry" className="grid gap-6 md:grid-cols-3">
+        <p className="text-sm leading-6">The 2027 Workforce Insights Reports will focus on broader priorities detailed below and may be delivered throughout 2026/27:</p>
+
+        <section aria-label="2027 lines of inquiry" className="grid gap-6 md:grid-cols-3">
           {enquiries.map(({ label, title, Icon }, index) => (
             <div key={label} className="animate-card-entrance motion-reduce:animate-none" style={{ animationDelay: `${0.12 + index * 0.14}s` }}>
-              <article className="group min-h-[305px] overflow-hidden rounded-md border border-[#E9EAEB] bg-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#754C2D] hover:shadow-md motion-reduce:hover:translate-y-0">
-                <div className={`h-2 ${index === 1 ? "bg-[#EED4C4]" : "bg-[#754C2D]"}`} />
+              <article className={`group min-h-[305px] overflow-hidden rounded-md border border-[#E9EAEB] bg-white transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 ${index < 2 ? "hover:border-[#046D2A]" : "hover:border-[#754C2D]"} hover:shadow-md motion-reduce:hover:translate-y-0`}>
+                <div className={`h-2 ${index < 2 ? "bg-[#046D2A]" : "bg-[#754C2D]"}`} />
                 <div className="px-6 py-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#EED4C4] text-[#754C2D] transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#FFFFFF] motion-reduce:transform-none"><Icon aria-hidden="true" className="h-7 w-7 stroke-[1.5]" /></div>
-                  <p className="mt-6 text-xs font-medium text-[#754C2D]">{label}</p>
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-full ${index < 2 ? "bg-[#F0F5DF] text-[#046D2A]" : "bg-[#EED4C4] text-[#754C2D]"} transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-[#FFFFFF] motion-reduce:transform-none`}><Icon aria-hidden="true" className="h-7 w-7 stroke-[1.5]" /></div>
+                  <p className={`mt-6 text-xs font-medium ${index < 2 ? "text-[#046D2A]" : "text-[#754C2D]"}`}>{label}</p>
                   <h2 className="mt-4 text-lg font-semibold leading-6">{title}</h2>
                 </div>
               </article>
@@ -120,18 +121,18 @@ export default function FederalStateLookingForwardView({ slug, report }: { slug:
           ))}
         </section>
 
-        <p className="animate-slide-up rounded-md border-2 border-[#754C2D] bg-[#EED4C4] px-6 py-5 text-sm leading-6 transition-[background-color,box-shadow] duration-300 hover:bg-[#FFFFFF] hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: "0.5s" }}>
-          Beyond these focused lines of enquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
+        <p data-report-surface="neutral" className="animate-slide-up rounded-md border-2 border-[#754C2D] bg-[#EED4C4] px-6 py-5 text-sm leading-6 transition-[background-color,box-shadow] duration-300 hover:bg-[#FFFFFF] hover:shadow-sm motion-reduce:animate-none" style={{ animationDelay: "0.5s" }}>
+          Beyond these focused lines of inquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
         </p>
 
         <div data-looking-forward-ctas className="animate-slide-up flex flex-wrap items-center justify-center gap-3 pb-4 motion-reduce:animate-none" style={{ animationDelay: "0.65s" }}>
-          <Link href={`/reports/${slug}/downloads`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#754C2D] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#EED4C4] hover:text-[#754C2D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
+          <Link data-report-action="primary" href={`/reports/${slug}/downloads`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#754C2D] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#EED4C4] hover:text-[#754C2D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#754C2D]">
             Download 2026 PDF <Download aria-hidden="true" className="h-4 w-4" />
           </Link>
-          <Link href={`/reports/${slug}/executive_summary`} className="inline-flex min-h-10 items-center rounded-full border border-[#754C2D] px-5 py-2 text-xs font-semibold text-[#754C2D] transition-colors hover:bg-white">
+          <Link data-report-action="secondary" href={`/reports/${slug}/executive_summary`} className="inline-flex min-h-10 items-center rounded-full border border-[#754C2D] px-5 py-2 text-xs font-semibold text-[#754C2D] transition-colors hover:bg-white">
             Revisit the Executive Summary
           </Link>
-          <a href={report.contactUrl || "https://www.publicskillsaustralia.org.au/contact"} className="inline-flex min-h-10 items-center rounded-full border border-[#E9EAEB] px-5 py-2 text-xs font-semibold transition-colors hover:bg-white">
+          <a data-report-action="secondary" href={report.contactUrl || "https://www.publicskillsaustralia.org.au/contact"} className="inline-flex min-h-10 items-center rounded-full border border-[#E9EAEB] px-5 py-2 text-xs font-semibold transition-colors hover:bg-white">
             Contact Public Skills Australia
           </a>
         </div>

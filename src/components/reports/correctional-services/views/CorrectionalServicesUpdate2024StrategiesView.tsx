@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -17,14 +18,14 @@ type Report = {
 const strategies = [
   {
     id: "demand-management",
-    eyebrow: "Strategy One",
+    eyebrow: "Project One",
     title: "Demand Management",
     border: "#9DA8D0",
     summary: "Correctional Services organisations face a range of recruitment, retention and attrition challenges, indicated by reduced employee numbers and increasing prison populations. This also manifests in attraction based challenges, relating to perceptions and stereotypical narratives about working in this industry-sector.",
   },
   {
     id: "workforce-mobility",
-    eyebrow: "Strategy Two",
+    eyebrow: "Project Two",
     title: "Workforce Mobility",
     border: "#424996",
     summary: "Correctional services organisations face challenges in relation to participation in the VET sector and particularly with the implementation of the Certificate III in Correctional Practice, the entry level qualification for Correctional Services.",
@@ -36,13 +37,15 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="update_2024_strategies" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="update_2024_strategies"
-          prev={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
-          next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
-          prevPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="update_2024_strategies"
+            prev={{ label: "2026 Proposed Workforce Strategy", href: `/reports/${slug}/workforce_strategies` }}
+            next={{ label: "Update on 2025 Strategies", href: `/reports/${slug}/update_2025_strategies` }}
+            prevPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[208px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[850px]">
@@ -64,7 +67,7 @@ export default function CorrectionalServicesUpdate2024StrategiesView({ slug, rep
                   <p className="text-sm font-medium text-[#424996]">{strategy.eyebrow}</p>
                   <h2 className="mt-4 text-xl font-semibold">{strategy.title}</h2>
                   <p className="mt-4 flex-1 text-sm leading-6 text-[#535862]">{strategy.summary}</p>
-                  <Link
+                  <Link data-report-action="primary"
                     href={`/reports/${slug}/${index === 0 ? "update_2024_demand_management" : "update_2024_workforce_mobility"}`}
                     className="mt-6 inline-flex w-fit items-center gap-3 rounded-full bg-[#8AC900] px-5 py-2.5 text-sm font-semibold text-[#252D02] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#9ED41F] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none"
                   >

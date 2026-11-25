@@ -1,4 +1,6 @@
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
 import Image from "next/image";
+import { TrendingUp, UsersRound } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 import layout from "./PublicSafetyDefenceView.module.css";
@@ -20,32 +22,39 @@ export default function PublicSafetyPoliceRegionalLeadershipView({ slug, report 
     next: { label: "Proposed Strategy 2026", href: `/reports/${slug}/police_workforce_strategies` },
     prevPrefix: "Previous Section:", nextPrefix: "Next Section:",
   }}>
-    <section className={`${styles.panel} ${layout.enter}`}>
-      <div className={styles.banner}>
-        <span className={styles.number} aria-hidden="true">3</span>
+    <section className={`${styles.panel} ${styles.topicHero} ${layout.enter}`}>
+      <div>
+        <p data-report-surface="neutral" className={styles.topicBadge}>Theme 2. Rural, Regional and Remote Police Leadership. Insight One</p>
+        <h1>2. Rural, Regional and Remote Police Leadership</h1>
+      </div>
+      <div className={`${styles.illustration} animate-zoom-in`}>
+        <Image src="/images/reports/public-safety/police-leadership-icon.png" width={88} height={88} alt="" unoptimized />
+      </div>
+    </section>
+
+    <section className={`${styles.panel} ${layout.enter}`} aria-labelledby="police-leadership-insight-one">
+      <div data-report-surface="neutral" className={`${styles.banner} ${styles.insightCallout}`}>
+        <span className={styles.number} aria-hidden="true">1</span>
         <div className={styles.bannerCopy}>
-          <p>Rural, Regional and Remote Police Leadership · Theme Two, Insight Three</p>
+          <p id="police-leadership-insight-one">Theme Two, Insight One</p>
           <div className={styles.headline}>
+            <p className={styles.insightStatement}>{headline}</p>
             <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
-            <h1>{headline}</h1>
           </div>
-        </div>
-        <div className={`${styles.illustration} animate-zoom-in`}>
-          <Image src="/images/reports/public-safety/police-leadership-icon.png" width={88} height={88} alt="" unoptimized />
         </div>
       </div>
     </section>
 
     <div className={styles.columns}>
       <section className={`${styles.panel} ${layout.enter}`}>
-        <h2>Workforce shortages in regional, rural and remote communities</h2>
-        <p className="mt-6 text-sm leading-6 text-[#535862]">As a whole, police have experienced workforce shortages driven by two years of FTE reductions in the wake of the COVID-19 pandemic. Unlike the large patrols and area commands in metropolitan areas, regional, rural and remote communities police stations often deploy fewer than five officers, with some stations deploying only one or two officers.<sup>83</sup> As such, the ripple effects of workforce shortages have a greater impact on regional, rural and remote communities where the loss of only one or two police officers equates to a large proportion of the operational capacity in these communities.<sup>84</sup></p>
-        <p className="mt-4 text-sm leading-6">Alongside workforce shortages, recruitment challenges can make it difficult for police jurisdictions to increase the number of officers deployed in these communities.<sup>85</sup> Most police jurisdictions have established incentive programs to encourage regional, rural and remote placements,<sup>86</sup> with industry consultation indicating that shortages in regional, rural and remote locations are persisting.</p>
+        <h2 className={styles.demandHeading}><span>Workforce shortages in regional, rural and remote communities</span><span className={styles.demandGraphic} aria-hidden="true"><UsersRound size={48} strokeWidth={1.5} /></span></h2>
+        <p className="mt-6 text-sm leading-6 text-[#535862]">As a whole, police have experienced workforce shortages driven by two years of FTE reductions in the wake of the COVID-19 pandemic. Unlike the large patrols and area commands in metropolitan areas, regional, rural and remote communities police stations often deploy fewer than five officers, with some stations deploying only one or two officers.<sup><PublicSafetyFootnoteLink number={83} /></sup> As such, the ripple effects of workforce shortages have a greater impact on regional, rural and remote communities where the loss of only one or two police officers equates to a large proportion of the operational capacity in these communities.<sup><PublicSafetyFootnoteLink number={84} /></sup></p>
+        <p className="mt-4 text-sm leading-6">Alongside workforce shortages, recruitment challenges for regional, rural and remote communities can make it difficult for police jurisdictions to increase the number of officers deployed in these communities.<sup><PublicSafetyFootnoteLink number={85} /></sup> While most police jurisdictions have established incentive programs to encourage regional, rural and remote placements,<sup><PublicSafetyFootnoteLink number={86} noteHref="#police-leadership-note-86" /></sup> engagement with industry-sector stakeholders indicated that shortages in regional, rural and remote locations are persisting.</p>
 
       </section>
       <section className={`${styles.panel} ${layout.enter}`}>
-        <h2>Earlier leadership responsibilities</h2>
-        <p className="mt-6 text-sm leading-6 text-[#535862]">Industry-sector consultation identified that these shortages, alongside wider demographic shifts and higher turnover in policing in recent years, have resulted in police officers being required to take on more leadership responsibilities earlier in their careers. This means that those police officers may not have the depth of experience to draw from when moving into these leadership roles and may require greater levels of support to accelerate the development of their leadership skills.</p>
+        <h2 className={styles.demandHeading}><span>Earlier leadership responsibilities</span><span className={styles.demandGraphic} aria-hidden="true"><TrendingUp size={48} strokeWidth={1.5} /></span></h2>
+        <p className="mt-6 text-sm leading-6 text-[#535862]">Industry-sector consultation identified that these shortages, alongside wider demographic shifts and higher turnover in policing in recent years, has resulted in police officers being required to take on more leadership responsibilities earlier in their careers. This means that those police officers may not have the depth of experience to draw from when having to take on these leadership roles and may require greater levels of support to accelerate the development of their leadership skills.</p>
 
         <p className="mt-6 text-sm leading-6 text-[#535862]">Further industry consultation confirmed that, while this is an area that required more examination, there is no direct requirement for any training product development or implementation, promotion and monitoring activity.</p>
       </section>
@@ -55,8 +64,8 @@ export default function PublicSafetyPoliceRegionalLeadershipView({ slug, report 
       <h2>Sources</h2>
       <ol start={83}>
         {sources.map((source) => (
-          <li key={source.number} value={source.number}>
-            <span aria-hidden="true">{source.number}</span><span>{source.text}</span>
+          <li key={source.number} value={source.number} id={`police-leadership-note-${source.number}`}>
+            <span aria-hidden="true">{source.number}</span><span><PublicSafetySourceText number={source.number} text={source.text} /></span>
           </li>
         ))}
       </ol>

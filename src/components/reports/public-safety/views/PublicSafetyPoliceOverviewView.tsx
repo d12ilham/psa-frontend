@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import PublicSafetySourceLink, { policeWorkforceSourceUrl } from "./PublicSafetySourceLink";
 
 import ReportSelectionPanel from "./ReportSelectionPanel";
@@ -19,7 +21,7 @@ const datapoints = [
   },
   {
     title: "State/Territory Police and the Australian Federal Police Workforce",
-    copy: "Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with enhanced recruitment drives, have taken considered action to increase their workforce numbers and improve retention rates. Importantly, these actions have positively impacted their workforce numbers, with six out of eight jurisdictions recording increases in sworn police officer FTE from June 2023 to June 2024. Some jurisdictions continue to face challenges in meeting their total workforce targets.",
+    copy: <>Workforce commitments: Each state and territory government, through election commitments and associated funding allocations, along with enhanced recruitment drives, have taken considered action to increase their workforce numbers and improve retention rates.<sup><a href="#police-overview-source-68" aria-label="Source 68">68</a></sup> Importantly, these actions have positively impacted their workforce numbers, with six out of eight jurisdictions recording increases in sworn police officer FTE from June 2023 to June 2024. Some jurisdictions continue to face challenges in meeting their total workforce targets.</>,
   },
 ];
 
@@ -34,7 +36,7 @@ function NationalWorkforceChart() {
     <div className={styles.plot}>
       <svg viewBox="0 0 720 390" role="img" aria-label="Yearly National Sworn Police Officer FTE in Australia">
       <desc>{points.map(({ value }, index) => `${labels[index]}: ${value.toLocaleString("en-AU")}`).join(", ")}</desc>
-      {[58500, 59250, 60000, 60750, 61500].map((tick) => {
+      {[58500, 59000, 59500, 60000, 60500, 61000, 61500].map((tick) => {
         const y = chartY(tick);
         return <g key={tick}><line x1="68" x2="643" y1={y} y2={y} stroke="#E5E7EB" /><text x="5" y={y + 4}>{tick.toLocaleString("en-AU")}</text></g>;
       })}
@@ -49,7 +51,7 @@ function NationalWorkforceChart() {
         <g key={labels[index]}>
           <g className={`animate-radar-point ${styles.marker}`} style={{ animationDelay: `${index * 0.1 + 0.3}s` }}>
             <circle cx={x} cy={y} r="4.5" />
-            <text x={index === 0 ? x - 12 : x} y={y - (index === 0 ? 7 : 12)} textAnchor={index === 0 ? "end" : "start"}>{value.toLocaleString("en-AU")}</text>
+            <text x={index === 0 ? x + 12 : x} y={index === 0 ? y + 24 : y - 12} textAnchor="start">{value.toLocaleString("en-AU")}</text>
           </g>
           <text x={x} y="347" fontSize="12">{labels[index]}</text>
         </g>
@@ -103,8 +105,8 @@ function JurisdictionChartLibrary() {
   return (
     <div className={styles.library}>
       <h3>Chart Library · {count} · Select a chart to open</h3>
-      <div className={styles.libraryGrid}>
-        <div className={styles.chartChoices} role="group" aria-label="Jurisdiction charts">
+      <div data-report-reader="standard" className={styles.libraryGrid}>
+        <div data-reader-list tabIndex={0} className={styles.chartChoices} role="group" aria-label="Jurisdiction charts">
           {jurisdictionCharts.map((item, index) => (
             <button key={item.name} type="button" aria-pressed={selected === index} onClick={() => selectChart(index)}>
               <span>
@@ -122,9 +124,9 @@ function JurisdictionChartLibrary() {
               <h4>{jurisdictionChartTitle} {chart.name}</h4>
             </div>
             <div className={styles.chartControls}>
-              <button type="button" onClick={() => selectChart((selected - 1 + count) % count)}><ChevronLeft aria-hidden="true" /> Prev</button>
-              <button type="button" onClick={() => selectChart((selected + 1) % count)}>Next <ChevronRight aria-hidden="true" /></button>
-              <button type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
+              <button data-report-action="primary" type="button" onClick={() => selectChart((selected - 1 + count) % count)}><ChevronLeft aria-hidden="true" /> Prev</button>
+              <button data-report-action="primary" type="button" onClick={() => selectChart((selected + 1) % count)}>Next <ChevronRight aria-hidden="true" /></button>
+              <button data-report-action="primary" type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
             </div>
           </div>
           <div className={styles.jurisdictionPlot}>
@@ -198,7 +200,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
           <p>Policing is a critical public safety industry-sector comprising eight state and territory police forces alongside the Australian Federal Police, each operating in distinct legislative frameworks. The police workforce is characterised by its scale, diversity and increasingly specialised capability.</p>
         </div>
         <div className={`${chapter.artwork} ${police.artwork}`}>
-          <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+          <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
         </div>
       </section>
 
@@ -210,13 +212,13 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
           {datapoints.map((item, index) => {
             const isOpen = open === index;
             return <article key={item.title}>
-              <button type="button" aria-expanded={isOpen} aria-controls={`${panelId}-${index}`} onClick={() => setOpen(isOpen ? null : index)} className={styles.toggle}>
+              <button data-report-surface="neutral" type="button" aria-expanded={isOpen} aria-controls={`${panelId}-${index}`} onClick={() => setOpen(isOpen ? null : index)} className={styles.toggle}>
                 <span>{item.title}</span>
                 <span className={styles.pill}>{isOpen ? "Close" : "Open"}<ChevronDown aria-hidden="true" /></span>
               </button>
               <div id={`${panelId}-${index}`} hidden={!isOpen}>
                 {isOpen && <div className={`${chapter.enter} ${index === 0 ? styles.national : styles.jurisdiction}`}>
-                  <p className={styles.prose}>{item.copy}<sup><a href={`#police-overview-source-${index === 0 ? 67 : 68}`} aria-label={`Source ${index === 0 ? 67 : 68}`}>{index === 0 ? 67 : 68}</a></sup></p>
+                  <p className={styles.prose}>{item.copy}{index === 0 && <sup><a href="#police-overview-source-67" aria-label="Source 67">67</a></sup>}</p>
                   {index === 0 ? <NationalWorkforceChart /> : <JurisdictionChartLibrary />}
                 </div>}
               </div>
@@ -228,7 +230,7 @@ export default function PublicSafetyPoliceOverviewView({ slug, report }: { slug:
       <section data-report-sources className={`${styles.panel} ${styles.sourcesPanel} ${chapter.enter}`}>
         <h2>Sources</h2>
         <ol className={styles.sources} start={67}>
-          {sources.map((source, index) => <li id={`police-overview-source-${index + 67}`} key={source}><span aria-hidden="true">{index + 67}</span><span>{index === 0 ? <PublicSafetySourceLink href={policeWorkforceSourceUrl}>{source}</PublicSafetySourceLink> : source}</span></li>)}
+          {sources.map((source, index) => <li id={`police-overview-source-${index + 67}`} key={source}><span aria-hidden="true">{index + 67}</span><span><PublicSafetySourceText number={index + 67} text={source} /></span></li>)}
         </ol>
       </section>
     </PublicSafetyPageShell>

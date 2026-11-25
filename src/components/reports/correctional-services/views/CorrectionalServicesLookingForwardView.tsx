@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import Link from "next/link";
 import { BrainCircuit, Download, Languages, MapPin, UsersRound } from "lucide-react";
@@ -42,12 +43,14 @@ export default function CorrectionalServicesLookingForwardView({ slug, report }:
       <ReportHeader slug={slug} report={report} currentPage="looking_forward" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="looking_forward"
-          pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
-          prev={{ label: "Commonwealth Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="looking_forward"
+            pagesOrder={[{ key: "looking_forward", label: "Looking Forward" }]}
+            prev={{ label: "Federal Government Initiatives", href: `/reports/${slug}/federal_initiatives` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="grid min-h-[285px] items-center gap-8 rounded-md border border-[#ECECE5] bg-white px-6 py-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)] lg:px-8">
           <div className="animate-slide-up motion-reduce:animate-none">
@@ -104,18 +107,18 @@ export default function CorrectionalServicesLookingForwardView({ slug, report }:
           ))}
         </section>
 
-        <p className="animate-slide-up rounded-md border border-[#8AC900] bg-[#EFF4D6] px-6 py-5 text-sm leading-6 transition-colors duration-300 hover:bg-[#E9F1CE] motion-reduce:animate-none">
+        <p data-report-surface="neutral" className="animate-slide-up rounded-md border border-[#8AC900] bg-[#EFF4D6] px-6 py-5 text-sm leading-6 transition-colors duration-300 hover:bg-[#E9F1CE] motion-reduce:animate-none">
           Beyond these focused lines of inquiry, the 2027 Workforce Insights Reports will seek to examine the impact of the Drivers of Change identified in this year&apos;s reports on our industry-sector workforces.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pb-4">
-          <Link href={`/reports/${slug}/downloads`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#006C30] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#005426]">
+          <Link data-report-action="primary" href={`/reports/${slug}/downloads`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#006C30] px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#005426]">
             Download 2026 PDF <Download className="size-4" aria-hidden="true" />
           </Link>
-          <Link href={`/reports/${slug}/executive_summary`} className="inline-flex min-h-10 items-center rounded-full border border-[#B2DB79] px-5 py-2 text-xs font-semibold text-[#54710F] transition-colors hover:bg-white">
+          <Link data-report-action="secondary" href={`/reports/${slug}/executive_summary`} className="inline-flex min-h-10 items-center rounded-full border border-[#B2DB79] px-5 py-2 text-xs font-semibold text-[#54710F] transition-colors hover:bg-white">
             Revisit the Executive Summary
           </Link>
-          <a href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} className="inline-flex min-h-10 items-center rounded-full border border-[#ECECE5] px-5 py-2 text-xs font-semibold transition-colors hover:bg-white">
+          <a data-report-action="secondary" href={report.contactUrl || "https://publicskillsaustralia.org.au/contact"} className="inline-flex min-h-10 items-center rounded-full border border-[#ECECE5] px-5 py-2 text-xs font-semibold transition-colors hover:bg-white">
             Contact Public Skills Australia
           </a>
         </div>

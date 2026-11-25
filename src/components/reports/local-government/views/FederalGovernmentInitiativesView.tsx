@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useReportReader } from "../../useReportReader";
+
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
 import ReportFooter from "@/components/layout/ReportFooter";
@@ -33,11 +36,153 @@ interface InitiativeItem {
 const INITIATIVES_DATA: InitiativeItem[] =
   federalInitiativesData as InitiativeItem[];
 
+function StrategicPrioritiesText({ text }: { text: string }) {
+  const titles = /(Australian Government's Strategic Priorities|Australian Government Strategic Priorities|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function WorkingForWomenText({ text }: { text: string }) {
+  const titles = /(Working for Women Strategy|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CleanEnergyText({ text }: { text: string }) {
+  const titles = /(The Clean Energy Generation|Local Government Emergency Management Skills Project)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CyberSecurityText({ text }: { text: string }) {
+  const titles = /(2023–2030 Australian Cyber Security Strategy|2026 Local Government Workforce Insights Report)/g;
+
+  return <>{text.split(titles).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function CoreSkillsFindingsText({ text }: { text: string }) {
+  const title = /(2024 CSOL Key Findings Report)/g;
+  return <>{text.split(title).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function BetterTogetherText({ text }: { text: string }) {
+  const title = /(Better Together)/g;
+  return <>{text.split(title).map((part, index) =>
+    index % 2 === 1 ? <em key={index}>{part}</em> : part
+  )}</>;
+}
+
+function InitiativeImpactDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "14") {
+    const auditTitle = /(Local Government Skills Audit)/g;
+    return <>{item.impactDescription.split(auditTitle).map((part, index) =>
+      index % 2 === 1 ? <em key={index}>{part}</em> : part
+    )}</>;
+  }
+
+  if (item.number === "09") {
+    return <BetterTogetherText text={item.impactDescription} />;
+  }
+
+  if (item.number === "08") {
+    return <CoreSkillsFindingsText text={item.impactDescription} />;
+  }
+
+  if (item.number === "07" || item.number === "10") {
+    const reportTitle = /(2026 Local Government Workforce Insights Report)/g;
+    return <>{item.impactDescription.split(reportTitle).map((part, index) =>
+      index % 2 === 1 ? <em key={index}>{part}</em> : part
+    )}</>;
+  }
+
+  if (item.number === "05") {
+    return <CyberSecurityText text={item.impactDescription} />;
+  }
+
+  if (item.number === "04") {
+    return <CleanEnergyText text={item.impactDescription} />;
+  }
+
+  if (item.number === "03") {
+    return <WorkingForWomenText text={item.impactDescription} />;
+  }
+
+  if (item.number === "02") {
+    return <StrategicPrioritiesText text={item.impactDescription} />;
+  }
+
+  const title = "Local Government Skills Audit and uptake and utility of the Local Government Training Package";
+  const position = item.impactDescription.indexOf(title);
+
+  if (item.number !== "01" || position < 0) {
+    return <>{item.impactDescription}</>;
+  }
+
+  return (
+    <>
+      {item.impactDescription.slice(0, position)}
+      <em>{title}</em>
+      {item.impactDescription.slice(position + title.length)}
+    </>
+  );
+}
+
 function InitiativeDescription({ item }: { item: InitiativeItem }) {
+  if (item.number === "08") {
+    return <div className="whitespace-pre-line"><CoreSkillsFindingsText text={item.description} /></div>;
+  }
+
+  if (item.number === "05") {
+    return <div className="whitespace-pre-line"><CyberSecurityText text={item.description} /></div>;
+  }
+
+  if (item.number === "04") {
+    return <div className="whitespace-pre-line"><CleanEnergyText text={item.description} /></div>;
+  }
+
+  if (item.number === "03") {
+    return <div className="whitespace-pre-line"><WorkingForWomenText text={item.description} /></div>;
+  }
+
+  if (item.number === "02") {
+    return <div className="whitespace-pre-line"><StrategicPrioritiesText text={item.description} /></div>;
+  }
+
+  if (item.number === "06") {
+    const [advice, ...following] = item.description.split("\n\n");
+    const [introduction, ...recommendations] = advice.split("\n");
+
+    return (
+      <div className="space-y-4">
+        <p>{introduction}</p>
+        <ul className="space-y-2">
+          {recommendations.map((recommendation) => (
+            <li key={recommendation} className="flex items-start gap-2">
+              <span aria-hidden="true" className="shrink-0">›</span>
+              <span>{recommendation}</span>
+            </li>
+          ))}
+        </ul>
+        {following.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      </div>
+    );
+  }
+
   if (item.number === "13") {
     const [challengeSection, recommendationSection] = item.description.split("\n\n");
     const [challengeIntroduction, ...challenges] = challengeSection.split("\n");
     const [recommendationIntroduction, ...recommendations] = recommendationSection.split("\n");
+    const paperTitle = /(Speeding up progress towards gender economic equality)/g;
 
     return (
       <div className="space-y-4">
@@ -53,7 +198,9 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
           </ul>
         </div>
         <div className="space-y-2">
-          <p>{recommendationIntroduction}</p>
+          <p>{recommendationIntroduction.split(paperTitle).map((part, index) =>
+            index % 2 === 1 ? <em key={index}>{part}</em> : part
+          )}</p>
           <ol className="list-decimal space-y-1 pl-5">
             {recommendations.map((recommendation) => (
               <li key={recommendation} className="pl-1">
@@ -75,7 +222,7 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
 
   return (
     <div className="space-y-4">
-      <p>{introduction}</p>
+      <p>{item.number === "09" ? <BetterTogetherText text={introduction} /> : introduction}</p>
       <ul className="space-y-2">
         {pillars.map((pillar) => {
           const separator = item.number === "09" ? pillar.indexOf(": ") : -1;
@@ -99,7 +246,7 @@ function InitiativeDescription({ item }: { item: InitiativeItem }) {
           );
         })}
       </ul>
-      <p>{closing}</p>
+      <p>{item.number === "09" ? <BetterTogetherText text={closing} /> : closing}</p>
     </div>
   );
 }
@@ -114,10 +261,13 @@ export default function FederalGovernmentInitiativesView({
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(INITIATIVES_DATA[0].id);
   const [isHeroMounted, setIsHeroMounted] = useState(false);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+  useReportReader(detailPanelRef, selectedId, false);
 
   useEffect(() => {
     setIsHeroMounted(true);
   }, []);
+
 
   const selectedItem =
     INITIATIVES_DATA.find((s) => s.id === selectedId) || INITIATIVES_DATA[0];
@@ -147,27 +297,29 @@ export default function FederalGovernmentInitiativesView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Existing
-            Industry-Sector Strategies
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/looking_forward`)}
-            className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            Next Section: 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={() => router.push(`/reports/${slug}/existing_strategies`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to Existing
+              Industry-Sector Strategies
+            </button>
+            <button data-report-action="primary"
+              onClick={() => router.push(`/reports/${slug}/looking_forward`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              Next Section: 2027 and Beyond <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="space-y-3 flex-1">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray800 leading-tight animate-slide-up">
-              Commonwealth Government Initiatives
+              Federal Government Initiatives
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia's work is informed and guided by the
@@ -189,14 +341,14 @@ export default function FederalGovernmentInitiativesView({
         </div>
 
         {/* ── MASTER-DETAIL 2-COLUMN GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div data-report-reader="standard" className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           {/* LEFT COLUMN: INITIATIVES */}
-          <div className="lg:col-span-1 space-y-3">
+          <div data-reader-list role="region" aria-label="Available selections" tabIndex={0} className="lg:col-span-1 space-y-3 p-1">
             {INITIATIVES_DATA.map((item, idx) => {
               const isSelected = item.id === selectedId;
               return (
                 <React.Fragment key={item.id}>
-                  <div
+                  <button type="button" aria-pressed={isSelected} data-report-surface="neutral"
                     style={{ animationDelay: `${0.06 + idx * 0.04}s` }}
                     onClick={() =>
                       setSelectedId(
@@ -208,22 +360,22 @@ export default function FederalGovernmentInitiativesView({
                           : item.id,
                       )
                     }
-                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex items-center justify-between gap-4 ${
+                    className={`animate-card-entrance rounded-2xl p-5 border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer flex w-full text-left items-center justify-between gap-4 ${
                       isSelected
                         ? "bg-[#8AC900]/15 border-2 border-[#8AC900] shadow-xs"
                         : "bg-white border-gray200 hover:border-[#8AC900] hover:bg-[#FAFAF0] hover:shadow-xs"
                     }`}
                   >
-                    <div className="space-y-4 flex-1">
+                    <span className="space-y-4 flex-1">
                       <span className="text-xs font-semibold text-notes block">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="font-bold text-gray800 leading-normal">
+                      <span className="font-bold text-gray800 leading-normal">
                         {item.title}
-                      </h3>
-                    </div>
+                      </span>
+                    </span>
 
-                    <div
+                    <span
                       className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isSelected
                           ? "bg-white text-gray800 border border-[#8AC900] rotate-90 lg:rotate-0"
@@ -231,8 +383,8 @@ export default function FederalGovernmentInitiativesView({
                       }`}
                     >
                       <ArrowRight className="h-4 w-4 text-gray800" />
-                    </div>
-                  </div>
+                    </span>
+                  </button>
 
                   {/* Mobile Detail Panel (Displayed right below the clicked item) */}
                   {isSelected && (
@@ -265,9 +417,9 @@ export default function FederalGovernmentInitiativesView({
                             HOW THIS INFORMS PUBLIC SKILLS AUSTRALIA'S WORK
                           </span>
 
-                          <div className="bg-[#F0F5DF] rounded-xl border-l-8 sm:border-l-12 border-l-[#9CAA54] p-3.5 sm:p-4 space-y-2">
+                          <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-xl border-l-8 sm:border-l-12 border-l-[#9CAA54] p-3.5 sm:p-4 space-y-2">
                             <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                              {item.impactDescription}
+                              <InitiativeImpactDescription item={item} />
                             </p>
                           </div>
                         </div>
@@ -280,15 +432,15 @@ export default function FederalGovernmentInitiativesView({
           </div>
 
           {/* RIGHT COLUMN: SELECTED INITIATIVE DETAIL PANEL (Desktop only) */}
-          <div className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 lg:sticky lg:top-20">
+          <div ref={detailPanelRef} data-reader-detail role="region" aria-label="Selected government initiative" tabIndex={0} className="hidden lg:block lg:col-span-2 bg-[#E5E8DA] rounded-2xl p-5 sm:p-6 space-y-5 scroll-mt-20">
             {/* Top Bar inside Detail Panel */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="sticky top-0 z-10 bg-[#E5E8DA] flex items-center justify-between gap-4">
               <span className="bg-lg-dark text-white text-xs font-semibold px-5 py-2.5 rounded-full uppercase">
                 {String(selectedIndex + 1).padStart(2, "0")}
               </span>
               <div className="flex items-center gap-3">
                 {selectedIndex > 0 && (
-                  <button
+                  <button data-report-action="primary"
                     onClick={handlePrev}
                     className={`text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5 ${
                       selectedIndex === INITIATIVES_DATA.length - 1
@@ -307,7 +459,7 @@ export default function FederalGovernmentInitiativesView({
                   </button>
                 )}
                 {selectedIndex < INITIATIVES_DATA.length - 1 && (
-                  <button
+                  <button data-report-action="primary"
                     onClick={handleNext}
                     className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer transition-all duration-300 flex items-center gap-1.5"
                   >
@@ -345,9 +497,9 @@ export default function FederalGovernmentInitiativesView({
                   HOW THIS INFORMS PUBLIC SKILLS AUSTRALIA'S WORK
                 </span>
 
-                <div className="bg-[#F0F5DF] rounded-xl border-l-12 border-l-[#9CAA54] p-4 sm:p-5 space-y-3">
+                <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-xl border-l-12 border-l-[#9CAA54] p-4 sm:p-5 space-y-3">
                   <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
-                    {selectedItem.impactDescription}
+                    <InitiativeImpactDescription item={selectedItem} />
                   </p>
                 </div>
               </div>

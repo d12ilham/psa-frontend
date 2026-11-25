@@ -2,7 +2,6 @@ import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 import chapter from "./PublicSafetyDefenceView.module.css";
 import layout from "./PublicSafetyDefenceWorkforceStrategiesView.module.css";
-import police from "./PublicSafetyPoliceView.module.css";
 import styles from "./PublicSafetyPoliceWorkforceStrategiesView.module.css";
 
 const stakeholders = ["ANZPAA", "National Institute of Forensic Science (NIFS)", "State/Territory Police organisations and Australian Federal Police", "Forensic Services South Australia", "ACT Government Analytical Laboratory", "Canberra Institute of Technology"];
@@ -21,12 +20,12 @@ export default function PublicSafetyPoliceWorkforceStrategiesView({ slug, report
         <h1>Proposed Strategy 2026</h1>
         <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support the Police industry-sector:</p>
       </div>
-      <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+      <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
       </div>
     </section>
 
-    <section className={`${layout.strategy} ${styles.strategy} ${chapter.enter}`}>
+    <section data-report-surface="neutral" className={`${layout.strategy} ${styles.strategy} ${chapter.enter}`}>
       <span className={`${layout.badge} ${styles.badge}`}>Strategy 1</span>
       <h2>Develop Training Products for Digital Forensics</h2>
 

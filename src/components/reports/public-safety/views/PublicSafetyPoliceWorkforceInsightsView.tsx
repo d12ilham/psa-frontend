@@ -22,7 +22,7 @@ const themes = [
     eyebrow: "Theme 2 · 1 insight",
     title: "2. Rural, Regional and Remote Police Leadership",
     insights: [
-      { number: "3", href: "police_regional_remote_leadership", label: "Theme Two, Insight Three", text: "Police officers being required to take on more leadership responsibilities earlier in their careers, particularly in regional, rural and remote areas, where workforce shortages are more pronounced. This may require more support in accelerating leadership skills development." },
+      { number: "1", href: "police_regional_remote_leadership", label: "Theme Two, Insight One", text: "Police officers being required to take on more leadership responsibilities earlier in their careers, particularly in regional, rural and remote areas, where workforce shortages are more pronounced. This may require more support in accelerating leadership skills development." },
     ],
   },
 ];
@@ -51,13 +51,12 @@ export default function PublicSafetyPoliceWorkforceInsightsView({ slug, report }
         <article key={theme.title} className={`${layout.theme} ${styles.theme} animate-card-entrance`} style={{ animationDelay: `${index * 150}ms` }}>
           <p className={layout.eyebrow}>{theme.eyebrow}</p>
           <h2>{theme.title}</h2>
-          <p className={layout.industryLabel}>Industry Insights</p>
           <div className={layout.insights}>
             {theme.insights.map((insight) => (
-              <button key={insight.number} type="button" className={`${layout.insight} ${styles.insight}`} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
+              <button data-report-surface="neutral" key={insight.number} type="button" className={`${layout.insight} ${styles.insight}`} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
                 <span className={`${layout.number} ${styles.number}`} aria-hidden="true">{insight.number}</span>
                 <span className={`${layout.insightCopy} ${styles.insightCopy}`}><strong>{insight.label}</strong>{insight.text}</span>
-                <span className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
+                <span data-report-action="primary" className={layout.insightArrow}><ArrowRight size={16} aria-hidden="true" /></span>
               </button>
             ))}
           </div>

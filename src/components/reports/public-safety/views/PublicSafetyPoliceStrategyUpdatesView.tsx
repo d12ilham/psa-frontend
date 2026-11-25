@@ -9,7 +9,6 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 
 import chapter from "./PublicSafetyDefenceView.module.css";
 import layout from "./PublicSafetyDefenceStrategyUpdatesView.module.css";
-import police from "./PublicSafetyPoliceView.module.css";
 import styles from "./PublicSafetyPoliceStrategyUpdatesView.module.css";
 
 const projects = [
@@ -21,9 +20,9 @@ const projects = [
     bullets: ["Diploma of Police Bomb Technical Response", "Diploma of Police Search and Rescue Coordination (Marine / Land)", "Advanced Diploma of Police Search and Rescue Management"],
     secondUpdate: "Public Skills Australia has conducted public consultation on proposed draft training products and plans to progress this project for ministerial endorsement by June 2026.",
     secondBullets: ["Advanced Diploma of Police Supervision", "Graduate Certificate in Police Management", "Graduate Certificate in Police Prosecution"],
-    futureUpdate: "Future training product updates will align with the Police Commissioners and ANZPAA's forthcoming Annual Plan. Potential areas include Witness Protection, Negotiation, Close Personal Protection and Digital Forensics. The Digital Forensics strategy is complementary to this project and is expected to form Release 13.0 of the Police Training Package.",
+    futureUpdate: "Future training product updates will likely be commenced aligned to Police Commissioner and ANZPAA priorities outlined in ANZPAA’s forthcoming Annual Plan. This may include focus areas such as Witness Protection, Negotiation, Close Personal Protection and Digital Forensics. The Develop Training Products for Digital Forensics strategy will be complementary to future updates of the Police Training Package, and is expected to be included in Release 13.0",
     stakeholders: ["Australia New Zealand Policing Advisory Agency (ANZPAA)", "Police Federation of Australia", "State Training Organisations/Senior Responsible Officer"],
-    priority: "This project will contribute to reflecting the possible impacts of Artificial Intelligence (AI) and broader digital transformation in workforce planning censuses, and in the design and review of qualifications and training products.",
+    priority: "This project will contribute to reflecting the possible impacts of Artificial Intelligence (AI) and broader digital transformation in workforce planning analysis, and in the design and review of qualifications and training products.",
     strategic: "Support the Police industry-sector to continue to build and maintain capable and mobile workforces that are future-ready.",
     driver: "Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation.",
     connection: "Develop Training Products for Digital Forensics.",
@@ -31,7 +30,7 @@ const projects = [
   {
     completion: "December 2026",
     title: "Police Occupational Pathways Project",
-    summary: "Develop a greater understanding of the factors influencing operational capacity in metropolitan and remote/regional policing. This analysis will also seek to determine the role of the VET system in addressing workforce pipeline challenges.",
+    summary: "Develop a greater understanding of the factors influencing operational capacity in metropolitan and remote/regional/rural policing. This analysis will also seek to determine the role of the VET system in addressing workforce pipeline challenges.",
     update: "In collaboration with ANZPAA, State/Territory Police organisations and Australian Federal Police, this project will use Police Training Package qualifications to map common skills across occupational roles and identify how the Vocational Education and Training (VET) system could support efforts to address capacity challenges in occupational roles.",
     bullets: [],
     secondUpdate: "An activity submission was approved by DEWR in December 2025. This project began mapping Police Training Package qualifications to understand skills similarities between police occupational roles. Key police stakeholders to undertake consultations starting March 2026 have also been identified.",
@@ -76,32 +75,32 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
       <div className={styles.heroCopy}>
         <span className={`${layout.badge} ${styles.badge}`}>POL Strategy Updates</span>
         <h1>2025 Public Safety Workforce Insights Report – Police Strategies Updates</h1>
-        <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the 2025 Public Safety Workforce Insights Report. Updates on the progress of these strategies and activity projects are provided below.</p>
+        <p>Public Skills Australia identified workforce strategies for the Police industry-sector as part of the <em>2025 Public Safety Workforce Insights Report</em>. Updates on the progress of these strategies and activity projects are provided below.</p>
       </div>
-      <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" width={136} height={136} alt="" unoptimized priority />
+      <div className={`${chapter.artwork} ${styles.heroArtwork}`}>
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" width={136} height={136} alt="" unoptimized priority />
       </div>
     </section>
 
-    <section className={`${layout.projects} ${chapter.enter}`}>
+    <section data-report-reader="wide" className={`${layout.projects} ${chapter.enter}`}>
       <div>
         <h2>Strategies · {projects.length} · Select to open</h2>
-        <div className={layout.projectList} role="group" aria-label="2025 Police strategy projects">
+        <div data-reader-list tabIndex={0} className={layout.projectList} role="group" aria-label="2025 Police strategy projects">
           {projects.map((item, index) => (
             <button key={item.title} type="button" className={`${layout.projectButton} ${styles.projectButton}`} onClick={() => setActive(index)} aria-pressed={active === index}>
               <span><small>0{index + 1} · Completion: {item.completion}</small><strong>{item.title}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
 
-      <ReportSelectionPanel selection={active} label="Police project details"><article className={`${layout.panel} ${styles.panel}`}>
-        <div className={layout.panelHeader}>
+      <ReportSelectionPanel selection={active} label="Police project details"><article data-report-surface="neutral" className={`${layout.panel} ${styles.panel}`}>
+        <div data-reader-toolbar className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · Completion: {project.completion}</span>
           <div className={layout.controls}>
-            {active > 0 && <button type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < projects.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < projects.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={project.title} className={`${layout.details} ${chapter.enter}`}>
@@ -116,31 +115,31 @@ export default function PublicSafetyPoliceStrategyUpdatesView({ slug, report }: 
             <p>{project.update}</p>
             {project.bullets.length > 0 && <>
               <p>Release 11.0 will update:</p>
-              <ul>{project.bullets.map(item => <li key={item}>{item}</li>)}</ul>
+              <ul>{project.bullets.map(item => <li key={item}><em>{item}</em></li>)}</ul>
             </>}
             <p>{project.secondUpdate}</p>
             {project.secondBullets.length > 0 && <>
               <p>Release 12.0 will update:</p>
-              <ul>{project.secondBullets.map(item => <li key={item}>{item}</li>)}</ul>
+              <ul>{project.secondBullets.map(item => <li key={item}><em>{item}</em></li>)}</ul>
             </>}
-            {project.futureUpdate && <p>{project.futureUpdate}</p>}
+            {project.futureUpdate && <p>{project.futureUpdate.split(/(Annual Plan)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</p>}
           </div>
 
-          <div className={`${layout.note} ${styles.note} ${styles.stakeholders}`}>
+          <div data-report-surface="neutral" className={`${layout.note} ${styles.note} ${styles.stakeholders}`}>
             <h4>Key Stakeholders</h4>
             <ul>{project.stakeholders.map(item => <li key={item}>{item}</li>)}</ul>
           </div>
           <div className={layout.groups}>
-            <h4 className={styles.informs}>How this informs Public Skills Australia’s work</h4>
+            <h4 className={styles.informs}>Connection to 2026 Strategies</h4>
             {[
               ["Ministerial Priority 2026", project.priority],
               ["Strategic Plan Priorities 2026", project.strategic],
               ["Drivers of Change connections", project.driver],
               ...(project.connection ? [["2026 Police Strategies Connection", project.connection]] : []),
             ].map(([title, copy]) => (
-              <section key={title} className={`${layout.note} ${styles.note}`}>
+              <section data-report-surface="neutral" key={title} className={`${layout.note} ${styles.note}`}>
                 <h4>{title}</h4>
-                <p>{copy}</p>
+                <p>{title === "2026 Police Strategies Connection" ? <>{copy.split(/(Develop Training Products for Digital Forensics)/g).map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</> : copy}</p>
               </section>
             ))}
           </div>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import ReportNavButtons from "@/components/layout/ReportNavButtons";
+import { DEFAULT_LANDING_EXEC_DESC, DEFAULT_LANDING_INTRO_DESC } from "@/config/reports/sectors";
 
 interface FederalStateLandingViewProps {
   slug: string;
@@ -113,14 +113,6 @@ export default function FederalStateLandingView({
         </div>
       </header>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          prev={{ label: "Workforce Insights Reports", href: "/reports" }}
-          next={{ label: "Introduction", href: `/reports/${slug}/introduction` }}
-        />
-      </div>
-
       {/* ── MAIN CONTENT (TOP ALIGNED) ── */}
       <main className="flex-1 flex flex-col items-center justify-start pt-10 sm:pt-14 pb-12 z-10 relative px-4">
         {/* Title Section */}
@@ -154,12 +146,12 @@ export default function FederalStateLandingView({
               </h2>
               <p className="text-xs text-black leading-relaxed mb-8">
                 {report.landingIntroDesc ||
-                  "For readers who want the report background — how it was developed, the methodology and the full report structure."}
+                  DEFAULT_LANDING_INTRO_DESC}
               </p>
             </div>
 
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() => router.push(`/reports/${slug}/introduction`)}
                 className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
               >
@@ -185,18 +177,18 @@ export default function FederalStateLandingView({
               </div>
               <p className="text-xs text-black leading-relaxed mb-8">
                 {report.landingExecDesc ||
-                  "Straight to the key insights and strategies on one page, built for large screens and briefings."}
+                  DEFAULT_LANDING_EXEC_DESC}
               </p>
             </div>
 
             <div>
-              <button
+              <button data-report-action="primary"
                 onClick={() =>
                   router.push(`/reports/${slug}/executive_summary`)
                 }
                 className="font-bold text-sm px-6 py-2 rounded-full flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-90 bg-[#8AC900] text-black"
               >
-                <span>Open the Executive Summary</span>
+                <span>Explore the Executive Summary</span>
                 <span className="text-base font-normal">→</span>
               </button>
             </div>
@@ -206,13 +198,13 @@ export default function FederalStateLandingView({
 
       {/* ── FOOTER / BOTTOM NAV ── */}
       <footer className="w-full bg-white border-t border-gray200 z-10 relative py-4 px-4 flex items-center justify-center gap-3">
-        <button
+        <button data-report-action="primary"
           onClick={() => router.push("/reports")}
           className="border border-[#E9EAEB] text-black font-semibold text-sm px-5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer hover:bg-black/5 transition-colors"
         >
           <span>←</span> Back to PSA Website
         </button>
-        <a
+        <a data-report-action="primary"
           href={
             report.contactUrl || "https://publicskillsaustralia.org.au/contact"
           }

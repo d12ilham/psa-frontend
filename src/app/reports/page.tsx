@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
+import ReportHomeLink from "@/components/layout/ReportHomeLink";
+import styles from "./sector-cards.module.css";
 import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
 import {
   Download,
-  Play,
   FileText,
   ChevronRight,
   X,
@@ -21,7 +22,7 @@ const SECTOR_REPORTS = [
     sectorKey: "Local Government",
     badgeText: "LOCAL GOVERNMENT",
     title: "2026 Local Government Workforce Insights Report",
-    coverImage: "/images/reports/sector-card-local-government.png",
+    coverImage: "/images/reports/sector-local-government-figma.png",
     targetUrl: "/reports/local-government-workforce-insights-report",
   },
   {
@@ -45,7 +46,7 @@ const SECTOR_REPORTS = [
     sectorKey: "Correctional Services",
     badgeText: "CORRECTIONAL SERVICES",
     title: "2026 Correctional Services Workforce Insights Report",
-    coverImage: "/images/reports/sector-card-correctional-services.png",
+    coverImage: "/images/reports/sector-correctional-services-figma.png",
     targetUrl: "/reports/correctional-services-wir-2026",
   },
 ];
@@ -56,7 +57,6 @@ export default function ReportsArchivePage() {
   const reports = STATIC_REPORTS;
   const siteSettings = SITE_SETTINGS;
 
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -71,17 +71,15 @@ export default function ReportsArchivePage() {
     <div className="min-h-screen bg-[#FAFAF0] text-[#1B240E] font-sans flex flex-col antialiased selection:bg-[#85CC00]/40">
       {/* ── 1. TOP NAVIGATION BAR ── */}
       <header className="bg-[#252D02] w-full text-white border-b border-[#2A3716] sticky top-0 z-50">
-        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-360 mx-auto py-3.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
           {/* Left Brand Logo & Title */}
-          <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={() => router.push("/")}
-          >
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <Link href="/reports" aria-label="Public Skills Australia reports home" className="group shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
             {siteSettings?.logoLightUrl ? (
               <img
                 src={siteSettings.logoLightUrl}
                 alt={siteSettings?.title || "Public Skills Australia"}
-                className="h-8 w-auto object-contain"
+                className="h-7 w-auto max-w-[112px] object-contain sm:h-8 sm:max-w-[150px]"
               />
             ) : (
               <div className="w-8 h-8 rounded bg-[#85CC00] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -105,12 +103,8 @@ export default function ReportsArchivePage() {
               </div>
             )}
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="hidden sm:inline-block h-6 w-px bg-white/20"></span>
-              <span className="hidden sm:inline-block font-normal text-xs sm:text-sm text-[#85CC00]">
-                Workforce Insights Reports
-              </span>
-            </div>
+            </Link>
+            <ReportHomeLink />
           </div>
 
           {/* Right Navigation Links (Desktop) */}
@@ -143,7 +137,7 @@ export default function ReportsArchivePage() {
           </nav>
 
           {/* Mobile Hamburger Toggle Button */}
-          <div className="flex md:hidden items-center">
+          <div className="flex shrink-0 md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
@@ -251,31 +245,23 @@ export default function ReportsArchivePage() {
               </div>
             </div>
 
-            {/* Right Video Card Placeholder (Non-interactive) */}
+            {/* Reports launch video with Auslan interpretation */}
             <div className="lg:col-span-5 animate-zoom-in">
               <div className="bg-cards rounded-2xl p-5 border border-gray200 space-y-3">
-                {/* Video Thumbnail Box */}
-                <div className="bg-white rounded-xl aspect-video relative flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-white"></div>
-
-                  <div className="relative z-10 flex flex-col items-center gap-3">
-                    <div className="w-20 h-20 rounded-full bg-[#F0F5DF] text-lg-light flex items-center justify-center pl-1">
-                      <Play className="w-9 h-9 fill-lg-light" />
-                    </div>
-                  </div>
+                <div className="aspect-video overflow-hidden rounded-xl bg-black">
+                  <iframe
+                    src="https://player.vimeo.com/video/1216878313?h=6a18af4b61&autopause=1"
+                    title="2026 Workforce Reports Launch (Auslan)"
+                    className="h-full w-full border-0"
+                    loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
                 </div>
-
-                {/* Video Subtitle */}
-                <div className="flex items-center justify-between px-1 gap-5">
-                  <p className="text-xs text-gray600 font-medium leading-relaxed">
-                    A short introduction to the 2026 reports from Public Skills
-                    Australia.
-                  </p>
-                  <div className="bg-lg-light text-[#1C250E] font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1.5 shrink-0 select-none">
-                    <Play className="w-4 h-4" />
-                    <span>Watch 2 Mins.</span>
-                  </div>
-                </div>
+                <p className="px-1 text-xs text-gray600 font-medium leading-relaxed">
+                  2026 Workforce Reports Launch, with Auslan interpretation.
+                </p>
               </div>
             </div>
           </div>
@@ -389,7 +375,7 @@ export default function ReportsArchivePage() {
         {/* ── 5. SECTOR WORKFORCE INSIGHTS REPORTS GRID ── */}
         <section id="sectors-section" className="space-y-4 pt-2">
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <div className={styles.heading + " flex flex-col sm:flex-row sm:items-baseline justify-between gap-2"}>
             <h2 className="text-lg sm:text-xl font-bold text-gray800">
               Choose your sector Workforce Insights Report
             </h2>
@@ -408,27 +394,25 @@ export default function ReportsArchivePage() {
                 key={sector.id}
                 href={matched ? `/reports/${matched.slug}` : sector.targetUrl}
                 style={{ animationDelay: `${0.15 + idx * 0.1}s` }}
-                className="animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark"
+                data-sector={sector.id}
+                className={`${styles.card} animate-card-entrance relative block aspect-[342/200] w-full overflow-hidden rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lg-dark`}
                 aria-label={`View ${sector.title}`}
               >
                 <img
                   src={sector.coverImage}
                   alt=""
-                  className={sector.id === "public-safety"
-                    ? "block h-full w-full object-cover object-[50%_58%]"
-                    : "block h-full w-full"}
+                  className={sector.id === "public-safety" ? styles.publicSafetyArtwork : styles.cover}
                 />
                 {sector.id === "public-safety" && (
-                  <div className="absolute inset-0 flex flex-col items-start justify-between p-3 text-[#1B240E] sm:p-4">
-                    <div className="leading-tight">
-                      <h3 className="text-base font-extrabold">2026 Public Safety</h3>
-                      <p className="text-xs font-bold">Workforce Insights Report</p>
+                  <div className={styles.publicSafetyTitle}>
+                    <span className={styles.year}>2026</span>
+                    <div>
+                      <h3>Public Safety</h3>
+                      <p>Workforce Insights Report</p>
                     </div>
-                    <span className="rounded-full bg-[#85CC00] px-4 py-1.5 text-xs font-bold">
-                      View
-                    </span>
                   </div>
                 )}
+                <span className={styles.view} aria-hidden="true">View</span>
               </Link>;
             })}
           </div>
@@ -472,43 +456,6 @@ export default function ReportsArchivePage() {
 
       {/* ── 7. FOOTER ── */}
       <ReportFooter reportName="Workforce Insights Reports" />
-
-      {/* ── 8. VIDEO INTRO MODAL ── */}
-      {isVideoModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden space-y-0 relative border border-[#E2DFD4]">
-            <div className="bg-[#1C250E] text-white p-4 flex items-center justify-between">
-              <h3 className="font-extrabold text-sm sm:text-base flex items-center gap-2">
-                <Play className="w-4 h-4 fill-[#85CC00] text-[#85CC00]" />
-                <span>2026 Workforce Insights Reports Introduction</span>
-              </h3>
-              <button
-                onClick={() => setIsVideoModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="aspect-video w-full bg-black relative flex items-center justify-center">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                title="Public Skills Australia Video Introduction"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="p-4 bg-[#F4F3EA] flex justify-end">
-              <button
-                onClick={() => setIsVideoModalOpen(false)}
-                className="bg-[#1B240E] text-white font-extrabold text-xs px-5 py-2 rounded-full hover:bg-[#2A3716] transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── 9. ALL SECTOR REPORTS (PDFs) MODAL ── */}
       {isPdfModalOpen && (

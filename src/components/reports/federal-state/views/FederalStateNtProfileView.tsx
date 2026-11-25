@@ -1,5 +1,6 @@
 "use client";
 
+import { genderChartPalette } from "./genderChartPalette";
 import { NumberedSource, SourceLink } from "../SourceCitation";
 import IndustryInsightCard from "./IndustryInsightCard";
 
@@ -71,7 +72,7 @@ const sources = [
 export default function FederalStateNtProfileView({ slug, report, embedded = false }: { slug: string; report: Report; embedded?: boolean }) {
   const ContentTag = embedded ? "div" : "main";
   return (
-    <div className={embedded ? "text-[#252D02]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased"}>
+    <div className={embedded ? "text-[#252B37]" : "flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252B37] antialiased"}>
       {!embedded && <ReportHeader slug={slug} report={report} currentPage="industry_profile" />}
       <ContentTag className={embedded ? "space-y-5" : "mx-auto w-full max-w-[1440px] flex-1 space-y-5 px-4 py-5 sm:px-6 lg:px-8"}>
         {!embedded && <ReportNavButtons
@@ -88,19 +89,19 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             <h1 data-profile-title className="mt-4 text-[clamp(1.25rem,9cqi,2.5rem)] font-bold leading-tight text-black">Northern Territory<br /><span className="whitespace-nowrap">Public Service</span></h1>
             <p className="mt-5 text-base font-semibold text-black">Workforce Overview</p>
             <div className="mt-3 max-w-[520px] space-y-3">
-              <div className="rounded-md bg-[#F8EEE8] p-4">
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4">
                 <p className="text-base leading-6 text-black">In 2025, the Northern Territory <span className="whitespace-nowrap">Public Service</span> was comprised of</p>
                 <strong className="mt-1 block text-4xl text-black">25,786</strong>
                 <p className="mt-1 text-base leading-6 text-black">employees (23,754 FTE)</p>
                 <p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–2025, 2025, pg. 10</SourceLink></p>
               </div>
-              <div className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees located in the Northern Territory</p></div>
+              <div data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-4"><strong className="block text-4xl text-black">2,255</strong><p className="mt-1 text-base leading-6 text-black">APS employees</p></div>
             </div>
           </div>
           <JurisdictionMap slug={slug} selected="NT" showLinks={!embedded} />
         </section>
 
-        <Section title="Workforce Overview" subtitle="Workforce size, composition, diversity, structure and legal context.">
+        <Section title="NT Workforce Overview">
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
               <h3 className="text-sm font-bold">Overview</h3>
@@ -117,26 +118,37 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             </div>
           </div>
           <div data-nt-overview-statistics className="mt-6 grid gap-4 lg:grid-cols-2">
-              <div data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
-              <div data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-sm font-bold">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="text-[10px] text-[#382219]">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
+              <div data-report-surface="neutral" data-nt-growth className="rounded-md bg-[#F8EEE8] p-4"><strong className="text-3xl text-[#754D32]">8%</strong><p className="mt-1 text-xs">Employment growth rate projection to May 2035 for Public Administration and Safety Industry</p><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={68}>Source: Jobs and Skills Australia, Employment Projections - Outlook for states and territories, 2025, Table 1</SourceLink></p></div>
+              <div data-report-surface="neutral" data-nt-employee-locations className="rounded-md bg-[#F8EEE8] p-4"><h3 className="text-lg font-bold text-[#252B37]">Employee Locations</h3><div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">{locations.map(([value, label]) => <div key={label}><strong className="block text-2xl text-[#754D32]">{value}</strong><span className="mt-1 block text-base font-semibold leading-6 text-[#252B37] sm:text-lg">{label}</span></div>)}</div><p data-citation-copy className="mt-4 border-t border-[#DECFC5] pt-3 text-sm leading-6 text-black"><SourceLink row={66}>Northern Territory Government, State of the Service Report 2024–2025, 2025, Figure 3</SourceLink></p></div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
             <div data-profile-chart data-chart-surface="standard" data-chart-type="gender" className={`${chartStyles.card} ${chartStyles.standard} rounded-md    p-4 sm:p-5`}>
               <h3 className="text-lg font-bold text-[#292522]">Northern Territory Public Sector Employees - Gender</h3>
               <div className="mt-5 grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(170px,0.62fr)]">
                 <div className="min-w-0">
-                  <div role="img" aria-label="Female 63.3%, male 36.5%, did not disclose 0.2%" className="relative mx-auto w-full max-w-[340px] pb-8">
-                    <div className="mx-auto flex aspect-square w-[78%] max-w-[270px] items-center justify-center rounded-full" style={{ background: "conic-gradient(#BBA38F 0 63.3%, #807064 63.3% 99.8%, #DFD3C6 99.8% 100%)" }}>
-                      <div className="h-[75%] w-[75%] rounded-full bg-[#F8EEE8]" />
-                    </div>
-                    <span className="absolute right-0 top-0 text-2xl font-bold text-[#807064]">63.3%</span>
-                    <span className="absolute bottom-7 left-0 text-2xl font-bold text-[#807064]">36.5%</span>
-                    <span className="absolute bottom-0 right-5 text-2xl font-bold text-[#807064]">0.2%</span>
+                  <div role="img" aria-label="Female 63.3%, male 36.5%, did not disclose 0.2%" className="mx-auto w-full max-w-[340px]">
+                    <svg aria-hidden="true" viewBox="0 0 400 340" className="block w-full">
+                      <g transform="rotate(-90 200 180)" fill="none" strokeWidth="28">
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.female} strokeDasharray="63.3 36.7" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.male} strokeDasharray="36.5 63.5" strokeDashoffset="-63.3" />
+                        <circle cx="200" cy="180" r="110" pathLength="100" stroke={genderChartPalette.other} strokeDasharray="0.2 99.8" strokeDashoffset="-99.8" />
+                      </g>
+                      <g fill="none" stroke={genderChartPalette.male} strokeWidth="1.5">
+                        <path d="M 313.3 230.3 L 334 240" />
+                        <path d="M 86.4 130.4 L 66 121" />
+                        <path d="M 199.2 56 L 199.2 36" />
+                      </g>
+                      <g fill={genderChartPalette.male} fontSize="24" fontWeight="700">
+                        <text data-nt-gender-label="female" x="396" y="263" textAnchor="end">63.3%</text>
+                        <text data-nt-gender-label="male" x="4" y="112">36.5%</text>
+                        <text data-nt-gender-label="did-not-disclose" x="200" y="28" textAnchor="middle">0.2%</text>
+                      </g>
+                    </svg>
                   </div>
                   <ul className="mt-3 space-y-1.5 text-sm text-[#292522]">
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#BBA38F]" />Female</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#807064]" />Male</li>
-                    <li className="flex items-center gap-2"><span className="h-3 w-3 bg-[#DFD3C6]" />Did not disclose</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.female }} />Female</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.male }} />Male</li>
+                    <li className="flex items-center gap-2"><span className="h-3 w-3" style={{ backgroundColor: genderChartPalette.other }} />Did not disclose</li>
                   </ul>
 
                 </div>
@@ -144,7 +156,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
                   <DocumentGenderGraphic panel />
                   <div className="mt-auto pt-3">
                     <strong className="block text-4xl leading-none">5.3%</strong>
-                    <p className="mt-1 text-base font-semibold leading-tight">Gender<br />Pay Gap</p>
+                    <p className="mt-1 text-base font-semibold leading-tight">Women&apos;s<br />Gender Pay Gap</p>
                     <p data-citation-copy className="mt-2 text-sm leading-6 text-black rounded-md bg-white p-2"><SourceLink row={66}>Source: Northern Territory Government, State of the Service Report 2024–25, 2025, pg. 17</SourceLink></p>
                   </div>
                 </div>
@@ -155,7 +167,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           </div>
         </Section>
 
-        <Section title="Workforce Trends" subtitle="Growth, projections, occupational shortages and representation over time">
+        <Section title="NT Workforce Trends">
           <div className="grid gap-5 lg:grid-cols-2">
             <p className="text-xs leading-6 text-[#42463B]">The NT Government has identified the following skilled occupations (October 2025) relevant to the Public Administration industry group, as high priority based on how hard they are to fill.<NtFootnote number={40} /> Additionally, the Jobs and Skills Australia Occupational Shortage List indicates that &apos;Contract, Program and Project Administrators&apos;, &apos;Welfare, Recreation and Community Arts Workers&apos;, &apos;Welfare Support Officers&apos; and &apos;Human Resource Professionals&apos; are in shortage for 2025.<NtFootnote number={41} /> Several of these occupations are listed under the priority occupation scheme for skilled migration in the Northern Territory. For 2025–26 the Northern Territory has been allocated 850 nominations for the Subclass 190 Skilled Nominated visa and 800 nominations for the Subclass 491 Skilled Work Regional (Provisional) visa. Skilled migrants, particularly under subclass 491 may help to alleviate occupational shortages in regional areas.</p>
             <IndustryInsightCard><p>Stakeholders noted that whilst skilled migration offers solutions for regional skills shortages, this can come with knowledge gaps and cultural challenges, particularly in regions with high populations of First Nations communities.</p></IndustryInsightCard>
@@ -164,7 +176,7 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
             <div><h3 className="text-sm font-bold">ANZSCO CODE AND OCCUPATION</h3><div className="mt-3 overflow-x-auto rounded-md border border-[#E6E4E0]"><table className="w-full min-w-[470px] text-left text-xs"><thead className="bg-[#F3F3F2]"><tr><th className="p-3">ANZSCO Code</th><th className="p-3">Occupation</th></tr></thead><tbody className="divide-y divide-[#E6E4E0]">{occupations.map(([code, occupation]) => <tr key={code}><td className="p-3">{code}</td><td className="p-3">{occupation}</td></tr>)}</tbody></table></div></div>
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div><h3 className="text-sm font-bold">The NT Government&apos;s Skills Plan 2024–25 identifies several priorities relevant to the industry-sector including:<NtFootnote number={42} /></h3><ul className="mt-3 grid gap-3 sm:grid-cols-2">{priorities.map((priority) => <li key={priority} className="rounded-md bg-[#F8EEE8] p-4 text-xs leading-5 text-[#42463B]">{priority}</li>)}</ul></div>
+            <div><h3 className="text-sm font-bold">The NT Government&apos;s Skills Plan 2024–25 identifies several priorities relevant to the industry-sector including:<NtFootnote number={42} /></h3><ul className="mt-3 grid gap-3 sm:grid-cols-2">{priorities.map((priority) => <li data-report-surface="neutral" key={priority} className="rounded-md bg-[#F8EEE8] p-4 text-xs leading-5 text-[#42463B]">{priority}</li>)}</ul></div>
             <RepresentationChart title="Aboriginal and Torres Strait Islander Representation in Northern Territory Public Sector (2020–2025)" years={[2020, 2021, 2022, 2023, 2024, 2025]} values={[10.9, 10.3, 10.3, 10.8, 11.0, 11.1]} target={16} min={10} max={17} source={<SourceLink row={66}>SOURCE: Northern Territory Government, State of the Service Report 2024–25, 2025, Figure 18</SourceLink>} />
           </div>
         </Section>
@@ -174,14 +186,14 @@ export default function FederalStateNtProfileView({ slug, report, embedded = fal
           <ol start={36} className="mt-5 grid gap-x-8 gap-y-3 md:grid-cols-2">
             {sources.map(({ number, text }) => (
               <li id={`nt-source-${number}`} data-citation-copy key={number} className="scroll-mt-24 flex items-start gap-3 text-sm leading-6 text-black">
-                <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#668B17] text-[10px] font-semibold text-white">{number}</span>
+                <span aria-hidden="true" className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#754C2D] text-[10px] font-semibold text-white">{number}</span>
                 <span><NumberedSource number={number} text={text} /></span>
               </li>
             ))}
           </ol>
         </section>
       </ContentTag>
-      {!embedded && <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
+      {!embedded && <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />}
     </div>
   );
 }

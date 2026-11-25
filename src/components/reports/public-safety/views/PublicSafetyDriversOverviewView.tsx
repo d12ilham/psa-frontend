@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -8,7 +10,7 @@ import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPa
 const drivers = [
   { label: "DRIVER 1", title: "Resilience of organisations to respond to strategic shocks", path: "driver_1" },
   { label: "DRIVER 2", title: "Challenges to workforce productivity", path: "driver_2" },
-  { label: "DRIVER 3", title: "Emergence of AI, greater automation and broader digital transformation", path: "driver_3" },
+  { label: "DRIVER 3", title: "Emergence of Artificial Intelligence (AI), greater automation and broader digital transformation", path: "driver_3" },
   { label: "DRIVER 4", title: "Workforce inclusivity", path: "driver_4" },
 ];
 
@@ -68,7 +70,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
               <div className="mt-5">
                 <h3 className="text-xl font-bold leading-7 text-[#252D02]">{driver.title}</h3>
               </div>
-              <button type="button" onClick={() => router.push(`/reports/${slug}/${driver.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">Open <ChevronDown className="h-3.5 w-3.5" /></button>
+              <button data-report-action="primary" type="button" onClick={() => router.push(`/reports/${slug}/${driver.path}`)} className="mt-auto inline-flex h-10 w-fit items-center gap-2 rounded-full bg-[#8AC900] px-5 text-xs font-bold text-[#252D02]">Open <ChevronDown className="h-3.5 w-3.5" /></button>
             </article>
           ))}
         </div>
@@ -91,7 +93,7 @@ export default function PublicSafetyDriversOverviewView({ slug, report }: { slug
             {sources.map(([number, source]) => (
               <li key={number} className="grid grid-cols-[20px_1fr] gap-3 text-xs leading-6 text-[#535862]">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0F3E5] text-xs font-bold text-[#598303]">{number}</span>
-                <span>{source}</span>
+                <span><PublicSafetySourceText number={number} text={source} /></span>
               </li>
             ))}
           </ol>

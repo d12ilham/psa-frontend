@@ -111,7 +111,7 @@ const sources = [
     citations: [{
       author: "Australian Security Intelligence Organisation (ASIO)",
       title: "Director-General’s Annual Threat Assessment 2025",
-      href: "https://www.asio.gov.au/resources/speeches-and-statements/director-generals-annual-threat-assessment-2025",
+      href: "https://www.asio.gov.au/director-generals-annual-threat-assessment-2025",
       details: "ASIO, 2025, accessed 25 February 2026",
     }],
   },
@@ -173,8 +173,8 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
       <section className={`${styles.hero} animate-slide-up`}>
         <div className={styles.heroCopy}>
           <h1>Drivers of Change</h1>
-          <p>In 2024, Public Skills Australia identified nine megatrends impacting the Public Safety and Government industry-sectors. These megatrends were further considered in the development of the 2025 <span className={styles.reportTitle}>Workforce Insights Reports.</span></p>
-          <p>While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the 2026 <span className={styles.reportTitle}>Workforce Insights Reports</span> have built on these and analysed four key drivers of change that cut across most megatrends. This is important as these drivers of change will likely impact the Public Safety and Government industry-sectors in the short to medium term.</p>
+          <p>In 2024, Public Skills Australia identified nine megatrends impacting the Public Safety and Government industry-sectors. These megatrends were further considered in the development of the <em>2025 <span className={styles.reportTitle}>Workforce Insights Reports</span></em><span className={styles.reportTitle}>.</span></p>
+          <p>While these megatrends will continue to have longer term implications for workforce planning and development across the Public Safety and Government industry-sectors, the <em>2026 <span className={styles.reportTitle}>Workforce Insights Reports</span></em> have built on these and analysed four key drivers of change that cut across most megatrends. This is important as these drivers of change will likely impact the Public Safety and Government industry-sectors in the short to medium term.</p>
         </div>
         <div className={`${styles.diagram} animate-drivers-pop-settle`}>
           <Image src="/images/reports/drivers-of-change-diagram.png" alt="Four connected drivers of change" width={250} height={240} className="animate-drivers-spin" />
@@ -196,7 +196,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
                 <p className={styles.driverLabel}>DRIVER {index + 1}</p>
                 <h3>{driver.title}</h3>
                 <p className={styles.driverSummary}>{driver.summary}</p>
-                <button type="button" aria-label={`${selected ? "Close" : "Open"} Driver ${index + 1}`} onClick={() => toggleDriver(index)} aria-expanded={selected} aria-controls="driver-detail" className={styles.toggle}>
+                <button data-report-action="primary" type="button" aria-label={`${selected ? "Close" : "Open"} Driver ${index + 1}`} onClick={() => toggleDriver(index)} aria-expanded={selected} aria-controls="driver-detail" className={styles.toggle}>
                   {selected ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={selected ? styles.chevronOpen : ""} />
                 </button>
               </article>
@@ -205,10 +205,10 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         <div aria-hidden={activeIndex === null} inert={activeIndex === null} className={`${styles.disclosure} ${activeIndex !== null ? styles.disclosureOpen : ""}`}>
           <div className={styles.disclosureClip}>
-            <article id="driver-detail" aria-labelledby="driver-detail-title" className={`${styles.detailPanel} ${styles.driverPanel}`}>
+            <article data-report-surface="neutral" id="driver-detail" aria-labelledby="driver-detail-title" className={`${styles.detailPanel} ${styles.driverPanel}`}>
               <span className={styles.presenting}>Now presenting · Driver {lastActiveIndex + 1}</span>
               <h2 id="driver-detail-title">{displayedDriver.detailTitle}</h2>
-              <p>{displayedDriver.body.map(({ text, reference }, index) => <span key={index}>{text}{reference && <sup className={styles.reference}><a href={`#driver-source-${reference}`} aria-label={`Source ${reference}`}>{reference}</a></sup>}</span>)}</p>
+              <p>{displayedDriver.body.map(({ text, reference }, index) => <span key={index}>{text.split(/(Five Pillars of Productivity)/g).map((part, partIndex) => partIndex % 2 ? <em key={partIndex}>{part}</em> : part)}{reference && <sup className={styles.reference}><a href={`#driver-source-${reference}`} aria-label={`Source ${reference}`}>{reference}</a></sup>}</span>)}</p>
             </article>
           </div>
         </div>
@@ -229,7 +229,7 @@ export default function PublicSafetyDriverDetailView({ slug, report, pageType }:
         </div>
         <div aria-hidden={activeMegatrendIndex === null} inert={activeMegatrendIndex === null} className={`${styles.disclosure} ${activeMegatrendIndex !== null ? styles.disclosureOpen : ""}`}>
           <div className={styles.disclosureClip}>
-            <article id="megatrend-detail" aria-labelledby="megatrend-detail-title" className={`${styles.detailPanel} ${styles.megatrendPanel}`}>
+            <article data-report-surface="neutral" id="megatrend-detail" aria-labelledby="megatrend-detail-title" className={`${styles.detailPanel} ${styles.megatrendPanel}`}>
               <h2 id="megatrend-detail-title">{displayedMegatrend.title}</h2>
               <p>{megatrendsSummary}</p>
             </article>

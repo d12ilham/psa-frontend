@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -60,7 +61,9 @@ export default function AboutView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="about" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="about" />
+        </LocalGovernmentReportUtilityRow>
 
         <div className="bg-white border border-gray200 rounded-2xl p-6 relative overflow-hidden space-y-6">
           <img
@@ -110,7 +113,7 @@ export default function AboutView({
                 isUndertakesVisible ? "animate-slide-up" : "opacity-0"
               }`}
             >
-              Public Skills Australia Undertakes:
+              Public Skills Australia:
             </h2>
           </div>
 
@@ -128,11 +131,11 @@ export default function AboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Workforce.svg"
-                  alt="Workforce Insight and Strategy"
+                  alt="Workforce Planning (Workforce Insights)"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Workforce Insight and Strategy
+                  Workforce Planning (Workforce Insights)
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Undertakes data analysis, research and consultation to deepen
@@ -155,11 +158,11 @@ export default function AboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Training.svg"
-                  alt="Training Product Quality & Development"
+                  alt="Training Product Development"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Training Product Quality & Development
+                  Training Product Development
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Develops quality training products to strengthen the skills
@@ -181,11 +184,11 @@ export default function AboutView({
               <div className="space-y-5">
                 <img
                   src="/images/reports/about/Supports.svg"
-                  alt="Supports Career Pathways"
+                  alt="Implementation, Promotion and Monitoring"
                   className="w-16 h-16 shrink-0 object-contain group-hover:scale-110 transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
                 <h3 className="font-bold text-base text-gray800 group-hover:text-lg-dark transition-colors duration-500 leading-snug">
-                  Supports Career Pathways
+                  Implementation, Promotion and Monitoring
                 </h3>
                 <p className="text-xs text-gray600 leading-relaxed">
                   Monitors and promotes the implementation of training products
@@ -243,7 +246,7 @@ export default function AboutView({
             </div>
           </div>
 
-          <div className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
+          <div data-report-surface="neutral" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-xs text-gray600 leading-relaxed">
             <p className="w-full xl:w-2/3">
               1. Please note, First Nations people will be used as preferred
               terminology inclusive of Aboriginal and Torres Strait Islanders.

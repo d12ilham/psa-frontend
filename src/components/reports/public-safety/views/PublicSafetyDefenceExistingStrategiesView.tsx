@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -13,10 +15,65 @@ import existing from "./PublicSafetyDefenceExistingStrategiesView.module.css";
 
 type StrategyCopy = string | readonly (string | readonly string[])[];
 
-function StrategyText({ copy }: { copy: StrategyCopy }) {
+// PDF report pp44-51: emphasis is specific to each paragraph, not every title mention.
+const pdfItalics: Record<string, readonly string[]> = {
+  "01-summary": ["National Defence: Defence Strategic Review 2023", "2024 National Defence Strategy", "Integrated Investment Program 2024", "National Defence Strategy", "Defence Strategic Review", "Defence Annual Report 2024–25"],
+  "01-consultation": ["National Defence Strategy 2024", "Integrated Investment Plan 2024"],
+  "01-update2025": ["National Defence Strategy 2024", "Integrated Investment Program 2024"],
+  "01-update2026": ["Support Defence skill and capability requirements to operationalise drones"],
+  "02-summary": ["National Defence Strategy"],
+  "02-update2025-2": ["National Defence Strategy 2024", "Training and skilling reform", "VET System Pathways Framework"],
+  "02-update2026": ["Support Defence skill and capability requirements to operationalise drones", "Capability Investment Priorities: Priorities for the integrated, focused force", "Support transition of Defence Veterans to civilian workforce", "People: Culture"],
+  "03-summary": ["2024 Defence Workforce Plan"],
+  "03-update2025-0": ["VET System Pathways Framework", "Strategic Task 5 – Development and Transformation of the Defence Workforce"],
+  "03-update2026": ["Support transition of Defence Veterans to civilian workforce", "Strategic Task 8: Support to Defence Personnel, ADF Families and Transitioning Personnel"],
+  "04-summary": ["Defence Industry Development Strategy"],
+  "04-update2025": ["Chapter 8 – Workforce", "VET System Pathways Framework"],
+  "04-update2026": ["Support Defence skill and capability requirements to operationalise drones", "Sovereign Defence Industrial Priority 5: Development and integration of autonomous systems"],
+  "05-summary": ["Integrated Investment Program"],
+  "05-update2025": ["Chapter 1: Investing in the National Defence Strategy", "Chapter 6: Space and Cyber"],
+  "05-update2026": ["Support Defence skill and capability requirements to operationalise drones", "Chapter 8: Expeditionary Air Operations: Uncrewed air systems"],
+  "06-summary-0": ["Royal Commission into Defence and Veteran Suicide"],
+  "06-summary-1": ["“to increase opportunities for members to gain civilian qualifications from Defence training and education.”"],
+  "06-update2026": ["Support transition of Defence Veterans to civilian workforce"],
+  "07-update2025": ["Defence Capability – VET System Pathways Framework Project", "Chapter 3: Workforce"],
+  "08-summary": ["Defence Digital Strategy and Roadmap"],
+  "08-update2025": ["Defence Cyber Skill Set Project"],
+};
+
+function italicCopy(text: string, phrases: readonly string[]) {
+  const preserveRecommendationReference = (part: string, keyPrefix: string) => part.split(/(83\(c\))/g).map((segment, index) =>
+    segment === "83(c)"
+      ? <span key={`${keyPrefix}-${index}`} className={existing.literalReference}>83(c)</span>
+      : segment
+  );
+  if (!phrases.length) return preserveRecommendationReference(text, "plain");
+  const pattern = new RegExp(`(${[...phrases].sort((a, b) => b.length - a.length).map(phrase => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+  return text.split(pattern).map((part, index) => {
+    const content = preserveRecommendationReference(part, String(index));
+    return index % 2 ? <em key={index}>{content}</em> : content;
+  });
+}
+
+function footnotedCopy(text: string, phrases: readonly string[]) {
+  return text.split(/(?<=\.)(41|42)(?=\s|$)/g).map((part, index) => index % 2
+    ? <sup key={index} className={existing.footnote}><PublicSafetyFootnoteLink number={Number(part)} /></sup>
+    : italicCopy(part, phrases));
+}
+
+function StrategyText({ copy, emphasisKey, appendixHref }: { copy: StrategyCopy; emphasisKey: string; appendixHref?: string }) {
   const blocks = typeof copy === "string" ? copy.split("\n\n") : copy;
-  return blocks.map(block => typeof block === "string"
-    ? <p key={block}>{block}</p>
+  const renderCopy = (text: string, phrases: readonly string[]) => {
+    if (emphasisKey === "01-summary") return footnotedCopy(text, phrases);
+    if (emphasisKey === "06-summary" && appendixHref) {
+      return text.split(/(Appendix A)/g).map((part, index) => index % 2
+        ? <a key={index} href={appendixHref} className="underline decoration-current underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-4">{part}</a>
+        : italicCopy(part, phrases));
+    }
+    return italicCopy(text, phrases);
+  };
+  return blocks.map((block, index) => typeof block === "string"
+    ? <p key={block}>{renderCopy(block, pdfItalics[`${emphasisKey}-${index}`] ?? pdfItalics[emphasisKey] ?? [])}</p>
     : <ul key={block[0]}>{block.map(item => <li key={item}>{item}</li>)}</ul>);
 }
 
@@ -60,7 +117,7 @@ const strategies = [
   { number:"08", owner:"Department of Defence", period:"2025 – 2028", title:"Defence Digital Strategy and Roadmap 2025", heading:"08 · Defence Digital Strategy and Roadmap 2025",
     summary: ["The Defence Digital Strategy and Roadmap document provides comprehensive guidance on Defence’s plan to stay well positioned in the digital age. This strategy sets out the following three priorities:", ["Best-in-class APS/ADF workforce", "Best-in-class global platforms", "Best-in-class sovereign capabilities"], "Collectively, this strategy ensures Defence enhances its ICT capabilities to deliver critical digital functions."],
     consultation: ["This will inform continued consultations with Defence stakeholders as the Defence Cyber Skills strategy progresses."],
-    update2025: ["Informed development and progression of Defence Cyber Skill Set Project. Specifically, the strategy describes ICT capabilities as being at the core of its commitment to becoming a “best-in-class workforce”, maintaining “best-in￾class global platforms” and possessing “best-in-class sovereign capabilities”."]
+    update2025: ["Informed development and progression of Defence Cyber Skill Set Project. Specifically, the strategy describes ICT capabilities as being at the core of its commitment to becoming a “best-in-class workforce”, maintaining “best-in-class global platforms” and possessing “best-in-class sovereign capabilities”."]
   },
 ];
 
@@ -77,24 +134,24 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
       <Image className={existing.artwork} src="/images/reports/public-safety/defence-existing-strategies-group-85.svg" alt="" width={487} height={104} unoptimized priority />
     </section>
 
-    <section className={styles.projects} aria-labelledby="defence-existing-list">
+    <section data-report-reader="wide" className={styles.projects} aria-labelledby="defence-existing-list">
       <div>
         <h2 id="defence-existing-list">Strategies · 8 · Select to open</h2>
-        <div className={styles.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available strategies" className={styles.projectList}>
           {strategies.map((item, index) => (
             <button key={item.number} type="button" className={styles.projectButton} aria-pressed={active === index} aria-controls="defence-existing-panel" onClick={() => setActive(index)}>
               <span><small>{item.number} · {item.owner}</small><strong>{item.title}</strong></span>
-              <span className={styles.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={styles.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
-      <ReportSelectionPanel selection={active} label="Defence strategy details"><article id="defence-existing-panel" className={styles.panel} aria-labelledby="defence-existing-heading">
-        <div className={styles.panelHeader}>
+      <ReportSelectionPanel selection={active} label="Defence strategy details"><article data-report-surface="neutral" id="defence-existing-panel" className={styles.panel} aria-labelledby="defence-existing-heading">
+        <div data-reader-toolbar className={styles.panelHeader}>
           <span className={styles.badge}>{strategy.number} · {active === 0 ? strategy.period : strategy.owner}</span>
           <div className={`${styles.controls} ${active > 0 ? existing.controls : ""}`}>
-            {active > 0 && <button className={styles.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < strategies.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" className={styles.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < strategies.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={strategy.number} className={`${styles.details} animate-content-switch`}>
@@ -104,18 +161,18 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
           </header>
           <h4 className={`${styles.subheading} ${existing.sectionHeading}`}>Summary</h4>
           <div className={`${styles.copy} ${existing.summary} ${active === strategies.length - 1 ? existing.compactSummary : ""}`}>
-            <StrategyText copy={strategy.summary} />
+            <StrategyText copy={strategy.summary} emphasisKey={`${strategy.number}-summary`} appendixHref={`/reports/${slug}/defence_federal_initiatives`} />
           </div>
           <section className={`${styles.groups} ${existing.groups}`} aria-label="How this informs Public Skills Australia’s work">
             <h4 className={existing.sectionHeading}>How this informs Public Skills Australia’s work</h4>
             {([
-              ["Consultation and engagement:", strategy.consultation],
-              ["2025 Workforce Strategies", strategy.update2025],
-              ["2026 Workforce Strategies", strategy.update2026],
-            ] as const).map(([title, body]) => body && (
-              <div key={title} className={`${styles.note} ${existing.note}`}>
+              ["Consultation and engagement:", strategy.consultation, "consultation"],
+              ["2025 Workforce Strategies", strategy.update2025, "update2025"],
+              ["2026 Workforce Strategies", strategy.update2026, "update2026"],
+            ] as const).map(([title, body, field]) => body && (
+              <div data-report-surface="neutral" key={title} className={`${styles.note} ${existing.note}`}>
                 <h5>{title}</h5>
-                <StrategyText copy={body} />
+                <StrategyText copy={body} emphasisKey={`${strategy.number}-${field}`} />
               </div>
             ))}
           </section>
@@ -123,6 +180,6 @@ export default function PublicSafetyDefenceExistingStrategiesView({ slug, report
       </article></ReportSelectionPanel>
     </section>
 
-    <section data-report-sources className={sources.sources}><h2>Sources</h2><ol start={41}>{["Australian Government, ‘Progress on the Defence Strategic Review’, Transparency Portal, Australian Government website, 2026, accessed 3 February 2026.","Department of Defence, Defence Annual Report 2024–25, Department of Defence, Australian Government, 2025, accessed 4 February 2026."].map((source,index)=><li key={source}><span className={sources.sourceNumber} aria-hidden="true">{index+41}</span><span>{source}</span></li>)}</ol></section>
+    <section data-report-sources className={sources.sources}><h2>Sources</h2><ol start={41}>{["Australian Government, ‘Progress since the Defence Strategic Review’, Transparency Portal, Australian Government website, 2024, accessed 2 February 2026.","Department of Defence, Defence Annual Report 2024-25. Department of Defence, Australian Government, 2025, pp 166-215."].map((source,index)=><li key={source}><span className={sources.sourceNumber} aria-hidden="true">{index+41}</span><span><PublicSafetySourceText number={index + 41} text={source} /></span></li>)}</ol></section>
   </PublicSafetyPageShell>;
 }

@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Download } from "lucide-react";
 
-import { resolveSector } from "@/config/reports/sectors";
+import { resolveSector, SITE_SETTINGS } from "@/config/reports/sectors";
 import FederalStateReportHeader from "@/components/reports/federal-state/FederalStateReportHeader";
+import ReportHomeLink from "./ReportHomeLink";
 
 interface ReportHeaderProps {
   slug: string;
@@ -26,6 +28,7 @@ export default function ReportHeader({
 }: ReportHeaderProps) {
   const router = useRouter();
   const sector = resolveSector(report?.industry?.slug || report?.industry?.name, slug);
+  const isLocalGovernment = sector.id === "local-government";
   const isCorrectionalServices = sector.id === "correctional-services";
   const activeNavClass = isCorrectionalServices
     ? "text-[#8AC900] font-bold"
@@ -44,20 +47,27 @@ export default function ReportHeader({
       className="text-white sticky top-0 z-50 transition-colors"
       style={{ backgroundColor: isCorrectionalServices ? "#252D02" : sector.theme.headerBg }}
     >
-      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-        <div
-          onClick={() => router.push(`/reports/${slug}`)}
-          className="flex items-center gap-2 cursor-pointer font-bold text-base text-white transition-colors"
-        >
-          <span>
-            {sector.shortCode}{" "}
-            <span style={{ color: isCorrectionalServices ? "#B2DB79" : sector.theme.accentColor }}>
-              {report?.year?.label || sector.defaultYear}
-            </span>
-          </span>
+      <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2 font-bold text-base text-white sm:gap-3">
+          {(isLocalGovernment || isCorrectionalServices) && (
+            <a
+              href="https://publicskillsaustralia.org.au/"
+              aria-label="Visit the Public Skills Australia website"
+              className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              <Image
+                src={SITE_SETTINGS.logoLightUrl}
+                alt="Public Skills Australia"
+                width={180}
+                height={48}
+                className="h-7 w-auto max-w-[112px] object-contain sm:h-9 sm:max-w-[150px]"
+              />
+            </a>
+          )}
+          <ReportHomeLink />
         </div>
 
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-semibold">
+        <nav className="order-last hidden w-full items-center justify-center gap-4 text-xs font-semibold md:flex lg:gap-6 2xl:order-none 2xl:w-auto">
           {/* 1. ABOUT DROPDOWN */}
           <div className="relative group py-1">
             <button className={`flex items-center gap-1 cursor-pointer ${currentPage === "about" || currentPage === "introduction" || currentPage === "methodology" ? activeNavClass : inactiveNavClass}`}>
@@ -105,11 +115,11 @@ export default function ReportHeader({
           <div className="relative group py-1">
             <button
               onClick={() => router.push(`/reports/${slug}/industry_overview`)}
-              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "industry_profile" ? activeNavClass : inactiveNavClass}`}
+              className={`flex items-center gap-1 cursor-pointer ${currentPage === "industry_overview" || currentPage === "industry_profile" || (isLocalGovernment && currentPage === "state_territory") ? activeNavClass : inactiveNavClass}`}
             >
               Industry Overview <span>▾</span>
             </button>
-            <div className={`${dropdownClass} min-w-56`}>
+            <div className={`${dropdownClass} ${isLocalGovernment ? "min-w-64" : "min-w-56"}`}>
               <button
                 onClick={() =>
                   router.push(`/reports/${slug}/industry_overview`)
@@ -118,6 +128,15 @@ export default function ReportHeader({
               >
                 Industry-Sector Overview
               </button>
+              {isLocalGovernment && (
+                <button
+                  onClick={() => router.push(`/reports/${slug}/state_territory`)}
+                  aria-current={currentPage === "state_territory" ? "page" : undefined}
+                  className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors text-accent hover:bg-white/10 ${currentPage === "state_territory" ? "font-bold bg-white/10" : "font-semibold"}`}
+                >
+                  State and Territory Workforce Profile
+                </button>
+              )}
               <button
                 onClick={() => router.push(`/reports/${slug}/${isCorrectionalServices ? "industry_profile_presentation" : "industry_profile"}`)}
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "industry_profile" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
@@ -206,7 +225,7 @@ export default function ReportHeader({
                 }
                 className={`w-full text-left px-3 py-2 text-xs rounded-lg transition-colors ${currentPage === "federal_initiatives" || currentPage === "federal_government_initiatives" ? `${activeNavClass} bg-white/10` : `${inactiveNavClass} hover:bg-white/10`}`}
               >
-                {isCorrectionalServices ? "Commonwealth Government Initiatives" : "Federal Government Initiatives"}
+                Federal Government Initiatives
               </button>
             </div>
           </div>
@@ -222,14 +241,14 @@ export default function ReportHeader({
         </nav>
 
         {/* 8. DOWNLOAD CTA */}
-        <div>
+        <div className="shrink-0">
           <button
             onClick={() => router.push(`/reports/${slug}/downloads`)}
             className="text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
             style={{ backgroundColor: isCorrectionalServices ? "#046D2A" : sector.theme.primaryColor }}
           >
-            <span>Download {report?.year?.label || sector.defaultYear} PDF</span>
-            <Download className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only">Download {report?.year?.label || sector.defaultYear} PDF</span>
+            <Download className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
         </div>
       </div>

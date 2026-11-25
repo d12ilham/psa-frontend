@@ -36,11 +36,12 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
           <h1 className="mt-6 text-[30px] font-bold leading-tight sm:text-[38px]">2026 Proposed Federal and State/<br className="hidden lg:block" />Territory Government Workforce Strategy</h1>
           <p className="mt-5 max-w-[80ch] text-xs leading-relaxed text-gray600">Public Skills Australia proposes the following strategy aligned to the workforce insights identified to support the Federal and State/Territory Government industry-sector.</p>
         </div>
-        <div data-strategy-graphics aria-hidden="true" className="flex items-center gap-3 lg:justify-self-end">
-          {["/images/stratergies.svg", "/images/frame-briefcase.svg", "/images/frame-teacher.svg"].map((src) => (
-            <span key={src} className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-[#DECFC5] bg-[#EED4C4]">
+        <div data-strategy-graphics aria-hidden="true" className="grid w-full max-w-[360px] grid-cols-3 items-center gap-3 lg:w-[360px] lg:justify-self-end">
+          {["/images/reports/federal-state/sector-palette/stratergies.svg", "/images/reports/federal-state/sector-palette/frame-briefcase.svg", "/images/reports/federal-state/sector-palette/frame-teacher.svg"].map((src, index) => (
+            <span key={src} data-strategy-icon-circle className="relative flex aspect-square w-full items-center justify-center rounded-full border border-[#DECFC5] bg-[#EED4C4]">
+              {index < 2 && <span data-strategy-connector className="pointer-events-none absolute left-full top-1/2 w-[14px] -translate-y-1/2 border-t-2 border-dotted border-[#BAA28F]" />}
               <span
-                className="h-12 w-12 bg-[#754C2D]"
+                className="h-[57%] w-[57%] bg-[#754C2D]"
                 style={{
                   maskImage: `url("${src}")`,
                   maskSize: "contain",
@@ -75,6 +76,6 @@ export default function FederalStateProposedStrategiesView({ slug, report }: { s
         </dl>
       </section>
     </main>
-    <ReportFooter contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
+    <ReportFooter sectorPalette contactUrl={report.contactUrl} reportName={report.title.replace(/\s*\b20\d{2}\b/g, "").trim()} />
   </div>;
 }

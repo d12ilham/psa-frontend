@@ -3,11 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { executiveSummaryInsights as insights, executiveSummaryStrategies as strategies, type ExecutiveSummarySector } from "../data/executiveSummary";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { executiveSummaryInsights as insights, type ExecutiveSummarySector } from "../data/executiveSummary";
+import { ArrowRight } from "lucide-react";
 import styles from "./PublicSafetyExecutiveSummaryView.module.css";
 import { useRouter } from "next/navigation";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import PublicSafetyProposedStrategyCards from "./PublicSafetyProposedStrategyCards";
 
 const icons = {
   Drivers: "/images/reports/introduction/Drivers.svg",
@@ -18,24 +19,37 @@ const icons = {
 
 type SummaryIcon = keyof typeof icons;
 
-function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
-  return <button type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
+function SummaryText({ text }: { text: string }) {
+  const parts = text.split(/(2026 Public Safety Workforce Insights Report|Recommendation 83\(c\) of the Royal Commission into Defence and Veteran Suicide|Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident|2027 Workforce Insights Reports)/g);
+  const preserveRecommendationReference = (part: string, keyPrefix: string) => part.split(/(83\(c\))/g).map((segment, index) =>
+    segment === "83(c)"
+      ? <span key={`${keyPrefix}-${index}`} className={styles.literalReference}>83(c)</span>
+      : segment
+  );
+  return <>{parts.map((part, index) => {
+    const content = preserveRecommendationReference(part, String(index));
+    return index % 2 ? <em key={index}>{content}</em> : content;
+  })}</>;
 }
 
-function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description: string; children: React.ReactNode }) {
+function ActionButton({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+  return <button data-report-action="primary" type="button" onClick={onClick} className={styles.action}>{children}<ArrowRight aria-hidden="true" /></button>;
+}
+
+function SectionHeading({ icon, title, description, children }: { icon: SummaryIcon; title: string; description?: string; children: React.ReactNode }) {
   return (
     <div className={styles.heading}>
       <Image src={icons[icon]} alt="" width={64} height={64} className={styles.sectionIcon} />
       <div className={styles.headingCopy}>
         <h2>{title}</h2>
-        <p>{description}</p>
+        {description && <p><SummaryText text={description} /></p>}
       </div>
       {children}
     </div>
   );
 }
 
-function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay }: { sector: ExecutiveSummarySector; slug: string; expandedId: string | null; onToggle: (id: string) => void; visible: boolean; delay: number }) {
+function SectorColumn({ sector, visible, delay }: { sector: ExecutiveSummarySector; visible: boolean; delay: number }) {
   const sectorStyle = {
     "--sector-color": sector.color,
     "--sector-tint": `${sector.color}1A`,
@@ -47,35 +61,12 @@ function SectorColumn({ sector, slug, expandedId, onToggle, visible, delay }: { 
       <div className={styles.accent} aria-hidden="true" />
       <h3 className={styles.sectorTitle}>{sector.title}</h3>
       <div className={styles.tiles}>
-        {sector.items.map(({ id, title, number, details }) => {
-          const expanded = expandedId === id;
-          return (
-            <div key={id} className={`${styles.tile} ${expanded ? styles.tileOpen : ""}`}>
-              <span className={styles.number} aria-hidden="true">{number}</span>
-              <p className={styles.tileTitle}>{title}</p>
-              <button type="button" aria-label={`${expanded ? "Close" : "Open"} ${title}`} aria-expanded={expanded} aria-controls={`${id}-detail`} onClick={() => onToggle(id)} className={styles.toggle}>
-                {expanded ? "Close" : "Open"}<ChevronDown aria-hidden="true" className={expanded ? styles.expandedChevron : undefined} />
-              </button>
-              <div id={`${id}-detail`} aria-hidden={!expanded} inert={!expanded} className={`${styles.detail} ${expanded ? styles.detailOpen : ""}`}>
-                <div className={styles.detailClip}>
-                  <div className={styles.detailContent}>
-                    {details.map((detail) => (
-                      <div key={detail.page} className={detail.number ? styles.numberedDetail : styles.detailRow}>
-                        {detail.number && <span className={styles.detailNumber}>{detail.number}</span>}
-                        <div className={styles.detailBody}>
-                          <p className={styles.detailText}>{detail.text}</p>
-                          <Link href={`/reports/${slug}/${detail.page}`} prefetch={false} aria-label={`Open ${title}${detail.number ? ` ${detail.number}` : ""}`} className={styles.detailLink}>
-                            Open<ArrowRight aria-hidden="true" />
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {sector.items.map(({ id, title, number }) => (
+          <div data-report-surface="neutral" key={id} className={styles.tile}>
+            <span className={styles.number} aria-hidden="true">{number}</span>
+            <p className={styles.tileTitle}><SummaryText text={title} /></p>
+          </div>
+        ))}
       </div>
     </article>
   );
@@ -87,8 +78,6 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
   const strategiesRef = React.useRef<HTMLElement>(null);
   const [isInsightsVisible, setIsInsightsVisible] = React.useState(false);
   const [isStrategiesVisible, setIsStrategiesVisible] = React.useState(false);
-  const [expandedId, setExpandedId] = React.useState<string | null>(null);
-  const toggleDropdown = (id: string) => setExpandedId((current) => current === id ? null : id);
   const navigate = (page: string) => router.push(`/reports/${slug}/${page}`);
 
   React.useEffect(() => {
@@ -118,7 +107,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
         <div className={styles.heroCopy}>
           <h1 className={`${styles.heroTitle} animate-slide-up`}>Executive Summary</h1>
           <div className="animate-slide-up-delay">
-            <p>Public Skills Australia’s 2026 Public Safety Workforce Insights Report considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
+            <p>Public Skills Australia’s <em>2026 Public Safety Workforce Insights Report</em> considers the wider operational contexts impacting Public Safety and Government industry-sectors. It identifies four drivers of change that will impact workforce planning in the short to medium term, aligned with the nine megatrends detailed in previous Workforce Insights Reports, that remain relevant to long term workforce trends.</p>
             <p>The Report analyses themes consistent across all three Public Safety industry-sectors before examining each Public Safety industry-sector individually. The report provides data analysis, identifying workforce insights and detailing strategies aimed at addressing workforce challenges.</p>
           </div>
         </div>
@@ -133,17 +122,17 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
       </section>
 
       <section ref={insightsRef} className={`${styles.panel} ${isInsightsVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Themes, Twelve Insights" description="OPEN reveals the content on this page."><div className={styles.insightActions}>
-          <Link className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
-          <Link className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+        <div className={styles.collectionHeader}><SectionHeading icon="Insights" title="Seven Themes, Twelve Insights"><div className={styles.insightActions}>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/defence_workforce_insights`}>Present Defence Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/fes_workforce_insights`}>Present Fire and Emergency Services Workforce Insights<ArrowRight aria-hidden="true" /></Link>
+          <Link data-report-action="primary" className={styles.action} href={`/reports/${slug}/police_workforce_insights`}>Present Police Workforce Insights<ArrowRight aria-hidden="true" /></Link>
         </div></SectionHeading></div>
-        <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
+        <div className={styles.columns}>{insights.map((sector, index) => <SectorColumn key={sector.title} sector={sector} visible={isInsightsVisible} delay={index * 0.12 + 0.18} />)}</div>
       </section>
 
       <section ref={strategiesRef} className={`${styles.panel} ${isStrategiesVisible ? "animate-card-entrance" : "translate-y-6 opacity-0"}`}>
-        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support efforts to address challenges identified through the above industry insights."><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
-        <div className={styles.columns}>{strategies.map((sector, index) => <SectorColumn key={sector.title} sector={sector} slug={slug} expandedId={expandedId} onToggle={toggleDropdown} visible={isStrategiesVisible} delay={index * 0.12 + 0.18} />)}</div>
+        <div className={styles.collectionHeader}><SectionHeading icon="Strategies" title="Six 2026 Proposed Workforce Strategies" description="The following strategies have been developed to support and address challenges identified through the above industry insights"><ActionButton onClick={() => navigate("police_proposed_strategies_summary")}>Present Workforce Strategies</ActionButton></SectionHeading></div>
+        <PublicSafetyProposedStrategyCards embedded />
       </section>
 
       <section className={styles.panel}>
@@ -152,7 +141,7 @@ export default function PublicSafetyExecutiveSummaryView({ slug, report }: { slu
 
       <section className={styles.supporting}>
         <h2>Supporting Sections:</h2>
-        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["Defence Chapter", "defence"], ["Fire and Emergency Services Chapter", "fes"], ["Police Chapter", "police"]].map(([label, path]) => <button key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
+        {[["Public Safety Cross-Sector Analysis", "cross_sector_analysis"], ["Defence Chapter", "defence"], ["Fire and Emergency Services Chapter", "fes"], ["Police Chapter", "police"]].map(([label, path]) => <button data-report-action="primary" key={path} type="button" onClick={() => navigate(path)}>{label}</button>)}
       </section>
     </PublicSafetyPageShell>
   );

@@ -1,9 +1,10 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -62,9 +63,14 @@ const sources = [
   "Victorian Government, Opportunities for veterans in the Victorian Public Sector [website], 6 June 2024; Victorian Government, Employing veterans in the Victorian Public Sector [website], 8 April 2024.",
 ] as const;
 
+function renderDescription(text: string) {
+  return text.split(/(ADF Transition Guide App|Veteran Employment(?= service)|Royal Commission into Defence and Veterans Suicide|TAFE SA’s STEP|Public Sector Veteran Employment Strategy \(2016\))/g)
+    .map((part, index) => index % 2 === 1 ? <em key={index}>{part}</em> : part);
+}
+
 export default function PublicSafetyDefenceFederalInitiativesView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   const [active, setActive] = useState(0);
-  const [owner, title, description, references] = initiatives[active];
+  const [, title, description, references] = initiatives[active];
   const [firstSentence, actionPlan] = description.split(" The Veteran Transition Action Plan");
   const number = (index: number) => String(index + 1).padStart(2, "0");
   return <PublicSafetyPageShell contentClassName={layout.page} slug={slug} report={report} currentPage="defence_federal_initiatives" navigation={{back:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`},backSecondary:{label:"Defence chapter",href:`/reports/${slug}/defence`},prev:{label:"Existing Industry-Sector Strategies",href:`/reports/${slug}/defence_existing_strategies`},next:{label:"Fire and Emergency Services",href:`/reports/${slug}/fes`},prevPrefix:"Previous Section:",nextPrefix:"Next Section:"}}>
@@ -74,37 +80,40 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
         <h1>Defence Veterans’ Programs and Initiatives</h1>
         <p>Select a strategy to open its detail and how it informs Public Skills Australia’s work.</p>
       </div>
-      <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} alt="" unoptimized priority />
+      <svg className={`${styles.artwork} animate-zoom-in`} width={120} height={120} viewBox="0 0 120 120" role="img" aria-label="Transition from military service to civilian life">
+        <image href="/images/reports/public-safety/defence-veterans-icon.png" width={120} height={120} />
+        <path data-veteran-transition-arrow d="M52 56H69M65 52L69 56L65 60" fill="none" stroke="#d3992c" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
     </section>
 
-    <section className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
+    <section data-report-reader="wide" className={`${layout.projects} ${styles.initiatives}`} aria-labelledby="defence-veterans-list">
       <div className="animate-slide-up-delay">
         <h2 id="defence-veterans-list">Strategies · {initiatives.length} · Select to open</h2>
-        <div className={layout.projectList}>
-          {initiatives.map(([agency, name], index) => (
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available initiatives" className={layout.projectList}>
+          {initiatives.map(([, name], index) => (
             <button key={name} type="button" aria-pressed={active === index} aria-controls="defence-veterans-panel" className={layout.projectButton} onClick={() => setActive(index)}>
-              <span><small>{number(index)} · {agency}</small><strong>{name}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span><small>{number(index)}</small><strong>{name}</strong></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
-      <ReportSelectionPanel selection={active} label="Defence veterans program details"><article id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
-        <div className={layout.panelHeader}>
-          <span className={layout.badge} title={owner}>{number(active)} · DEF</span>
+      <ReportSelectionPanel selection={active} label="Defence veterans program details"><article data-report-surface="neutral" id="defence-veterans-panel" className={`${layout.panel} animate-slide-up-delay`} aria-labelledby="defence-veterans-heading">
+        <div data-reader-toolbar className={layout.panelHeader}>
+          <span className={layout.badge}>{number(active)} · DEF</span>
           <div className={layout.controls}>
-            {active > 0 && <button className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < initiatives.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" className={layout.previous} type="button" onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < initiatives.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <div key={title} className={`${layout.details} animate-content-switch`}>
           <header className={styles.detailHeading}>
-            <h3 id="defence-veterans-heading">{title}</h3>
+            <h3 id="defence-veterans-heading">{active < 13 ? <em>{title}</em> : title}</h3>
           </header>
           <h4 className={styles.supportHeading}>How it Supports Transitioning and Transitioned Veterans</h4>
           <p className={layout.copy}>
-            {firstSentence}<sup className={styles.footnote}>{references[0]}</sup>
-            {actionPlan && <> The Veteran Transition Action Plan{actionPlan}<sup className={styles.footnote}>{references[1]}</sup></>}
+            {renderDescription(firstSentence)}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[0]} /></sup>
+            {actionPlan && <> The <em>Veteran Transition Action Plan</em>{actionPlan}<sup className={styles.footnote}><PublicSafetyFootnoteLink number={references[1]} /></sup></>}
           </p>
         </div>
       </article></ReportSelectionPanel>
@@ -114,7 +123,7 @@ export default function PublicSafetyDefenceFederalInitiativesView({ slug, report
       <h2>Sources</h2>
       <ol start={87}>
         {sources.map((source, index) => <li key={source}>
-          <span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 87}</span><span>{source}</span>
+          <span className={sourcesStyles.sourceNumber} aria-hidden="true">{index + 87}</span><span><PublicSafetySourceText number={index + 87} text={source} /></span>
         </li>)}
       </ol>
     </section>

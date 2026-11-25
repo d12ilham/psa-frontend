@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
+import ReportSelectionPanel from "./ReportSelectionPanel";
 
 import chapter from "./PublicSafetyDefenceView.module.css";
 import police from "./PublicSafetyPoliceView.module.css";
@@ -78,12 +79,11 @@ function PoliceEmployeesMap({ animationKey }: { animationKey: number }) {
   const counts = policeEmployeeData[selectedState];
 
   return <div>
-    <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-lg font-semibold uppercase text-[#0D71A3]">POL · Presentation View</p><h3 className="mt-3 text-lg font-bold leading-6 text-[#252D02]">National Police Employees by State<br/>and Territory in 2025</h3></div><div className="flex flex-wrap gap-2">{states.map((state) => <button key={state} type="button" onClick={() => setSelectedState(state)} aria-pressed={selectedState === state} className={`min-w-14 cursor-pointer rounded-full px-3 py-2 text-xs font-bold ${selectedState === state ? "bg-[#7BC900] text-[#253100]" : "border border-[#E9EAEB] bg-white text-[#535862]"}`}>{state === "NATIONAL" ? "NAT" : state}</button>)}</div></div>
+    <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-lg font-semibold uppercase text-[#0D71A3]">POL · Presentation View</p><h3 className="mt-3 text-lg font-bold leading-6 text-[#252D02]">National Police Employees by State<br/>and Territory in 2025</h3></div><div className="flex flex-wrap gap-2">{states.map((state) => <button data-report-action="secondary" key={state} type="button" onClick={() => setSelectedState(state)} aria-pressed={selectedState === state} className={`min-w-14 cursor-pointer rounded-full px-3 py-2 text-xs font-bold ${selectedState === state ? "bg-[#7BC900] text-[#253100]" : "border border-[#E9EAEB] bg-white text-[#535862]"}`}>{state === "NATIONAL" ? "NAT" : state}</button>)}</div></div>
     <div key={animationKey} className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1.74fr)_minmax(0,1fr)]">
-      <div className="grid min-h-[400px] place-items-center animate-zoom-in lg:min-h-[538px] overflow-hidden rounded-lg border border-[#E9EAEB] bg-white p-3 transition-shadow duration-300 hover:shadow-md"><AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="police" className={styles.mapArtwork} compact/></div>
-      {counts ? <aside key={`${selectedState}-${animationKey}`} className="animate-card-entrance rounded-lg bg-[#E7F1F6] p-5"><h4 className="text-2xl font-bold text-[#252D02]">{selectedState}</h4><div className="mt-5 overflow-hidden rounded-md bg-white"><div className="grid grid-cols-[minmax(0,1fr)_64px] border-b border-[#E9EAEB] px-4 py-4 text-xs"><span/><strong className="text-right">2025</strong></div>{rows.map((row, index) => <div key={row} style={{ animationDelay: `${index * 0.08 + 0.2}s` }} className="grid animate-card-entrance grid-cols-[minmax(0,1fr)_64px] items-center border-b border-[#E9EAEB] px-4 py-4 text-xs transition-colors duration-200 last:border-0 hover:bg-[#F5FAFC]"><span className="pr-2 leading-4 text-[#535862]">{row}</span><strong className="text-right font-medium text-[#252D02]">{counts[index]}</strong></div>)}</div></aside> : <p className="rounded-lg bg-[#E7F1F6] p-5 text-sm">Select a state or territory to see its 2025 workforce figures.</p>}
+      <div className="grid min-h-[400px] place-items-center animate-zoom-in lg:min-h-[538px] overflow-hidden rounded-lg border border-[#E9EAEB] bg-white p-3 transition-shadow duration-300 hover:shadow-md"><AustraliaInteractiveMap selectedState="NATIONAL" highlightedState={selectedState} onSelectState={setSelectedState} variant="police" className={styles.mapArtwork} compact largeLabels showActLabel/></div>
+      {counts ? <aside data-report-surface="neutral" key={`${selectedState}-${animationKey}`} className="animate-card-entrance rounded-lg bg-[#E7F1F6] p-5"><h4 className="text-2xl font-bold text-[#252D02]">{selectedState}</h4><div className="mt-5 overflow-hidden rounded-md bg-white"><div className="grid grid-cols-[minmax(0,1fr)_64px] border-b border-[#E9EAEB] px-4 py-4 text-base"><span/><strong className="text-right">2025</strong></div>{rows.map((row, index) => <div key={row} style={{ animationDelay: `${index * 0.08 + 0.2}s` }} className="grid animate-card-entrance grid-cols-[minmax(0,1fr)_64px] items-center border-b border-[#E9EAEB] px-4 py-4 text-base transition-colors duration-200 last:border-0 hover:bg-[#F5FAFC]"><span className="pr-2 leading-6 text-[#535862]">{row}</span><strong className="text-right font-medium text-[#252D02]">{counts[index]}</strong></div>)}</div></aside> : <p data-report-surface="neutral" className="rounded-lg bg-[#E7F1F6] p-5 text-sm">Select a state or territory to see its 2025 workforce figures.</p>}
     </div>
-    <div className="mt-6 text-sm leading-6 text-[#535862]"><p className="font-semibold uppercase text-[#252D02]">Legend:</p>{rows.map((row) => <p key={row}>• {row}</p>)}</div>
   </div>;
 }
 
@@ -106,37 +106,39 @@ export default function PublicSafetyPoliceProfileView({ slug, report }: { slug: 
         <p>Select an item on the left to present it large on the right.</p>
       </div>
       <div className={`${chapter.artwork} ${police.artwork}`}>
-        <Image src="/images/police-chapter-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
+        <Image src="/images/reports/public-safety/police-services-vehicle.svg" alt="" width={136} height={136} unoptimized priority />
       </div>
     </section>
     <section className={`${library.library} ${chapter.enter}`}>
       <h2 className={styles.heading}>Profile Items · {profileItems.length} · Select a title to present</h2>
-      <div className={library.libraryGrid}>
-        <div className={library.chartChoices} role="group" aria-label="Profile items">
+      <div data-report-reader="standard" className={library.libraryGrid}>
+        <div data-reader-list tabIndex={0} className={library.chartChoices} role="group" aria-label="Profile items">
           {profileItems.map((profile, index) => (
             <button key={profile.code} type="button" className={index === 1 ? styles.femaleChoice : undefined} onClick={() => select(index)} aria-pressed={active === index}>
               <span><small className={library.chartCode}>{profile.code}</small><strong className={library.choiceTitle}>{profile.title}</strong></span>
-              <span className={library.choiceArrow}><ArrowRight aria-hidden="true" /></span>
+              <span data-report-action="primary" className={library.choiceArrow}><ArrowRight aria-hidden="true" /></span>
             </button>
           ))}
         </div>
+        <ReportSelectionPanel selection={active} label="Police profile presentation">
         <figure className={`${library.presentation} ${styles.presentation} ${active === 1 ? styles.female : ""} ${active === 2 ? styles.mapPresentation : ""}`}>
           {active !== 2 && <div className={library.presentationHeader}>
             <div aria-live="polite"><p className={library.presenting}>Presenting · {active + 1} of {profileItems.length} · Selected from the list</p><h4 className={styles.profileTitle}>{item.title}</h4></div>
             <div className={library.chartControls}>
-              <button type="button" onClick={() => select((active - 1 + profileItems.length) % profileItems.length)}><ChevronLeft aria-hidden="true" /> Prev</button>
-              <button type="button" onClick={() => select((active + 1) % profileItems.length)}>Next <ChevronRight aria-hidden="true" /></button>
-              <button type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
+              <button data-report-action="primary" type="button" onClick={() => select((active - 1 + profileItems.length) % profileItems.length)}><ChevronLeft aria-hidden="true" /> Prev</button>
+              <button data-report-action="primary" type="button" onClick={() => select((active + 1) % profileItems.length)}>Next <ChevronRight aria-hidden="true" /></button>
+              <button data-report-action="primary" type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
             </div>
           </div>}
           {active === 0 ? <FirstNationsChart animationKey={animationKey}/> : active === 1 ? <FemaleGenderChart animationKey={animationKey}/> : <PoliceEmployeesMap animationKey={animationKey}/>}
           <figcaption data-source-caption><PublicSafetySourceLink href={policeWorkforceSourceUrl}>Source: Productivity Commission, Police services, Table 6A.2, 2026</PublicSafetySourceLink></figcaption>
           {active === 2 && <div className={`${library.chartControls} ${styles.mapReplay}`}>
-            <button type="button" onClick={() => select(active - 1)}><ChevronLeft aria-hidden="true" /> Prev</button>
-            <button type="button" onClick={() => select(0)}>Next <ChevronRight aria-hidden="true" /></button>
-            <button type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
+            <button data-report-action="primary" type="button" onClick={() => select(active - 1)}><ChevronLeft aria-hidden="true" /> Prev</button>
+            <button data-report-action="primary" type="button" onClick={() => select(0)}>Next <ChevronRight aria-hidden="true" /></button>
+            <button data-report-action="primary" type="button" onClick={() => setAnimationKey((key) => key + 1)}><Play aria-hidden="true" /> Replay Animation</button>
           </div>}
         </figure>
+        </ReportSelectionPanel>
       </div>
     </section>
   </PublicSafetyPageShell>;

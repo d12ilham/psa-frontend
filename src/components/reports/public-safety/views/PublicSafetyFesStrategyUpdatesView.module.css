@@ -1,8 +1,7 @@
-.page .hero { position: relative; padding-right: 230px; }
-.page .heroCopy { max-width: 1000px; min-width: 0; }
+.page .heroCopy { flex: 1 1 0; max-width: 1000px; min-width: 0; }
 .heroCopy p { max-width: 800px; }
-.artwork { position: absolute; right: 184px; top: 42px; width: 180px; height: 180px; }
-.bulk { position: absolute; right: 24px; bottom: 24px; }
+.artwork { flex: none; align-self: center; width: 180px; height: auto; }
+.bulk { flex: none; align-self: flex-end; }
 .bulk button[aria-expanded="true"] svg { rotate: 180deg; }
 .page .badge { background: #c9481a; }
 .page .projectButton small, .subheading { color: #c9481a; }
@@ -15,17 +14,7 @@
 .page .subheading { font-weight: 600; }
 
 @media (max-width: 1487px) {
-  .page .hero { padding-right: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .page .hero { align-items: flex-start; flex-wrap: wrap; }
   .page .heroCopy { flex: 1 1 70%; }
-  .artwork, .bulk { position: static; }
   .bulk { flex: 1 1 100%; justify-content: flex-end; }
-}
-@media (max-width: 767px) {
-  .artwork { align-self: center; }
-  .bulk { align-self: flex-end; }
-}
-
-
-@media (min-width: 1600px) {
-  .page > :first-child { width: max-content; }
 }

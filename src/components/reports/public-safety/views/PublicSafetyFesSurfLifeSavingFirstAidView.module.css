@@ -8,7 +8,8 @@
 }
 .columns { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 746fr); gap: 48px; align-items: start; }
 .copy { display: grid; gap: 12px; font-size: 14px; line-height: 24px; }
-.copy sup { top: auto; font-size: inherit; vertical-align: baseline; }
+.copy sup { position: relative; top: -.5em; font-size: .75em; line-height: 0; vertical-align: baseline; }
+.sourceTitles a { font-style: italic; }
 .chart { display: grid; align-content: space-between; min-width: 0; min-height: 600px; padding: 28px; border: 1px solid #e9eaeb; border-radius: 16px; background: white; }
 .chartHeader { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
 .chartHeader h3 { font-size: 16px; font-weight: 800; line-height: 24px; }

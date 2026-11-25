@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -40,14 +41,16 @@ export default function CorrectionalServicesUpdate2025StrategiesView({ slug, rep
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="update_2025_strategies" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="update_2025_strategies"
-          prev={{ label: "Update on 2024 Strategies", href: `/reports/${slug}/update_2024_strategies` }}
-          next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
-          prevPrefix=""
-          nextPrefix=""
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="update_2025_strategies"
+            prev={{ label: "Update on 2024 Strategies", href: `/reports/${slug}/update_2024_strategies` }}
+            next={{ label: "Existing Industry-Sector Strategies", href: `/reports/${slug}/existing_strategies` }}
+            prevPrefix=""
+            nextPrefix=""
+          />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex flex-col gap-6 rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none lg:min-h-[208px] lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-[820px]">
@@ -82,7 +85,7 @@ export default function CorrectionalServicesUpdate2025StrategiesView({ slug, rep
 
         <section className="rounded-[14px] border border-[#E9EAEB] bg-white p-6 animate-slide-up motion-reduce:animate-none">
           <h2 className="text-2xl font-semibold text-[#424996]">Two 2025 projects</h2>
-          <p className="mt-3 max-w-[850px] text-sm leading-6 text-[#535862]">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into their causes and potential mitigation strategies. These included:</p>
+          <p className="mt-3 max-w-[850px] text-sm leading-6 text-[#535862]">To support industry with these challenges, Public Skills Australia completed two projects in 2025 to provide deeper insights into these challenges.</p>
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             {projects.map((project) => (
               <Link key={project.href} href={`/reports/${slug}/${project.href}`} className="group overflow-hidden rounded-[14px] border border-[#E9EAEB] bg-white text-left transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#424996] motion-reduce:transition-none">

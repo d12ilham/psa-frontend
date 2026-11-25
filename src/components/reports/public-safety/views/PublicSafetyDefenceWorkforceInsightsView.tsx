@@ -47,13 +47,13 @@ const themes = [
 ];
 
 function InsightCard({ insight, onClick, delay }: { insight: { number: string; label: string; text: string; href: string }; onClick: () => void; delay: number }) {
-  return <button type="button" onClick={onClick} style={{ animationDelay: `${delay}s` }} className={`${styles.insight} animate-card-entrance`}>
+  return <button data-report-surface="neutral" type="button" onClick={onClick} style={{ animationDelay: `${delay}s` }} className={`${styles.insight} animate-card-entrance`}>
     <span className={styles.number} aria-hidden="true">{insight.number}</span>
     <span className={styles.insightCopy}>
       <strong>{insight.label}</strong>
       <span>{insight.text}</span>
     </span>
-    <span className={styles.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
+    <span data-report-action="primary" className={styles.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
   </button>;
 }
 
@@ -99,7 +99,7 @@ export default function PublicSafetyDefenceWorkforceInsightsView({ slug, report 
     </section>
 
     <div ref={actionRef} className={actionVisible ? "animate-slide-up" : styles.pending}>
-      <button type="button" className={styles.strategies} onClick={() => router.push(`/reports/${slug}/defence_workforce_strategies`)}>
+      <button data-report-action="primary" type="button" className={styles.strategies} onClick={() => router.push(`/reports/${slug}/defence_workforce_strategies`)}>
         Defence Workforce Strategies <ArrowRight size={16} aria-hidden="true" />
       </button>
     </div>

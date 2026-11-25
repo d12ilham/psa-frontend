@@ -105,7 +105,7 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
       { key: "executive_summary", label: "Executive Summary" },
       { key: "drivers_of_change", label: "Drivers of Change" },
       { key: "industry_overview", label: "Industry-Sector Overview" },
-      { key: "state_territory", label: "State and Territory Profile" },
+      { key: "state_territory", label: "State and Territory Workforce Profile" },
       { key: "industry_profile", label: "Industry Profile" },
       { key: "workforce_insights", label: "Workforce Insights" },
       { key: "workforce_strategies", label: "2026 Proposed Strategies" },
@@ -183,8 +183,7 @@ export const SECTOR_CONFIGS: Record<string, SectorConfig> = {
     psaSectorPageUrl: "https://publicskillsaustralia.org.au",
     contactUrl: "https://publicskillsaustralia.org.au/contact",
     landingIntroDesc: DEFAULT_LANDING_INTRO_DESC,
-    landingExecDesc:
-      "Straight to the key insights and strategies on one page, built for large screens and briefings.",
+    landingExecDesc: DEFAULT_LANDING_EXEC_DESC,
     subsectors: ["Federal Public Service", "State & Territory Public Sector"],
     defaultChapters: [
       { key: "introduction", label: "Introduction" },

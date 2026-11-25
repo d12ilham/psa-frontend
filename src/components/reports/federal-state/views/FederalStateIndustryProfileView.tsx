@@ -135,7 +135,7 @@ function WorkforceMap({ selectedState, onSelectState }: { selectedState: Profile
   const national = selectedState === "NATIONAL";
 
   return (
-    <div className={`relative rounded-md bg-[#FBF5F1] p-2 pb-20 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
+    <div data-report-surface="neutral" className={`relative rounded-md bg-[#FBF5F1] p-2 pb-20 ${national ? "h-[470px] overflow-x-auto lg:h-[540px] lg:overflow-hidden" : "h-[310px] overflow-hidden sm:h-[380px] lg:h-[390px]"}`}>
       <svg
         viewBox="55 20 740 605"
         role="img"
@@ -262,10 +262,12 @@ function BarChart({
 function Reveal({
   children,
   delay = 0,
+  threshold = 0.12,
   className = "",
 }: {
   children: React.ReactNode;
   delay?: number;
+  threshold?: number;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -287,11 +289,11 @@ function Reveal({
         setVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.12 }
+      { threshold }
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
 
   return (
     <div
@@ -342,11 +344,13 @@ function CountUp({ value, decimals = 0, suffix = "" }: { value: number; decimals
 export default function FederalStateIndustryProfileView({
   slug,
   report,
+  initialState = "NATIONAL",
 }: {
   slug: string;
   report: Report;
+  initialState?: ProfileState;
 }) {
-  const [selectedState, setSelectedState] = useState<ProfileState>("NATIONAL");
+  const [selectedState, setSelectedState] = useState<ProfileState>(initialState);
   const profile = profileDetails[selectedState];
   const otherStateView = selectedState === "ACT" ? <FederalStateActProfileView slug={slug} report={report} embedded />
     : selectedState === "NT" ? <FederalStateNtProfileView slug={slug} report={report} embedded />
@@ -358,21 +362,28 @@ export default function FederalStateIndustryProfileView({
     : null;
 
   return (
-    <div className="fstg-profile-page flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#1B240E] antialiased selection:bg-[#8AC900]/20">
+    <div className="fstg-profile-page flex min-h-screen flex-col justify-between bg-[#FAFAF0] font-sans text-[#754C2D] antialiased selection:bg-[#EED4C4]/20">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 space-y-3 px-4 py-5 sm:px-6 lg:px-8">
         <Reveal>
           <ReportNavButtons
             slug={slug}
-            currentPage="industry_profile"
-            prev={{
-              label: "Federal Government Industry-Sector Overview",
+            currentPage={selectedState === "ACT" ? "industry_profile_act" : "industry_profile"}
+            onPrevious={selectedState === "ACT" && initialState === "NATIONAL" ? () => setSelectedState("NATIONAL") : undefined}
+            prev={selectedState === "ACT" ? {
+              label: "Industry Profile",
+              href: `/reports/${slug}/industry_profile`,
+            } : {
+              label: "Federal and State/Territory Government Overview",
               href: `/reports/${slug}/industry_overview`,
             }}
-            next={{
-              label: "ACT Workforce Overview",
-              href: `/reports/${slug}/industry_profile_act`,
+            next={selectedState === "ACT" ? {
+              label: "NSW Workforce Overview",
+              href: `/reports/${slug}/industry_profile_nsw`,
+            } : {
+              label: "Workforce Insights",
+              href: `/reports/${slug}/workforce_insights`,
             }}
             prevPrefix=""
             nextPrefix="Next Section:"
@@ -392,36 +403,31 @@ export default function FederalStateIndustryProfileView({
           </section>
         </Reveal>
 
-        <Reveal delay={0.12}>
+        <Reveal delay={0.12} threshold={0}>
           <section className="rounded-lg border border-[#E9E5DE] bg-white p-4 sm:p-5">
             <h2 className="text-xl font-bold text-black">
-              Location of Australian Public Service (APS) Employees
+              {selectedState === "NATIONAL"
+                ? "Location of Australian Public Service (APS) Employees"
+                : "Location of Australian Public Service (APS) Employees and State/Territory Public Service Employees"}
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-1.5 border-b border-[#E9E5DE] pb-3">
               <span className="mr-2 text-xs font-semibold uppercase text-black">
-                Choose a state or territory
+                Industry Profile
               </span>
-              {["NATIONAL", ...selectableStates].map((tab, index) => {
+              {(["NATIONAL", ...selectableStates] as const).map((tab, index) => {
                 const active = tab === selectedState;
-                const available = tab === "NATIONAL" || selectableStates.some((code) => code === tab);
-                const className = `rounded-full border px-3 py-2 text-xs font-semibold ${
-                  active
-                    ? "border-[#8AC900] text-black"
-                    : "border-[#E9E5DE] bg-white text-black"
-                }`;
-                return available ? (
+                return (
                   <button
                     key={tab}
                     type="button"
+                    data-report-action={active ? "primary" : "secondary"}
                     aria-pressed={active}
-                    onClick={() => setSelectedState(tab as ProfileState)}
-                    className={`${className} animate-card-entrance transition-colors hover:border-[#8AC900] motion-reduce:animate-none`}
-                    style={{ animationDelay: `${0.18 + index * 0.045}s`, ...(active ? { backgroundColor: "#8AC900" } : {}) }}
+                    onClick={() => setSelectedState(tab)}
+                    className="animate-card-entrance rounded-full border px-3 py-2 text-xs font-semibold transition-colors motion-reduce:animate-none"
+                    style={{ animationDelay: `${0.18 + index * 0.045}s` }}
                   >
                     {tab}
                   </button>
-                ) : (
-                  <span key={tab} className={className}>{tab}</span>
                 );
               })}
             </div>
@@ -445,7 +451,7 @@ export default function FederalStateIndustryProfileView({
 
               <div className="space-y-2.5 lg:order-1">
                 {selectedState !== "NATIONAL" && <Reveal>
-                  <section className="rounded-md bg-[#F8EEE8] p-3.5">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#F8EEE8] p-3.5">
                     <h3 className="text-sm font-bold text-[#382219]">
                       {profile.name}
                     </h3>
@@ -465,9 +471,9 @@ export default function FederalStateIndustryProfileView({
                         {profile.publicServiceLabel}
                       </span>
                     </div>
-                    <a
+                    <a data-report-action="primary"
                       href={selectedState === "NT" ? `/reports/${slug}/industry_profile_nt` : selectedState === "QLD" ? `/reports/${slug}/industry_profile_qld` : selectedState === "SA" ? `/reports/${slug}/industry_profile_sa` : selectedState === "TAS" ? `/reports/${slug}/industry_profile_tas` : selectedState === "VIC" ? `/reports/${slug}/industry_profile_vic` : `/reports/${slug}/industry_profile_wa`}
-                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-3 text-[9px] font-bold text-[#252D02] transition-colors hover:bg-[#79B700]"
+                      className="mt-2.5 flex min-h-8 items-center justify-center gap-2 rounded-full bg-[#8AC900] px-3 text-[9px] font-bold text-[#252B37] transition-colors hover:bg-[#79B000]"
                     >
                       {profile.workforceCode} Workforce Overview <span aria-hidden="true">→</span>
                     </a>
@@ -475,7 +481,7 @@ export default function FederalStateIndustryProfileView({
                 </Reveal>}
 
                 <Reveal delay={0.06}>
-                  <section className="rounded-md bg-[#EDE9DC] p-4 text-black">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#EDE9DC] p-4 text-black">
                     <p className="text-base font-semibold">Total</p>
                     <strong className="mt-1 block text-3xl leading-tight"><CountUp value={198529} /></strong>
                     <p className="mt-2 text-sm leading-6">The APS workforce spans 586 locations, 102 agencies and 234 job roles.</p>
@@ -488,7 +494,7 @@ export default function FederalStateIndustryProfileView({
                   { label: "Overseas", value: 1596, share: "0.8%", graphic: "overseas" },
                 ].map((item, index) => (
                   <Reveal key={item.label} delay={0.1 + index * 0.05}>
-                    <div data-national-metric className="flex items-center gap-4 rounded-md bg-[#F8EEE8] p-4 text-black">
+                    <div data-report-surface="neutral" data-national-metric className="flex items-center gap-4 rounded-md bg-[#F8EEE8] p-4 text-black">
                       <Image src={`/images/reports/federal-state/industry-profile/${item.graphic}-document.svg`} alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
                       <div className="min-w-0">
                         <p className="text-base font-semibold">{item.label}</p>
@@ -500,7 +506,7 @@ export default function FederalStateIndustryProfileView({
                 ))}
 
                 <Reveal delay={0.24}>
-                  <section className="rounded-md bg-[#F0D7CC] p-4 text-black">
+                  <section data-report-surface="neutral" className="rounded-md bg-[#F0D7CC] p-4 text-black">
                     <div className="flex items-center gap-4">
                       <Image src="/images/reports/federal-state/industry-profile/gender-document.svg" alt="" width={64} height={64} className="h-16 w-16 shrink-0 object-contain" />
                       <div>
@@ -508,7 +514,7 @@ export default function FederalStateIndustryProfileView({
                         <p className="mt-1 text-base font-semibold">Gender Pay Gap</p>
                       </div>
                     </div>
-                    <p data-citation-copy className="mt-3 border-t border-[#D9BCAF] pt-3 text-sm leading-6 text-black"><SourceLink row={19}>Source: Australian Government, State of the Service Report 2024-25, 2025, pg. 32</SourceLink></p>
+                    <p data-citation-copy className="mt-3 border-t border-[#D9BCAF] pt-3 text-sm leading-6 text-black"><SourceLink row={19}>Source: Australian Government, State of the Service Report 2024 – of the Service Report 2024-25, 2025, pg. 32</SourceLink></p>
                   </section>
                 </Reveal>
               </div>
@@ -557,7 +563,7 @@ export default function FederalStateIndustryProfileView({
         </Reveal>
       </main>
 
-      <ReportFooter
+      <ReportFooter sectorPalette
         contactUrl={report?.contactUrl}
         reportName={
           report?.title?.replace(/\s*\b20\d{2}\b/g, "").trim() ||
@@ -566,4 +572,9 @@ export default function FederalStateIndustryProfileView({
       />
     </div>
   );
+}
+
+// Both ACT entry paths use the same profile shell and selectors.
+export function FederalStateActIndustryProfileView({ slug, report }: { slug: string; report: Report }) {
+  return <FederalStateIndustryProfileView slug={slug} report={report} initialState="ACT" />;
 }

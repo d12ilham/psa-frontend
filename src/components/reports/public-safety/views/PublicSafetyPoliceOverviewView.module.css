@@ -324,9 +324,15 @@
 
 .jurisdictionSeries polyline {
   fill: none;
-  stroke: var(--chart-blue);
+  stroke: #a8d8ea;
   stroke-width: 2.5;
-  stroke-dasharray: 3 8;
+  stroke-dasharray: none;
+}
+
+.jurisdictionPoint circle {
+  fill: white;
+  stroke: #a8d8ea;
+  stroke-width: 2.5;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -350,7 +356,7 @@
 .presentation figcaption p + p {
   margin-top: 4px;
   color: #598303;
-  font: 12px/18px monospace;
+  font: 12px/18px var(--font-sans);
 }
 
 .chartChoices button:focus-visible,
@@ -467,10 +473,11 @@
 .chart figcaption p + p {
   margin-top: 4px;
   color: #44691c;
-  font: 8px/12px monospace;
+  font: 8px/12px var(--font-sans);
 }
 
 .sources {
+  max-width: none;
   gap: 16px;
 }
 
@@ -480,7 +487,7 @@
   gap: 12px;
 }
 
-.sources li > span {
+.sources li > span:first-child {
   display: grid;
   place-items: center;
   width: 20px;
@@ -490,6 +497,11 @@
   background: #598303;
   color: white;
   font-size: 12px;
+}
+
+.sources li > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 1488px) {

@@ -11,17 +11,18 @@
 .example { padding: 24px; color: #252d02; }
 .sectionTitle { padding-bottom: 16px; border-bottom: 1px solid #d5d7da; font-size: 24px; font-weight: 700; line-height: 32px; }
 .exampleIntro { max-width: 1000px; margin-top: 24px; font-size: 14px; line-height: 24px; }
-.packageGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: calc(100% + 48px); margin-top: 24px; }
+.packageGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; margin-top: 24px; }
 .packageCard { position: relative; min-height: 184px; min-width: 0; padding: 32px 24px 24px; border-radius: 14px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: white; transition: transform .3s, box-shadow .3s; }
 .accent { position: absolute; inset: 0 0 auto; height: 8px; border-radius: 14px 14px 0 0; }
 .packageTag { display: inline-flex; align-items: center; min-height: 40px; padding: 10px 20px; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; line-height: 20px; text-transform: uppercase; }
 .packageCard h3 { margin-top: 16px; font-size: 20px; font-weight: 700; line-height: 28px; }
 .packageCard p { margin-top: 16px; color: #598303; font-size: 18px; font-weight: 700; line-height: 28px; }
-.sharedIntro { margin-top: 24px; font-size: 14px; font-weight: 500; line-height: 24px; text-transform: uppercase; }
+.sharedIntro { margin-top: 24px; font-size: 24px; font-weight: 700; line-height: 32px; text-transform: uppercase; }
 .sharedGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
 .sharedCard { position: relative; min-width: 0; min-height: 192px; padding: 16px 16px 16px 64px; border-radius: 8px; outline: 1px solid #e9eaeb; outline-offset: -1px; background: #f0f5df; transition: transform .3s, background-color .3s, box-shadow .3s; }
 .number { position: absolute; top: 16px; left: 16px; width: 28px; color: #598303; opacity: .1; font-size: 52px; font-weight: 700; line-height: 50px; text-align: right; }
 .sharedCard h3 { font-size: 16px; font-weight: 700; line-height: 22px; }
+.sharedGrid .sharedCard h3 { min-height: 44px; }
 .sharedCard p { margin-top: 20px; font-size: 14px; line-height: 24px; }
 .note { padding: 24px; border-radius: 14px; background: linear-gradient(to right, #598303 8px, white 8px); }
 .note p { max-width: 1000px; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
@@ -30,6 +31,7 @@
 .table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; color: #535862; font-size: 14px; font-weight: 500; line-height: 24px; }
 .skillColumn { width: 240px; }
 .table th, .table td { padding: 10px 20px; border-right: 1px solid #e9eaeb; border-bottom: 1px solid #e9eaeb; vertical-align: top; text-align: left; font-weight: 500; }
+.table tbody td { padding-top: 16px; }
 .table th:last-child, .table td:last-child { border-right: 0; }
 .table tbody tr:last-child > * { border-bottom: 0; }
 .table thead th { color: #252d02; }
@@ -37,7 +39,11 @@
 .table thead th:nth-child(3) { color: #c9481a; background: #c9481a1a; }
 .table thead th:nth-child(4) { color: #0d71a3; background: #0d71a31a; }
 .table thead span { display: block; }
-.table ul { padding-left: 21px; list-style: none; }
+.table thead th.matchedPackageHeader { padding: 0; color: #252d02; background: white; }
+.table .matchedPackageHeader .packageTag { display: inline-flex; }
+.table th.matchedSkillHeader { padding: 0; }
+.table .matchedSkillHeader .sharedCard { color: #252d02; }
+.table ul { padding-left: 21px; list-style: disc; }
 .table li::marker { font-size: 9px; }
 .table tbody tr:nth-child(3) { height: 70px; }
 .table tbody tr { transition: background-color .3s; }

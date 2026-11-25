@@ -13,7 +13,7 @@ const themes = [
     eyebrow: "Theme 1 · 3 insights",
     title: "1. Disaster Recovery",
     insights: [
-      { number: "1", href: "fes_disaster_recovery", label: "Theme One, Insight One", text: "Specialist disaster recovery functions are operationally focused; a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted." },
+      { number: "1", href: "fes_disaster_recovery", label: "Theme One, Insight One", text: "Specialist disaster recovery functions are operationally focused, a more contemporary approach now requires capabilities related to the unique aspects of working with communities that may be grieving or socially, emotionally and financially impacted." },
       { number: "2", href: "fes_disaster_recovery_2", label: "Theme One, Insight Two", text: "Challenges in access to nationally accredited disaster recovery training products leads to inconsistencies in recovery outcomes, reduced community trust and limits the ability of communities to rebuild from the impacts of disasters." },
       { number: "3", href: "fes_disaster_recovery_3", label: "Theme One, Insight Three", text: "Australia is experiencing a critical challenge in maintaining capability to use fire effectively in the landscape, particularly for complex prescribed burning and backburning during bushfire suppression." },
     ],
@@ -50,9 +50,9 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
       <div className={`${layout.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${styles.badge}`}>FES Workforce Insights</span>
         <h1>Workforce Insights</h1>
-        <p>This Report identifies the following themes and industry insights relating to the Fire and Emergency Services Workforce:</p>
+        <p>This Report has identified the following themes and industry insights relating to the Fire and Emergency Services Workforce:</p>
       </div>
-      <Image className={`${layout.artwork} ${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-workforce-insights-group-93.png" width={446} height={100} alt="" unoptimized priority />
+      <Image className={`${layout.artwork} ${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-workforce-insights-first-aid-ring.svg" width={446} height={100} alt="" unoptimized priority />
     </section>
 
     <p className={`${styles.instruction} animate-slide-up-delay`}>Select any insight to open its detail page.</p>
@@ -62,13 +62,12 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
         <article key={theme.title} className={`${layout.theme} ${styles.theme} animate-card-entrance`} style={{ animationDelay: `${100 + index * 100}ms` }}>
           <p className={layout.eyebrow}>{theme.eyebrow}</p>
           <h2>{theme.title}</h2>
-          <p className={layout.industryLabel}>Industry Insights</p>
           <div className={layout.insights}>
             {theme.insights.map(insight => (
-              <button key={insight.number} type="button" className={`${layout.insight} ${styles.insight} animate-card-entrance`} style={{ animationDelay: `${250 + (Number(insight.number) - 1) * 85}ms` }} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
+              <button data-report-surface="neutral" key={insight.number} type="button" className={`${layout.insight} ${styles.insight} animate-card-entrance`} style={{ animationDelay: `${250 + (Number(insight.number) - 1) * 85}ms` }} onClick={() => router.push(`/reports/${slug}/${insight.href}`)}>
                 <span className={`${layout.number} ${styles.number}`} aria-hidden="true">{insight.number}</span>
                 <span className={`${layout.insightCopy} ${styles.insightCopy}`}><strong>{insight.label}</strong><span>{insight.text}</span></span>
-                <span className={layout.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
+                <span data-report-action="primary" className={layout.insightArrow} aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
               </button>
             ))}
           </div>
@@ -77,7 +76,7 @@ export default function PublicSafetyFesWorkforceInsightsView({ slug, report }: {
     </section>
 
     <div>
-      <button type="button" className={`${layout.strategies} ${styles.strategies}`} onClick={() => router.push(strategiesPath)}>
+      <button data-report-action="primary" type="button" className={`${layout.strategies} ${styles.strategies}`} onClick={() => router.push(strategiesPath)}>
         Fire and Emergency Services Workforce Strategies <ArrowRight size={16} aria-hidden="true" />
       </button>
     </div>

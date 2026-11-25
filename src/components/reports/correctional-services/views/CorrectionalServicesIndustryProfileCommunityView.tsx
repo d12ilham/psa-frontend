@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -136,7 +137,7 @@ function JurisdictionRatios() {
   return (
     <div className="mt-5 grid grid-cols-4 gap-2 sm:grid-cols-8">
       {jurisdictions.map(({ name, value }) => (
-        <div key={name} title={`${name}: ${value}`} className="flex min-h-[76px] flex-col items-center justify-center rounded-md bg-[#F0F1F9] px-1 py-2 text-center transition-colors duration-200 hover:bg-[#DEE2F3]">
+        <div data-report-surface="neutral" key={name} title={`${name}: ${value}`} className="flex min-h-[76px] flex-col items-center justify-center rounded-md bg-[#F0F1F9] px-1 py-2 text-center transition-colors duration-200 hover:bg-[#DEE2F3]">
           <span className="text-[11px] font-semibold leading-4 text-[#424996]">{name}</span>
           <strong className="text-xl leading-7 tabular-nums text-[#172036]">{value}</strong>
         </div>
@@ -147,6 +148,8 @@ function JurisdictionRatios() {
 
 function OrderTypesChart() {
   const { ref, visible } = useChartReveal();
+  const max = 80000;
+  const ticks = [0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, max];
 
   return (
     <div ref={ref} className="mt-5 overflow-x-auto">
@@ -160,18 +163,23 @@ function OrderTypesChart() {
                   <div key={orderTypes[typeIndex].name} className="relative h-6">
                     <div
                       className="h-full rounded-r-sm transition-[width,filter] duration-700 ease-out hover:brightness-90"
-                      style={{ width: visible ? `${(value / 80000) * 100}%` : "0%", backgroundColor: orderTypes[typeIndex].color, transitionDelay: `${yearIndex * 100 + typeIndex * 35}ms` }}
+                      style={{ width: visible ? `${(value / max) * 100}%` : "0%", backgroundColor: orderTypes[typeIndex].color, transitionDelay: `${yearIndex * 100 + typeIndex * 35}ms` }}
                       title={`${year} ${orderTypes[typeIndex].name}: ${value.toLocaleString()}`}
                     />
-                    <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-2 text-lg font-semibold leading-6 tabular-nums text-[#424996]" style={{ left: `${(value / 80000) * 100}%` }}>{value.toLocaleString()}</span>
+                    <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap pl-2 text-lg font-semibold leading-6 tabular-nums text-[#424996]" style={{ left: `${(value / max) * 100}%` }}>{value.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="ml-[106px] mr-20 mt-3 grid grid-cols-9 border-t border-[#D5D7DA] pt-2 text-[10px] tabular-nums text-[#667085]">
-          {[0, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000].map((tick) => <span key={tick} className="text-center first:text-left last:text-right">{tick.toLocaleString()}</span>)}
+        <div className="relative ml-[106px] mr-20 mt-3 h-7 border-t border-[#D5D7DA] text-[10px] tabular-nums text-[#667085]">
+          {ticks.map((tick) => (
+            <div key={tick} className="absolute top-0" style={{ left: `${(tick / max) * 100}%` }}>
+              <span aria-hidden="true" className="absolute top-0 h-1.5 border-l border-[#D5D7DA]" />
+              <span className="absolute top-2 -translate-x-1/2 whitespace-nowrap">{tick.toLocaleString()}</span>
+            </div>
+          ))}
         </div>
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#424996]">
           {orderTypes.map(({ name, color }) => <span key={name} className="inline-flex items-center gap-2"><i className="size-2.5 rounded-sm" style={{ backgroundColor: color }} />{name}</span>)}
@@ -186,12 +194,14 @@ export default function CorrectionalServicesIndustryProfileCommunityView({ slug,
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased">
       <ReportHeader slug={slug} report={report} currentPage="industry_profile" />
       <main className="mx-auto w-full max-w-[1504px] flex-1 space-y-6 px-4 py-10 sm:px-6 lg:px-8">
-        <ReportNavButtons
-          slug={slug}
-          currentPage="industry_profile"
-          prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }}
-          next={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
-        />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons
+            slug={slug}
+            currentPage="industry_profile"
+            prev={{ label: "Industry-Sector Overview", href: `/reports/${slug}/industry_overview` }}
+            next={{ label: "Industry Profile", href: `/reports/${slug}/industry_profile_presentation` }}
+          />
+        </CorrectionalServicesReportUtilityRow>
         <section className="rounded-2xl border border-[#E9EAEB] bg-white p-6">
           <p className="text-xs font-bold uppercase leading-6 text-[#598303]">Data Story 2</p>
           <h1 className="mt-3 text-[32px] font-bold leading-tight text-[#424996] sm:text-[40px] sm:leading-[54px]">Demand for Community Corrections</h1>

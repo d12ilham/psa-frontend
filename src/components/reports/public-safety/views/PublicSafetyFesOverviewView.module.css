@@ -3,8 +3,9 @@
 .page .artwork { width: 180px; height: 180px; flex: none; align-self: center; }
 .copy { max-width: 800px; font-size: 14px; font-weight: 500; line-height: 24px; }
 .copy sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.content > .copy { margin-inline: 24px; }
 .services, .callouts, .chartGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-inline: 24px; }
 .services > div {
   display: flex;
   align-items: center;
@@ -22,7 +23,7 @@
 .services strong { max-width: 245px; }
 .servicesExpanded > div { flex-direction: column; gap: 12px; min-height: 136px; font-size: 18px; line-height: 24px; text-align: center; }
 .servicesExpanded strong { max-width: none; }
-.datapointsHeading { padding: 0 0 16px; border-bottom: 1px solid #d5d7da; }
+.datapointsHeading { padding: 0 24px 16px; border-bottom: 1px solid #d5d7da; }
 .datapointsHeading h2 { font-size: 24px; font-weight: 700; line-height: 32px; }
 .datapointsHeading .narrowHeading { max-width: 800px; }
 .datapoints { display: grid; gap: 24px; margin-top: 24px; }
@@ -33,7 +34,7 @@
   gap: 12px;
   width: 100%;
   min-height: 64px;
-  padding: 10px 16px 10px 24px;
+  padding: 10px 16px 10px 16px;
   border: 1px solid #c9481a;
   border-left-width: 8px;
   border-radius: 14px;
@@ -61,6 +62,12 @@
 .chart figcaption { color: #000; font-size: 14px; line-height: 20px; text-transform: uppercase; }
 .sources { color: #000; }
 .barValue, .lineValue { font-weight: 700; }
+.surfPatrollingChart h3 { max-width: none; font-size: 18px; line-height: 24px; color: #252525; }
+.surfPatrollingChart svg { fill: #252525; }
+.surfPatrollingChart rect { fill: #f69063; rx: 0; }
+.surfPatrollingChart .barValue { font-weight: 400; }
+.surfPatrollingChart line[data-baseline="true"] { stroke: #888; stroke-width: 1.5; }
+.surfPatrollingChart figcaption { text-align: right; text-transform: none; }
 .lineValue { fill: #ad271b; }
 
 @media (min-width: 1488px) {
@@ -73,8 +80,11 @@
   .services > div { flex-direction: column; gap: 12px; text-align: center; font-size: 18px; line-height: 24px; }
 }
 @media (max-width: 639px) {
+  .content > .copy { margin-inline: 20px; }
+  .datapointsHeading { padding-inline: 20px; }
   .services, .callouts { grid-template-columns: minmax(0, 1fr); }
-  .toggle { font-size: 16px; line-height: 24px; padding-inline: 10px; }
+  .services { margin-inline: 20px; }
+  .toggle { font-size: 16px; line-height: 24px; padding: 10px 10px 10px 12px; }
   .pill { gap: 4px; padding-inline: 12px; }
   .chart { padding: 12px; }
 }
@@ -114,4 +124,15 @@
 @media (prefers-reduced-motion: reduce) {
   .services > div:hover img,
   .toggle:hover .pill { transform: none; }
+}
+
+.panel[id="fes-overview-panel-0"] .copy sup,
+.panel[id="fes-overview-panel-1"] .copy sup,
+.panel[id="fes-overview-panel-2"] .copy sup,
+.panel[id="fes-overview-panel-3"] .copy sup {
+  position: relative;
+  top: -0.5em;
+  vertical-align: baseline;
+  font-size: 0.75em;
+  line-height: 0;
 }

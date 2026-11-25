@@ -1,4 +1,6 @@
 "use client";
+
+import PublicSafetySourceText from "./PublicSafetySourceText";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
@@ -6,18 +8,17 @@ import styles from "./PublicSafetySkillsRecognitionView.module.css";
 
 const copy = {
   "intro": "VET training products can be leveraged to potentially reduce duplication of training package development, training material development and support skill recognition in and between the Public Safety industry-sectors (impacting workforce mobility, interoperability, career transition and enhancing productivity).",
-  "integration": "When shared skills, such as those identified in the comparison table above, are recognised and aligned, it may enable smoother integration of personnel in joint operations environments.",
-  "transition": "Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead-in times for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give effect to important recommendations such as Recommendation 83 of the Royal Commission into Defence and Veteran Suicide.",
+  "integration": "When shared skills, such as those identified in the Specialist Skills Alignment section, are recognised and aligned, it may enable smoother integration of personnel in joint operations environments.",
+  "transition": "Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead in times for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give effect to important recommendations such as the Recommendation 83 of the Royal Commission into Defence and Veteran Suicide.",
   "fraud": "The prevalence of RPL fraud makes acceptance of RPL in the VET sector complicated, resulting in a loss of trust in the RPL process. In turn, this means that personnel often are required to complete training for a unit of competency that they already hold, resulting in productivity losses and more impost on already strained training services in the Public Safety industry-sectors. The Productivity Commission indicated that fewer than 5 per cent of successful completions/results are granted through RPL. Further, as the VET sector is highly regulated by quality assurance organisations such as the Training Accreditation Council (TAC – Western Australia), Victoria Registration Qualifications Authority (VRQA – Victoria) and the Australian Skills Quality Authority (ASQA – for the remainder of the states and territories), Registered Training Organisations (RTOs), TAFEs and employers are reluctant to accept RPL outcomes due to the evidence required of competency by documents such as the ASQA 2025 Standards for RTOs. This is loosely referred to as ‘audit fear’, dissuading genuine training providers from using RPL and/or underreporting its use.",
-  "costs": "RPL applications require the same rigour of assessment as when assessing a student’s competency for the first time. Extensive portfolios of evidence are required, often resulting in students requesting to either repeat training or undertaking vigorous assessments to prove competencies. Further, RPL requires assessors familiar and experienced in RPL, which make RPL assessments costly (both timing and financial costs)."
+  "costs": "RPL applications require the same rigour of assessment as when assessing a student’s competency for the first time. Extensive portfolios of evidence are required, often resulting in students requested to either repeat training or undertaking vigorous assessments to ‘prove’ competence. Further, RPL requires assessors familiar and experience in RPL, which make RPL assessments costly (both timing and financial costs)."
 };
-const outcomes = ["Workforce Mobility", "Interoperability", "Career Transition", "Enhanced Productivity"];
 const differences = [
   { lines: ["Policies and procedures"], icon: "policies" },
   { lines: ["Legislation and regulatory", "requirements"], icon: "legislation" },
   { lines: ["Roles and remits of Public", "Safety organisations"], icon: "organisations" },
   { lines: ["Operating contexts"], icon: "contexts" },
-  { lines: ["Equipment, appliances and", "other technology used"], icon: "equipment" },
+  { lines: ["Equipment, appliances etc and", "other technology used"], icon: "equipment" },
   { lines: ["Ranks and structures"], icon: "ranks" },
 ];
 
@@ -53,9 +54,13 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
             <p className={styles.eyebrow}>Cross-Sector Analysis · 03</p>
             <h1>Skills Recognition</h1>
             <p className={styles.heroIntro}><DesignLines lines={["VET training products can be leveraged to potentially reduce duplication of training package development, training material", "development and support skill recognition in and between the Public Safety industry-sectors (impacting workforce mobility,", "interoperability, career transition and enhancing productivity)."]} /></p>
-            <div className={styles.outcomes}>{outcomes.map((outcome) => <span key={outcome}>{outcome}</span>)}</div>
-            <p className={styles.integration}><DesignLines lines={["When shared skills, such as those identified in the comparison table above, are recognised and aligned, it may enable", "smoother integration of personnel in joint operations environments."]} /></p>
-            <p className={styles.transition}><DesignLines lines={["Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead-in times", "for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give", "effect to important recommendations such as Recommendation 83 of the Royal Commission into Defence and Veteran", "Suicide."]} /></p>
+            <p className={styles.integration}><DesignLines lines={["When shared skills, such as those identified in the Specialist Skills Alignment section, are recognised and aligned, it may enable", "smoother integration of personnel in joint operations environments."]} /></p>
+            <p className={styles.transition}>
+              <span className={styles.designLine}>Some areas in Public Safety industry-sectors further seek to use recognition of prior learning (RPL) to reduce lead in times </span>
+              <span className={styles.designLine}>for personnel transitioning. Noting the similarity of operational context and skills, this may be further leveraged and give </span>
+              <span className={styles.designLine}>effect to important recommendations such as the Recommendation 83 of the <em>Royal Commission into Defence and Veteran </em></span>
+              <span className={styles.designLine}><em>Suicide</em>.</span>
+            </p>
           </div>
           <div className={styles.diagram}>
             <picture>
@@ -71,7 +76,7 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
             {[{ title: "Challenges with RPL fraud", body: copy.fraud }, { title: "RPL processes are costly and complex", body: copy.costs }].map((item, index) => (
               <article key={item.title} className={styles.challengeCard + " " + reveal("challenges")} style={{ animationDelay: index * .14 + "s" }}>
                 <span className={styles.accent} /><span className={styles.number} aria-hidden="true">{index + 1}</span>
-                <h3>{item.title}</h3><p>{item.body}</p>
+                <h3>{item.title}</h3><p>{item.body.split(/(2025 Standards for RTOs)/g).map((part, partIndex) => partIndex % 2 ? <em key={partIndex}>{part}</em> : part)}</p>
               </article>
             ))}
           </div>
@@ -79,10 +84,10 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
         <section data-reveal="differences" className={reveal("differences")}>
           <h2 className={styles.sectionTitle}>Differences limiting the use of RPL between sectors</h2>
           <p className={styles.differencesIntro}><DesignLines lines={["Challenges with RPL are not exclusive to the Public Safety industry-sectors and are shared with other industries. Other", "factors that affect the limited use of RPL in the Public Safety industry-sector include:"]} /></p>
-          <div className={styles.differencesPanel}>
+          <div data-report-surface="neutral" className={styles.differencesPanel}>
             <p className={styles.panelLabel}>Differences</p>
             <div className={styles.differenceGrid}>{differences.map(({ lines, icon }, index) => (
-              <div key={icon} className={styles.differenceCard + " " + reveal("differences")} style={{ animationDelay: index * .08 + .1 + "s" }}>
+              <div data-report-surface="neutral" key={icon} className={styles.differenceCard + " " + reveal("differences")} style={{ animationDelay: index * .08 + .1 + "s" }}>
                 <Image src={"/images/reports/public-safety/skills-recognition/" + icon + ".svg"} width={72} height={72} alt="" unoptimized />
                 <span className={styles.differenceLabel}>{lines.map((line) => <span key={line}>{line}</span>)}</span>
               </div>
@@ -92,7 +97,7 @@ export default function PublicSafetySkillsRecognitionView({ slug, report }: { sl
         </section>
         <section data-report-sources data-reveal="sources" className={styles.sources + " " + reveal("sources")}>
           <h2>Sources</h2>
-          <ol start={11}><li id="recognition-source-11" value={11}><span className={styles.sourceNumber} aria-hidden="true">11</span><p>Productivity Commission, Building a skilled and adaptable workforce, Productivity Commission, Australian Government, 2025.</p></li></ol>
+          <ol start={11}><li id="recognition-source-11" value={11}><span className={styles.sourceNumber} aria-hidden="true">11</span><p><PublicSafetySourceText number={11} text={"Productivity Commission, Building a skilled and adaptable workforce, Productivity Commission, Australian Government, 2025."} /></p></li></ol>
         </section>
       </div>
     </PublicSafetyPageShell>

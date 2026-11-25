@@ -28,7 +28,7 @@ const strategies = [
     insight: "Surf Life Saving First Aid",
     jsc: "Training Product Development",
     objective: "Ensure the Certificate II in Public Safety (Aquatic Rescue) reflects the first aid requirements of Surf Life Saving.",
-    approach: "Collaborate with Surf Life Saving Australia and state/territory organisations to compare the level of current first aid training units with the skills required in surf lifesaving. This may result in an update to the Certificate II in Public Safety (Aquatic Rescue).",
+    approach: "This strategy will collaborate with Surf Life Saving Australia and state/territory Surf Life Saving organisations to compare the level of current first aid training units of competency with current skill requirements in surf lifesaving. This may result in an update to the Certificate II in Public Safety (Aquatic Rescue).",
     deliverables: ["Reviewed training products"],
     impact: "Equip surf lifesavers with the skills required to meet current and future needs in keeping Australia’s coastline safe.",
     timing: "12-month project",
@@ -40,13 +40,18 @@ const strategies = [
     insight: "Hazardous Materials",
     jsc: "Training Product Development",
     objective: "Support increased access to hazardous materials training by reviewing a key unit of competency for the Fire and Emergency Services industry.",
-    approach: "Engage with key Fire and Emergency Services employers and unions, and mining stakeholders through AUSMASA, to review the PUAFIR306 Identify, detect and monitor hazardous materials at an incident and PUASAR025 Undertake confined space rescue units of competency.",
+    approach: "This strategy will engage with key Fire and Emergency Services employers and unions, and mining stakeholders (through AUSMASA) to review the PUAFIR306 Identify, detect and monitor hazardous materials at an incident and PUASAR025 Undertake confined space rescue units of competency.",
     deliverables: ["Reviewed Units of Competency"],
     impact: "Increase accessible training to enable safe and effective hazardous materials response.",
     timing: "18-month project",
     stakeholders: ["AFAC", "United Firefighters Union Australia", "Training Package Assurance Body", "State Training Authority/Senior Responsible Officer"],
   },
 ];
+
+function StrategyText({ text }: { text: string }) {
+  const parts = text.split(/(Certificate II in Public Safety \(Aquatic Rescue\)|PUAFIR306 Identify, detect and monitor hazardous materials at an incident|PUASAR025 Undertake confined space rescue)/g);
+  return <>{parts.map((part, index) => index % 2 ? <em key={index}>{part}</em> : part)}</>;
+}
 
 function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: typeof strategies[number]; open: boolean; onToggle: () => void; appendixHref?: string }) {
   const id = `strategy-${strategy.number.replace("Strategy ", "")}`;
@@ -60,10 +65,10 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
     ["Anticipated timing", strategy.timing],
   ] as const;
 
-  return <article id={id} className={`${layout.strategy} ${styles.strategy} animate-card-entrance`}>
+  return <article data-report-surface="neutral" id={id} className={`${layout.strategy} ${styles.strategy} animate-card-entrance`}>
     <div className={layout.cardHeader}>
       <span className={`${layout.badge} ${styles.badge}`}>{strategy.number}</span>
-      <button type="button" onClick={onToggle} aria-expanded={open} aria-controls={`${id}-detail`} className={layout.toggle}>
+      <button data-report-action="primary" type="button" onClick={onToggle} aria-expanded={open} aria-controls={`${id}-detail`} className={layout.toggle}>
         {open ? "Close" : "Open"} <ChevronDown size={16} aria-hidden="true" />
       </button>
     </div>
@@ -74,14 +79,14 @@ function StrategyCard({ strategy, open, onToggle, appendixHref }: { strategy: ty
         <dl>
           {rows.map(([label, value]) => <div key={label}>
             <dt>{label}:</dt>
-            <dd>{typeof value === "string" ? value : <ul className="list-disc ps-5">{value.map(item => <li key={item}>{item}</li>)}</ul>}</dd>
+            <dd>{typeof value === "string" ? <StrategyText text={value} /> : <ul className="list-disc ps-5">{value.map(item => <li key={item}>{item}</li>)}</ul>}</dd>
           </div>)}
         </dl>
         <h3>Key Stakeholders:</h3>
         <ul className={layout.stakeholders}>
           {strategy.stakeholders.map(item => <li key={item}><span aria-hidden="true">•</span> {item}</li>)}
         </ul>
-        {appendixHref && <Link className={styles.appendix} href={appendixHref}>Appendix B – training products <ArrowRight size={16} aria-hidden="true" /></Link>}
+        {appendixHref && <Link data-report-action="primary" className={styles.appendix} href={appendixHref}>Appendix B – training products <ArrowRight size={16} aria-hidden="true" /></Link>}
       </div>
     </div>
   </article>;
@@ -104,8 +109,8 @@ export default function PublicSafetyFesWorkforceStrategiesView({ slug, report }:
       <div className={`${styles.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${styles.badge}`}>Fire and Emergency Services Workforce Strategies</span>
         <h1>Proposed Strategies 2026</h1>
-        <p className={layout.intro}>Public Skills Australia proposes the following strategies to align to the workforce insights identified to support Fire and Emergency Services:</p>
-        <button type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
+        <p className={layout.intro}>Public Skills Australia proposes the following strategies to aligned to the workforce insights identified to support Fire and Emergency Services:</p>
+        <button data-report-action="primary" type="button" onClick={() => setOpenCards(current => current.map(() => !allOpen))} className={`${layout.toggle} ${styles.toggleAll}`}>
           {allOpen ? "Close All" : "Open All"} <ChevronDown size={16} aria-hidden="true" />
         </button>
       </div>

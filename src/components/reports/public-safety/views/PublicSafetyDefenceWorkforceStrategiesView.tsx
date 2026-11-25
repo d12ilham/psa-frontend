@@ -40,7 +40,7 @@ const strategies: Strategy[] = [
     accent: "#64645E",
     insight: "Transitioning Veterans",
     jsc: "Implementation, Promotion and Monitoring",
-    objective: <>Support Recommendation 83(c) of the Royal Commission into Defence and Veteran Suicide by supporting up-to-date information facilitated by state and territory initiatives that assist transitioning veterans.</>,
+    objective: <>Support Recommendation 83(c) of the <em>Royal Commission into Defence and Veteran Suicide</em> by supporting up-to-date information facilitated by state and territory initiatives that assist transitioning veterans.</>,
     approach: <>Collaborate with Defence to map ADF job roles and training to the Australian Qualifications Framework (AQF) levels and approximate equivalent civilian qualifications.<br />Develop material that translates military terminology into civilian contexts, to build collective understanding for both transitioning veterans and prospective civilian employers.<br />Collaborate with Defence to share this information back through state and territories to be included on their websites for veterans.</>,
     deliverable: <ul className="list-disc pl-5"><li>Mapping Report</li><li>Military Terminology Guide</li></ul>,
     impact: <>Support Recommendation 83(c) by providing information through Defence, states and territories that support veterans to translate their Defence skills and experience into civilian-recognised language.</>,
@@ -78,7 +78,7 @@ function StrategyCard({ strategy, index }: { strategy: Strategy; index: number }
   ] as const;
 
   const detailsId = `strategy-details-${strategy.number}`;
-  return <article
+  return <article data-report-surface="neutral"
     id={`strategy-${strategy.number}`}
     ref={cardRef}
     className={`${styles.strategy} ${visible ? "animate-card-entrance" : styles.pending}`}
@@ -86,7 +86,7 @@ function StrategyCard({ strategy, index }: { strategy: Strategy; index: number }
   >
     <div className={styles.cardHeader}>
       <span className={styles.badge} style={{ backgroundColor: strategy.accent }}>Strategy {strategy.number}</span>
-      <button type="button" className={styles.toggle} aria-expanded={open} aria-controls={detailsId} onClick={() => setOpen(value => !value)}>
+      <button data-report-action="primary" type="button" className={styles.toggle} aria-expanded={open} aria-controls={detailsId} onClick={() => setOpen(value => !value)}>
         {open ? "Close" : "Open"} <ChevronDown size={16} aria-hidden="true" />
       </button>
     </div>
@@ -126,9 +126,9 @@ export default function PublicSafetyDefenceWorkforceStrategiesView({ slug, repor
   >
     <section className={styles.hero} aria-labelledby="defence-strategies-title">
       <div className="animate-slide-up">
-        <p className={styles.badge}>Defence · Proposed Strategies 2026</p>
+        <p data-report-surface="neutral" className={styles.badge}>Defence · Proposed Strategies 2026</p>
         <h1 id="defence-strategies-title">Proposed Strategies 2026</h1>
-        <p className={styles.intro}>Public Skills Australia proposes the following strategies aligned to the workforce insights identified to support Defence.</p>
+        <p className={styles.intro}>Public Skills Australia proposes the following strategies aligned to the workforce insights identified to support Defence:</p>
       </div>
       <picture className={`${styles.artwork} animate-zoom-in`}>
         <source media="(prefers-reduced-motion: reduce)" srcSet="/images/reports/public-safety/defence-industry-overview-group-93.svg" />

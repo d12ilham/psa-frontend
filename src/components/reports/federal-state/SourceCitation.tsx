@@ -2,11 +2,11 @@ import type { ReactNode } from "react";
 
 // Row numbers refer to the V2 workbook's Source Link Matrix.
 const approvedUrls = {
-  5: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf?utm_source=copilot.com",
+  5: "https://www.cisc.gov.au/resources-subsite/Documents/org-res-good-practice-guide.pdf",
   6: "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/",
   7: "https://www.pc.gov.au/inquiries-and-research/five-productivity-inquiries/",
-  8: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government?utm_source=copilot.com",
-  9: "https://www.digital.gov.au/ai/ai-in-government-policy?utm_source=copilot.com",
+  8: "https://www.finance.gov.au/government/public-data/data-and-digital-ministers-meeting/national-framework-assurance-artificial-intelligence-government",
+  9: "https://www.digital.gov.au/ai/ai-in-government-policy",
   10: "https://www.asio.gov.au/director-generals-annual-threat-assessment-2025",
   11: "https://www.apsc.gov.au/sites/default/files/2025-11/APSC%20State%20of%20the%20Service%20Report%202024%E2%80%9325.pdf",
   12: "https://www.apsc.gov.au/sites/default/files/2025-11/APSC%20State%20of%20the%20Service%20Report%202024%E2%80%9325.pdf",

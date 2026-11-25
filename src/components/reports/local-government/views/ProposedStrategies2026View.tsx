@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -44,21 +45,23 @@ export default function ProposedStrategies2026View({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
-            className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Workforce Insights
-          </button>
-          <button
-            onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
-            className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            Next Section: Update on 2025 Strategies{" "}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
+        <LocalGovernmentReportUtilityRow>
+  <div className="flex flex-wrap items-center gap-3">
+            <button data-report-action="secondary"
+              onClick={() => router.push(`/reports/${slug}/workforce_insights`)}
+              className="border border-[#B2DB79] bg-[#FAFAF0] hover:bg-gray200 text-[#728C28] font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to Workforce Insights
+            </button>
+            <button data-report-action="primary"
+              onClick={() => router.push(`/reports/${slug}/update_2025_strategies`)}
+              className="bg-[#8AC900] hover:bg-[#77A60D] text-gray800 font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer"
+            >
+              Next Section: Update on 2025 Strategies{" "}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER CARD WITH GRAPHIC ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 flex flex-col lg:flex-row items-center justify-between gap-6">
@@ -73,7 +76,7 @@ export default function ProposedStrategies2026View({
             </h1>
             <p className="text-xs sm:text-sm text-gray600 leading-relaxed font-normal w-full lg:w-5/6 animate-slide-up-delay">
               Public Skills Australia proposes the following strategies aligned
-              to the workforce insights identified, to support the Local
+              to the workforce insights identified to support the Local
               Government industry-sector. Select a strategy to explore its
               detail.
             </p>
@@ -99,9 +102,10 @@ export default function ProposedStrategies2026View({
               <span className="bg-[#9CAA54] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 1
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy1Open(!strategy1Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy1Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy1Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -139,7 +143,7 @@ export default function ProposedStrategies2026View({
                   }`}
                 >
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       JSC Function:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -148,14 +152,14 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Approach:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Approach:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyOneContent.approach}
                     </p>
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Deliverable:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -163,15 +167,17 @@ export default function ProposedStrategies2026View({
                     </p>
                   </div>
 
+
+
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Impact:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyOneContent.impact}
                     </p>
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Anticipated timing:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -180,7 +186,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Key stakeholders:
                     </h3>
                     <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -189,6 +195,8 @@ export default function ProposedStrategies2026View({
                       ))}
                     </ul>
                   </div>
+
+
                 </div>
               </div>
             </div>
@@ -203,9 +211,10 @@ export default function ProposedStrategies2026View({
               <span className="bg-[#046D2A] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                 STRATEGY 2
               </span>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setStrategy2Open(!strategy2Open)}
-                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-xs font-bold px-4 py-1.5 rounded-full cursor-pointer transition-colors flex items-center gap-1"
+                aria-expanded={strategy2Open}
+                className="bg-[#8AC900] hover:bg-[#77A60D] text-[#1B240E] text-sm font-bold min-h-10 shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors flex items-center gap-1"
               >
                 {strategy2Open ? "Close ▴" : "Open ▾"}
               </button>
@@ -243,7 +252,7 @@ export default function ProposedStrategies2026View({
                   }`}
                 >
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       JSC Function:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600">
@@ -252,7 +261,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Approach — Part A:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -261,7 +270,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Approach — Part B (optional):
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -270,7 +279,7 @@ export default function ProposedStrategies2026View({
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
+                    <h3 className="text-sm font-bold text-gray800">
                       Deliverable:
                     </h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
@@ -280,35 +289,34 @@ export default function ProposedStrategies2026View({
                     </p>
                   </div>
 
-                  <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">
-                      Key Stakeholders:
-                    </h3>
-                    <ul className="space-y-1 text-xs sm:text-sm text-gray600 pl-4 list-disc">
-                      {strategyTwoContent.keyStakeholders.slice(0, 3).map((stakeholder) => (
-                        <li key={stakeholder}>{stakeholder}</li>
-                      ))}
-                      <li>
-                        {strategyTwoContent.keyStakeholders.slice(3, 6).join(" · ")}
-                      </li>
-                      <li>{strategyTwoContent.keyStakeholders[6]}</li>
-                    </ul>
-                  </div>
+
 
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Impact:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Impact:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       {strategyTwoContent.impact}
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xs font-bold text-gray800">Anticipated timing:</h3>
+                    <h3 className="text-sm font-bold text-gray800">Anticipated timing:</h3>
                     <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
                       Part A: {strategyTwoContent.anticipatedTimingPartA}
                       <br />
                       Part B: {strategyTwoContent.anticipatedTimingPartB}
                     </p>
                   </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-bold text-gray800">
+                      Key stakeholders:
+                    </h3>
+                    <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600 leading-relaxed">
+                      {strategyTwoContent.keyStakeholders.map((stakeholder) => (
+                        <li key={stakeholder}>{stakeholder}</li>
+                      ))}
+                    </ul>
+                  </div>
+
                 </div>
               </div>
             </div>

@@ -19,7 +19,7 @@ const strategies = [
 const content = [
   {
     summary: <>
-      <p>The National Disaster Risk Reduction Framework was developed as an advancement to the 2011 National Strategy for Disaster Resilience and in line with the global Sendai Disaster Risk Reduction 2015–2030. The framework was co-designed by all levels of government, industry and community representatives and intends to guide Australia&apos;s capability in reducing disaster risk associated with natural hazards.</p>
+      <p>The <em>National Disaster Risk Reduction Framework</em> was developed as an advancement to the <em>2011 National Strategy for Disaster Resilience</em> and in line with the global <em>Sendai Disaster Risk Reduction 2015–2030</em>. The framework was co-designed by all levels of government, industry and community representatives and intends to guide Australia&apos;s capability in reducing “disaster risk associated with natural hazards”.</p>
       <p>The four priorities of the framework are:</p>
       <ul>
         <li>Understand disaster risk</li>
@@ -27,7 +27,7 @@ const content = [
         <li>Enhanced investment</li>
         <li>Governance, ownership and responsibility</li>
       </ul>
-      <p>In August 2023, the Second National Action Plan was endorsed by all Emergency Management Ministers and provides an update on how the National Disaster Risk Reduction Framework can continue to be implemented. Specifically, National Action 21 describes that Australia must better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</p>
+      <p>In August 2023, the Second National Action Plan was endorsed by all Emergency Management Ministers and provides an update on how the <em>National Disaster Risk Reduction Framework</em> can continue to be implemented. Specifically, National Action 21 describes that Australia must “<em>Better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</em>”</p>
     </>,
     notes: [
       <>
@@ -40,10 +40,10 @@ const content = [
           <li>Emergency Tree Operations</li>
           <li>Emerging Technologies Skills Review</li>
         </ul>
-        <p>Specifically, all three strategies were informed by National Action 8 – Facilitate greater common emergency management sector professionalisation, capability and participation, including volunteerism.</p>
+        <p>Specifically, all three strategies were informed by National Action 8 – <em>Facilitate greater common emergency management sector professionalisation, capability and participation, including volunteerism</em>.</p>
       </>,
       <>
-        <p>Support uptake of disaster recovery training products will be informed by National Action 21 from the Second National Action Plan: better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction.</p>
+        <p><em>Support uptake of disaster recovery training products</em> will be informed by National Action 21 from the Second National Action Plan: <em>better align recovery and resilience activities, governance, funding, policy and processes to support betterment and long-term disaster risk reduction</em>.</p>
       </>,
     ],
   },
@@ -57,16 +57,16 @@ const content = [
         <p>Provided context and guidance on the Australian Government&apos;s current approach to disaster recovery, informing consultation with Fire and Emergency Services stakeholders.</p>
       </>,
       <>
-        <p>The National Recovery Principles in this framework outline the context, complexity and approaches to disaster recovery that underpin successful recovery. These principles informed the development of the Volunteer Leadership Project.</p>
+        <p>The National Recovery Principles in this framework outline the context, complexity and approaches to disaster recovery that underpin successful recovery. These principles informed the development of the <em>Volunteer Leadership Project</em>.</p>
       </>,
       <>
-        <p>Support uptake of disaster recovery training products will be informed and guided by section 3.7 Recovery training, which provides context and principles for the project.</p>
+        <p><em>Support uptake of disaster recovery training products</em> will be informed and guided by section <em>3.7 Recovery training</em>, which provides context and principles for the project.</p>
       </>,
     ],
   },
   {
     summary: <>
-      <p>The AFAC Strategic Plan 2023–2027 guides Fire and Emergency Services across Australia and New Zealand to strengthen community safety and resilience by fostering collaboration, innovation, strong governance and workforce capability. AFAC&apos;s strategy is underpinned by six strategic directions:</p>
+      <p>The <em>AFAC Strategic Plan 2023–2027</em> guides Fire and Emergency Services across Australia and New Zealand to strengthen community safety and resilience by fostering collaboration, innovation, strong governance and workforce capability. AFAC&apos;s strategy is underpinned by six strategic directions:</p>
       <ul>
         <li>Supporting resilient communities through risk reduction</li>
         <li>Providing a trusted response</li>
@@ -75,7 +75,7 @@ const content = [
         <li>Informed by knowledge, innovation and research</li>
         <li>Effective and transparent governance</li>
       </ul>
-      <p>As part of its commitment to the strategic directions, AFAC provides an annual Strategic Directions Achievement Report. The 2025 edition provides five examples from different organisations against each strategic direction that highlight how they have been performed across the 12-month reporting period.</p>
+      <p>As part of its commitment to the strategic directions, AFAC provides an annual <em>Strategic Directions Achievement Report</em>. The 2025 edition provides five examples from different organisations against each strategic direction that highlight how they have been performed across the 12-month reporting period.</p>
     </>,
     notes: [
       <>
@@ -90,24 +90,24 @@ const content = [
           <li>Complex Infrastructure Training Needs Analysis</li>
           <li>Emerging Technologies Skills Review</li>
         </ul>
-        <p>Collectively, the span of 2025 Workforce Strategies are substantively informed by Strategic Direction 4 – Safe, capable and diverse workforce. This Strategic Direction aims to ensure that the Fire and Emergency Services workforce, inclusive of its paid employees and volunteers, maintain the requisite current and emerging skills and knowledge.</p>
+        <p>Collectively, the span of 2025 Workforce Strategies are substantively informed by <em>Strategic Direction 4 – Safe, capable and diverse workforce</em>. This Strategic Direction aims to ensure that the Fire and Emergency Services workforce, inclusive of its paid employees and volunteers, maintain the requisite current and emerging skills and knowledge.</p>
       </>,
       <>
-        <p>All three proposed Fire and Emergency Services strategies will be guided by AFAC National Council&apos;s Strategic Directions, especially Direction 1 – Supporting resilient communities through risk reduction and Direction 4 – Safe, capable and diverse workforce, which provides specific guidance for workforce planning strategies.</p>
+        <p>All three proposed Fire and Emergency Services strategies will be guided by AFAC National Council&apos;s Strategic Directions, especially <em>Direction 1 – Supporting resilient communities through risk reduction</em> and <em>Direction 4 – Safe, capable and diverse workforce</em>, which provides specific guidance for workforce planning strategies.</p>
       </>,
     ],
   },
   {
     summary: <>
-      <p>The National Strategy for Volunteering 2023–2033 is a 10-year national blueprint co-designed with the volunteering ecosystem to strengthen and sustain volunteering in Australia.</p>
+      <p>The <em>National Strategy for Volunteering 2023–2033</em> is a 10-year national blueprint co-designed with the volunteering ecosystem to strengthen and sustain volunteering in Australia.</p>
       <p>The strategy includes 11 strategic objectives across three focus areas:</p>
       <ul>
         <li>Individual potential and the volunteer experience</li>
         <li>Community and social impact</li>
         <li>Conditions for volunteering to thrive</li>
       </ul>
-      <p>The strategy is accompanied by the Action Plan 2024–2027, the first three-year plan setting out co-designed actions aimed at addressing the implementation of the strategy.</p>
-      <p>Additionally, the Monitoring and Evaluation Framework will be utilised to measure the progress of the action plan and strategy, against measurable outcomes.</p>
+      <p>The strategy is accompanied by the <em>Action Plan 2024–2027</em>, the first three-year plan setting out co-designed actions aimed at addressing the implementation of the strategy.</p>
+      <p>Additionally, the <em>Monitoring and Evaluation Framework</em> will be utilised to measure the progress of the action plan and strategy, against measurable outcomes.</p>
     </>,
     notes: [
       <>
@@ -119,10 +119,10 @@ const content = [
           <li>Volunteer Leadership Project</li>
           <li>Understanding the Youth Volunteer</li>
         </ul>
-        <p>Specifically, the Volunteer Leadership Project is informed by Strategic Objective 3.4 Recognise the Importance of Volunteer Management. The Understanding the Youth Volunteer Project is informed by Strategic Objective 1.2 Make Volunteering Inclusive and Accessible.</p>
+        <p>Specifically, the Volunteer Leadership Project is informed by Strategic Objective <em>3.4 Recognise the Importance of Volunteer Management</em>. The <em>Understanding the Youth Volunteer Project</em> is informed by Strategic Objective <em>1.2 Make Volunteering Inclusive and Accessible</em>.</p>
       </>,
       <>
-        <p>Review First Aid Units of Competency for Surf Life Saving in the Certificate II in Public Safety (Aquatic Rescue) will be informed by Strategic Objectives 1.2 Make Volunteering Inclusive and Accessible and 2.3 Recognise the Inherent Value of Volunteering.</p>
+        <p><em>Review First Aid Units of Competency for Surf Life Saving in the Certificate II in Public Safety (Aquatic Rescue)</em> will be informed by Strategic Objectives <em>1.2 Make Volunteering Inclusive and Accessible</em> and <em>2.3 Recognise the Inherent Value of Volunteering</em>.</p>
       </>,
     ],
   },
@@ -150,7 +150,7 @@ const content = [
         <p>All three strategies were informed by the data, strategies and actions of the Coalition which aim to enhance gender equality, representation, safety and inclusivity across the breadth of roles within Fire and Emergency Services.</p>
       </>,
       <>
-        <p>Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident will be informed by the Coalition, especially as it pertains to flexible work and ensuring tools and technology are gender appropriate.</p>
+        <p><em>Review prerequisite requirements for PUAFIR306 Identify, detect and monitor hazardous materials at an incident</em> will be informed by the Coalition, especially as it pertains to flexible work and ensuring tools and technology are gender appropriate.</p>
       </>,
     ],
   },
@@ -181,25 +181,25 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
       <Image className={`${styles.artwork} animate-zoom-in`} src="/images/reports/public-safety/fes-existing-strategies-group-85.png" width={487} height={104} alt="" unoptimized priority />
     </section>
 
-    <section className={layout.projects} aria-labelledby="fes-existing-strategies-title">
+    <section data-report-reader="wide" className={layout.projects} aria-labelledby="fes-existing-strategies-title">
       <div>
         <h2 id="fes-existing-strategies-title">Strategies · 5 · Select to open</h2>
-        <div className={layout.projectList}>
+        <div data-reader-list tabIndex={0} role="region" aria-label="Available strategies" className={layout.projectList}>
           {strategies.map((item, index) => (
             <button key={item.title} type="button" aria-pressed={active === index} aria-controls="fes-existing-panel" onClick={() => setActive(index)} className={`${layout.projectButton} ${styles.projectButton} animate-card-entrance`} style={{ animationDelay: `${100 + index * 80}ms` }}>
               <span><small>0{index + 1} · {item.owner}</small><strong>{item.title}</strong></span>
-              <span className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
+              <span data-report-action="primary" className={layout.arrow}><ArrowRight size={16} aria-hidden="true" /></span>
             </button>
           ))}
         </div>
       </div>
 
-      <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
-        <div className={layout.panelHeader}>
+      <ReportSelectionPanel selection={active} label="Fire and Emergency Services strategy details"><article data-report-surface="neutral" id="fes-existing-panel" className={`${layout.panel} ${styles.panel} animate-slide-up-delay`} aria-labelledby="fes-existing-heading">
+        <div data-reader-toolbar className={layout.panelHeader}>
           <span className={`${layout.badge} ${styles.badge}`}>0{active + 1} · {strategy.owner}</span>
           <div className={`${layout.controls} ${styles.controls}`}>
-            {active > 0 && <button type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
-            {active < strategies.length - 1 && <button type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
+            {active > 0 && <button data-report-action="primary" type="button" className={`${layout.previous} ${styles.previous}`} onClick={() => setActive(active - 1)}><ArrowLeft size={16} aria-hidden="true" /> Previous</button>}
+            {active < strategies.length - 1 && <button data-report-action="primary" type="button" onClick={() => setActive(active + 1)}>Next <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
 
@@ -213,7 +213,7 @@ export default function PublicSafetyFesExistingStrategiesView({ slug, report }: 
           <div className={`${layout.groups} ${styles.groups}`}>
             <h4 className={styles.sectionHeading}>How this informs Public Skills Australia&apos;s work</h4>
             {detail.notes.map((note, index) => (
-              <section key={noteTitles[index]} className={`${layout.note} ${styles.note}`}>
+              <section data-report-surface="neutral" key={noteTitles[index]} className={`${layout.note} ${styles.note}`}>
                 <h5>{noteTitles[index]}</h5>
                 {note}
               </section>

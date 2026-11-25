@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -73,7 +74,9 @@ export default function MethodologyView({
 
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        <ReportNavButtons slug={slug} currentPage="methodology" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="methodology" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* HERO & REPRESENTATIVES CONTAINER */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -244,7 +247,7 @@ export default function MethodologyView({
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+          <div data-report-surface="neutral" className="lg:col-span-5 bg-[#F0F5DF] border border-gray200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-bold text-xl text-gray800 leading-snug w-1/2">
@@ -305,7 +308,7 @@ export default function MethodologyView({
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
+            <div data-report-surface="neutral"
               style={isResearchVisible ? { animationDelay: "0.10s" } : undefined}
               className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
                 isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -320,7 +323,7 @@ export default function MethodologyView({
               </span>
             </div>
 
-            <div
+            <div data-report-surface="neutral"
               style={isResearchVisible ? { animationDelay: "0.22s" } : undefined}
               className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
                 isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -334,7 +337,7 @@ export default function MethodologyView({
               </span>
             </div>
 
-            <div
+            <div data-report-surface="neutral"
               style={isResearchVisible ? { animationDelay: "0.34s" } : undefined}
               className={`bg-[#F0F5DF] border border-gray200 rounded-xl p-4 flex items-center gap-3 ${
                 isResearchVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -354,7 +357,7 @@ export default function MethodologyView({
               A full list of councils that participated in these activities is
               provided at Appendix A.
             </p>
-            <button
+            <button data-report-action="download"
               onClick={() => router.push(`/reports/${slug}/downloads`)}
               className="bg-lg-dark hover:bg-[#046D2A] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 transition-colors cursor-pointer shrink-0"
             >
@@ -378,7 +381,7 @@ export default function MethodologyView({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
+            <div data-report-surface="neutral"
               style={isGovernanceVisible ? { animationDelay: "0.10s" } : undefined}
               className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
                 isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -399,7 +402,7 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div
+            <div data-report-surface="neutral"
               style={isGovernanceVisible ? { animationDelay: "0.22s" } : undefined}
               className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
                 isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -421,7 +424,7 @@ export default function MethodologyView({
               </p>
             </div>
 
-            <div
+            <div data-report-surface="neutral"
               style={isGovernanceVisible ? { animationDelay: "0.34s" } : undefined}
               className={`bg-[#F0F5DF] rounded-lg p-6 space-y-4 ${
                 isGovernanceVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
@@ -501,7 +504,7 @@ export default function MethodologyView({
         </div>
 
         {/* Footnote Box */}
-        <div id="methodology-footnote-3" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
+        <div data-report-surface="neutral" id="methodology-footnote-3" className="bg-[#F0F5DF] border border-gray200 rounded-2xl p-6 text-sm font-medium text-gray600 leading-relaxed">
           <p className="w-full xl:w-1/2">
             <sup>3</sup> Note: councils were able to participate in both consultation and
             the survey. Councils who engaged in both have only been counted

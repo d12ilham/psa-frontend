@@ -1,5 +1,6 @@
 "use client";
 
+import LocalGovernmentReportUtilityRow from "../LocalGovernmentReportUtilityRow";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReportHeader from "@/components/layout/ReportHeader";
@@ -64,7 +65,7 @@ const STATES_DATA: Record<string, StateData> = {
     employees: "65,200",
     councils: 128,
     topShortages: [
-      "IT Officer / Cyber Specialist",
+      "IT Officer/Cyber Specialist",
       "Planner (including Town and Urban)",
       "Engineer (including Civil and Environmental)",
       "Tradesperson (including Mechanic and Construction)",
@@ -72,7 +73,7 @@ const STATES_DATA: Record<string, StateData> = {
     ],
     oslTable: [
       {
-        occupation: "IT Officer / Cyber Specialist",
+        occupation: "IT Officer/Cyber Specialist",
         stateShortage: "NS",
         nationalShortage: "NS",
       },
@@ -90,7 +91,7 @@ const STATES_DATA: Record<string, StateData> = {
       },
     ],
     lgSpecificShortages: [
-      "IT Officer / Cyber Specialist",
+      "IT Officer/Cyber Specialist",
       "Planner (including Town and Urban)",
       "Tradesperson (including Mechanic and Construction)",
     ],
@@ -621,7 +622,7 @@ interface CompareOccupation {
 
 const COMPARE_OCCUPATIONS: CompareOccupation[] = [
   {
-    name: "IT Officer/ Cyber Specialist",
+    name: "IT Officer/Cyber Specialist",
     aus: "NS",
     nsw: { val: "1", type: "NS" },
     nt: "-",
@@ -647,7 +648,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "S",
     nsw: { val: "3", type: "S" },
     nt: "-",
-    qld: { val: "1", type: "NS" },
+    qld: { val: "2", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -657,8 +658,8 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Tradesperson",
     aus: "NS",
     nsw: { val: "4", type: "S" },
-    nt: { val: "5", type: "S" },
-    qld: { val: "5", type: "NS" },
+    nt: { val: "3", type: "S" },
+    qld: { val: "3", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -701,7 +702,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Works Officer",
     aus: "NS",
     nsw: "-",
-    nt: { val: "3", type: "S" },
+    nt: { val: "4", type: "S" },
     qld: "-",
     sa: "-",
     tas: "-",
@@ -712,7 +713,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     name: "Community Program Coordinator",
     aus: "NS",
     nsw: "-",
-    nt: { val: "4", type: "S" },
+    nt: { val: "5", type: "S" },
     qld: "-",
     sa: "-",
     tas: "-",
@@ -724,7 +725,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "R",
     nsw: "-",
     nt: "-",
-    qld: { val: "2", type: "R" },
+    qld: { val: "1", type: "R" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -735,7 +736,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "NS",
     nsw: "-",
     nt: "-",
-    qld: { val: "3", type: "NS" },
+    qld: { val: "4", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
@@ -746,14 +747,14 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     aus: "NS",
     nsw: "-",
     nt: "-",
-    qld: { val: "4", type: "NS" },
+    qld: { val: "5", type: "NS" },
     sa: "-",
     tas: "-",
     vic: "-",
     wa: "-",
   },
   {
-    name: "Civil Engineer / Operations",
+    name: "Civil Engineer/Operations",
     aus: "S",
     nsw: "-",
     nt: "-",
@@ -775,7 +776,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Project Manager / Business Analyst",
+    name: "Project Manager/Business Analyst",
     aus: "NS",
     nsw: "-",
     nt: "-",
@@ -819,7 +820,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Plumbing Inspectors",
+    name: "Plumbing Inspector",
     aus: "NS",
     nsw: "-",
     nt: "-",
@@ -852,7 +853,7 @@ const COMPARE_OCCUPATIONS: CompareOccupation[] = [
     wa: "-",
   },
   {
-    name: "Maternal Child Health Nurses",
+    name: "Maternal Child Health Nurse",
     aus: "S",
     nsw: "-",
     nt: "-",
@@ -946,6 +947,22 @@ export default function StateTerritoryView({
   >("all");
 
   const currentState = STATES_DATA[selectedState] || STATES_DATA.NSW;
+  const selectedRating = {
+    all: null,
+    shortage: "S",
+    regional: "R",
+    noshortage: "NS",
+  }[ratingFilter];
+
+  const renderNationalRating = (status: string) => {
+    if (selectedRating && status !== "-" && status !== selectedRating) {
+      return <span className="sr-only">Filtered out</span>;
+    }
+    return renderBadge(status);
+  };
+  const alphabeticalCompareOccupations = [...COMPARE_OCCUPATIONS].sort((a, b) =>
+    a.name.localeCompare(b.name, "en-AU"),
+  );
 
   const renderCellBadge = (
     cell: { val: string; type?: "NS" | "R" | "S" } | string,
@@ -1010,15 +1027,33 @@ export default function StateTerritoryView({
     return "bg-gray-100 text-gray600";
   };
 
-  const filteredOccupations = NATIONAL_OCCUPATIONS.filter((item) => {
+  const filteredOccupations = NATIONAL_OCCUPATIONS.map((item) => ({
+    ...item,
+    shortageCount: [
+      item.aus,
+      item.nsw,
+      item.nt,
+      item.qld,
+      item.sa,
+      item.tas,
+      item.vic,
+      item.wa,
+    ].filter((rating) => rating === "S").length,
+  })).filter((item) => {
     const matchesSearch = item.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     if (!matchesSearch) return false;
-    if (ratingFilter === "shortage") return item.aus === "S";
-    if (ratingFilter === "regional") return item.aus === "R";
-    if (ratingFilter === "noshortage") return item.aus === "NS";
+    if (selectedRating) {
+      return [item.aus, item.nsw, item.nt, item.qld, item.sa, item.tas, item.vic, item.wa]
+        .includes(selectedRating);
+    }
     return true;
+  }).sort((a, b) => {
+    if (sortBy === "shortages" && a.shortageCount !== b.shortageCount) {
+      return b.shortageCount - a.shortageCount;
+    }
+    return a.name.localeCompare(b.name, "en-AU");
   });
 
   return (
@@ -1029,45 +1064,20 @@ export default function StateTerritoryView({
       {/* ── MAIN CONTENT CONTAINER ── */}
       <main className="max-w-360 mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6 flex-1">
         {/* Sub-Header Navigation Buttons */}
-        <ReportNavButtons slug={slug} currentPage="state_territory" />
+        <LocalGovernmentReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="state_territory" />
+        </LocalGovernmentReportUtilityRow>
 
         {/* ── HERO BANNER & VIEW MODE TOGGLE ── */}
         <div className="bg-white border border-gray200 rounded-2xl p-6 space-y-6">
-          <div className="space-y-6">
-            <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
-              Local Government Workforce Profile
-            </h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs sm:text-sm text-gray600 leading-relaxed font-normal animate-slide-up-delay">
-              <p>
-                Across Australia, there are 537 local councils. Of these local
-                councils, around 55 per cent are located in regional, rural or
-                remote areas with the other 45 per cent split across urban
-                regions, urban fringe and urban areas. Local councils manage
-                approximately one-third of Australia's public infrastructure
-                assets, including roads, airports, facilities and other assets
-                and make up 77 per cent of the national road network (by
-                length). The public assets managed by local councils are valued
-                at an estimated $643 billion.
-              </p>
-              <p>
-                The Local Government workforce is multidisciplinary, employing
-                over an estimated 400 different occupations across approximately
-                218,000 employees – managed individually at the local council
-                level and commonly represented through state and territory
-                associations and the Australian Local Government Association
-                (ALGA). While employment projections estimate significant growth
-                over the next ten years, successive Workforce Plans and
-                Parliamentary Commissions of Inquiry have noted extensive
-                challenges with recruitment and retention, and a significant
-                expansion of roles and responsibilities.
-              </p>
-            </div>
-          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-lg-dark animate-slide-up">
+            State and Territory Workforce Profile
+          </h1>
 
           {/* Mode Switcher Pill Segmented Control */}
           <div className="pt-2">
             <div className="inline-flex items-center bg-[#F0F5DF] p-1.5 rounded-full border border-gray200">
-              <button
+              <button data-report-action="primary"
                 onClick={() => setViewMode("single")}
                 className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "single"
@@ -1077,7 +1087,7 @@ export default function StateTerritoryView({
               >
                 Single state
               </button>
-              <button
+              <button data-report-action="primary"
                 onClick={() => setViewMode("compare")}
                 className={`px-6 py-2 rounded-full text-sm font-bold cursor-pointer ${
                   viewMode === "compare"
@@ -1097,15 +1107,15 @@ export default function StateTerritoryView({
             {/* Jurisdiction Selector Pills */}
             <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-gray200">
               <span
-                className="text-xs font-bold text-notes uppercase 
-              
+                className="text-xs font-bold text-notes uppercase
+
               mr-3"
               >
                 CHOOSE A STATE OR TERRITORY
               </span>
               {["NATIONAL", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map(
                 (code) => (
-                  <button
+                  <button data-report-action="primary"
                     key={code}
                     onClick={() => setSelectedState(code)}
                     className={`px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer text-gray800 ${
@@ -1188,8 +1198,7 @@ export default function StateTerritoryView({
                         <AnimatedCounter target={8.2} decimals={1} suffix="%" />
                       </span>
                       <p className="text-sm font-semibold text-gray600">
-                        of the national workforce identifies as First Nations
-                        (vs 3.8% of the population)<sup>26</sup>
+                        National workforce identifies as First Nations<sup>26</sup>
                       </p>
                     </div>
                     <div>
@@ -1204,7 +1213,7 @@ export default function StateTerritoryView({
                 {/* National Australia Map & Shortage Comparison Table */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   {/* Left Australia Map Box */}
-                  <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
+                  <div data-report-surface="neutral" className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-xl font-bold text-gray800 pt-1">
                         National
@@ -1213,9 +1222,10 @@ export default function StateTerritoryView({
 
                     {/* National Interactive Map with 1px #252D0221 border and 12px rounded corner */}
                     <div className="w-full flex items-center justify-center p-0">
-                      <div className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
+                      <div data-report-surface="neutral" className="w-full border border-[#252D0221] rounded-[12px] overflow-hidden bg-[#F0F5DF]/60">
                         <AustraliaInteractiveMap
                           selectedState="NATIONAL"
+                          stateNameScale={2}
                           onSelectState={setSelectedState}
                           statesData={STATES_DATA}
                         />
@@ -1267,7 +1277,7 @@ export default function StateTerritoryView({
 
                       {/* Sort Pill Control */}
                       <div className="inline-flex items-center bg-[#FAFAF0] p-1 rounded-full border border-gray200 shrink-0">
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setSortBy("alpha")}
                           className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             sortBy === "alpha"
@@ -1277,8 +1287,9 @@ export default function StateTerritoryView({
                         >
                           A-Z
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setSortBy("shortages")}
+                          title="Sort by the number of S ratings across AUS, NSW, NT, QLD, SA, TAS, VIC and WA, highest first"
                           className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             sortBy === "shortages"
                               ? "bg-[#8AC900] text-[#252D02]"
@@ -1293,7 +1304,7 @@ export default function StateTerritoryView({
                     {/* Rating Filters Row */}
                     <div>
                       <div className="inline-flex flex-wrap items-center bg-[#FAFAF0] p-1 rounded-full border border-gray200 gap-1">
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("all")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "all"
@@ -1303,7 +1314,7 @@ export default function StateTerritoryView({
                         >
                           All Ratings
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("shortage")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "shortage"
@@ -1313,7 +1324,7 @@ export default function StateTerritoryView({
                         >
                           Shortages
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("regional")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "regional"
@@ -1323,7 +1334,7 @@ export default function StateTerritoryView({
                         >
                           Regional shortage
                         </button>
-                        <button
+                        <button data-report-action="primary"
                           onClick={() => setRatingFilter("noshortage")}
                           className={`px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             ratingFilter === "noshortage"
@@ -1335,6 +1346,13 @@ export default function StateTerritoryView({
                         </button>
                       </div>
                     </div>
+
+                    <p className="text-xs text-gray600 leading-relaxed">
+                      Rating filters show matching cells across all jurisdictions.
+                      Blank cells are filtered out; dashes mean the occupation was
+                      not identified through the Skills Audit. Select All Ratings
+                      to restore every rating.
+                    </p>
 
                     {/* Legend */}
                     <div className="flex items-center gap-x-6 gap-y-2 text-sm font-semibold text-gray800 pt-1">
@@ -1486,8 +1504,12 @@ export default function StateTerritoryView({
                           </tr>
                         </thead>
                         <tbody className="bg-white">
-                          {filteredOccupations.map((item, idx) => (
-                            <tr key={idx} className="hover:bg-gray-50/50">
+                          {filteredOccupations.map((item) => (
+                            <tr
+                              key={item.name}
+                              data-shortage-count={item.shortageCount}
+                              className="hover:bg-gray-50/50"
+                            >
                               <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                                 <div>{item.name}</div>
                                 {item.lgSpecific && (
@@ -1497,28 +1519,28 @@ export default function StateTerritoryView({
                                 )}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.aus)}
+                                {renderNationalRating(item.aus)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.nsw)}
+                                {renderNationalRating(item.nsw)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.nt)}
+                                {renderNationalRating(item.nt)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.qld)}
+                                {renderNationalRating(item.qld)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.sa)}
+                                {renderNationalRating(item.sa)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.tas)}
+                                {renderNationalRating(item.tas)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.vic)}
+                                {renderNationalRating(item.vic)}
                               </td>
                               <td className="p-2 text-center border-l border-b border-gray-200">
-                                {renderBadge(item.wa)}
+                                {renderNationalRating(item.wa)}
                               </td>
                             </tr>
                           ))}
@@ -1545,7 +1567,7 @@ export default function StateTerritoryView({
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in"
               >
                 {/* Left Zoomed Map Box */}
-                <div className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
+                <div data-report-surface="neutral" className="lg:col-span-5 bg-[#F0F5DF] border border-[#252D02]/13 rounded-2xl p-6 relative flex flex-col justify-between space-y-4">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-xl font-bold text-gray800 pt-1">
                       {currentState.name}
@@ -1652,7 +1674,7 @@ export default function StateTerritoryView({
                       </h4>
                     </div>
 
-                    <div className="bg-[#EBF1E4] border border-lg-dark border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-5">
+                    <div data-report-surface="neutral" className="bg-[#EBF1E4] border border-lg-dark border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-5">
                       <span className="text-xl font-bold text-lg-dark uppercase block">
                         TOP 5 OCCUPATIONAL SHORTAGES
                       </span>
@@ -1829,7 +1851,7 @@ export default function StateTerritoryView({
                       </h4>
                     </div>
 
-                    <div className="bg-[#EBF1E4] border border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-3.5">
+                    <div data-report-surface="neutral" className="bg-[#EBF1E4] border border-l-8 border-l-lg-dark rounded-2xl p-5 space-y-3.5">
                       <span className="text-sm font-bold text-notes uppercase block">
                         LOCAL GOVERNMENT SPECIFIC OCCUPATIONAL SHORTAGES
                       </span>
@@ -1891,7 +1913,7 @@ export default function StateTerritoryView({
               </div>
 
               {/* Dual Percentage Items Container with #F0F5DF bg */}
-              <div className="bg-[#F0F5DF] rounded-xl p-3 flex items-center justify-around gap-2">
+              <div data-report-surface="neutral" className="bg-[#F0F5DF] rounded-xl p-3 flex items-center justify-around gap-2">
                 {/* Female Gauge */}
                 <div className="flex flex-col items-center">
                   <div className="relative w-28 h-28 sm:w-30 sm:h-30 flex items-center justify-center">
@@ -2095,6 +2117,36 @@ export default function StateTerritoryView({
               </div>
 
               {/* Comprehensive Matrix Table */}
+              <div className="space-y-3">
+                <h3
+                  id="top-occupation-shortages-heading"
+                  className="text-xl font-bold text-foreground"
+                >
+                  Top Occupation Shortages Comparison by State and Territory
+                </h3>
+                <div
+                  id="top-occupation-shortages-description"
+                  className="space-y-2 text-xs text-gray600 leading-relaxed"
+                >
+                  <p>
+                    This table brings together the top occupation shortages
+                    identified through the Local Government Skills Audit for each
+                    state and territory. Numbers 1–5 show an occupation’s position
+                    in that jurisdiction’s list. The lists were compiled state by
+                    state; the row order does not represent an agreed national
+                    priority ranking.
+                  </p>
+                  <p>
+                    The AUS column shows the Australia-wide Jobs and Skills
+                    Australia Occupational Shortage List (OSL) rating. Badge
+                    colours show the corresponding national or state/territory
+                    OSL rating: green = NS (No Shortage), yellow = R (Regional
+                    Shortage), and orange = S (Shortage). A dash (–) means the
+                    occupation was not identified in that jurisdiction’s top
+                    shortage list; it does not mean No Shortage.
+                  </p>
+                </div>
+              </div>
               <div
                 style={{
                   height: "480px",
@@ -2105,6 +2157,8 @@ export default function StateTerritoryView({
                 className="border border-gray200 rounded-xl"
               >
                 <table
+                  aria-labelledby="top-occupation-shortages-heading"
+                  aria-describedby="top-occupation-shortages-description"
                   style={{
                     borderCollapse: "separate",
                     borderSpacing: 0,
@@ -2216,8 +2270,8 @@ export default function StateTerritoryView({
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {COMPARE_OCCUPATIONS.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-gray-50/50">
+                    {alphabeticalCompareOccupations.map((item) => (
+                      <tr key={item.name} className="hover:bg-gray-50/50">
                         <td className="p-4 font-medium text-gray600 text-xs border-b border-gray-200">
                           {item.name}
                         </td>

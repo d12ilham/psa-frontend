@@ -1,5 +1,7 @@
 "use client";
 
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
+
 import Image from "next/image";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
@@ -18,9 +20,9 @@ const sources = [
 function EnrolmentsChart() {
   // The approved PDF (p. 72) provides plotted coordinates, but only labels the endpoints.
   const series = [
-    { code: "PUAFIR306", start: 1010, end: 2810, plotY: [422.101, 393.755, 356.906, 308.716, 317.220], color: "#c9481a", labelOffset: -8 },
-    { code: "PUAFIR308", start: 850, end: 2320, plotY: [430.607, 407.929, 393.757, 366.828, 351.238], color: "#456130", labelOffset: 5 },
-    { code: "PUAFIR324", start: 1115, end: 3130, plotY: [410.765, 368.245, 348.402, 318.638, 300.214], color: "#ad271b", labelOffset: -20 },
+    { code: "PUAFIR306", title: "Identify, detect and monitor hazardous materials at an incident", start: 1010, end: 2810, plotY: [422.101, 393.755, 356.906, 308.716, 317.220], color: "#c9481a", labelOffset: -15 },
+    { code: "PUAFIR308", title: "Employ personal protection at a hazardous materials incident", start: 850, end: 2320, plotY: [430.607, 407.929, 393.757, 366.828, 351.238], color: "#456130", labelOffset: 22 },
+    { code: "PUAFIR324", title: "Render hazardous materials incidents safe", start: 1115, end: 3130, plotY: [410.765, 368.245, 348.402, 318.638, 300.214], color: "#ad271b", labelOffset: -24 },
   ];
   const x = (index: number) => 66 + index * 137;
   const y = (value: number) => 325 - value / 3500 * 270;
@@ -36,57 +38,67 @@ function EnrolmentsChart() {
       {series.map(({ code, start, end, plotY, color, labelOffset }) => (
         <g key={code} fill={color} fontSize="11" fontWeight="700" className={styles.endpoints}>
           {plotY.map((point, index) => <circle key={index} cx={x(index)} cy={plotYToSvg(point)} r="4.5" className="animate-industry-chart-point" />)}
-          <text x={x(0) - 8} y={y(start) + labelOffset} textAnchor="end">{start.toLocaleString("en-AU")}</text>
+          <text x={code === "PUAFIR306" ? x(0) - 8 : x(0) + 12} y={plotYToSvg(plotY[0]) + labelOffset} textAnchor={code === "PUAFIR306" ? "end" : "start"} fontSize="13">{start.toLocaleString("en-AU")}</text>
           <text x={x(4) + 8} y={y(end) - 6}>{end.toLocaleString("en-AU")}</text>
         </g>
       ))}
     </svg>
-    <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[12px_1fr_auto_auto] items-center gap-2"><i className="size-2.5 rounded-full" style={{ backgroundColor: item.color }}/><strong>{item.code}</strong><span>2020: {item.start.toLocaleString()}</span><span>2024: {item.end.toLocaleString()}</span></div>)}</div>
-    <p data-source-caption className={styles.chartNote}>Chart source: {chartSource}</p>
-    <p className={styles.chartNote}>Lines and markers reproduce the approved report chart. Exact counts are shown for 2020 and 2024, the years labelled in the report.</p>
+    <div className={styles.legend}>{series.map((item) => <div key={item.code} className="grid grid-cols-[16px_minmax(0,1fr)] items-start gap-2"><i aria-hidden="true" className="mt-2 h-0.5 w-4" style={{ backgroundColor: item.color }}/><span>{item.code} – {item.title}</span></div>)}</div>
+    <p data-source-caption className={styles.chartNote}><PublicSafetySourceText text={`Chart source: ${chartSource}`} /></p>
   </figure>;
 }
 
 export default function PublicSafetyFesHazardousMaterialsView({ slug, report }: { slug: string; report: PublicSafetyReport }) {
   return <PublicSafetyPageShell slug={slug} report={report} currentPage="fes_hazardous_materials" contentClassName={`${layout.page} ${recovery.page}`} navigation={{ back:{label:"Workforce Insights",href:`/reports/${slug}/fes_workforce_insights`}, backSecondary:{label:"Executive Summary",href:`/reports/${slug}/executive_summary`}, prev:{label:"Surf Life Saving First Aid",href:`/reports/${slug}/fes_surf_life_saving_first_aid`}, next:{label:"Proposed Strategies 2026",href:`/reports/${slug}/fes_workforce_strategies`}, prevPrefix:"Previous Section:", nextPrefix:"Next Section:" }}>
-    <section className={`${layout.hero} ${recovery.hero}`}>
+    <section className={`${layout.hero} ${recovery.hero} ${recovery.insightOneHero}`}>
       <div className={`${recovery.heroCopy} animate-slide-up`}>
         <span className={`${layout.badge} ${recovery.badge}`}>FES Workforce Insights</span>
-        <h1>3. Hazardous Materials. Insight</h1>
-        <div className={recovery.summary}>
-          <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
-          <p>Incidents involving hazardous materials are becoming increasingly important while the current training is limiting some Fire and Emergency Services organisations&apos; ability to deliver this type of service.</p>
-        </div>
+        <h1>3. Hazardous Materials</h1>
       </div>
       <Image className={`${styles.artwork} ${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-hazardous-materials-hero.png" width={180} height={180} alt="" unoptimized priority />
+    </section>
+
+    <section data-report-surface="neutral" className={`${recovery.summary} ${recovery.numberedSummary} ${recovery.animatedSection} animate-slide-up-delay`} aria-labelledby="fes-hazardous-materials-insight">
+      <span className={recovery.insightNumber} aria-hidden="true">1</span>
+      <div className={`${recovery.summaryCopy} ${recovery.wideSummaryCopy}`}>
+        <p id="fes-hazardous-materials-insight" className={recovery.insightLabel}>Theme Three, Insight One</p>
+        <p>Incidents involving hazardous materials are becoming increasingly important while current training may be limiting in some Fire and Emergency Services organisations ability to deliver this type of service.</p>
+      </div>
+      <Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized />
     </section>
 
     <section className={`${recovery.detail} animate-slide-up-delay`}>
       <h2 className={styles.heading}>Hazardous materials incidents and training</h2>
       <div className={styles.columns}>
         <div className={styles.copy}>
-          <p>Each year, firefighting organisations around Australia respond to a range of emergency incidents. In 2024–25, this included, but was not limited to, 11,982 incidents relating to hazardous materials.<sup>65</sup> Specific to responding to hazardous materials incidents, training is enabled through three units of competency in the PUA Public Safety Training Package:</p>
-          <div className={styles.units}><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR306 Identify, detect and monitor hazardous materials at an incident</div><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR308 Employ personal protection at a hazardous materials incident</div><div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}>PUAFIR324 Render hazardous materials incidents safe</div></div>
-          <p className="mt-6">The importance of these three units of competency is supported by annual enrolment data, with all three products having high use rates since 2020.</p>
+          <p>Each year, firefighting organisations around Australia respond to a range of emergency incidents. In 2024–25, this included, but was not limited to, 11,982 incidents relating to hazardous materials.<sup><PublicSafetyFootnoteLink number={65} /></sup> Specific to responding to hazardous materials incidents, training is enabled through three units of competency in the PUA Public Safety Training Package:</p>
+          <div className={styles.units}>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR306</h3><p>Identify, detect and monitor hazardous materials at an incident</p></div>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR308</h3><p>Employ personal protection at a hazardous materials incident</p></div>
+            <div className={`${styles.unit} ${recovery.animatedSection} animate-card-entrance`}><h3>PUAFIR324</h3><p>Render hazardous materials incidents safe</p></div>
+          </div>
         </div>
-        <EnrolmentsChart/>
+        <div className="min-w-0">
+          <p className={`${styles.copy} mb-6`}>The importance of these three units of competency is supported by annual enrolment data, with all three products having high use rates since 2020.</p>
+          <EnrolmentsChart/>
+        </div>
       </div>
       <h2 className={`${styles.heading} mt-6`}>PUAFIR306 as a prerequisite unit of competency</h2>
       <div className={`${styles.copy} ${styles.prose}`}>
-        <p>Due to evolving technology and access to different equipment across organisations, stakeholders indicated that some aspects of PUAFIR306 Identify, detect and monitor hazardous materials at an incident may require updating. Specifically, the unit may require an update related to the use of gas detection equipment and certain personal protective equipment (PPE) and personal protective clothing (PPC), which, as a prerequisite unit, may limit access to other training units.</p>
+        <p>Due to evolving technology and access to different equipment across organisations, stakeholders indicated that some aspects of <em>PUAFIR306 Identify, detect and monitor hazardous materials at an incident</em> may require updating. Specifically, this unit of competency may require an update related to the use of gas detection equipment and certain personal protective equipment (PPE) and personal protective clothing (PPC), which, as a prerequisite unit, may limit access to other training units.</p>
         <p>In its current form, this unit of competency excludes some firefighting organisations that either use different equipment or do not have access to specific equipment detailed in the unit of competency.</p>
-        <p>Additionally, PUAFIR306 is a prerequisite unit of competency in PUASAR025 Undertake confined space rescue, a highly utilised unit across both the Mining and Public Safety industries.<sup>66</sup> PUASAR025 is utilised across all states and territories, with 8,871 subject enrolments in 2024 alone.</p>
-        <p>Some industry-sector representatives expressed challenges with prescriptive requirements in the units of competency that may affect agencies&apos; ability to deliver and award these qualifications. Terminology and assessment conditions were also identified as potential limiting factors.</p>
+        <p>Additionally, PUAFIR306 is a pre-requisite unit of competency in <em>PUASAR025 Undertake confined space rescue</em> – a highly utilised unit of competency across both the Mining and Public Safety industries.<sup><PublicSafetyFootnoteLink number={66} /></sup> This unit of competency is also utilised across all states and territories, with 8,871 subject enrolments in 2024 alone.</p>
+        <p>Some industry-sector representatives expressed challenges with some of the prescriptive requirements in the units of competency that may impact some agencies being able to deliver and award these qualifications. Further to this, some terminology and assessment conditions were identified as potential limiting factors in training employees in these units of competency.</p>
       </div>
-      <div className={`${styles.insight} ${recovery.animatedSection}`}><div className="flex items-center gap-3"><Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized /><strong className="text-xl">Industry Insight</strong></div><p className={`${styles.copy} ${styles.prose}`}>While response to incidents involving hazardous materials is becoming increasingly important, the specificity of equipment requirements in current training may be limiting access by Fire and Emergency Services organisations to other training units, impacting national response capabilities.</p></div>
-      <div className={`${styles.copy} ${styles.prose} ${styles.closing}`}><p>Recent consultation with stakeholders highlighted the importance of the link between the two units of competency and advised that updates to this hazardous materials unit must carefully consider downstream impacts on other training products.</p><p>Further consensus must be built to ensure proposed training solutions meet the needs of all industry representatives, including employee organisations.</p></div>
+      <div data-report-surface="neutral" className={`${styles.insight} ${recovery.animatedSection}`}><div className="flex items-center gap-3"><Image className={`${recovery.animatedSummaryIcon} animate-zoom-in`} src="/images/reports/public-safety/fes-recovery-insight.png" width={72} height={72} alt="" unoptimized /><strong className="text-xl">Industry Insight</strong></div><p className={`${styles.copy} ${styles.prose}`}>While response to incidents involving hazardous materials is becoming increasingly important, the specificity of equipment requirements in current training may be limiting access by Fire and Emergency Services organisations to other training units, impacting national response capabilities.</p></div>
+      <div className={`${styles.copy} ${styles.prose} ${styles.closing}`}><p>Recent consultation with stakeholders highlighted the importance of the link between the two units of competency and advise that any updates to this hazardous materials unit of competency must carefully consider any potential downstream impacts on other training products.</p><p>Further consensus must be built to ensure any proposed training solutions meet the needs of all industry representatives, including ensuring that employee organisations are supportive of any proposed alternatives.</p></div>
     </section>
 
     <hr className={recovery.rule} />
     <section data-report-sources className={`${sourceStyles.sources} ${recovery.animatedSection} animate-slide-up-delay`}>
       <h2>Sources</h2>
       <ol start={65}>
-        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{65 + index}</span><span>{source}</span></li>)}
+        {sources.map((source, index) => <li key={source}><span className={sourceStyles.sourceNumber} aria-hidden="true">{65 + index}</span><span><PublicSafetySourceText number={65 + index} text={source} /></span></li>)}
       </ol>
     </section>
   </PublicSafetyPageShell>;

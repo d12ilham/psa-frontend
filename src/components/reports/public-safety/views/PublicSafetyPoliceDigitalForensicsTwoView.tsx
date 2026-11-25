@@ -1,4 +1,6 @@
+import PublicSafetySourceText, { PublicSafetyFootnoteLink } from "./PublicSafetySourceText";
 import Image from "next/image";
+import { BookOpenCheck } from "lucide-react";
 import PublicSafetyPageShell, { type PublicSafetyReport } from "./PublicSafetyPageShell";
 
 import layout from "./PublicSafetyDefenceView.module.css";
@@ -20,34 +22,37 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
     next: { label: "Rural, Regional and Remote Police Leadership", href: `/reports/${slug}/police_regional_remote_leadership` },
     prevPrefix: "Previous Section:", nextPrefix: "Next Section:",
   }}>
+    <section className={`${styles.panel} ${styles.topicHero} ${layout.enter}`}>
+      <div>
+        <p data-report-surface="neutral" className={styles.topicBadge}>Theme 1. Digital Forensics. Insight Two</p>
+        <h1>1. Digital Forensics</h1>
+      </div>
+      <div className={`${styles.illustration} animate-zoom-in`}>
+        <Image src="/images/reports/public-safety/police-forensics-hero.png" width={90} height={90} alt="" unoptimized />
+      </div>
+    </section>
+
     <section className={`${styles.panel} ${styles.training} ${layout.enter}`}>
-      <div className={styles.banner}>
+      <div data-report-surface="neutral" className={`${styles.banner} ${styles.insightCallout}`} aria-labelledby="police-forensics-insight-two">
         <span className={styles.number} aria-hidden="true">2</span>
         <div className={styles.bannerCopy}>
-          <p>Digital Forensics · Insight Two</p>
+          <p id="police-forensics-insight-two">Theme One, Insight Two</p>
           <div className={styles.headline}>
+            <p className={styles.insightStatement}>{insight}</p>
             <Image className="animate-zoom-in" src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
-            <h1>{insight}</h1>
           </div>
-        </div>
-        <div className={`${styles.illustration} animate-zoom-in`}>
-          <Image src="/images/reports/public-safety/police-forensics-hero.png" width={90} height={90} alt="" unoptimized />
         </div>
       </div>
 
       <h2>The POL Police Training Package</h2>
+      <div className={styles.trainingNarrative}>
       <div className={styles.trainingCopy}>
-        <p>Internationally, alternative pathways include paid internships for ex-defence personnel with digital forensics training and apprenticeship schemes offering a pathway into digital forensics.<sup>80</sup> Establishing career pathways also needs consideration in workforce planning to retain younger cohorts in digital forensics roles.<sup>81</sup></p>
+        <p>Internationally, alternative pathways have been established including paid internships for ex-defence personnel that include digital forensics training and apprenticeship schemes that offer a pathway into a career in digital forensics.<sup><PublicSafetyFootnoteLink number={80} /></sup> Additionally, establishing career pathways needs be considered as a part of overall workforce planning approaches particularly to retain younger cohorts in the digital forensics roles.<sup><PublicSafetyFootnoteLink number={81} /></sup></p>
         <p>Stakeholder consultation identified that the POL Police Training Package could be leveraged to develop much needed digital forensics skills. Internationally, a lack of consistency in digital forensics training has been identified as a risk to both the efficiency and quality of digital forensic investigations. Developing training products through the VET system will provide police nationally consistent, industry-endorsed skills standards that will support mitigating the risks encountered internationally.</p>
-        <p>Additionally, these skills could be developed to cover general duties police officers right through to digital forensic specialist roles, ensuring police can develop consistent skills for handling digital forensics evidence.<sup>82</sup></p>
+        <p>Additionally, these skills could be developed to cover general duties police officers right through to digital forensic specialist roles, ensuring police can develop consistent skills for handling digital forensics evidence.<sup><PublicSafetyFootnoteLink number={82} /></sup></p>
       </div>
-      <aside className={`${styles.trainingInsight} ${layout.enter}`}>
-        <div className={styles.trainingInsightTitle}>
-          <Image src="/images/reports/public-safety/police-forensics-insight.png" width={72} height={72} alt="" unoptimized />
-          <h3>Industry Insight</h3>
-        </div>
-        <p>{insight}</p>
-      </aside>
+      <span className={styles.trainingGraphic} aria-hidden="true"><BookOpenCheck size={64} strokeWidth={1.5} /></span>
+      </div>
     </section>
 
     <hr className={styles.rule} />
@@ -55,7 +60,7 @@ export default function PublicSafetyPoliceDigitalForensicsTwoView({ slug, report
       <h2>Sources</h2>
       <ol start={80}>
         {sources.map((source, index) => (
-          <li key={index}><span aria-hidden="true">{index + 80}</span><span>{source}</span></li>
+          <li key={index}><span aria-hidden="true">{index + 80}</span><span><PublicSafetySourceText number={index + 80} text={source} /></span></li>
         ))}
       </ol>
     </section>

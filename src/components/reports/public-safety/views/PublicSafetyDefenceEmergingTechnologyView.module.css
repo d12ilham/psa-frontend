@@ -41,6 +41,7 @@
   font-weight: 700;
   line-height: 54px;
 }
+.heroSubtitle { margin: 12px 0 0 12px; color: #000; font-size: 14px; line-height: 24px; }
 .icon { flex: none; width: 120px; height: auto; transition: transform .3s; }
 .callout {
   position: relative;
@@ -53,6 +54,7 @@
   border-radius: 14px;
   background: #fbf5ea;
 }
+.additionalInsight { padding-left: 24px; }
 .callout::before {
   position: absolute;
   inset: 0 auto 0 0;
@@ -90,6 +92,12 @@
   line-height: 24px;
 }
 .body sup, .tile sup { top: auto; vertical-align: baseline; font-size: inherit; }
+.body.narrativeFootnotes sup, .insightTwo .tile sup, .body sup.raisedFootnote {
+  position: static;
+  vertical-align: super;
+  font-size: 75%;
+  line-height: 0;
+}
 .divider { height: 1px; border: 0; background: #e9eaeb; }
 .sources ol { display: grid; gap: 16px; margin-top: 24px; }
 .sources li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 24px; }
@@ -115,7 +123,7 @@
 .keepWord { white-space: nowrap; }
 .veteransColumns {
   display: grid;
-  grid-template-columns: minmax(0, 584fr) minmax(0, 748fr);
+  grid-template-columns: minmax(0, 748fr) minmax(0, 584fr);
   gap: 60px;
   margin-top: 24px;
 }
@@ -170,6 +178,7 @@
 .columns .body { gap: 24px; max-width: 758px; margin-top: 0; }
 .tiles { display: grid; gap: 8px; }
 .capabilityTiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.capabilityGraphic { display: grid; place-items: center; flex: 0 0 60px; width: 60px; height: 60px; border-radius: 50%; background: #f8eedc; color: #d3992c; }
 .tile {
   display: flex;
   align-items: center;

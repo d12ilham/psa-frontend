@@ -1,5 +1,6 @@
 "use client";
 
+import CorrectionalServicesReportUtilityRow from "../CorrectionalServicesReportUtilityRow";
 import React from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
@@ -49,7 +50,7 @@ const drivers = [
     fullTitle: "Driver 2 — Challenges to workforce productivity",
     fullDesc: (
       <>
-          In its Five Pillars of Productivity enquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<SourceReference number={4} />{" "}
+          In its Five Pillars of Productivity inquiry reports, the Productivity Commission observed that productivity growth has been slowing globally since the mid-2000s, with Australia experiencing the slowest productivity growth in 60 years. The Productivity Commission identified long-standing pressures that have contributed to the productivity slowdown, including market stagnation, a persistently tight labour market and slower uptake of technological innovations.<SourceReference number={4} />{" "}
           These factors are further exacerbated by emerging challenges linked to the megatrends including an ageing population, technological development, climate change and competition for labour.<SourceReference number={5} />
       </>
     ),
@@ -83,46 +84,55 @@ const megatrends = [
     id: "pathways",
     icon: "/images/reports/drivers-of-change/Limitations.svg",
     title: "Limitations in career pathways",
+    desc: "Career pathway opportunities for young professionals require further promotion, as potential employees are often unaware of Local Government career opportunities and pathways.",
   },
   {
     id: "climate",
     icon: "/images/reports/drivers-of-change/Climate.svg",
     title: "Climate change",
+    desc: "Climate change impacts many functions of Local Government, such as emergency management and environmental planning.",
   },
   {
     id: "labour",
     icon: "/images/reports/drivers-of-change/Competition.svg",
     title: "Competition for labour",
+    desc: "Local Government is competing for labour with the private sector and other parts of the public sector. There is also competition for labour between Local Government organisations.",
   },
   {
     id: "duties",
     icon: "/images/reports/drivers-of-change/Expansion.svg",
     title: "Expansion of core duties",
+    desc: "Local Government employees are increasingly taking on multiple roles to meet community needs in the Local Government industry sector.",
   },
   {
     id: "diversity",
     icon: "/images/reports/drivers-of-change/Diversity.svg",
     title: "Diversity and inclusion",
+    desc: "Equitable gender composition and meaningful participation of a diverse workforce is an ongoing goal for Local Government workforces, particularly in leadership roles.",
   },
   {
     id: "demographics",
     icon: "/images/reports/drivers-of-change/Demographic.svg",
     title: "Demographic shifts",
+    desc: "Ageing workforces can impact the transfer of institutional knowledge and further create skills gaps in Local Government workforces.",
   },
   {
     id: "tech",
     icon: "/images/reports/drivers-of-change/Technological.svg",
     title: "Technological development",
+    desc: "The implementation of new technology in the Local Government workforce can be impacted by resource constraints and the availability of training.",
   },
   {
     id: "recruitment",
     icon: "/images/reports/drivers-of-change/Recruitment.svg",
     title: "Recruitment and retention",
+    desc: "There are several barriers to the attraction and retention of Local Government workforces in remote, regional and rural locations.",
   },
   {
     id: "trust",
     icon: "/images/reports/drivers-of-change/Public.svg",
     title: "Public trust and perceptions",
+    desc: "Local Governments are required to balance resourcing constraints with meeting community needs, which can impact public trust and perception.",
   },
 ];
 
@@ -157,6 +167,7 @@ export default function CorrectionalServicesDriversOfChangeView({
   report: CorrectionalServicesReport;
 }) {
   const [activeDriverId, setActiveDriverId] = React.useState<number | null>(null);
+  const [activeMegatrendId, setActiveMegatrendId] = React.useState<string | null>(null);
   const driversRef = React.useRef<HTMLDivElement>(null);
   const megatrendsRef = React.useRef<HTMLDivElement>(null);
   const [isDriversVisible, setIsDriversVisible] = React.useState(false);
@@ -180,13 +191,16 @@ export default function CorrectionalServicesDriversOfChangeView({
   }, []);
 
   const activeDriver = drivers.find((driver) => driver.id === activeDriverId);
+  const activeMegatrend = megatrends.find((item) => item.id === activeMegatrendId);
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAFAF0] font-sans text-[#252D02] antialiased selection:bg-[#8AC900]/30">
       <ReportHeader slug={slug} report={report} currentPage="drivers_of_change" />
 
       <main className="mx-auto flex w-full max-w-[1504px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <ReportNavButtons slug={slug} currentPage="drivers_of_change" prev={{ label: "Methodology", href: `/reports/${slug}/methodology` }} />
+        <CorrectionalServicesReportUtilityRow>
+          <ReportNavButtons slug={slug} currentPage="drivers_of_change" prev={{ label: "Methodology", href: `/reports/${slug}/methodology` }} />
+        </CorrectionalServicesReportUtilityRow>
 
         <section className="flex min-h-[286px] flex-col justify-between gap-8 rounded-2xl border border-[#E9EAEB] bg-white p-6 lg:flex-row lg:items-center">
           <div className="max-w-[800px] space-y-4">
@@ -237,7 +251,7 @@ export default function CorrectionalServicesDriversOfChangeView({
             {drivers.map((driver, index) => {
               const isActive = activeDriverId === driver.id;
               return (
-                <article
+                <article data-report-surface={isActive ? undefined : "neutral"}
                   key={driver.id}
                   style={isDriversVisible ? { animationDelay: `${index * 0.12}s` } : undefined}
                   className={`flex min-h-[260px] flex-col justify-between rounded-xl border border-t-[8px] border-t-[#8AC900] p-6 transition-[border-color,box-shadow] duration-300 hover:shadow-md motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
@@ -258,7 +272,7 @@ export default function CorrectionalServicesDriversOfChangeView({
                       {driver.shortTitle}
                     </h3>
                   </div>
-                  <button
+                  <button data-report-action="primary"
                     type="button"
                     onClick={() => setActiveDriverId(isActive ? null : driver.id)}
                     aria-expanded={isActive}
@@ -314,10 +328,18 @@ export default function CorrectionalServicesDriversOfChangeView({
               <li
                 key={item.id}
                 style={isMegatrendsVisible ? { animationDelay: `${index * 0.06}s` } : undefined}
-                className={`flex min-h-[200px] flex-col items-center justify-between rounded-lg border border-[#E9EAEB] bg-white p-4 text-center motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
+                className={`flex min-h-[200px] flex-col items-center justify-between rounded-lg border border-[#E9EAEB] bg-white text-center motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100 ${
                   isMegatrendsVisible ? "animate-card-entrance" : "opacity-0 translate-y-6"
                 }`}
               >
+                <button data-report-surface={activeMegatrendId === item.id ? undefined : "neutral"}
+                  id={`megatrend-${item.id}`}
+                  type="button"
+                  aria-expanded={activeMegatrendId === item.id}
+                  aria-controls="correctional-megatrend-detail"
+                  onClick={() => setActiveMegatrendId(activeMegatrendId === item.id ? null : item.id)}
+                  className={`flex h-full min-h-[200px] w-full flex-col items-center justify-between gap-4 rounded-lg p-4 transition-colors hover:bg-[#F0F5DF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#598303] ${activeMegatrendId === item.id ? "bg-[#F0F5DF] ring-1 ring-[#728C28]" : "bg-white"}`}
+                >
                 <Image
                   src={item.icon}
                   alt=""
@@ -328,9 +350,25 @@ export default function CorrectionalServicesDriversOfChangeView({
                 <p className="text-sm font-medium leading-6 text-[#535862]">
                   {item.id === "climate" ? <>Climate<br />change</> : item.id === "demographics" ? <>Demographic<br />shifts</> : item.title}
                 </p>
+                </button>
               </li>
             ))}
           </ul>
+
+          <div
+            id="correctional-megatrend-detail"
+            role="region"
+            aria-labelledby={activeMegatrend ? `megatrend-${activeMegatrend.id}` : undefined}
+            hidden={!activeMegatrend}
+            className="rounded-xl border border-[#B8C9A0] border-l-[8px] border-l-[#728C28] bg-[#F0F5DF] p-6"
+          >
+            {activeMegatrend && (
+              <div key={activeMegatrend.id} className="animate-content-switch motion-reduce:animate-none">
+                <h3 className="text-xl font-bold text-[#252D02]">{activeMegatrend.title}</h3>
+                <p className="mt-4 max-w-[960px] text-sm leading-6 text-[#535862]">{activeMegatrend.desc}</p>
+              </div>
+            )}
+          </div>
 
           <p className="max-w-[800px] text-sm font-medium leading-6 text-[#535862]">
             These megatrends were identified in previous Workforce Insights
