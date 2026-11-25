@@ -43,6 +43,7 @@ import LocalGovernmentReportUtilityRow from "@/components/reports/local-governme
 import CorrectionalServicesReportUtilityRow from "@/components/reports/correctional-services/CorrectionalServicesReportUtilityRow";
 import PublicSafetyPageShell from "@/components/reports/public-safety/views/PublicSafetyPageShell";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
+import AustraliaInteractiveMap from "@/components/common/AustraliaInteractiveMap";
 import {
   DEFAULT_LANDING_EXEC_DESC,
   DEFAULT_LANDING_INTRO_DESC,
@@ -354,6 +355,13 @@ function RichText({ text }: { text: string }) {
   );
 }
 
+function formatChartNumber(v: number, suffix = ""): string {
+  const rounded = Number.isInteger(v)
+    ? v.toLocaleString("en-AU")
+    : v.toLocaleString("en-AU", { maximumFractionDigits: 2 });
+  return `${rounded}${suffix}`;
+}
+
 function SvgChart({
   chart,
   accentColor,
@@ -364,13 +372,23 @@ function SvgChart({
   large?: boolean;
 }) {
   const labels = arr<string>(chart.labels);
-  const series = arr<JsonObj>(chart.series);
-  const first = series[0] || { name: "Value", values: [] };
-  const values = arr<number>(first.values);
-  const maxVal = Math.max(1, ...values.map((v) => Number(v) || 0));
+  const rawSeries = arr<JsonObj>(chart.series);
+  const series = rawSeries.length > 0 ? rawSeries : [{ name: "Value", values: [] }];
   const chartType = str(chart.chartType, "bar");
+  const suffix = str(chart.valueSuffix, "");
+  const fallbackPalette = [
+    accentColor,
+    "#9CAA54",
+    "#64645E",
+    "#A58D7B",
+    "#0D71A3",
+    "#C9481A",
+  ];
 
-  if (labels.length === 0 || values.length === 0) {
+  const allValues = series.flatMap((s) =>
+    arr<number>(s.values).map((v) => Number(v) || 0)
+  );
+  if (labels.length === 0 || allValues.length === 0) {
     return (
       <div className="p-6 text-center text-xs text-gray600">
         No chart series configured.
@@ -378,97 +396,263 @@ function SvgChart({
     );
   }
 
-  if (chartType === "line") {
-    const w = large ? 760 : 520;
-    const h = large ? 320 : 220;
-    const padX = 48;
-    const padY = 28;
-    const plotW = w - padX * 2;
-    const plotH = h - padY * 2;
-    const points = values.map((v, i) => {
-      const x =
-        values.length === 1
-          ? padX + plotW / 2
-          : padX + (i / (values.length - 1)) * plotW;
-      const y = padY + plotH - ((Number(v) || 0) / maxVal) * plotH;
-      return { x, y, v, label: labels[i] || "" };
-    });
-    const pathD = points
-      .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-      .join(" ");
+  // 1. Donut chart
+  if (chartType === "donut") {
+    const vals = arr<number>(series[0]?.values).map((v) => Number(v) || 0);
+    const total = Math.max(1, vals.reduce((a, b) => a + b, 0));
+    let acc = 0;
+    const stops = vals
+      .map((val, idx) => {
+        const start = (acc / total) * 100;
+        acc += val;
+        const end = (acc / total) * 100;
+        const col = fallbackPalette[idx % fallbackPalette.length];
+        return `${col} ${start.toFixed(2)}% ${end.toFixed(2)}%`;
+      })
+      .join(", ");
 
     return (
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto">
-        <line x1={padX} y1={padY} x2={padX} y2={h - padY} stroke="#E5E8DA" />
-        <line
-          x1={padX}
-          y1={h - padY}
-          x2={w - padX}
-          y2={h - padY}
-          stroke="#E5E8DA"
-        />
-        <path d={pathD} fill="none" stroke={accentColor} strokeWidth={3} />
-        {points.map((p, i) => (
-          <g key={i}>
-            <circle cx={p.x} cy={p.y} r={5} fill={accentColor} />
-            <text
-              x={p.x}
-              y={p.y - 10}
-              textAnchor="middle"
-              className="fill-[#252D02] text-[11px] font-bold"
-            >
-              {p.v}
-            </text>
-            <text
-              x={p.x}
-              y={h - 8}
-              textAnchor="middle"
-              className="fill-[#535862] text-[11px]"
-            >
-              {p.label}
-            </text>
-          </g>
-        ))}
-      </svg>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-4">
+        <div
+          className={`${large ? "w-56 h-56" : "w-44 h-44"} rounded-full relative shrink-0`}
+          style={{ background: `conic-gradient(${stops})` }}
+          role="img"
+          aria-label={str(chart.title, "Donut chart")}
+        >
+          <div className="absolute inset-[22%] rounded-full bg-white" />
+        </div>
+        <div className="space-y-2 text-xs">
+          {labels.map((lbl, idx) => (
+            <div key={idx} className="flex items-center gap-2.5">
+              <span
+                className="w-3 h-3 rounded-sm shrink-0"
+                style={{
+                  backgroundColor: fallbackPalette[idx % fallbackPalette.length],
+                }}
+              />
+              <span className="font-semibold text-gray800">{lbl}:</span>
+              <span className="font-bold text-[#252D02]">
+                {formatChartNumber(vals[idx] ?? 0, suffix)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     );
   }
 
-  return (
-    <div className="space-y-2.5 pt-2">
-      <div
-        className={`flex items-end gap-3 ${large ? "h-72" : "h-48"} px-2 pt-6 pb-2 border-b border-gray200`}
-      >
-        {values.map((val, i) => {
-          const pct = Math.max(
-            6,
-            Math.round(((Number(val) || 0) / maxVal) * 100)
-          );
+  // 2. Horizontal Bar Chart
+  if (chartType === "horizontal_bar") {
+    const vals = arr<number>(series[0]?.values).map((v) => Number(v) || 0);
+    const maxVal = Math.max(1, ...vals);
+    const barColor = str(series[0]?.color) || accentColor;
+    return (
+      <div className="space-y-3 py-2">
+        {labels.map((lbl, idx) => {
+          const val = vals[idx] ?? 0;
+          const pct = Math.max(3, Math.round((val / maxVal) * 100));
           return (
-            <div
-              key={i}
-              className="flex-1 flex flex-col items-center h-full justify-end"
-            >
-              <span className="text-[11px] font-bold text-gray800 mb-1">
-                {val}
-              </span>
-              <div
-                className="w-full max-w-[56px] rounded-t-lg transition-all"
-                style={{ height: `${pct}%`, backgroundColor: accentColor }}
-              />
+            <div key={idx} className="space-y-1">
+              <div className="flex items-center justify-between text-xs gap-2">
+                <span className="font-semibold text-gray800">{lbl}</span>
+                <span className="font-bold tabular-nums text-[#252D02]">
+                  {formatChartNumber(val, suffix)}
+                </span>
+              </div>
+              <div className="w-full h-3.5 rounded-full bg-[#FAFAF0] border border-gray200 overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all"
+                  style={{ width: `${pct}%`, backgroundColor: barColor }}
+                />
+              </div>
             </div>
           );
         })}
       </div>
-      <div className="flex gap-3 px-2">
-        {labels.map((lbl, i) => (
-          <div
-            key={i}
-            className="flex-1 text-center text-[11px] font-semibold text-gray600 truncate"
-          >
-            {lbl}
+    );
+  }
+
+  // 3. Multi-Series / Target Line Chart
+  if (chartType === "line" || chartType === "line_target") {
+    const rawMin = Math.min(...allValues);
+    const rawMax = Math.max(...allValues);
+    const span = rawMax - rawMin;
+    const minVal =
+      rawMin > 0 && span > 0 && rawMin / rawMax > 0.5
+        ? Math.max(0, Math.floor((rawMin - span * 0.25) * 10) / 10)
+        : 0;
+    const maxVal = Math.max(minVal + 1, rawMax * 1.06);
+
+    const w = large ? 780 : 580;
+    const h = large ? 340 : 250;
+    const padL = 56;
+    const padR = 28;
+    const padT = 30;
+    const padB = 36;
+    const plotW = w - padL - padR;
+    const plotH = h - padT - padB;
+
+    const getX = (i: number) =>
+      labels.length === 1 ? padL + plotW / 2 : padL + (i / (labels.length - 1)) * plotW;
+    const getY = (v: number) =>
+      padT + plotH - ((v - minVal) / Math.max(0.0001, maxVal - minVal)) * plotH;
+
+    return (
+      <div className="space-y-3">
+        <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto">
+          {[0, 0.25, 0.5, 0.75, 1].map((t, ti) => {
+            const tv = minVal + (maxVal - minVal) * t;
+            const ty = padT + plotH - t * plotH;
+            return (
+              <g key={ti}>
+                <line x1={padL} y1={ty} x2={w - padR} y2={ty} stroke="#ECECE5" />
+                <text
+                  x={padL - 8}
+                  y={ty + 4}
+                  textAnchor="end"
+                  className="fill-[#6B6E68] text-[10px]"
+                >
+                  {formatChartNumber(Number(tv.toFixed(1)), suffix)}
+                </text>
+              </g>
+            );
+          })}
+          {labels.map((lbl, li) => (
+            <text
+              key={li}
+              x={getX(li)}
+              y={h - 10}
+              textAnchor="middle"
+              className="fill-[#535862] text-[10px] font-semibold"
+            >
+              {lbl}
+            </text>
+          ))}
+          {series.map((s, si) => {
+            const vals = arr<number>(s.values).map((v) => Number(v) || 0);
+            const col = str(s.color) || fallbackPalette[si % fallbackPalette.length];
+            const isDashed = Boolean(s.dashed);
+            const pathD = vals
+              .map((v, vi) => `${vi === 0 ? "M" : "L"} ${getX(vi)} ${getY(v)}`)
+              .join(" ");
+            return (
+              <g key={si}>
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke={col}
+                  strokeWidth={2.8}
+                  strokeDasharray={isDashed ? "6 4" : undefined}
+                />
+                {vals.map((v, vi) => {
+                  const cx = getX(vi);
+                  const cy = getY(v);
+                  return (
+                    <g key={vi}>
+                      <circle cx={cx} cy={cy} r={4.5} fill="#fff" stroke={col} strokeWidth={2.5} />
+                      {series.length <= 2 && (
+                        <text
+                          x={cx}
+                          y={si % 2 === 0 ? cy - 10 : cy + 16}
+                          textAnchor="middle"
+                          className="text-[10px] font-bold"
+                          fill={col}
+                        >
+                          {formatChartNumber(v, suffix)}
+                        </text>
+                      )}
+                    </g>
+                  );
+                })}
+              </g>
+            );
+          })}
+        </svg>
+        {series.length > 1 && (
+          <div className="flex flex-wrap gap-4 pt-1 text-xs">
+            {series.map((s, si) => (
+              <div key={si} className="inline-flex items-center gap-2">
+                <span
+                  className="w-3 h-3 rounded-sm shrink-0"
+                  style={{
+                    backgroundColor:
+                      str(s.color) || fallbackPalette[si % fallbackPalette.length],
+                  }}
+                />
+                <span className="text-gray600 font-medium">{str(s.name)}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
+    );
+  }
+
+  // 4. Bar / Grouped Bar / Stacked Bar Chart
+  const maxVal = Math.max(1, ...allValues);
+  return (
+    <div className="space-y-3 pt-2">
+      <div className="overflow-x-auto">
+        <div
+          className={`flex items-end gap-3 ${large ? "h-72" : "h-52"} px-2 pt-8 pb-2 border-b border-gray200 min-w-[320px]`}
+        >
+          {labels.map((lbl, li) => (
+            <div
+              key={li}
+              className="flex-1 flex items-end justify-center gap-1 h-full min-w-[36px]"
+              title={lbl}
+            >
+              {series.map((s, si) => {
+                const val = Number(arr<number>(s.values)[li]) || 0;
+                const pct = Math.max(4, Math.round((val / maxVal) * 100));
+                const col =
+                  str(s.color) || fallbackPalette[si % fallbackPalette.length];
+                return (
+                  <div
+                    key={si}
+                    className="flex-1 flex flex-col items-center justify-end h-full max-w-[44px]"
+                  >
+                    <span className="text-[10px] font-bold text-gray800 mb-1 whitespace-nowrap">
+                      {formatChartNumber(val, suffix)}
+                    </span>
+                    <div
+                      className="w-full rounded-t-md transition-all"
+                      style={{ height: `${pct}%`, backgroundColor: col }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-3 px-2 pt-1.5 min-w-[320px]">
+          {labels.map((lbl, i) => (
+            <div
+              key={i}
+              className="flex-1 text-center text-[11px] font-semibold text-gray600 leading-tight"
+            >
+              {lbl}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {series.length > 1 && (
+        <div className="flex flex-wrap gap-4 pt-1 text-xs">
+          {series.map((s, si) => (
+            <div key={si} className="inline-flex items-center gap-2">
+              <span
+                className="w-3 h-3 rounded-sm shrink-0"
+                style={{
+                  backgroundColor:
+                    str(s.color) || fallbackPalette[si % fallbackPalette.length],
+                }}
+              />
+              <span className="text-gray600 font-medium">{str(s.name)}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -1373,6 +1557,18 @@ function TemplateBody({
     return () => cancelAnimationFrame(id);
   }, [page.pageType]);
 
+  if (str(content.renderMode) === "rich_page") {
+    return (
+      <RichExtractedPageView
+        data={data}
+        content={content}
+        tokens={tokens}
+        onNavigate={onNavigate}
+        onPresent={onPresent}
+      />
+    );
+  }
+
   /* ── 1. INTRODUCTION TEMPLATE ── */
   if (pt === "introduction") {
     const stats = arr<JsonObj>(content.keyStats);
@@ -2225,7 +2421,11 @@ function TemplateBody({
                     {arr<JsonObj>(t.insights).map((ins, ii) => (
                       <div
                         key={ii}
-                        onClick={() => onNavigate("workforce_insights_detail")}
+                        onClick={() =>
+                          onNavigate(
+                            str(ins.targetPageType, "workforce_insights_detail")
+                          )
+                        }
                         className="theme-insight-item bg-[#FAFAF0] border border-gray200 rounded-xl p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-[#8AC900] transition-colors"
                       >
                         <div className="flex items-start gap-4">
@@ -2490,7 +2690,11 @@ function TemplateBody({
                     <button
                       key={ii}
                       type="button"
-                      onClick={() => onNavigate("workforce_insights_detail")}
+                      onClick={() =>
+                        onNavigate(
+                          str(ins.targetPageType, "workforce_insights_detail")
+                        )
+                      }
                       className="w-full text-left p-4 rounded-xl border border-gray200 hover:border-[#8AC900] transition-colors flex items-center justify-between gap-4 cursor-pointer"
                       style={{ backgroundColor: tokens.surfaceBg }}
                     >
@@ -3668,6 +3872,1926 @@ function MasterDetailTemplate({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/* ── EXTRACTED 2026 VERBATIM RICH PAGE RENDERER ── */
+
+function RichTableCard({
+  title,
+  subtitle,
+  headers,
+  rows,
+  source,
+  note,
+  tokens,
+  onPresent,
+}: {
+  title?: string;
+  subtitle?: string;
+  headers: string[];
+  rows: string[][];
+  source?: string;
+  note?: string;
+  tokens: SectorVisualTokens;
+  onPresent?: (title: string, node: React.ReactNode) => void;
+}) {
+  const renderTable = (compact = false) => (
+    <div className="overflow-x-auto">
+      <table className={`w-full text-left border-collapse ${compact ? "text-xs" : "text-sm"}`}>
+        {headers.length > 0 && (
+          <thead>
+            <tr
+              className="border-b border-gray200"
+              style={{ backgroundColor: tokens.surfaceBg }}
+            >
+              {headers.map((h, hi) => (
+                <th
+                  key={hi}
+                  className="px-3.5 py-2.5 font-bold text-gray800 whitespace-nowrap"
+                >
+                  <RichText text={h} />
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody className="divide-y divide-gray200/80">
+          {rows.map((row, ri) => (
+            <tr key={ri} className="hover:bg-[#FAFAF0]/70 transition-colors">
+              {row.map((cell, ci) => (
+                <td
+                  key={ci}
+                  className={`px-3.5 py-2.5 align-top leading-relaxed ${
+                    ci === 0 ? "font-semibold text-gray800" : "text-gray600"
+                  }`}
+                >
+                  <RichText text={String(cell ?? "")} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-4">
+      {(title || subtitle || onPresent) && (
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1">
+            {title && (
+              <h3
+                className="text-lg font-bold"
+                style={{ color: tokens.headingColor }}
+              >
+                <RichText text={title} />
+              </h3>
+            )}
+            {subtitle && (
+              <p className="text-xs text-gray600 leading-relaxed">
+                <RichText text={subtitle} />
+              </p>
+            )}
+          </div>
+          {onPresent && (
+            <PresentButton
+              onClick={() =>
+                onPresent(
+                  title || "Data Table",
+                  <div className="space-y-3">
+                    {subtitle && (
+                      <p className="text-sm text-gray600">
+                        <RichText text={subtitle} />
+                      </p>
+                    )}
+                    {renderTable(false)}
+                    {source && (
+                      <p className="text-xs text-gray600 italic">
+                        Source: <RichText text={source} />
+                      </p>
+                    )}
+                  </div>
+                )
+              }
+            />
+          )}
+        </div>
+      )}
+      {renderTable(true)}
+      {note && (
+        <p className="text-xs text-gray600 bg-[#FAFAF0] border border-gray200 rounded-xl px-3.5 py-2.5 leading-relaxed">
+          <RichText text={note} />
+        </p>
+      )}
+      {source && (
+        <p className="text-[11px] text-gray600 italic">
+          Source: <RichText text={source} />
+        </p>
+      )}
+    </div>
+  );
+}
+
+function RichStateExplorerBlock({
+  block,
+  subSectorCode,
+  pageType,
+  tokens,
+  onPresent,
+}: {
+  block: JsonObj;
+  subSectorCode: string | null;
+  pageType: string;
+  tokens: SectorVisualTokens;
+  onPresent: (title: string, node: React.ReactNode) => void;
+}) {
+  const defaultCode = str(block.defaultState, "NATIONAL");
+  const [selectedState, setSelectedState] = useState<string>(defaultCode);
+
+  useEffect(() => {
+    setSelectedState(str(block.defaultState, "NATIONAL"));
+  }, [block.defaultState, pageType]);
+
+  const statesMap = (block.states || {}) as Record<string, JsonObj>;
+  const stateCodes = Object.keys(statesMap);
+  const activeDetail =
+    selectedState !== "NATIONAL" ? statesMap[selectedState] : undefined;
+
+  const pt = pageType.toLowerCase();
+  const mapVariant: "default" | "defence" | "fire" | "police" =
+    subSectorCode === "DEF" || pt.startsWith("defence_")
+      ? "defence"
+      : subSectorCode === "FES" || pt.startsWith("fes_")
+        ? "fire"
+        : subSectorCode === "POL" || pt.startsWith("police_")
+          ? "police"
+          : "default";
+
+  const mappedStates: Record<
+    string,
+    { name: string; employees: string; councils: number }
+  > = {};
+  for (const code of stateCodes) {
+    const st = statesMap[code] || {};
+    const firstMetricVal = str(arr<JsonObj>(st.metrics)[0]?.value);
+    mappedStates[code] = {
+      name: str(st.name, code),
+      employees: str(st.employees, firstMetricVal),
+      councils: num(st.councils, num(st.facilities, 0)),
+    };
+  }
+
+  const legendItems = arr<JsonObj>(block.legendItems);
+  const nationalHeaders = arr<string>(block.nationalHeaders);
+  const nationalRows = arr<string[]>(block.nationalRows);
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-5">
+        {(str(block.title) || str(block.intro)) && (
+          <div className="space-y-2">
+            {str(block.title) && (
+              <h2
+                className="text-xl font-bold"
+                style={{ color: tokens.headingColor }}
+              >
+                <RichText text={str(block.title)} />
+              </h2>
+            )}
+            {str(block.intro) && (
+              <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                <RichText text={str(block.intro)} />
+              </p>
+            )}
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setSelectedState("NATIONAL")}
+            className="px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer"
+            style={
+              selectedState === "NATIONAL"
+                ? {
+                    backgroundColor: tokens.primaryAccent,
+                    borderColor: tokens.primaryAccent,
+                    color: "#FFFFFF",
+                  }
+                : {
+                    backgroundColor: "#FFFFFF",
+                    borderColor: tokens.borderColor,
+                    color: tokens.headingColor,
+                  }
+            }
+          >
+            National
+          </button>
+          {stateCodes.map((code) => {
+            const active = selectedState === code;
+            return (
+              <button
+                key={code}
+                type="button"
+                onClick={() => setSelectedState(code)}
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer"
+                style={
+                  active
+                    ? {
+                        backgroundColor: tokens.primaryAccent,
+                        borderColor: tokens.primaryAccent,
+                        color: "#FFFFFF",
+                      }
+                    : {
+                        backgroundColor: tokens.surfaceBg,
+                        borderColor: tokens.borderColor,
+                        color: tokens.headingColor,
+                      }
+                }
+              >
+                {code}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="lg:col-span-6 rounded-2xl border border-gray200 bg-[#FAFAF0] p-4">
+            <AustraliaInteractiveMap
+              selectedState={selectedState}
+              onSelectState={(code) => setSelectedState(code || "NATIONAL")}
+              statesData={mappedStates}
+              variant={mapVariant}
+            />
+          </div>
+
+          <div className="lg:col-span-6 space-y-4">
+            {activeDetail ? (
+              <div className="rounded-2xl border border-gray200 bg-white p-5 space-y-4">
+                <div className="flex items-center justify-between gap-2 border-b border-gray200 pb-3">
+                  <div>
+                    <span
+                      className="text-[11px] font-bold uppercase tracking-wide block"
+                      style={{ color: tokens.eyebrowColor }}
+                    >
+                      {str(activeDetail.code, selectedState)} JURISDICTION PROFILE
+                    </span>
+                    <h3
+                      className="text-xl font-bold"
+                      style={{ color: tokens.headingColor }}
+                    >
+                      {str(activeDetail.name, selectedState)}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedState("NATIONAL")}
+                    className="text-xs font-semibold px-3 py-1 rounded-full border border-gray200 hover:bg-gray-50 cursor-pointer"
+                  >
+                    National view
+                  </button>
+                </div>
+
+                {(str(activeDetail.employees) ||
+                  activeDetail.councils !== undefined ||
+                  activeDetail.facilities !== undefined ||
+                  str(activeDetail.expenditure) ||
+                  arr<JsonObj>(activeDetail.metrics).length > 0) && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {str(activeDetail.employees) && (
+                      <div
+                        className="rounded-xl p-3 border"
+                        style={{
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                        }}
+                      >
+                        <div className="text-[11px] font-semibold text-gray600">
+                          Workforce
+                        </div>
+                        <div
+                          className="text-xl font-bold"
+                          style={{ color: tokens.primaryAccent }}
+                        >
+                          {str(activeDetail.employees)}
+                        </div>
+                      </div>
+                    )}
+                    {activeDetail.councils !== undefined && (
+                      <div
+                        className="rounded-xl p-3 border"
+                        style={{
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                        }}
+                      >
+                        <div className="text-[11px] font-semibold text-gray600">
+                          Councils
+                        </div>
+                        <div
+                          className="text-xl font-bold"
+                          style={{ color: tokens.primaryAccent }}
+                        >
+                          {num(activeDetail.councils).toLocaleString("en-AU")}
+                        </div>
+                      </div>
+                    )}
+                    {activeDetail.facilities !== undefined && (
+                      <div
+                        className="rounded-xl p-3 border"
+                        style={{
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                        }}
+                      >
+                        <div className="text-[11px] font-semibold text-gray600">
+                          Facilities
+                        </div>
+                        <div
+                          className="text-xl font-bold"
+                          style={{ color: tokens.primaryAccent }}
+                        >
+                          {num(activeDetail.facilities).toLocaleString("en-AU")}
+                        </div>
+                      </div>
+                    )}
+                    {str(activeDetail.expenditure) && (
+                      <div
+                        className="rounded-xl p-3 border"
+                        style={{
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                        }}
+                      >
+                        <div className="text-[11px] font-semibold text-gray600">
+                          Expenditure
+                        </div>
+                        <div
+                          className="text-lg font-bold"
+                          style={{ color: tokens.primaryAccent }}
+                        >
+                          {str(activeDetail.expenditure)}
+                        </div>
+                      </div>
+                    )}
+                    {arr<JsonObj>(activeDetail.metrics).map((m, mi) => (
+                      <div
+                        key={mi}
+                        className="rounded-xl p-3 border"
+                        style={{
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                        }}
+                      >
+                        <div className="text-[11px] font-semibold text-gray600">
+                          <RichText text={str(m.label)} />
+                        </div>
+                        <div
+                          className="text-lg font-bold"
+                          style={{ color: tokens.primaryAccent }}
+                        >
+                          <RichText text={str(m.value)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {arr<string>(activeDetail.topShortages).length > 0 && (
+                  <div className="space-y-1.5">
+                    <h4 className="text-xs font-bold uppercase text-gray800">
+                      Top Occupational Shortages
+                    </h4>
+                    <ul className="list-disc pl-5 space-y-1 text-xs text-gray600">
+                      {arr<string>(activeDetail.topShortages).map((s, si) => (
+                        <li key={si}>
+                          <RichText text={s} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {arr<string>(activeDetail.lgSpecificShortages).length > 0 && (
+                  <div className="space-y-1.5">
+                    <h4 className="text-xs font-bold uppercase text-gray800">
+                      Local Government Specific Shortages
+                    </h4>
+                    <ul className="list-disc pl-5 space-y-1 text-xs text-gray600">
+                      {arr<string>(activeDetail.lgSpecificShortages).map(
+                        (s, si) => (
+                          <li key={si}>
+                            <RichText text={s} />
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                )}
+
+                {arr<JsonObj>(activeDetail.oslTable).length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold uppercase text-gray800">
+                      Occupation Shortage List (OSL) Comparison
+                    </h4>
+                    <div className="overflow-x-auto border border-gray200 rounded-xl">
+                      <table className="w-full text-left text-xs border-collapse">
+                        <thead>
+                          <tr
+                            className="border-b border-gray200"
+                            style={{ backgroundColor: tokens.surfaceBg }}
+                          >
+                            <th className="px-3 py-2 font-bold text-gray800">
+                              Occupation
+                            </th>
+                            <th className="px-3 py-2 font-bold text-gray800">
+                              State
+                            </th>
+                            <th className="px-3 py-2 font-bold text-gray800">
+                              National
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray200">
+                          {arr<JsonObj>(activeDetail.oslTable).map(
+                            (row, ri) => (
+                              <tr key={ri}>
+                                <td className="px-3 py-2 font-medium text-gray800">
+                                  <RichText text={str(row.occupation)} />
+                                </td>
+                                <td className="px-3 py-2 font-bold text-gray700">
+                                  {str(row.stateShortage)}
+                                </td>
+                                <td className="px-3 py-2 text-gray600">
+                                  {str(row.nationalShortage)}
+                                </td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {arr<string[]>(activeDetail.rows).length > 0 && (
+                  <RichTableCard
+                    headers={arr<string>(activeDetail.headers)}
+                    rows={arr<string[]>(activeDetail.rows)}
+                    tokens={tokens}
+                  />
+                )}
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-gray200 bg-[#FAFAF0] p-5 space-y-3">
+                <h3
+                  className="text-base font-bold"
+                  style={{ color: tokens.headingColor }}
+                >
+                  Jurisdictions Overview — Select a State or Territory
+                </h3>
+                <p className="text-xs text-gray600 leading-relaxed">
+                  Click any jurisdiction on the interactive map or choose a state pill above to inspect local workforce metrics, counts, and occupational shortage tables.
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
+                  {stateCodes.map((code) => {
+                    const st = statesMap[code] || {};
+                    const headlineVal =
+                      str(st.employees) ||
+                      str(arr<JsonObj>(st.metrics)[0]?.value) ||
+                      (st.councils !== undefined
+                        ? `${num(st.councils)} councils`
+                        : str(st.facilities !== undefined ? `${num(st.facilities)} facilities` : ""));
+                    return (
+                      <button
+                        key={code}
+                        type="button"
+                        onClick={() => setSelectedState(code)}
+                        className="text-left p-3 rounded-xl bg-white border border-gray200 hover:border-[#8AC900] transition-colors cursor-pointer"
+                      >
+                        <div className="text-[11px] font-bold text-gray600">
+                          {code}
+                        </div>
+                        <div className="text-xs font-bold text-gray800 truncate">
+                          {str(st.name, code)}
+                        </div>
+                        {headlineVal && (
+                          <div
+                            className="text-sm font-extrabold mt-0.5"
+                            style={{ color: tokens.primaryAccent }}
+                          >
+                            {headlineVal}
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {legendItems.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {legendItems.map((lg, li) => (
+                  <span
+                    key={li}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border border-gray200 bg-white text-gray700"
+                  >
+                    <span
+                      className="font-extrabold"
+                      style={{ color: tokens.primaryAccent }}
+                    >
+                      {str(lg.code)}:
+                    </span>
+                    <span>{str(lg.label)}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {(str(block.source) || str(block.note)) && (
+          <div className="space-y-1 pt-2 border-t border-gray200 text-xs text-gray600">
+            {str(block.note) && (
+              <p>
+                <RichText text={str(block.note)} />
+              </p>
+            )}
+            {str(block.source) && (
+              <p className="italic">
+                Source: <RichText text={str(block.source)} />
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {nationalRows.length > 0 && (
+        <RichTableCard
+          title={str(block.nationalTableTitle, "National Summary")}
+          headers={nationalHeaders}
+          rows={nationalRows}
+          tokens={tokens}
+          onPresent={onPresent}
+        />
+      )}
+    </div>
+  );
+}
+
+function RichMasterDetailBlock({
+  block,
+  tokens,
+  onNavigate,
+}: {
+  block: JsonObj;
+  tokens: SectorVisualTokens;
+  onNavigate: (pageType: string) => void;
+}) {
+  const items = arr<JsonObj>(block.items);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const current = items[activeIdx] || items[0];
+  if (!current) return null;
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="lg:col-span-4 space-y-2 lg:sticky lg:top-24">
+        {str(block.listTitle) && (
+          <div className="text-[11px] font-bold uppercase tracking-wider text-gray600 px-1 pb-1">
+            {str(block.listTitle)}
+          </div>
+        )}
+        <div className="space-y-2 max-h-[68vh] overflow-y-auto pr-1">
+          {items.map((item, idx) => {
+            const active = idx === activeIdx;
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActiveIdx(idx)}
+                className="w-full text-left p-4 rounded-xl border transition-all cursor-pointer space-y-1"
+                style={
+                  active
+                    ? {
+                        backgroundColor: tokens.surfaceBg,
+                        borderColor: tokens.primaryAccent,
+                        borderLeftWidth: "4px",
+                      }
+                    : {
+                        backgroundColor: "#FFFFFF",
+                        borderColor: "#E5E8DA",
+                      }
+                }
+              >
+                <div className="flex items-center gap-2">
+                  {str(item.code) && (
+                    <span
+                      className="text-[11px] font-extrabold px-2 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: tokens.tagBg,
+                        color: tokens.tagText,
+                      }}
+                    >
+                      {str(item.code)}
+                    </span>
+                  )}
+                  {str(item.eyebrow) && (
+                    <span
+                      className="text-[10px] font-bold uppercase"
+                      style={{ color: tokens.eyebrowColor }}
+                    >
+                      {str(item.eyebrow)}
+                    </span>
+                  )}
+                </div>
+                <div className="font-bold text-sm text-gray800 leading-snug">
+                  <RichText text={str(item.title)} />
+                </div>
+                {str(item.badgeText) && (
+                  <div className="text-[11px] text-gray600">
+                    {str(item.badgeText)}
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="lg:col-span-8 bg-white rounded-2xl border border-gray200 p-6 sm:p-8 space-y-5">
+        <div className="flex flex-wrap items-center gap-2">
+          {str(current.code) && (
+            <span
+              className="text-xs font-bold px-3 py-1 rounded-full"
+              style={{
+                backgroundColor: tokens.primaryAccent,
+                color: "#FFFFFF",
+              }}
+            >
+              {str(current.code)}
+            </span>
+          )}
+          {str(current.eyebrow) && (
+            <span
+              className="text-xs font-bold uppercase tracking-wide"
+              style={{ color: tokens.eyebrowColor }}
+            >
+              {str(current.eyebrow)}
+            </span>
+          )}
+          {str(current.badgeText) && (
+            <span
+              className="text-xs font-semibold px-3 py-1 rounded-full"
+              style={{ backgroundColor: tokens.tagBg, color: tokens.tagText }}
+            >
+              {str(current.badgeText)}
+            </span>
+          )}
+        </div>
+
+        <h2
+          className="text-xl sm:text-2xl font-bold leading-snug"
+          style={{ color: tokens.headingColor }}
+        >
+          <RichText text={str(current.title)} />
+        </h2>
+
+        <div className="space-y-3 text-sm text-gray600 leading-relaxed">
+          {arr<string>(current.summaryParagraphs).map((p, pi) => (
+            <p key={pi}>
+              <RichText text={p} />
+            </p>
+          ))}
+        </div>
+
+        {arr<string>(current.bullets).length > 0 && (
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray600 leading-relaxed">
+            {arr<string>(current.bullets).map((b, bi) => (
+              <li key={bi}>
+                <RichText text={b} />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {arr<JsonObj>(current.detailSections).map((sec, si) => (
+          <div
+            key={si}
+            className="p-4 rounded-xl border border-gray200 bg-[#FAFAF0] space-y-2"
+          >
+            <h3 className="text-sm font-bold text-gray800">
+              <RichText text={str(sec.heading)} />
+            </h3>
+            {arr<string>(sec.paragraphs).map((p, pi) => (
+              <p key={pi} className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                <RichText text={p} />
+              </p>
+            ))}
+            {arr<string>(sec.bullets).length > 0 && (
+              <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600">
+                {arr<string>(sec.bullets).map((b, bi) => (
+                  <li key={bi}>
+                    <RichText text={b} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+
+        {arr<string>(current.tags).length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {arr<string>(current.tags).map((tg, ti) => (
+              <span
+                key={ti}
+                className="text-xs font-semibold px-3 py-1 rounded-full"
+                style={{ backgroundColor: tokens.tagBg, color: tokens.tagText }}
+              >
+                {tg}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {str(current.ctaPageType) && (
+          <div>
+            <button
+              type="button"
+              data-report-action="primary"
+              onClick={() => onNavigate(str(current.ctaPageType))}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white cursor-pointer"
+              style={{ backgroundColor: tokens.primaryAccent }}
+            >
+              <span>{str(current.ctaLabel, "Explore")}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function RichAccordionsBlock({
+  block,
+  data,
+  tokens,
+  onNavigate,
+  onPresent,
+}: {
+  block: JsonObj;
+  data: PublicReportPageResponse;
+  tokens: SectorVisualTokens;
+  onNavigate: (pageType: string) => void;
+  onPresent: (title: string, node: React.ReactNode) => void;
+}) {
+  const items = arr<JsonObj>(block.items);
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>(() => {
+    const init: Record<string, boolean> = {};
+    items.forEach((it, idx) => {
+      init[str(it.id, `acc-${idx}`)] = bool(it.defaultOpen, idx === 0);
+    });
+    return init;
+  });
+
+  const toggle = (key: string) =>
+    setOpenMap((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  return (
+    <div className="space-y-4">
+      {(str(block.title) || str(block.intro)) && (
+        <div className="space-y-1">
+          {str(block.title) && (
+            <h2
+              className="text-xl font-bold"
+              style={{ color: tokens.headingColor }}
+            >
+              <RichText text={str(block.title)} />
+            </h2>
+          )}
+          {str(block.intro) && (
+            <p className="text-xs sm:text-sm text-gray600">
+              <RichText text={str(block.intro)} />
+            </p>
+          )}
+        </div>
+      )}
+
+      <div className="space-y-3">
+        {items.map((it, idx) => {
+          const itemKey = str(it.id, `acc-${idx}`);
+          const isOpen = !!openMap[itemKey];
+          const cta = (it.cta || null) as JsonObj | null;
+          return (
+            <div
+              key={itemKey}
+              className="bg-white rounded-2xl border border-gray200 overflow-hidden"
+            >
+              <button
+                type="button"
+                onClick={() => toggle(itemKey)}
+                className="w-full px-6 py-4 flex items-center justify-between gap-4 text-left hover:bg-[#FAFAF0]/70 transition-colors cursor-pointer"
+              >
+                <div className="space-y-1">
+                  {str(it.badge) && (
+                    <span
+                      className="inline-block text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: tokens.tagBg,
+                        color: tokens.tagText,
+                      }}
+                    >
+                      {str(it.badge)}
+                    </span>
+                  )}
+                  <h3 className="text-base sm:text-lg font-bold text-gray800">
+                    <RichText text={str(it.title)} />
+                  </h3>
+                  {str(it.subtitle) && (
+                    <p className="text-xs text-gray600">
+                      <RichText text={str(it.subtitle)} />
+                    </p>
+                  )}
+                </div>
+                {isOpen ? (
+                  <ChevronUp className="w-5 h-5 shrink-0 text-gray600" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 shrink-0 text-gray600" />
+                )}
+              </button>
+
+              {isOpen && (
+                <div className="px-6 pb-6 pt-2 border-t border-gray200/80 space-y-4">
+                  {arr<string>(it.summaryParagraphs).map((p, pi) => (
+                    <p key={pi} className="text-sm text-gray600 leading-relaxed">
+                      <RichText text={p} />
+                    </p>
+                  ))}
+
+                  {arr<string>(it.bullets).length > 0 && (
+                    <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray600 leading-relaxed">
+                      {arr<string>(it.bullets).map((b, bi) => (
+                        <li key={bi}>
+                          <RichText text={b} />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {arr<JsonObj>(it.sections).map((sec, si) => (
+                    <div
+                      key={si}
+                      className="p-4 rounded-xl bg-[#FAFAF0] border border-gray200 space-y-2"
+                    >
+                      <h4 className="text-sm font-bold text-gray800">
+                        <RichText text={str(sec.heading)} />
+                      </h4>
+                      {arr<string>(sec.paragraphs).map((p, pi) => (
+                        <p key={pi} className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                          <RichText text={p} />
+                        </p>
+                      ))}
+                      {arr<string>(sec.bullets).length > 0 && (
+                        <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600">
+                          {arr<string>(sec.bullets).map((b, bi) => (
+                            <li key={bi}>
+                              <RichText text={b} />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+
+                  {arr<JsonObj>(it.blocks).map((childBlock, bi) => (
+                    <RichSingleBlock
+                      key={str(childBlock.id, `acc-${idx}-blk-${bi}`)}
+                      block={childBlock}
+                      data={data}
+                      tokens={tokens}
+                      onNavigate={onNavigate}
+                      onPresent={onPresent}
+                    />
+                  ))}
+
+                  {cta && str(cta.pageType) && (
+                    <div>
+                      <button
+                        type="button"
+                        data-report-action="primary"
+                        onClick={() => onNavigate(str(cta.pageType))}
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold text-white cursor-pointer"
+                        style={{ backgroundColor: tokens.primaryAccent }}
+                      >
+                        <span>{str(cta.label, "Explore")}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function RichSingleBlock({
+  block,
+  data,
+  tokens,
+  onNavigate,
+  onPresent,
+}: {
+  block: JsonObj;
+  data: PublicReportPageResponse;
+  tokens: SectorVisualTokens;
+  onNavigate: (pageType: string) => void;
+  onPresent: (title: string, node: React.ReactNode) => void;
+}) {
+  const bType = str(block.type);
+
+  if (bType === "narrative") {
+    const paragraphs = arr<string>(block.paragraphs);
+    const bullets = arr<string>(block.bullets);
+    const orderedList = arr<string>(block.orderedList);
+    const subSections = arr<JsonObj>(block.subSections);
+    const cta = (block.cta || null) as JsonObj | null;
+    return (
+      <section className="bg-white rounded-2xl border border-gray200 p-6 space-y-4">
+        {(str(block.badge) || str(block.title) || str(block.subtitle)) && (
+          <div className="space-y-1.5">
+            {str(block.badge) && (
+              <span
+                className="inline-block text-[11px] font-bold uppercase px-3 py-0.5 rounded-full"
+                style={{ backgroundColor: tokens.tagBg, color: tokens.tagText }}
+              >
+                {str(block.badge)}
+              </span>
+            )}
+            {str(block.title) && (
+              <h2
+                className="text-lg sm:text-xl font-bold"
+                style={{ color: tokens.headingColor }}
+              >
+                <RichText text={str(block.title)} />
+              </h2>
+            )}
+            {str(block.subtitle) && (
+              <p className="text-xs text-gray600">
+                <RichText text={str(block.subtitle)} />
+              </p>
+            )}
+          </div>
+        )}
+
+        {paragraphs.length > 0 && (
+          <div className="space-y-3 text-sm text-gray600 leading-relaxed">
+            {paragraphs.map((p, pi) => (
+              <p key={pi}>
+                <RichText text={p} />
+              </p>
+            ))}
+          </div>
+        )}
+
+        {bullets.length > 0 && (
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray600 leading-relaxed">
+            {bullets.map((b, bi) => (
+              <li key={bi}>
+                <RichText text={b} />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {orderedList.length > 0 && (
+          <ol className="list-decimal pl-5 space-y-1.5 text-sm text-gray600 leading-relaxed">
+            {orderedList.map((o, oi) => (
+              <li key={oi}>
+                <RichText text={o} />
+              </li>
+            ))}
+          </ol>
+        )}
+
+        {subSections.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            {subSections.map((sec, si) => (
+              <div
+                key={si}
+                className="p-4 rounded-xl border border-gray200 bg-[#FAFAF0] space-y-2"
+              >
+                <h3 className="text-sm font-bold text-gray800">
+                  <RichText text={str(sec.title)} />
+                </h3>
+                {arr<string>(sec.paragraphs).map((p, pi) => (
+                  <p key={pi} className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                    <RichText text={p} />
+                  </p>
+                ))}
+                {arr<string>(sec.bullets).length > 0 && (
+                  <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-gray600">
+                    {arr<string>(sec.bullets).map((b, bi) => (
+                      <li key={bi}>
+                        <RichText text={b} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {str(block.note) && (
+          <div
+            className="rounded-xl p-4 border text-xs sm:text-sm text-gray700 leading-relaxed"
+            style={{
+              backgroundColor: tokens.surfaceBg,
+              borderColor: tokens.borderColor,
+            }}
+          >
+            <RichText text={str(block.note)} />
+          </div>
+        )}
+
+        {cta && str(cta.pageType) && (
+          <div className="pt-1">
+            <button
+              type="button"
+              data-report-action="primary"
+              onClick={() => onNavigate(str(cta.pageType))}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white cursor-pointer"
+              style={{ backgroundColor: tokens.primaryAccent }}
+            >
+              <span>{str(cta.label, "Explore")}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  if (bType === "industry_insight") {
+    return (
+      <section
+        className="rounded-2xl border p-6 space-y-3 bg-white border-l-4"
+        style={{
+          borderColor: tokens.borderColor,
+          borderLeftColor: tokens.primaryAccent,
+          backgroundColor: tokens.surfaceBg,
+        }}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          {str(block.number) && (
+            <span
+              className="w-7 h-7 rounded-full inline-flex items-center justify-center text-xs font-extrabold text-white"
+              style={{ backgroundColor: tokens.primaryAccent }}
+            >
+              {str(block.number)}
+            </span>
+          )}
+          <span
+            className="text-[11px] font-bold uppercase tracking-wide px-3 py-0.5 rounded-full bg-white border"
+            style={{ color: tokens.primaryAccent, borderColor: tokens.borderColor }}
+          >
+            {str(block.badge, "INDUSTRY INSIGHT")}
+          </span>
+        </div>
+        <h3
+          className="text-lg font-bold"
+          style={{ color: tokens.headingColor }}
+        >
+          <RichText text={str(block.title)} />
+        </h3>
+        {arr<string>(block.paragraphs).map((p, pi) => (
+          <p key={pi} className="text-sm text-gray700 leading-relaxed">
+            <RichText text={p} />
+          </p>
+        ))}
+        {arr<string>(block.bullets).length > 0 && (
+          <ul className="list-disc pl-5 space-y-1 text-sm text-gray700">
+            {arr<string>(block.bullets).map((b, bi) => (
+              <li key={bi}>
+                <RichText text={b} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    );
+  }
+
+  if (bType === "kpi_grid") {
+    const cols = num(block.columns, 3);
+    const gridCls =
+      cols === 2
+        ? "grid-cols-1 md:grid-cols-2"
+        : cols === 4
+          ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
+          : "grid-cols-1 md:grid-cols-3";
+    return (
+      <section className="space-y-3">
+        {str(block.title) && (
+          <h2
+            className="text-lg font-bold"
+            style={{ color: tokens.headingColor }}
+          >
+            <RichText text={str(block.title)} />
+          </h2>
+        )}
+        <div className={`grid gap-4 ${gridCls}`}>
+          {arr<JsonObj>(block.items).map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-2xl border border-gray200 p-5 flex flex-col justify-between gap-2"
+            >
+              <div
+                className="text-2xl sm:text-3xl font-extrabold leading-tight"
+                style={{ color: tokens.primaryAccent }}
+              >
+                <RichText text={str(item.value)} />
+              </div>
+              <div className="space-y-1">
+                <div className="text-xs sm:text-sm font-semibold text-gray800 leading-snug">
+                  <RichText text={str(item.label)} />
+                </div>
+                {str(item.sublabel) && (
+                  <div className="text-xs text-gray600">
+                    <RichText text={str(item.sublabel)} />
+                  </div>
+                )}
+                {str(item.source) && (
+                  <div className="text-[11px] text-gray600 italic">
+                    Source: <RichText text={str(item.source)} />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (bType === "chart") {
+    return (
+      <section className="bg-white rounded-2xl border border-gray200 p-6 space-y-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1">
+            <h3
+              className="text-lg font-bold"
+              style={{ color: tokens.headingColor }}
+            >
+              <RichText text={str(block.title)} />
+            </h3>
+            {str(block.subtitle) && (
+              <p className="text-xs text-gray600">
+                <RichText text={str(block.subtitle)} />
+              </p>
+            )}
+          </div>
+          <PresentButton
+            onClick={() =>
+              onPresent(
+                str(block.title, "Chart"),
+                <div className="space-y-4">
+                  {str(block.subtitle) && (
+                    <p className="text-sm text-gray600">
+                      <RichText text={str(block.subtitle)} />
+                    </p>
+                  )}
+                  <SvgChart
+                    chart={block}
+                    accentColor={tokens.primaryAccent}
+                    large
+                  />
+                  {str(block.source) && (
+                    <p className="text-xs text-gray600 italic">
+                      Source: <RichText text={str(block.source)} />
+                    </p>
+                  )}
+                </div>
+              )
+            }
+          />
+        </div>
+        <SvgChart chart={block} accentColor={tokens.primaryAccent} />
+        {str(block.note) && (
+          <p className="text-xs text-gray600 bg-[#FAFAF0] border border-gray200 rounded-xl px-3.5 py-2">
+            <RichText text={str(block.note)} />
+          </p>
+        )}
+        {str(block.source) && (
+          <p className="text-[11px] text-gray600 italic">
+            Source: <RichText text={str(block.source)} />
+          </p>
+        )}
+      </section>
+    );
+  }
+
+  if (bType === "table") {
+    return (
+      <RichTableCard
+        title={str(block.title) || undefined}
+        subtitle={str(block.subtitle) || undefined}
+        headers={arr<string>(block.headers)}
+        rows={arr<string[]>(block.rows)}
+        source={str(block.source) || undefined}
+        note={str(block.note) || undefined}
+        tokens={tokens}
+        onPresent={onPresent}
+      />
+    );
+  }
+
+  if (bType === "link_cards") {
+    const cols = num(block.columns, 3);
+    const gridCls =
+      cols === 2
+        ? "grid-cols-1 md:grid-cols-2"
+        : cols === 4
+          ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
+          : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
+    return (
+      <section className="space-y-4">
+        {(str(block.title) || str(block.subtitle)) && (
+          <div className="space-y-1">
+            {str(block.title) && (
+              <h2
+                className="text-xl font-bold"
+                style={{ color: tokens.headingColor }}
+              >
+                <RichText text={str(block.title)} />
+              </h2>
+            )}
+            {str(block.subtitle) && (
+              <p className="text-xs sm:text-sm text-gray600">
+                <RichText text={str(block.subtitle)} />
+              </p>
+            )}
+          </div>
+        )}
+        <div className={`grid gap-5 ${gridCls}`}>
+          {arr<JsonObj>(block.cards).map((c, ci) => {
+            const accent = str(c.accentColor) || tokens.primaryAccent;
+            const nestedItems = arr<JsonObj>(c.items);
+            const targetPage = str(c.pageType);
+            const targetUrl = str(c.url);
+            return (
+              <article
+                key={ci}
+                className="bg-white rounded-2xl border border-gray200 border-t-8 p-6 flex flex-col justify-between gap-4"
+                style={{ borderTopColor: accent }}
+              >
+                <div className="space-y-3">
+                  {(str(c.number) || str(c.eyebrow)) && (
+                    <div className="flex items-center gap-2">
+                      {str(c.number) && (
+                        <span
+                          className="w-7 h-7 rounded-full inline-flex items-center justify-center text-xs font-extrabold text-white shrink-0"
+                          style={{ backgroundColor: accent }}
+                        >
+                          {str(c.number)}
+                        </span>
+                      )}
+                      {str(c.eyebrow) && (
+                        <span
+                          className="text-[11px] font-bold uppercase tracking-wide"
+                          style={{ color: tokens.eyebrowColor }}
+                        >
+                          {str(c.eyebrow)}
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  <h3 className="text-base sm:text-lg font-bold text-gray800 leading-snug">
+                    <RichText text={str(c.title)} />
+                  </h3>
+
+                  {str(c.summary) && (
+                    <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                      <RichText text={str(c.summary)} />
+                    </p>
+                  )}
+
+                  {arr<string>(c.overviewParagraphs).map((op, oi) => (
+                    <p key={oi} className="text-xs text-gray600 leading-relaxed">
+                      <RichText text={op} />
+                    </p>
+                  ))}
+
+                  {nestedItems.length > 0 && (
+                    <div className="space-y-2 pt-2 border-t border-gray200">
+                      {nestedItems.map((ni, nii) => {
+                        const niPage = str(ni.pageType);
+                        return (
+                          <div
+                            key={nii}
+                            className="p-3 rounded-xl border border-gray200 bg-[#FAFAF0] space-y-1"
+                          >
+                            {(str(ni.number) || str(ni.eyebrow)) && (
+                              <div className="text-[10px] font-bold uppercase text-gray600">
+                                {str(ni.number)} {str(ni.eyebrow)}
+                              </div>
+                            )}
+                            <div className="text-xs font-bold text-gray800">
+                              <RichText text={str(ni.title)} />
+                            </div>
+                            {str(ni.summary) && (
+                              <p className="text-[11px] text-gray600 leading-relaxed">
+                                <RichText text={str(ni.summary)} />
+                              </p>
+                            )}
+                            {niPage && (
+                              <button
+                                type="button"
+                                onClick={() => onNavigate(niPage)}
+                                className="inline-flex items-center gap-1 text-[11px] font-bold cursor-pointer hover:underline pt-0.5"
+                                style={{ color: tokens.primaryAccent }}
+                              >
+                                <span>Open insight</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {arr<string>(c.tags).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {arr<string>(c.tags).map((t, ti) => (
+                        <span
+                          key={ti}
+                          className="text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                          style={{
+                            backgroundColor: tokens.tagBg,
+                            color: tokens.tagText,
+                          }}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {(targetPage || targetUrl) && (
+                  <div className="pt-1">
+                    {targetPage ? (
+                      <button
+                        type="button"
+                        data-report-action="primary"
+                        onClick={() => onNavigate(targetPage)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white cursor-pointer"
+                        style={{ backgroundColor: accent }}
+                      >
+                        <span>{str(c.ctaLabel, "Explore")}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    ) : (
+                      <a
+                        href={targetUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold border border-gray200 text-gray800 hover:bg-gray-50 no-underline"
+                      >
+                        <span>{str(c.ctaLabel, "Open Link")}</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
+  if (bType === "master_detail") {
+    return (
+      <RichMasterDetailBlock
+        block={block}
+        tokens={tokens}
+        onNavigate={onNavigate}
+      />
+    );
+  }
+
+  if (bType === "strategy_cards") {
+    const cols = num(block.columns, 2);
+    const gridCls =
+      cols === 3
+        ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        : "grid-cols-1 lg:grid-cols-2";
+    return (
+      <section className={`grid gap-6 ${gridCls}`}>
+        {arr<JsonObj>(block.items).map((st, si) => {
+          const accent = str(st.color) || tokens.primaryAccent;
+          return (
+            <article
+              key={si}
+              className="bg-white rounded-2xl border border-gray200 border-t-8 p-6 space-y-4 flex flex-col justify-between"
+              style={{ borderTopColor: accent }}
+            >
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span
+                    className="text-[11px] font-bold uppercase px-3 py-1 rounded-full text-white"
+                    style={{ backgroundColor: accent }}
+                  >
+                    {str(st.badge, `STRATEGY ${si + 1}`)}
+                  </span>
+                  {str(st.sectorLabel) && (
+                    <span
+                      className="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: tokens.tagBg,
+                        color: tokens.tagText,
+                      }}
+                    >
+                      {str(st.sectorLabel)}
+                    </span>
+                  )}
+                </div>
+
+                <h3
+                  className="text-lg font-bold leading-snug"
+                  style={{ color: tokens.headingColor }}
+                >
+                  <RichText text={str(st.title)} />
+                </h3>
+
+                {str(st.intro) && (
+                  <p className="text-xs sm:text-sm text-gray600 leading-relaxed">
+                    <RichText text={str(st.intro)} />
+                  </p>
+                )}
+
+                {(str(st.workforceInsight) || str(st.jscFunction)) && (
+                  <div
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-3 rounded-xl border text-xs"
+                    style={{
+                      backgroundColor: tokens.surfaceBg,
+                      borderColor: tokens.borderColor,
+                    }}
+                  >
+                    {str(st.workforceInsight) && (
+                      <div>
+                        <span className="font-bold block text-gray800">
+                          Workforce Insight
+                        </span>
+                        <span className="text-gray600">
+                          <RichText text={str(st.workforceInsight)} />
+                        </span>
+                      </div>
+                    )}
+                    {str(st.jscFunction) && (
+                      <div>
+                        <span className="font-bold block text-gray800">
+                          JSC Function
+                        </span>
+                        <span className="text-gray600">
+                          <RichText text={str(st.jscFunction)} />
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {str(st.objective) && (
+                  <div className="text-xs sm:text-sm text-gray600">
+                    <strong className="text-gray800">Objective: </strong>
+                    <RichText text={str(st.objective)} />
+                  </div>
+                )}
+
+                {arr<string>(st.approach).length > 0 && (
+                  <div className="space-y-1 text-xs sm:text-sm text-gray600">
+                    <div className="font-bold text-gray800">Approach</div>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {arr<string>(st.approach).map((a, ai) => (
+                        <li key={ai}>
+                          <RichText text={a} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {arr<string>(st.deliverable).length > 0 && (
+                  <div className="space-y-1 text-xs sm:text-sm text-gray600">
+                    <div className="font-bold text-gray800">Deliverables</div>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {arr<string>(st.deliverable).map((d, di) => (
+                        <li key={di}>
+                          <RichText text={d} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {str(st.impact) && (
+                  <div className="text-xs sm:text-sm text-gray600">
+                    <strong className="text-gray800">Expected Impact: </strong>
+                    <RichText text={str(st.impact)} />
+                  </div>
+                )}
+
+                {str(st.timing) && (
+                  <div className="text-xs sm:text-sm text-gray600">
+                    <strong className="text-gray800">Timing: </strong>
+                    <RichText text={str(st.timing)} />
+                  </div>
+                )}
+
+                {arr<string>(st.stakeholders).length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {arr<string>(st.stakeholders).map((sh, shi) => (
+                      <span
+                        key={shi}
+                        className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full border"
+                        style={{
+                          backgroundColor: tokens.tagBg,
+                          borderColor: tokens.borderColor,
+                          color: tokens.tagText,
+                        }}
+                      >
+                        {sh}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {str(st.appendixPageType) && (
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    data-report-action="primary"
+                    onClick={() => onNavigate(str(st.appendixPageType))}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white cursor-pointer"
+                    style={{ backgroundColor: accent }}
+                  >
+                    <span>{str(st.appendixLabel, "Open Strategy Detail")}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+    );
+  }
+
+  if (bType === "accordions") {
+    return (
+      <RichAccordionsBlock
+        block={block}
+        data={data}
+        tokens={tokens}
+        onNavigate={onNavigate}
+        onPresent={onPresent}
+      />
+    );
+  }
+
+  if (bType === "state_explorer") {
+    return (
+      <RichStateExplorerBlock
+        block={block}
+        subSectorCode={data.page.subSectorCode ?? null}
+        pageType={data.page.pageType}
+        tokens={tokens}
+        onPresent={onPresent}
+      />
+    );
+  }
+
+  if (bType === "downloads_list") {
+    const currentUrl = str(block.currentPdfUrl) || data.report.pdfFileUrl || "";
+    const previous =
+      arr<JsonObj>(block.previousReports).length > 0
+        ? arr<JsonObj>(block.previousReports)
+        : (data.report.previousPdfs || []).map((p) => ({
+            year: p.year,
+            title: p.title,
+            url: p.url,
+          }));
+    return (
+      <section className="space-y-6">
+        <div className="bg-white rounded-2xl border border-gray200 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h2
+              className="text-xl font-bold"
+              style={{ color: tokens.headingColor }}
+            >
+              {str(block.currentReportTitle, data.report.title)}
+            </h2>
+            {str(block.currentReportDescription) && (
+              <p className="text-xs sm:text-sm text-gray600">
+                <RichText text={str(block.currentReportDescription)} />
+              </p>
+            )}
+          </div>
+          {currentUrl && (
+            <a
+              href={currentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-report-action="download"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold shrink-0 no-underline"
+              style={{
+                backgroundColor: tokens.primaryAccent,
+                color: "#FFFFFF",
+              }}
+            >
+              <Download className="w-4 h-4" />
+              <span>Download PDF Report</span>
+            </a>
+          )}
+        </div>
+
+        {previous.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray200 p-6 space-y-3">
+            <h3 className="text-base font-bold text-gray800">
+              Previous Editions & Reference Documents
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {previous.map((pr, pi) => (
+                <a
+                  key={pi}
+                  href={str(pr.url, "#")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray200 bg-[#FAFAF0] hover:border-[#8AC900] transition-colors no-underline"
+                >
+                  <div>
+                    {str(pr.year) && (
+                      <div
+                        className="text-[11px] font-bold uppercase"
+                        style={{ color: tokens.eyebrowColor }}
+                      >
+                        {str(pr.year)} Edition
+                      </div>
+                    )}
+                    <div className="text-sm font-bold text-gray800">
+                      {str(pr.title)}
+                    </div>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-gray600 shrink-0" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {str(block.referencesNote) && (
+          <div className="bg-white rounded-2xl border border-gray200 p-5 text-xs sm:text-sm text-gray600 leading-relaxed">
+            <RichText text={str(block.referencesNote)} />
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  return null;
+}
+
+function RichExtractedPageView({
+  data,
+  content,
+  tokens,
+  onNavigate,
+  onPresent,
+}: {
+  data: PublicReportPageResponse;
+  content: JsonObj;
+  tokens: SectorVisualTokens;
+  onNavigate: (pageType: string) => void;
+  onPresent: (title: string, node: React.ReactNode) => void;
+}) {
+  const { page, report } = data;
+  const badge = str(content.badge);
+  const headerTitle = str(content.headerTitle, page.title);
+  const leadParagraphs = arr<string>(content.leadParagraphs);
+  const jurisdictionNav = arr<JsonObj>(content.jurisdictionNav);
+  const insightPager = (content.insightPager || null) as JsonObj | null;
+  const prevNav = (content.prevNav || null) as JsonObj | null;
+  const nextNav = (content.nextNav || null) as JsonObj | null;
+  const blocks = arr<JsonObj>(content.blocks);
+
+  return (
+    <div className="space-y-6">
+      {insightPager && (
+        <div
+          className="bg-white rounded-2xl border px-5 py-3.5 flex flex-wrap items-center justify-between gap-3"
+          style={{ borderColor: tokens.borderColor }}
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            {str(insightPager.backPageType) && (
+              <button
+                type="button"
+                onClick={() => onNavigate(str(insightPager.backPageType))}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border cursor-pointer hover:opacity-90"
+                style={{
+                  backgroundColor: tokens.surfaceBg,
+                  borderColor: tokens.borderColor,
+                  color: tokens.headingColor,
+                }}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>{str(insightPager.backLabel, "Back")}</span>
+              </button>
+            )}
+            {str(insightPager.label) && (
+              <span
+                className="text-xs font-bold px-3 py-1 rounded-full"
+                style={{ backgroundColor: tokens.tagBg, color: tokens.tagText }}
+              >
+                {str(insightPager.label)}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {str(insightPager.prevPageType) && (
+              <button
+                type="button"
+                onClick={() => onNavigate(str(insightPager.prevPageType))}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border border-gray200 bg-white hover:bg-gray-50 text-gray800 cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>{str(insightPager.prevLabel, "Previous")}</span>
+              </button>
+            )}
+            {str(insightPager.nextPageType) && (
+              <button
+                type="button"
+                data-report-action="primary"
+                onClick={() => onNavigate(str(insightPager.nextPageType))}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold text-white cursor-pointer"
+                style={{ backgroundColor: tokens.primaryAccent }}
+              >
+                <span>{str(insightPager.nextLabel, "Next")}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      <header className="bg-white rounded-2xl border border-gray200 p-6 sm:p-8 space-y-4">
+        {badge && (
+          <span
+            className="inline-block text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border"
+            style={{
+              backgroundColor: tokens.tagBg,
+              color: tokens.tagText,
+              borderColor: tokens.borderColor,
+            }}
+          >
+            {badge}
+          </span>
+        )}
+        <h1
+          className="text-2xl sm:text-3xl font-bold leading-tight"
+          style={{ color: tokens.headingColor }}
+        >
+          <RichText text={headerTitle} />
+        </h1>
+        {leadParagraphs.length > 0 && (
+          <div className="space-y-3 text-sm sm:text-base text-gray600 leading-relaxed">
+            {leadParagraphs.map((p, idx) => (
+              <p key={idx}>
+                <RichText text={p} />
+              </p>
+            ))}
+          </div>
+        )}
+
+        {page.pageType.toLowerCase() === "introduction" && report.pdfFileUrl && (
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a
+              data-report-action="download"
+              href={report.pdfFileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold no-underline"
+              style={{
+                backgroundColor: tokens.primaryAccent,
+                color: "#FFFFFF",
+              }}
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Full Report PDF</span>
+            </a>
+            {report.psaSectorPageUrl && (
+              <a
+                href={report.psaSectorPageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold border border-gray200 bg-white text-gray800 hover:bg-gray-50 no-underline"
+              >
+                <span>Public Skills Australia Website</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
+        )}
+
+        {jurisdictionNav.length > 0 && (
+          <div className="pt-2 border-t border-gray200 flex flex-wrap items-center gap-2">
+            {jurisdictionNav.map((jn, ji) => {
+              const jCode = str(jn.code);
+              const jPage = str(jn.pageType);
+              const active = jPage === page.pageType;
+              return (
+                <button
+                  key={ji}
+                  type="button"
+                  onClick={() => onNavigate(jPage)}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer"
+                  style={
+                    active
+                      ? {
+                          backgroundColor: tokens.primaryAccent,
+                          borderColor: tokens.primaryAccent,
+                          color: "#FFFFFF",
+                        }
+                      : {
+                          backgroundColor: tokens.surfaceBg,
+                          borderColor: tokens.borderColor,
+                          color: tokens.headingColor,
+                        }
+                  }
+                >
+                  {jCode}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </header>
+
+      <div className="space-y-6">
+        {blocks.map((block, idx) => (
+          <RichSingleBlock
+            key={str(block.id, `blk-${idx}`)}
+            block={block}
+            data={data}
+            tokens={tokens}
+            onNavigate={onNavigate}
+            onPresent={onPresent}
+          />
+        ))}
+      </div>
+
+      {(prevNav || nextNav) && (
+        <div className="bg-white rounded-2xl border border-gray200 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            {prevNav && str(prevNav.pageType) && (
+              <button
+                type="button"
+                onClick={() => onNavigate(str(prevNav.pageType))}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold border border-gray200 bg-[#FAFAF0] text-gray800 hover:bg-gray-100 cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>{str(prevNav.label, "Previous")}</span>
+              </button>
+            )}
+          </div>
+          <div>
+            {nextNav && str(nextNav.pageType) && (
+              <button
+                type="button"
+                data-report-action="primary"
+                onClick={() => onNavigate(str(nextNav.pageType))}
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold text-white cursor-pointer"
+                style={{ backgroundColor: tokens.primaryAccent }}
+              >
+                <span>{str(nextNav.label, "Next")}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

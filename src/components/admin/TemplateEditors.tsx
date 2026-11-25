@@ -550,6 +550,10 @@ export default function TemplateEditor({
 }) {
   const patch = (p: JsonObj) => onChange({ ...content, ...p });
 
+  if (str(content.renderMode) === "rich_page") {
+    return <RichPageBlocksEditor content={content} onChange={onChange} />;
+  }
+
   // Shared-capable pages
   if (
     pageType === "about" ||
@@ -1287,6 +1291,17 @@ export default function TemplateEditor({
                         }}
                         placeholder="Insight card summary"
                       />
+                      <Input
+                        value={str(ins.targetPageType)}
+                        onChange={(v) => {
+                          const nextIns = [...insights];
+                          nextIns[iIdx] = { ...ins, targetPageType: v };
+                          const n = [...themes];
+                          n[tIdx] = { ...t, insights: nextIns };
+                          patch({ themes: n });
+                        }}
+                        placeholder="Optional Target Page Key (e.g. workforce_insight_1)"
+                      />
                     </div>
                   ))}
                 </div>
@@ -1873,6 +1888,816 @@ function ChartListEditor({
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function StringListEditor({
+  label,
+  items,
+  onChange,
+  multiline = true,
+  addLabel = "Add Item",
+}: {
+  label: string;
+  items: string[];
+  onChange: (next: string[]) => void;
+  multiline?: boolean;
+  addLabel?: string;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between gap-2">
+        <FieldLabel>{label}</FieldLabel>
+        <button
+          type="button"
+          onClick={() => onChange([...items, ""])}
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0F5DF] border border-[#B2DB79] text-[#416102] text-[11px] font-bold cursor-pointer"
+        >
+          <Plus className="w-3 h-3" /> {addLabel}
+        </button>
+      </div>
+      {items.map((item, idx) => (
+        <div key={idx} className="flex items-start gap-2">
+          <div className="flex-1">
+            {multiline ? (
+              <Textarea
+                rows={2}
+                value={item}
+                onChange={(v) => {
+                  const next = [...items];
+                  next[idx] = v;
+                  onChange(next);
+                }}
+              />
+            ) : (
+              <Input
+                value={item}
+                onChange={(v) => {
+                  const next = [...items];
+                  next[idx] = v;
+                  onChange(next);
+                }}
+              />
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={() => onChange(items.filter((_, i) => i !== idx))}
+            className="text-red-600 p-1.5 cursor-pointer"
+            title="Remove"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RichBlockJsonFallback({
+  block,
+  onChange,
+}: {
+  block: JsonObj;
+  onChange: (next: JsonObj) => void;
+}) {
+  const [raw, setRaw] = React.useState(() => JSON.stringify(block, null, 2));
+  const [err, setErr] = React.useState("");
+
+  React.useEffect(() => {
+    setRaw(JSON.stringify(block, null, 2));
+    setErr("");
+  }, [block]);
+
+  return (
+    <div className="space-y-1.5">
+      <FieldLabel>Block JSON Data (for advanced / nested fields)</FieldLabel>
+      <textarea
+        rows={10}
+        value={raw}
+        onChange={(e) => {
+          const val = e.target.value;
+          setRaw(val);
+          try {
+            const parsed = JSON.parse(val);
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+              setErr("");
+              onChange(parsed as JsonObj);
+            } else {
+              setErr("Root value must be a JSON object.");
+            }
+          } catch (parseErr) {
+            setErr(parseErr instanceof Error ? parseErr.message : "Invalid JSON");
+          }
+        }}
+        className="w-full px-3 py-2 rounded-lg border border-[#E5E8DA] font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#8AC900]"
+      />
+      {err && (
+        <div className="flex items-center gap-1.5 text-xs text-red-600 font-semibold">
+          <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+          <span>{err}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function createEmptyRichBlock(type: string): JsonObj {
+  const id = `${type}-${Date.now()}`;
+  switch (type) {
+    case "narrative":
+      return { id, type, title: "New Narrative Section", paragraphs: [""] };
+    case "industry_insight":
+      return { id, type, badge: "INDUSTRY INSIGHT", title: "Key Insight", paragraphs: [""] };
+    case "kpi_grid":
+      return { id, type, title: "Key Metrics", columns: 3, items: [{ label: "Metric", value: "0" }] };
+    case "chart":
+      return {
+        id,
+        type,
+        title: "New Chart",
+        subtitle: "",
+        chartType: "bar",
+        labels: ["2024", "2025", "2026"],
+        series: [{ name: "Series 1", values: [10, 20, 30] }],
+      };
+    case "table":
+      return {
+        id,
+        type,
+        title: "New Table",
+        headers: ["Column 1", "Column 2"],
+        rows: [["Row 1", "Value 1"]],
+      };
+    case "strategy_cards":
+      return {
+        id,
+        type,
+        columns: 2,
+        items: [{ badge: "STRATEGY 1", title: "New Strategy", objective: "" }],
+      };
+    case "link_cards":
+      return {
+        id,
+        type,
+        title: "Section Cards",
+        columns: 3,
+        cards: [{ number: "1", title: "New Card", summary: "" }],
+      };
+    case "master_detail":
+      return {
+        id,
+        type,
+        listTitle: "ITEMS · SELECT TO OPEN",
+        items: [{ code: "01", title: "New Item", summaryParagraphs: [""] }],
+      };
+    case "accordions":
+      return {
+        id,
+        type,
+        title: "Details",
+        items: [{ id: `item-${Date.now()}`, title: "Item 1", defaultOpen: true, summaryParagraphs: [""] }],
+      };
+    case "downloads_list":
+      return {
+        id,
+        type,
+        currentReportTitle: "Report PDF",
+        currentReportDescription: "Download the full PDF report.",
+        currentPdfUrl: "",
+        previousReports: [],
+      };
+    default:
+      return { id, type: "narrative", paragraphs: [""] };
+  }
+}
+
+function RichPageBlocksEditor({
+  content,
+  onChange,
+}: {
+  content: JsonObj;
+  onChange: (next: JsonObj) => void;
+}) {
+  const patch = (p: JsonObj) => onChange({ ...content, ...p });
+  const leadParagraphs = arr<string>(content.leadParagraphs);
+  const blocks = arr<JsonObj>(content.blocks);
+  const [newBlockType, setNewBlockType] = React.useState("narrative");
+  const [jsonModes, setJsonModes] = React.useState<Record<number, boolean>>({});
+
+  const updateBlock = (idx: number, nextBlock: JsonObj) => {
+    const copy = [...blocks];
+    copy[idx] = nextBlock;
+    patch({ blocks: copy });
+  };
+
+  const moveBlock = (idx: number, dir: -1 | 1) => {
+    const target = idx + dir;
+    if (target < 0 || target >= blocks.length) return;
+    const copy = [...blocks];
+    const [item] = copy.splice(idx, 1);
+    copy.splice(target, 0, item);
+    patch({ blocks: copy });
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="p-4 rounded-xl border border-[#E5E8DA] bg-[#FAFAF0] space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>Header Badge</FieldLabel>
+            <Input
+              value={str(content.badge)}
+              onChange={(v) => patch({ badge: v })}
+              placeholder="e.g. INTRODUCTION"
+            />
+          </div>
+          <div>
+            <FieldLabel>Page Header Title</FieldLabel>
+            <Input
+              value={str(content.headerTitle)}
+              onChange={(v) => patch({ headerTitle: v })}
+              placeholder="Page main title"
+            />
+          </div>
+        </div>
+        <StringListEditor
+          label="Lead Paragraphs (supports [[N]] citation markers)"
+          items={leadParagraphs}
+          onChange={(next) => patch({ leadParagraphs: next })}
+          addLabel="Add Lead Paragraph"
+        />
+      </div>
+
+      <div className="space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <FieldLabel>Page Content Blocks ({blocks.length})</FieldLabel>
+          <div className="flex items-center gap-2">
+            <select
+              value={newBlockType}
+              onChange={(e) => setNewBlockType(e.target.value)}
+              className="px-3 py-1.5 rounded-lg border border-[#E5E8DA] text-xs bg-white"
+            >
+              <option value="narrative">Narrative Section</option>
+              <option value="industry_insight">Industry Insight Box</option>
+              <option value="kpi_grid">KPI Grid</option>
+              <option value="chart">Chart (Bar / Line / Donut)</option>
+              <option value="table">Data Table</option>
+              <option value="strategy_cards">Strategy Cards</option>
+              <option value="link_cards">Link / Card Grid</option>
+              <option value="master_detail">Master-Detail List</option>
+              <option value="accordions">Accordions</option>
+              <option value="downloads_list">Downloads List</option>
+            </select>
+            <button
+              type="button"
+              onClick={() =>
+                patch({ blocks: [...blocks, createEmptyRichBlock(newBlockType)] })
+              }
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#8AC900] text-[#252D02] text-xs font-bold cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" /> Add Block
+            </button>
+          </div>
+        </div>
+
+        {blocks.map((block, idx) => {
+          const bType = str(block.type);
+          const isJson = !!jsonModes[idx];
+          const patchBlock = (p: JsonObj) => updateBlock(idx, { ...block, ...p });
+
+          return (
+            <div
+              key={str(block.id, `blk-${idx}`)}
+              className="p-4 rounded-xl border border-[#E5E8DA] bg-white space-y-3"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E5E8DA] pb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-[#F0F5DF] text-[#416102]">
+                    #{idx + 1} · {bType}
+                  </span>
+                  {str(block.title) && (
+                    <span className="text-xs font-semibold text-[#252D02] truncate max-w-[320px]">
+                      {str(block.title)}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setJsonModes((prev) => ({ ...prev, [idx]: !prev[idx] }))
+                    }
+                    className="px-2.5 py-1 rounded-md border border-[#E5E8DA] bg-[#FAFAF0] font-semibold text-[#535862] cursor-pointer"
+                  >
+                    {isJson ? "Visual Editor" : "Raw JSON"}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={idx === 0}
+                    onClick={() => moveBlock(idx, -1)}
+                    className="px-2 py-1 rounded-md border border-[#E5E8DA] disabled:opacity-40 cursor-pointer"
+                    title="Move Up"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    disabled={idx === blocks.length - 1}
+                    onClick={() => moveBlock(idx, 1)}
+                    className="px-2 py-1 rounded-md border border-[#E5E8DA] disabled:opacity-40 cursor-pointer"
+                    title="Move Down"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      patch({ blocks: blocks.filter((_, bi) => bi !== idx) })
+                    }
+                    className="text-red-600 px-2 py-1 font-bold cursor-pointer"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+
+              {isJson ? (
+                <RichBlockJsonFallback
+                  block={block}
+                  onChange={(nextB) => updateBlock(idx, nextB)}
+                />
+              ) : bType === "narrative" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Input
+                      value={str(block.badge)}
+                      onChange={(v) => patchBlock({ badge: v })}
+                      placeholder="Badge (optional)"
+                    />
+                    <Input
+                      value={str(block.title)}
+                      onChange={(v) => patchBlock({ title: v })}
+                      placeholder="Section Title"
+                    />
+                    <Input
+                      value={str(block.subtitle)}
+                      onChange={(v) => patchBlock({ subtitle: v })}
+                      placeholder="Subtitle (optional)"
+                    />
+                  </div>
+                  <StringListEditor
+                    label="Paragraphs"
+                    items={arr<string>(block.paragraphs)}
+                    onChange={(next) => patchBlock({ paragraphs: next })}
+                    addLabel="Add Paragraph"
+                  />
+                  <div>
+                    <FieldLabel>Bullet Points (one per line)</FieldLabel>
+                    <Textarea
+                      rows={3}
+                      value={arr<string>(block.bullets).join("\n")}
+                      onChange={(v) =>
+                        patchBlock({
+                          bullets: v ? v.split("\n").filter((l) => l.length > 0) : [],
+                        })
+                      }
+                    />
+                  </div>
+                  <Input
+                    value={str(block.note)}
+                    onChange={(v) => patchBlock({ note: v })}
+                    placeholder="Callout note (optional)"
+                  />
+                </div>
+              ) : bType === "industry_insight" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Input
+                      value={str(block.badge)}
+                      onChange={(v) => patchBlock({ badge: v })}
+                      placeholder="Badge"
+                    />
+                    <Input
+                      value={str(block.number)}
+                      onChange={(v) => patchBlock({ number: v })}
+                      placeholder="Number"
+                    />
+                    <Input
+                      value={str(block.title)}
+                      onChange={(v) => patchBlock({ title: v })}
+                      placeholder="Insight Title"
+                    />
+                  </div>
+                  <StringListEditor
+                    label="Paragraphs"
+                    items={arr<string>(block.paragraphs)}
+                    onChange={(next) => patchBlock({ paragraphs: next })}
+                    addLabel="Add Paragraph"
+                  />
+                  <div>
+                    <FieldLabel>Bullet Points (one per line)</FieldLabel>
+                    <Textarea
+                      rows={3}
+                      value={arr<string>(block.bullets).join("\n")}
+                      onChange={(v) =>
+                        patchBlock({
+                          bullets: v ? v.split("\n").filter((l) => l.length > 0) : [],
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              ) : bType === "kpi_grid" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Input
+                      value={str(block.title)}
+                      onChange={(v) => patchBlock({ title: v })}
+                      placeholder="KPI Grid Title (optional)"
+                    />
+                    <Input
+                      value={String(num(block.columns, 3))}
+                      onChange={(v) => patchBlock({ columns: Number(v) || 3 })}
+                      placeholder="Columns (2, 3, 4)"
+                    />
+                  </div>
+                  {arr<JsonObj>(block.items).map((kpi, ki) => (
+                    <div
+                      key={ki}
+                      className="grid grid-cols-1 sm:grid-cols-4 gap-2 p-2.5 rounded-lg bg-[#FAFAF0] border border-[#E5E8DA]"
+                    >
+                      <Input
+                        value={str(kpi.value)}
+                        onChange={(v) => {
+                          const n = [...arr<JsonObj>(block.items)];
+                          n[ki] = { ...kpi, value: v };
+                          patchBlock({ items: n });
+                        }}
+                        placeholder="Value"
+                      />
+                      <Input
+                        value={str(kpi.label)}
+                        onChange={(v) => {
+                          const n = [...arr<JsonObj>(block.items)];
+                          n[ki] = { ...kpi, label: v };
+                          patchBlock({ items: n });
+                        }}
+                        placeholder="Label"
+                      />
+                      <Input
+                        value={str(kpi.source)}
+                        onChange={(v) => {
+                          const n = [...arr<JsonObj>(block.items)];
+                          n[ki] = { ...kpi, source: v };
+                          patchBlock({ items: n });
+                        }}
+                        placeholder="Source"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          patchBlock({
+                            items: arr<JsonObj>(block.items).filter((_, i) => i !== ki),
+                          })
+                        }
+                        className="text-red-600 text-xs font-bold cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      patchBlock({
+                        items: [...arr<JsonObj>(block.items), { label: "", value: "" }],
+                      })
+                    }
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F0F5DF] border border-[#B2DB79] text-[#416102] text-xs font-bold cursor-pointer"
+                  >
+                    <Plus className="w-3 h-3" /> Add KPI Card
+                  </button>
+                </div>
+              ) : bType === "chart" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Input
+                      value={str(block.title)}
+                      onChange={(v) => patchBlock({ title: v })}
+                      placeholder="Chart Title"
+                    />
+                    <select
+                      value={str(block.chartType, "bar")}
+                      onChange={(e) => patchBlock({ chartType: e.target.value })}
+                      className="px-3 py-2 rounded-lg border border-[#E5E8DA] text-xs bg-white"
+                    >
+                      <option value="bar">Bar Chart</option>
+                      <option value="grouped_bar">Grouped Bar</option>
+                      <option value="horizontal_bar">Horizontal Bar</option>
+                      <option value="line">Line Chart</option>
+                      <option value="line_target">Line + Target</option>
+                      <option value="stacked_bar">Stacked Bar</option>
+                      <option value="donut">Donut Chart</option>
+                    </select>
+                    <Input
+                      value={str(block.valueSuffix)}
+                      onChange={(v) => patchBlock({ valueSuffix: v })}
+                      placeholder="Suffix (e.g. %)"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Input
+                      value={str(block.subtitle)}
+                      onChange={(v) => patchBlock({ subtitle: v })}
+                      placeholder="Subtitle"
+                    />
+                    <Input
+                      value={str(block.source)}
+                      onChange={(v) => patchBlock({ source: v })}
+                      placeholder="Source"
+                    />
+                  </div>
+                  <div>
+                    <FieldLabel>X-Axis Labels (comma separated)</FieldLabel>
+                    <Input
+                      value={arr<string>(block.labels).join(", ")}
+                      onChange={(v) =>
+                        patchBlock({
+                          labels: v.split(",").map((s) => s.trim()),
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <FieldLabel>Series Datasets</FieldLabel>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          patchBlock({
+                            series: [
+                              ...arr<JsonObj>(block.series),
+                              { name: "New Series", values: [] },
+                            ],
+                          })
+                        }
+                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0F5DF] border border-[#B2DB79] text-[#416102] text-[11px] font-bold cursor-pointer"
+                      >
+                        <Plus className="w-3 h-3" /> Add Series
+                      </button>
+                    </div>
+                    {arr<JsonObj>(block.series).map((ser, si) => (
+                      <div
+                        key={si}
+                        className="grid grid-cols-1 sm:grid-cols-4 gap-2 p-2.5 rounded-lg bg-[#FAFAF0] border border-[#E5E8DA]"
+                      >
+                        <Input
+                          value={str(ser.name)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.series)];
+                            n[si] = { ...ser, name: v };
+                            patchBlock({ series: n });
+                          }}
+                          placeholder="Series Name"
+                        />
+                        <Input
+                          value={str(ser.color)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.series)];
+                            n[si] = { ...ser, color: v };
+                            patchBlock({ series: n });
+                          }}
+                          placeholder="Hex Color (#046D2A)"
+                        />
+                        <Input
+                          value={arr<number>(ser.values).join(", ")}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.series)];
+                            n[si] = {
+                              ...ser,
+                              values: v.split(",").map((x) => Number(x.trim()) || 0),
+                            };
+                            patchBlock({ series: n });
+                          }}
+                          placeholder="Numbers: 10, 20, 30"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            patchBlock({
+                              series: arr<JsonObj>(block.series).filter((_, i) => i !== si),
+                            })
+                          }
+                          className="text-red-600 text-xs font-bold cursor-pointer"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : bType === "table" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Input
+                      value={str(block.title)}
+                      onChange={(v) => patchBlock({ title: v })}
+                      placeholder="Table Title"
+                    />
+                    <Input
+                      value={str(block.subtitle)}
+                      onChange={(v) => patchBlock({ subtitle: v })}
+                      placeholder="Subtitle"
+                    />
+                    <Input
+                      value={str(block.source)}
+                      onChange={(v) => patchBlock({ source: v })}
+                      placeholder="Source"
+                    />
+                  </div>
+                  <div className="overflow-x-auto border border-[#E5E8DA] rounded-lg">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="bg-[#FAFAF0]">
+                          {arr<string>(block.headers).map((h, hi) => (
+                            <th key={hi} className="p-1.5">
+                              <Input
+                                value={h}
+                                onChange={(v) => {
+                                  const nh = [...arr<string>(block.headers)];
+                                  nh[hi] = v;
+                                  patchBlock({ headers: nh });
+                                }}
+                              />
+                            </th>
+                          ))}
+                          <th className="w-16" />
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {arr<string[]>(block.rows).map((row, ri) => (
+                          <tr key={ri} className="border-t border-[#E5E8DA]">
+                            {row.map((cell, ci) => (
+                              <td key={ci} className="p-1.5">
+                                <Input
+                                  value={String(cell ?? "")}
+                                  onChange={(v) => {
+                                    const nr = arr<string[]>(block.rows).map((r) => [...r]);
+                                    nr[ri][ci] = v;
+                                    patchBlock({ rows: nr });
+                                  }}
+                                />
+                              </td>
+                            ))}
+                            <td className="p-1.5 text-center">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  patchBlock({
+                                    rows: arr<string[]>(block.rows).filter((_, i) => i !== ri),
+                                  })
+                                }
+                                className="text-red-600 text-xs font-bold cursor-pointer"
+                              >
+                                Del
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const colCount = Math.max(1, arr<string>(block.headers).length);
+                      patchBlock({
+                        rows: [...arr<string[]>(block.rows), Array(colCount).fill("")],
+                      });
+                    }}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F0F5DF] border border-[#B2DB79] text-[#416102] text-xs font-bold cursor-pointer"
+                  >
+                    <Plus className="w-3 h-3" /> Add Row
+                  </button>
+                </div>
+              ) : bType === "strategy_cards" ? (
+                <div className="space-y-3">
+                  {arr<JsonObj>(block.items).map((st, si) => (
+                    <div
+                      key={si}
+                      className="p-3 rounded-lg bg-[#FAFAF0] border border-[#E5E8DA] space-y-2"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <Input
+                          value={str(st.badge)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.items)];
+                            n[si] = { ...st, badge: v };
+                            patchBlock({ items: n });
+                          }}
+                          placeholder="Badge (STRATEGY 1)"
+                        />
+                        <Input
+                          value={str(st.title)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.items)];
+                            n[si] = { ...st, title: v };
+                            patchBlock({ items: n });
+                          }}
+                          placeholder="Strategy Title"
+                        />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            patchBlock({
+                              items: arr<JsonObj>(block.items).filter((_, i) => i !== si),
+                            })
+                          }
+                          className="text-red-600 text-xs font-bold cursor-pointer"
+                        >
+                          Remove Card
+                        </button>
+                      </div>
+                      <Textarea
+                        rows={2}
+                        value={str(st.objective)}
+                        onChange={(v) => {
+                          const n = [...arr<JsonObj>(block.items)];
+                          n[si] = { ...st, objective: v };
+                          patchBlock({ items: n });
+                        }}
+                        placeholder="Objective"
+                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <Input
+                          value={str(st.workforceInsight)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.items)];
+                            n[si] = { ...st, workforceInsight: v };
+                            patchBlock({ items: n });
+                          }}
+                          placeholder="Workforce Insight"
+                        />
+                        <Input
+                          value={str(st.jscFunction)}
+                          onChange={(v) => {
+                            const n = [...arr<JsonObj>(block.items)];
+                            n[si] = { ...st, jscFunction: v };
+                            patchBlock({ items: n });
+                          }}
+                          placeholder="JSC Function"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      patchBlock({
+                        items: [
+                          ...arr<JsonObj>(block.items),
+                          { badge: "NEW STRATEGY", title: "", objective: "" },
+                        ],
+                      })
+                    }
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F0F5DF] border border-[#B2DB79] text-[#416102] text-xs font-bold cursor-pointer"
+                  >
+                    <Plus className="w-3 h-3" /> Add Strategy Card
+                  </button>
+                </div>
+              ) : bType === "downloads_list" ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Input
+                      value={str(block.currentReportTitle)}
+                      onChange={(v) => patchBlock({ currentReportTitle: v })}
+                      placeholder="Current Report Title"
+                    />
+                    <Input
+                      value={str(block.currentPdfUrl)}
+                      onChange={(v) => patchBlock({ currentPdfUrl: v })}
+                      placeholder="Current PDF URL"
+                    />
+                  </div>
+                  <Textarea
+                    rows={2}
+                    value={str(block.currentReportDescription)}
+                    onChange={(v) => patchBlock({ currentReportDescription: v })}
+                    placeholder="Description"
+                  />
+                </div>
+              ) : (
+                <RichBlockJsonFallback
+                  block={block}
+                  onChange={(nextB) => updateBlock(idx, nextB)}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

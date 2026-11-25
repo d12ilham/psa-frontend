@@ -203,9 +203,20 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
 
   const normalizedType = req.params.pageType.toLowerCase().trim();
   const PAGE_ALIASES: Record<string, string> = {
+    workforce_insights_1: "workforce_insight_1",
+    workforce_insights_2: "workforce_insight_2",
+    workforce_insights_3: "workforce_insight_3",
+    "theme1-insight1": "theme1_insight_1",
+    "theme1-insight2": "theme1_insight_2",
+    "theme1-insight3": "theme1_insight_3",
+    "theme2-insight1": "theme2_insight_1",
+    "theme2-insight2": "theme2_insight_2",
+    "theme2-insight3": "theme2_insight_3",
+    "theme2-insight4": "theme2_insight_4",
+    update_strategies: "update_2025_strategies",
     update_2025_strategies: "update_strategies",
     update_2024_strategies: "update_strategies",
-    workforce_strategies_2025: "update_strategies",
+    workforce_strategies_2025: "update_2025_strategies",
     state_territory: "industry_profile",
     industry_profile_presentation: "industry_profile",
     workforce_insights_2026: "workforce_insights",
@@ -220,9 +231,9 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
     download: "downloads",
     police_proposed_strategies_summary: "workforce_strategies",
     police_federal_initiatives: "federal_initiatives",
-    defence: "industry_overview",
-    fes: "industry_overview",
-    police: "industry_overview",
+    defence: "defence_industry_overview",
+    fes: "fes_industry_overview",
+    police: "police_industry_overview",
   };
 
   let page = report.pages.find(
@@ -231,10 +242,15 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
   let inferredSubSector: string | null = null;
 
   if (!page) {
-    const resolvePatternTarget = (raw: string): string | undefined => {
-      if (PAGE_ALIASES[raw]) return PAGE_ALIASES[raw];
+    const findByKey = (key: string | undefined) =>
+      key
+        ? report.pages.find((p) => p.pageType.toLowerCase() === key)
+        : undefined;
 
-      // Strip sub-sector prefixes (defence_*, fes_*, police_*) first
+    const tryResolve = (raw: string) => {
+      const candidates: string[] = [];
+      if (PAGE_ALIASES[raw]) candidates.push(PAGE_ALIASES[raw]);
+
       const stripped = raw.startsWith("defence_")
         ? raw.replace(/^defence_/, "")
         : raw.startsWith("fes_")
@@ -243,27 +259,39 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
             ? raw.replace(/^police_/, "")
             : raw;
 
-      if (PAGE_ALIASES[stripped]) return PAGE_ALIASES[stripped];
+      if (stripped !== raw) {
+        candidates.push(stripped);
+        if (PAGE_ALIASES[stripped]) candidates.push(PAGE_ALIASES[stripped]);
+      }
 
-      if (stripped.endsWith("_federal_initiatives")) return "federal_initiatives";
+      if (raw === "defence" || raw === "fes" || raw === "police") {
+        candidates.push("industry_overview");
+      }
+      if (stripped.endsWith("_federal_initiatives")) {
+        candidates.push("federal_initiatives");
+      }
       if (
         stripped.startsWith("workforce_insight_") ||
         (stripped.startsWith("workforce_insights_") &&
           stripped !== "workforce_insights_2026")
       ) {
-        return "workforce_insights_detail";
+        candidates.push("workforce_insights_detail");
       }
-      if (stripped.startsWith("industry_profile_")) return "industry_profile";
+      if (stripped.startsWith("industry_profile_")) {
+        candidates.push("industry_profile");
+      }
       if (
         stripped.startsWith("update_2024_") ||
         stripped.startsWith("update_2025_")
       ) {
-        return "update_strategies";
+        candidates.push("update_2025_strategies", "update_strategies");
       }
-      if (stripped.startsWith("cross_sector_")) return "cross_sector_analysis";
-      if (stripped.startsWith("driver_")) return "drivers_of_change";
-
-      // Public Safety sub-sector supporting insight detail pages
+      if (stripped.startsWith("cross_sector_")) {
+        candidates.push("cross_sector_analysis");
+      }
+      if (stripped.startsWith("driver_")) {
+        candidates.push("drivers_of_change");
+      }
       if (
         stripped.startsWith("emerging_technology") ||
         stripped.startsWith("transitioning_veterans") ||
@@ -274,10 +302,14 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
         stripped.startsWith("regional_remote_leadership") ||
         stripped.startsWith("contextualisation")
       ) {
-        return "workforce_insights_detail";
+        candidates.push("workforce_insights_detail");
       }
 
-      return stripped !== raw ? stripped : undefined;
+      for (const cand of candidates) {
+        const match = findByKey(cand);
+        if (match) return match;
+      }
+      return undefined;
     };
 
     if (normalizedType === "defence" || normalizedType.startsWith("defence_")) {
@@ -288,12 +320,7 @@ router.get("/reports/:slug/pages/:pageType", async (req, res) => {
       inferredSubSector = "POL";
     }
 
-    const mappedTarget = resolvePatternTarget(normalizedType);
-    if (mappedTarget) {
-      page = report.pages.find(
-        (p) => p.pageType.toLowerCase() === mappedTarget
-      );
-    }
+    page = tryResolve(normalizedType);
   }
 
   if (!page) {

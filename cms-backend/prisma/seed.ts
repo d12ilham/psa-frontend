@@ -1,4 +1,6 @@
 import "dotenv/config";
+import fs from "node:fs";
+import path from "node:path";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import {
@@ -7,13 +9,63 @@ import {
   DEFAULT_SHARED_TEMPLATES,
   GLOBAL_PSA_BRAND_PALETTE,
   SECTOR_SEEDS,
-  buildDefaultPagesForSector,
 } from "../src/lib/templateDefaults";
+
+interface SeedData2026 {
+  reports: Array<{
+    sectorCode: string;
+    year: number;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    coverImageUrl: string;
+    pdfFileUrl: string;
+    previousPdfs: Array<{ year: string; title: string; url: string }>;
+    psaSectorPageUrl: string;
+    contactUrl: string;
+    landingIntroDesc: string;
+    landingExecDesc: string;
+    pages: Array<{
+      pageType: string;
+      title: string;
+      slug: string;
+      sortOrder: number;
+      isVisible: boolean;
+      paletteMode: string;
+      subSectorCode: string | null;
+      layoutVariant: string;
+      content: Record<string, unknown>;
+      footnotes: unknown[];
+    }>;
+  }>;
+  sourceLinks: Array<{
+    label: string;
+    sourceName: string;
+    url: string;
+    openInNewTab?: boolean;
+  }>;
+}
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding PSA DWIR CMS database...");
+
+  const seedFile = path.join(__dirname, "seed-data-2026.json");
+  const extracted: SeedData2026 = JSON.parse(
+    fs.readFileSync(seedFile, "utf8")
+  );
+  const fedJsonPath = path.resolve(__dirname, "../../src/data/federalInitiatives.json");
+  const fed2026Items = fs.existsSync(fedJsonPath)
+    ? (JSON.parse(fs.readFileSync(fedJsonPath, "utf8")) as Array<{
+        id: number;
+        number: string;
+        title: string;
+        subtitle: string;
+        description: string;
+        impactDescription: string;
+      }>)
+    : [];
 
   // 1. Seed Users
   const adminPasswordHash = await bcrypt.hash("Admin123!", 10);
@@ -61,118 +113,121 @@ async function main() {
 
   // 3. Seed Shared Templates (About PSA, Drivers of Change, Federal Initiatives)
   for (const tpl of Object.values(DEFAULT_SHARED_TEMPLATES)) {
+    let tplContent: Record<string, unknown> = tpl.content;
+    if (tpl.key === "federal_initiatives" && fed2026Items.length > 0) {
+      tplContent = {
+        ...tpl.content,
+        initiatives: fed2026Items.map((it) => ({
+          id: `fed-${it.number}`,
+          code: it.number,
+          listSubtitle: it.subtitle,
+          title: it.title,
+          dateRange: "",
+          paragraphs: it.description.split(/\n\n+/).filter(Boolean),
+          howItInformsHeading: "HOW THIS INFORMS PUBLIC SKILLS AUSTRALIA'S WORK",
+          howItInformsText: it.impactDescription,
+        })),
+      };
+    }
     await prisma.sharedTemplateContent.upsert({
       where: { key: tpl.key },
-      update: {},
+      update: {
+        title: tpl.title,
+        contentJson: JSON.stringify(tplContent),
+      },
       create: {
         key: tpl.key,
         title: tpl.title,
-        contentJson: JSON.stringify(tpl.content),
+        contentJson: JSON.stringify(tplContent),
       },
     });
   }
 
-  // 4. Seed Reusable Source Links
-  const existingSources = await prisma.sourceLink.count();
-  if (existingSources === 0) {
-    await prisma.sourceLink.createMany({
-      data: [
-        {
-          label: "Jobs and Skills Australia, Occupation Shortage List, 2025",
-          sourceName: "Jobs and Skills Australia (JSA)",
-          url: "https://www.jobsandskills.gov.au/",
-          publisher: "Jobs and Skills Australia",
-          referenceYear: 2026,
-          openInNewTab: true,
-        },
-        {
-          label: "ABS Census & Labour Force Data, Australian Bureau of Statistics, 2025",
-          sourceName: "Australian Bureau of Statistics (ABS)",
-          url: "https://www.abs.gov.au/",
-          publisher: "ABS",
-          referenceYear: 2026,
-          openInNewTab: true,
-        },
-        {
-          label: "NCVER Total VET Students and Courses (VOCSTATS data set), 2025",
-          sourceName: "National Centre for Vocational Education Research (NCVER)",
-          url: "https://www.ncver.edu.au/",
-          publisher: "NCVER",
-          referenceYear: 2026,
-          openInNewTab: true,
-        },
-        {
-          label: "Productivity Commission, Report on Government Services, 2026",
-          sourceName: "Productivity Commission",
-          url: "https://www.pc.gov.au/ongoing/report-on-government-services/",
-          publisher: "Productivity Commission",
-          referenceYear: 2026,
-          openInNewTab: true,
-        },
-      ],
-    });
+  // 4. Seed Reusable Source Links (deduplicated)
+  const baselineSources = [
+    {
+      label: "Jobs and Skills Australia, Occupation Shortage List, 2025",
+      sourceName: "Jobs and Skills Australia (JSA)",
+      url: "https://www.jobsandskills.gov.au/",
+      publisher: "Jobs and Skills Australia",
+      referenceYear: 2026,
+      openInNewTab: true,
+    },
+    {
+      label: "ABS Census & Labour Force Data, Australian Bureau of Statistics, 2025",
+      sourceName: "Australian Bureau of Statistics (ABS)",
+      url: "https://www.abs.gov.au/",
+      publisher: "ABS",
+      referenceYear: 2026,
+      openInNewTab: true,
+    },
+    {
+      label: "NCVER Total VET Students and Courses (VOCSTATS data set), 2025",
+      sourceName: "National Centre for Vocational Education Research (NCVER)",
+      url: "https://www.ncver.edu.au/",
+      publisher: "NCVER",
+      referenceYear: 2026,
+      openInNewTab: true,
+    },
+    {
+      label: "Productivity Commission, Report on Government Services, 2026",
+      sourceName: "Productivity Commission",
+      url: "https://www.pc.gov.au/ongoing/report-on-government-services/",
+      publisher: "Productivity Commission",
+      referenceYear: 2026,
+      openInNewTab: true,
+    },
+  ];
+  const existingSourceRows = await prisma.sourceLink.findMany({
+    select: { label: true, url: true },
+  });
+  const seenLabels = new Set(existingSourceRows.map((r) => r.label.toLowerCase()));
+  const seenUrls = new Set(existingSourceRows.map((r) => r.url.toLowerCase()));
+
+  const combinedSources = [
+    ...baselineSources,
+    ...extracted.sourceLinks.map((s) => ({
+      label: s.label,
+      sourceName: s.sourceName,
+      url: s.url,
+      publisher: s.sourceName,
+      referenceYear: 2026,
+      openInNewTab: s.openInNewTab ?? true,
+    })),
+  ];
+  const toInsertSources = [];
+  for (const src of combinedSources) {
+    const lk = src.label.toLowerCase();
+    const uk = src.url.toLowerCase();
+    if (!seenLabels.has(lk) && !seenUrls.has(uk)) {
+      seenLabels.add(lk);
+      seenUrls.add(uk);
+      toInsertSources.push(src);
+    }
+  }
+  if (toInsertSources.length > 0) {
+    await prisma.sourceLink.createMany({ data: toInsertSources });
   }
 
-  // 5. Seed Sectors & Baseline 2026 Reports
-  const reportSeedConfigs: Record<
-    string,
-    { slug: string; pdfUrl: string; previousPdfs: Array<{ year: string; title: string; url: string }> }
-  > = {
-    "local-government": {
-      slug: "local-government-workforce-insights-report",
-      pdfUrl: "https://psa-directus-prod.azurewebsites.net/assets/895e9b7a-2c55-4531-95a1-dafa90b60a1c.pdf",
-      previousPdfs: [
-        {
-          year: "2025",
-          title: "2025 Local Government Workforce Insights Report",
-          url: "https://publicskillsaustralia.org.au",
-        },
-        {
-          year: "2024",
-          title: "2024 Federal, State/Territory & Local Government Workforce Plan",
-          url: "https://publicskillsaustralia.org.au",
-        },
-      ],
-    },
-    "public-safety": {
-      slug: "public-safety-wir-2026",
-      pdfUrl: "https://psa-directus-prod.azurewebsites.net/assets/b3a99498-8d9f-4275-aa00-fcf73274d2ce.pdf",
-      previousPdfs: [
-        {
-          year: "2025",
-          title: "2025 Public Safety Workforce Insights Report",
-          url: "https://publicskillsaustralia.org.au",
-        },
-      ],
-    },
-    "federal-state": {
-      slug: "federal-state-territory-wir-2026",
-      pdfUrl: "https://psa-directus-prod.azurewebsites.net/assets/51b5fe57-c571-427b-ae72-917b57603b4b.pdf",
-      previousPdfs: [
-        {
-          year: "2025",
-          title: "2025 Federal and State/Territory Government Workforce Insights Report",
-          url: "https://publicskillsaustralia.org.au",
-        },
-      ],
-    },
-    "correctional-services": {
-      slug: "correctional-services-wir-2026",
-      pdfUrl: "https://psa-directus-prod.azurewebsites.net/assets/d5e36137-5d7a-4012-bd9e-c2b33b0bf232.pdf",
-      previousPdfs: [
-        {
-          year: "2025",
-          title: "2025 Correctional Services Workforce Insights Report",
-          url: "https://publicskillsaustralia.org.au",
-        },
-      ],
-    },
-  };
-
+  // 5. Seed Sectors & Verbatim 2026 Reports
+  const sectorMap = new Map<string, string>();
   for (const s of SECTOR_SEEDS) {
     const sector = await prisma.sector.upsert({
       where: { code: s.code },
-      update: {},
+      update: {
+        name: s.name,
+        badgeText: s.badgeText,
+        shortCode: s.shortCode,
+        subtitle: s.subtitle,
+        primaryColor: s.primaryColor,
+        secondaryColor: s.secondaryColor,
+        accentColor: s.accentColor,
+        surfaceTint: s.surfaceTint,
+        borderTint: s.borderTint,
+        headerBg: s.headerBg,
+        defaultCoverImage: s.defaultCoverImage,
+        subSectorsJson: JSON.stringify(s.subSectors),
+      },
       create: {
         code: s.code,
         slug: s.slug,
@@ -190,38 +245,70 @@ async function main() {
         subSectorsJson: JSON.stringify(s.subSectors),
       },
     });
+    sectorMap.set(s.code, sector.id);
+  }
 
-    const cfg = reportSeedConfigs[s.code];
-    const existingReport = await prisma.report.findUnique({
-      where: { slug: cfg.slug },
+  for (const r of extracted.reports) {
+    const sectorId = sectorMap.get(r.sectorCode);
+    if (!sectorId) {
+      throw new Error(`Missing sector for extracted report ${r.slug}: ${r.sectorCode}`);
+    }
+
+    const report = await prisma.report.upsert({
+      where: { slug: r.slug },
+      update: {
+        sectorId,
+        year: r.year,
+        title: r.title,
+        shortDescription: r.shortDescription,
+        coverImageUrl: r.coverImageUrl,
+        pdfFileUrl: r.pdfFileUrl,
+        previousPdfsJson: JSON.stringify(r.previousPdfs),
+        psaSectorPageUrl: r.psaSectorPageUrl,
+        contactUrl: r.contactUrl,
+        landingIntroDesc: r.landingIntroDesc,
+        landingExecDesc: r.landingExecDesc,
+        status: "PUBLISHED",
+        isFeatured: true,
+      },
+      create: {
+        sectorId,
+        year: r.year,
+        title: r.title,
+        slug: r.slug,
+        shortDescription: r.shortDescription,
+        coverImageUrl: r.coverImageUrl,
+        pdfFileUrl: r.pdfFileUrl,
+        previousPdfsJson: JSON.stringify(r.previousPdfs),
+        psaSectorPageUrl: r.psaSectorPageUrl,
+        contactUrl: r.contactUrl,
+        landingIntroDesc: r.landingIntroDesc,
+        landingExecDesc: r.landingExecDesc,
+        status: "PUBLISHED",
+        isFeatured: true,
+      },
     });
 
-    if (!existingReport) {
-      const defaultPages = buildDefaultPagesForSector(s.code, s.name, 2026);
-      await prisma.report.create({
-        data: {
-          sectorId: sector.id,
-          year: 2026,
-          title: `2026 ${s.name} Workforce Insights Report`,
-          slug: cfg.slug,
-          shortDescription: s.subtitle,
-          coverImageUrl: s.defaultCoverImage,
-          pdfFileUrl: cfg.pdfUrl,
-          previousPdfsJson: JSON.stringify(cfg.previousPdfs),
-          psaSectorPageUrl: "https://publicskillsaustralia.org.au",
-          contactUrl: "https://publicskillsaustralia.org.au/contact",
-          landingIntroDesc:
-            "For readers who want the report background — how it was developed, the methodology and the full report structure.",
-          landingExecDesc:
-            "Straight to the key insights and strategies — the workforce story on one page, built for large screens and briefings.",
-          status: "PUBLISHED",
-          isFeatured: true,
-          pages: {
-            create: defaultPages,
-          },
-        },
-      });
-    }
+    await prisma.$transaction([
+      prisma.chapterPage.deleteMany({ where: { reportId: report.id } }),
+      prisma.chapterPage.createMany({
+        data: r.pages.map((p) => ({
+          reportId: report.id,
+          pageType: p.pageType,
+          title: p.title,
+          slug: p.slug,
+          sortOrder: p.sortOrder,
+          isVisible: p.isVisible,
+          paletteMode: p.paletteMode,
+          subSectorCode: p.subSectorCode,
+          layoutVariant: p.layoutVariant,
+          contentJson: JSON.stringify(p.content),
+          footnotesJson: JSON.stringify(p.footnotes),
+        })),
+      }),
+    ]);
+
+    console.log(`Seeded ${r.slug} with ${r.pages.length} chapter pages`);
   }
 
   console.log("Seeding complete!");
