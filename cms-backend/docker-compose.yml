@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: psa-cms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: psa_cms
+      POSTGRES_PASSWORD: change_me_in_production
+      POSTGRES_DB: psa_dwir_cms
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U psa_cms -d psa_dwir_cms"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cms-api:
+    build: .
+    container_name: psa-cms-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://psa_cms:change_me_in_production@postgres:5432/psa_dwir_cms?schema=public
+      JWT_SECRET: ${JWT_SECRET:-change_me_in_production}
+      FRONTEND_URL: ${FRONTEND_URL:-https://publicskillsaustralia.org.au}
+      REVALIDATION_SECRET: ${REVALIDATION_SECRET:-change_me_in_production}
+      PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL:-http://localhost:4000}
+    ports:
+      - "4000:4000"
+    volumes:
+      - cms_uploads:/app/uploads
+
+volumes:
+  postgres_data:
+  cms_uploads:

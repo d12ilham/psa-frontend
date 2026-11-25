@@ -11,6 +11,8 @@ import {
   SITE_SETTINGS,
 } from "@/config/reports/sectors";
 import FederalStateLandingView from "@/components/reports/federal-state/views/FederalStateLandingView";
+import { STATIC_2026_SLUGS } from "@/lib/cmsApi";
+import { CmsReportLandingLoader } from "@/app/reports/cms/[slug]/page";
 
 function PSALogo() {
   return (
@@ -53,6 +55,10 @@ export default function ReportLandingPage({
 }) {
   const router = useRouter();
   const { slug } = use(params);
+
+  if (!STATIC_2026_SLUGS.has(slug)) {
+    return <CmsReportLandingLoader slug={slug} isCmsRoute={false} />;
+  }
 
   const report = getStaticReport(slug);
   const siteSettings = SITE_SETTINGS;

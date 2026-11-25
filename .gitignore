@@ -43,3 +43,11 @@ next-env.d.ts
 
 #docs
 /docs
+
+# cms-backend runtime & secrets
+cms-backend/node_modules
+cms-backend/dist
+cms-backend/prisma/*.db*
+cms-backend/.env
+cms-backend/uploads/*
+!cms-backend/uploads/.gitkeep

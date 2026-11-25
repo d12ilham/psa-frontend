@@ -1,12 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ReportFooter from "@/components/layout/ReportFooter";
 import ReportHomeLink from "@/components/layout/ReportHomeLink";
 import styles from "./sector-cards.module.css";
 import { SITE_SETTINGS, STATIC_REPORTS } from "@/config/reports/sectors";
+import {
+  getPublicReports,
+  STATIC_2026_SLUGS,
+  type CmsReport,
+} from "@/lib/cmsApi";
 import {
   Download,
   FileText,
@@ -59,6 +64,20 @@ export default function ReportsArchivePage() {
 
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cmsFutureReports, setCmsFutureReports] = useState<CmsReport[]>([]);
+
+  useEffect(() => {
+    getPublicReports()
+      .then((res) => {
+        const additional = (res.reports || []).filter(
+          (r) => !STATIC_2026_SLUGS.has(r.slug)
+        );
+        setCmsFutureReports(additional);
+      })
+      .catch(() => {
+        // Optional CMS backend may be offline; static 2026 cards still work seamlessly
+      });
+  }, []);
 
   const scrollToSectors = () => {
     const el = document.getElementById("sectors-section");
@@ -417,6 +436,41 @@ export default function ReportsArchivePage() {
             })}
           </div>
         </section>
+
+        {cmsFutureReports.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-lg sm:text-xl font-extrabold text-gray800">
+                Additional &amp; Future-Year Reports (CMS)
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {cmsFutureReports.map((rep) => (
+                <Link
+                  key={rep.id}
+                  href={`/reports/${rep.slug}`}
+                  className="bg-white rounded-2xl border border-[#E5E8DA] border-t-4 p-5 flex flex-col justify-between gap-3 no-underline hover:shadow-md transition-shadow"
+                  style={{ borderTopColor: rep.sector?.primaryColor || "#046D2A" }}
+                >
+                  <div>
+                    <span
+                      className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white"
+                      style={{ backgroundColor: rep.sector?.primaryColor || "#046D2A" }}
+                    >
+                      {rep.year} · {rep.sector?.shortCode || rep.sector?.name}
+                    </span>
+                    <h3 className="text-sm font-extrabold text-[#252D02] mt-2">
+                      {rep.title}
+                    </h3>
+                  </div>
+                  <span className="text-xs font-bold text-[#598303]">
+                    Open Report →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ── 6. BOTTOM CTA BANNER ── */}
         <section

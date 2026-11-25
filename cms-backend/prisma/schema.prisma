@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("EDITOR") // SUPER_ADMIN | EDITOR | REVIEWER
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id                  String   @id @default("global")
+  title               String
+  description         String
+  logoLightUrl        String
+  logoDarkUrl         String
+  introVideoUrl       String   @default("")
+  psaBrandPaletteJson String
+  ctaColoursJson      String
+  homePageConfigJson  String
+  updatedAt           DateTime @updatedAt
+}
+
+model Sector {
+  id                String   @id @default(cuid())
+  code              String   @unique // local-government | public-safety | federal-state | correctional-services
+  slug              String   @unique
+  name              String
+  badgeText         String
+  shortCode         String
+  subtitle          String   @default("")
+  primaryColor      String
+  secondaryColor    String
+  accentColor       String
+  surfaceTint       String
+  borderTint        String
+  headerBg          String   @default("#252D02")
+  defaultCoverImage String   @default("")
+  subSectorsJson    String   @default("[]")
+  reports           Report[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Report {
+  id               String        @id @default(cuid())
+  sectorId         String
+  sector           Sector        @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  year             Int
+  title            String
+  slug             String        @unique
+  shortDescription String        @default("")
+  coverImageUrl    String        @default("")
+  pdfFileUrl       String        @default("")
+  previousPdfsJson String        @default("[]")
+  psaSectorPageUrl String        @default("https://publicskillsaustralia.org.au")
+  contactUrl       String        @default("https://publicskillsaustralia.org.au/contact")
+  landingIntroDesc String        @default("")
+  landingExecDesc  String        @default("")
+  status           String        @default("DRAFT") // DRAFT | IN_REVIEW | PUBLISHED | ARCHIVED
+  isFeatured       Boolean       @default(false)
+  pages            ChapterPage[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([sectorId, year])
+}
+
+model ChapterPage {
+  id            String   @id @default(cuid())
+  reportId      String
+  report        Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  pageType      String
+  title         String
+  slug          String
+  sortOrder     Int      @default(0)
+  isVisible     Boolean  @default(true)
+  paletteMode   String   @default("SECTOR") // GLOBAL_PSA | SECTOR | SUB_SECTOR
+  subSectorCode String?
+  layoutVariant String   @default("standard")
+  contentJson   String   @default("{}")
+  footnotesJson String   @default("[]")
+  updatedAt     DateTime @updatedAt
+
+  @@unique([reportId, pageType])
+  @@index([reportId, sortOrder])
+}
+
+model SharedTemplateContent {
+  id          String   @id @default(cuid())
+  key         String   @unique // about_psa | drivers_of_change | federal_initiatives
+  title       String
+  contentJson String   @default("{}")
+  updatedAt   DateTime @updatedAt
+}
+
+model SourceLink {
+  id            String    @id @default(cuid())
+  label         String
+  sourceName    String
+  url           String
+  publisher     String    @default("")
+  referenceYear Int       @default(2026)
+  openInNewTab  Boolean   @default(true)
+  status        String    @default("UNKNOWN") // UNKNOWN | OK | BROKEN
+  lastCheckedAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  category     String   @default("general") // pdf | graphic | cover | general
+  createdAt    DateTime @default(now())
+}
